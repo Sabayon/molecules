@@ -21,7 +21,7 @@ release_string: Sabayon Linux
 release_file: /etc/sabayon-edition
 
 # Release Version
-release_version: 5.3
+release_version: 5.4
 
 # Release Version string description
 release_desc: x86 Gforensic
@@ -78,7 +78,7 @@ destination_iso_directory: /sabayon/iso
 
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-destination_iso_image_name: Sabayon_Linux_Gforensic_5.3_x86.iso
+destination_iso_image_name: Sabayon_Linux_Gforensic_5.4_x86.iso
 
 
 
