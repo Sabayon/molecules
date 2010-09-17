@@ -1,0 +1,23 @@
+0fPREREQUISITES FOR RUNNING SABAYONLINUX07                                        09F207
+
+0fLive Environment - No 3D Desktop:07
+- i586 Processor (starting from AMD K5 and Intel Pentium)
+- At least 128Mb of RAM (256 suggested)
+- a 2D graphics card
+- a DDC capable Monitor
+- Mouse and keyboard
+0fLive Environment - 3D Desktop:07
+- i686 Processor (starting from AMD K6 and Intel Pentium II)
+- At least 256Mb of RAM (512 suggested)
+- an OpenGL capable 3D graphics card (mostly NVIDIA, ATI, Intel)
+- a DDC capable Monitor
+- Mouse and keyboard
+0fInstallation:07
+- i586 Processor (see above)
+- At least 192Mb of RAM (256 suggested)
+- 8GB of free space
+- Internet connection (not mandatory but highly suggested)
+- a DDC capable Monitor
+- Mouse and keyboard
+
+Press F1control and F then 1 for the help index, or ENTER to 

@@ -1,0 +1,25 @@
+0fOPENGL AND ACCELERATED DESKTOP.07                                               09F807
+
+0fopengl=07
+  Force the System to use a specific OpenGL subsystem, when autodetection fails.
+  - example for NVIDIA (with NVIDIA Proprietary drivers) > sabayon opengl=nvidia
+  - example for ATI (with ATI Proprietary drivers) > sabayon opengl=ati
+  - example for X.Org Mesa implementation > sabayon opengl=xorg-x11
+
+0fagpgart07
+  Force the System to load the AGP driver, when the autodetection fails.
+  - example: > sabayon opengl=xorg-x11
+
+0fnoaccelmanager07
+  Disable the loading of the Acceleration Manager application.
+  - example: > sabayon noaccelmanager
+0faiglx07
+  Enable AIGLX Desktop Acceleration and disable Acceleration Manager.
+  - example: > sabayon aiglx
+
+
+
+
+Press F1control and F then 1 for the help index, or ENTER to 
+
+

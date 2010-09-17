@@ -1,0 +1,148 @@
+Section "Files"                         
+#FontPath "/usr/share/fonts/local/"
+FontPath "/usr/share/fonts/misc/" 
+FontPath "/usr/share/fonts/Type1/"
+FontPath "/usr/share/fonts/TTF/"   
+FontPath "/usr/share/fonts/75dpi/"
+FontPath "/usr/share/fonts/100dpi/"
+FontPath "/usr/share/fonts/corefonts"
+EndSection
+
+Section "Module"
+    SubSection  "extmod"
+       Option    "omit xfree86-dga"
+    EndSubSection
+    Load	"i2c"
+    Load	"ddc"
+#   Load	"synaptics"
+    Load	"vbe"
+#   Load        "dri"
+EndSection
+
+
+Section "ServerFlags"
+     Option 	"AllowMouseOpenFail" "true"
+EndSection
+
+
+# **********************************************************************
+# Core Pointer's InputDevice section
+# **********************************************************************
+
+Section "InputDevice"
+    Identifier	"Mouse1"
+    Driver	"mouse"
+    Option	"Protocol"	"auto"
+    Option	"Device"	"/dev/psaux"
+    Option  "ZAxisMapping" "4 5"
+EndSection
+
+# **********************************************************************
+# Monitor section
+# **********************************************************************
+
+# Any number of monitor sections may be present
+
+Section "Monitor"
+
+    Identifier	"SyncMaster941BW"
+    VendorName	"Samsung"
+	#Option      "DPMS"
+
+    VertRefresh 30 - 81
+    HorizSync   56 - 75
+    Modeline "1440x900@65" 135.00 1600 1632 2144 2176 900 918 928 946
+	
+EndSection
+
+
+Section "Monitor"
+
+    Identifier	"VisionMaster1451"
+    VendorName	"iiyama"
+	#Option      "DPMS"
+
+    VertRefresh 30 - 96
+    HorizSync   50 - 160
+
+EndSection
+
+
+# **********************************************************************
+# Graphics device section
+# **********************************************************************
+
+# Any number of graphics device sections may be present
+
+Section "Device"
+    Identifier  "VESA"
+    Driver    "nvidia"
+    #Option "RenderAccel" "True"
+    Option "XAANoOffscreenPixmaps"
+    Option  "TripleBuffer" "1"
+#    Option  "BackingStore" "True"
+    Option  "PixmapCacheSize" "300000"
+    Option  "OnDemandVBlankInterrupts" "True"
+    Option  "DamageEvents" "1"
+    Option  "UseEvents" "False"
+    #Option "BusType" "PCI"
+    #Option "ColorTiling" "on"
+    #Option "EnablePageFlip" "on"
+    Option "AccelMethod" "XAA"
+    Option "TwinView" "true"
+    #Option "MetaModes" "CRT-0: 1440x900, CRT-1: 1280x1024"
+    Option "MetaModes"                "1440x900,1280x1024; 1280x1024,1280x1024"
+EndSection
+
+
+# **********************************************************************
+# Screen sections.
+# **********************************************************************
+
+Section "Screen"
+
+    Identifier	"SyncMaster"
+    Device	"NVIDIA 0"
+    Monitor	"SyncMaster941BW"
+    #Option      "UseDisplayDevice" "CRT-0"
+    Option      "AddARGBGLXVisuals" "true"
+    DefaultDepth    24
+    SubSection     "Display"
+        Depth       24
+        Modes      "1440x900"
+    EndSubSection
+EndSection
+
+
+Section "Screen"
+    Identifier     "VisonMaster"
+    Device         "NVIDIA 0"
+    Monitor        "VisionMaster1451"
+    #Option         "UseDisplayDevice" "CRT-1"
+    Option      "AddARGBGLXVisuals" "true"
+    DefaultDepth 24
+    SubSection     "Display"
+        Depth       24
+        Modes      "1600x1200" "1280x1024" "1024x768" "800x600" "640x480"
+    EndSubSection
+EndSection
+
+
+# Section "ServerLayout"
+# The Identifier line must be present
+
+    #Identifier	"Main Layout"
+    #Screen 0 	"NVIDIA 0"
+    #InputDevice	"Mouse1" "CorePointer"
+    #InputDevice "Synaptics1" "SendCoreEvents"
+
+# EndSection
+
+Section "DRI"
+    Mode 0666
+EndSection
+
+Section "Extensions"
+   Option "Composite" "Enable"
+EndSection
+

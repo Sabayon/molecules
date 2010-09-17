@@ -1,0 +1,230 @@
+# Define an alternative execution strategy, in this case, the value must be
+# "iso_remaster"
+execution_strategy: iso_remaster
+
+# Release string
+release_string: Sabayon Linux
+
+# File to write release string
+release_file: /etc/sabayon-edition
+
+# ISO Image title
+iso_title: Sabayon GNOME
+
+# Outer chroot script command, to be executed outside destination chroot before
+# before entering it (and before inner_chroot_script)
+outer_chroot_script: /sabayon/scripts/remaster_pre.sh
+
+# Inner chroot script command, to be executed inside destination chroot after
+# packages installation and removal
+inner_chroot_script_after: /sabayon/scripts/remaster_generic_inner_chroot_script_after.sh gnome
+
+# Outer chroot script command, to be executed outside destination chroot before
+# before entering it (and AFTER inner_chroot_script)
+outer_chroot_script_after: /sabayon/scripts/remaster_post.sh
+
+# Extra mkisofs parameters, perhaps something to include/use your bootloader
+extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat
+
+# Pre-ISO building script. Hook to be able to copy kernel images in place, for example
+pre_iso_script: /sabayon/scripts/generic_pre_iso_script.sh GNOME
+
+# Destination directory for the ISO image path (MANDATORY)
+destination_iso_directory: /sabayon/iso
+
+# List of packages that would be removed from chrooted system (comma separated)
+# packages_to_remove:
+
+# List of packages that would be added from chrooted system (comma separated)
+packages_to_add:
+	@X,
+	@gnome,
+	app-admin/gnome-system-tools,
+	app-admin/packagekit-base,
+	app-admin/packagekit-gtk,
+	app-admin/sulfur,
+	app-admin/system-tools-backends,
+	app-crypt/gnupg,
+	app-crypt/pinentry-gtk2,
+	app-dicts/aspell-de,
+	app-dicts/aspell-en,
+	app-dicts/aspell-fr,
+	app-dicts/aspell-it,
+	app-dicts/aspell-nl,
+	app-dicts/aspell-pl,
+	app-dicts/myspell-de,
+	app-dicts/myspell-en,
+	app-dicts/myspell-es,
+	app-dicts/myspell-fr,
+	app-dicts/myspell-it,
+	app-dicts/myspell-nl,
+	app-editors/gedit,
+	app-emulation/virtualbox-guest-additions,
+	app-emulation/wine,
+	app-misc/anaconda-runtime-gui,
+	app-misc/gnote,
+	app-misc/sabayon-version,
+	app-misc/sabayon-music,
+	app-misc/sabayon-mce,
+	app-misc/sabayon-skel,
+	app-text/gnome-spell,
+	app-text/pastebunz,
+	app-office/openoffice,
+	app-office/openoffice-l10n-de,
+	app-office/openoffice-l10n-es,
+	app-office/openoffice-l10n-fr,
+	app-office/openoffice-l10n-it,
+	app-office/openoffice-l10n-nl,
+	app-office/openoffice-l10n-pt,
+	dev-java/sun-jre-bin,
+	gnome-base/gnome-shell,
+	gnome-base/gnome-applets,
+	gnome-extra/deskbar-applet,
+	gnome-extra/fast-user-switch-applet,
+	gnome-extra/gcalctool,
+	gnome-extra/gconf-editor,
+	gnome-extra/gnome-games,
+	gnome-extra/gnome-power-manager,
+	gnome-extra/gnome-screensaver,
+	gnome-extra/gnome-utils,
+	gnome-extra/gucharmap,
+	gnome-extra/nautilus-open-terminal,
+	gnome-extra/nautilus-sendto,
+	gnome-extra/nm-applet,
+	gnome-extra/polkit-gnome,
+	games-puzzle/world-of-goo-demo,
+	mail-client/evolution,
+	media-fonts/ttf-bitstream-vera,
+	media-fonts/dejavu,
+	media-fonts/corefonts,
+	media-gfx/shotwell,
+	media-gfx/gimp,
+	media-libs/libdvdread,
+	media-libs/libdvdcss,
+	media-libs/libdvdplay,
+	media-libs/libdvdnav,
+	media-plugins/alsa-plugins,
+	media-sound/audacious,
+	media-sound/padevchooser,
+	media-sound/paman,
+	media-sound/pavucontrol,
+	media-sound/pavumeter,
+	media-tv/afatech9005-firmware,
+	media-tv/ivtv-firmware,
+	media-tv/xbmc,
+	media-video/mplayer,
+	media-video/totem,
+	net-analyzer/gnome-netstatus,
+	net-dialup/globespan-adsl,
+	net-dialup/gnome-ppp,
+	net-dialup/ppp,
+	net-dialup/rp-pppoe,
+	net-fs/samba,
+	net-im/pidgin,
+	net-irc/xchat,
+	net-misc/networkmanager,
+	net-misc/networkmanager-openvpn,
+	net-misc/networkmanager-pptp,
+	net-misc/networkmanager-vpnc,
+	net-misc/ntp,
+	net-p2p/deluge,
+	net-print/cups,
+	net-print/gnome-cups-manager,
+	net-print/foomatic-db,
+	net-print/foomatic-db-ppds,
+	net-print/foomatic-filters,
+	net-print/foomatic-filters-ppds,
+	net-print/gutenprint,
+	net-wireless/acx-firmware,
+	net-wireless/atmel-firmware,
+	net-wireless/b43-firmware,
+	net-wireless/b43-fwcutter,
+	net-wireless/bcm43xx-firmware,
+	net-wireless/bcm43xx-fwcutter,
+	net-wireless/bluez,
+	net-wireless/bluez-firmware,
+	net-wireless/bluez-hcidump,
+	net-wireless/broadcom-sta,
+	net-wireless/gnome-bluetooth,
+	net-wireless/ipw2200-firmware,
+	net-wireless/ipw3945-ucode,
+	net-wireless/ipw3945d,
+	net-wireless/iwl3945-ucode,
+	net-wireless/iwl3945-ucode,
+	net-wireless/iwl4965-ucode,
+	net-wireless/iwl4965-ucode,
+	net-wireless/iwl5000-ucode,
+	net-wireless/iwl5000-ucode,
+	net-wireless/iwl5150-ucode,
+	net-wireless/iwl6000-ucode,
+	net-wireless/libertas-firmware,
+	net-wireless/linux-wlan-ng-firmware,
+	net-wireless/linux-wlan-ng-utils,
+	net-wireless/ndiswrapper,
+	net-wireless/prism54-firmware:0,
+	net-wireless/rt61-firmware,
+	net-wireless/rt73-firmware,
+	net-wireless/zd1201-firmware,
+	net-wireless/zd1211-firmware,
+	sys-apps/gpu-detector,
+	sys-apps/entropy-client-services,
+	sys-apps/gnome-disk-utility,
+	sys-apps/hal,
+	sys-apps/hdparm,
+	sys-apps/sdparm,
+	sys-apps/tuxonice-userui,
+	sys-block/gparted,
+	sys-fs/dmraid,
+	sys-fs/ntfs3g,
+	sys-power/acpid,
+	www-client/firefox,
+	www-plugins/adobe-flash,
+	www-plugins/nspluginwrapper,
+	x11-apps/xdm,
+	x11-terms/guake,
+	x11-terms/xterm,
+	x11-drivers/xf86-video-virtualbox,
+	x11-drivers/ati-drivers,
+	x11-drivers/nvidia-drivers,
+	x11-misc/alacarte,
+	x11-misc/desktop-acceleration-helpers,
+	x11-misc/magneto-gtk,
+	x11-misc/xvkbd,
+	x11-plugins/compiz-plugins-extra,
+	x11-plugins/compiz-plugins-main,
+	x11-plugins/pidgin-libnotify,
+	x11-terms/gnome-terminal,
+	x11-themes/emerald-themes,
+	x11-themes/gnome-backgrounds,
+	x11-themes/gnome-colors-common,
+	x11-themes/gnome-colors-themes,
+	x11-themes/gnome-icon-theme,
+	x11-themes/gnome-themes,
+	x11-themes/gtk-engines,
+	x11-themes/gtk-engines-murrine,
+	x11-themes/hicolor-icon-theme,
+	x11-themes/murrine-themes,
+	x11-themes/sabayon-artwork-extra,
+	x11-themes/sabayon-artwork-gnome,
+	x11-themes/sabayon-artwork-ooo,
+	x11-themes/sound-theme-freedesktop,
+	x11-themes/xcursor-themes,
+	x11-wm/compiz,
+	x11-wm/fluxbox,
+	x11-wm/twm
+
+# Custom shell call to packages add (default is: equo install)
+# custom_packages_add_cmd: 
+
+# Custom command for updating repositories (default is: equo update)
+# repositories_update_cmd:
+
+# Determine whether repositories update should be run (if packages_to_add is set)
+# (default is: no), values are: yes, no.
+execute_repositories_update: yes
+
+# Directories to remove completely (comma separated)
+# paths_to_remove:
+
+# Directories to empty (comma separated)
+# paths_to_empty:

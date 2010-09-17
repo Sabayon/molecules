@@ -1,0 +1,23 @@
+0fBOOT METHODS07                                                                  09F307
+
+0f- Available boot methods:07
+0fsabayon07
+  Start the SabayonLinux Live system.
+0finstall07
+  Start the Graphical Installation.
+0ftext-install07
+  Start the Text mode Installation.
+0fgenuine07
+  Start the SabayonLinux Live system without proprietary drivers.
+0fconsole07
+  Start the SabayonLinux Live system without loading X.Org.
+0fdebug07
+  Start the SabayonLinux Live system in Debug mode (expert).
+0fmemtest07
+  Perform a memory test.
+
+
+
+
+
+Press F1control and F then 1 for the help index, or ENTER to 

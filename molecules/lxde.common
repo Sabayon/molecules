@@ -1,0 +1,79 @@
+# Define an alternative execution strategy, in this case, the value must be
+# "iso_remaster"
+execution_strategy: iso_remaster
+
+# Release string
+release_string: Sabayon Linux
+
+# File to write release string
+release_file: /etc/sabayon-edition
+
+# ISO Image title
+iso_title: Sabayon LXDE
+
+# Outer chroot script command, to be executed outside destination chroot before
+# before entering it (and before inner_chroot_script)
+outer_chroot_script: /sabayon/scripts/remaster_pre.sh
+
+# Inner chroot script command, to be executed inside destination chroot after
+# packages installation and removal
+inner_chroot_script_after: /sabayon/scripts/remaster_generic_inner_chroot_script_after.sh lxde
+
+# Outer chroot script command, to be executed outside destination chroot before
+# before entering it (and AFTER inner_chroot_script)
+outer_chroot_script_after: /sabayon/scripts/remaster_post.sh
+
+# Extra mkisofs parameters, perhaps something to include/use your bootloader
+extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat
+
+# Pre-ISO building script. Hook to be able to copy kernel images in place, for example
+pre_iso_script: /sabayon/scripts/generic_pre_iso_script.sh LXDE
+
+# Destination directory for the ISO image path (MANDATORY)
+destination_iso_directory: /sabayon/iso
+
+# List of packages that would be removed from chrooted system (comma separated)
+packages_to_remove:
+	www-client/lynx
+
+# List of packages that would be added from chrooted system (comma separated)
+packages_to_add:
+	@X,
+	@lxde,
+	app-admin/sulfur,
+	app-crypt/gnupg,
+        app-crypt/pinentry-gtk2,
+	app-editors/leafpad,
+	app-emulation/virtualbox-guest-additions,
+	app-misc/anaconda-runtime-gui,
+	app-text/pastebunz,
+	gnome-extra/nm-applet,
+        media-fonts/ttf-bitstream-vera,
+        media-fonts/dejavu,
+        media-fonts/corefonts,
+	net-dialup/rp-pppoe,
+	x11-terms/xterm,
+	sys-apps/gpu-detector,
+	sys-auth/consolekit,
+	sys-fs/ntfs3g,
+	sys-power/cpufrequtils,
+	www-client/firefox,
+	x11-misc/magneto-gtk,
+	x11-drivers/xf86-video-virtualbox,
+	x11-wm/fluxbox
+
+# Custom shell call to packages add (default is: equo install)
+# custom_packages_add_cmd: 
+
+# Custom command for updating repositories (default is: equo update)
+# repositories_update_cmd:
+
+# Determine whether repositories update should be run (if packages_to_add is set)
+# (default is: no), values are: yes, no.
+execute_repositories_update: yes
+
+# Directories to remove completely (comma separated)
+# paths_to_remove:
+
+# Directories to empty (comma separated)
+# paths_to_empty:

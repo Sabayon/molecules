@@ -1,0 +1,6 @@
+[autorun]
+label=Sabayon
+open=sabayon.bat
+action=Launch Virtual Sabayon
+icon=sabayon.ico
+

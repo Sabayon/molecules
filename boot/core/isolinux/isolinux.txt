@@ -1,0 +1,8 @@
+splash.rle
+0f
+
+Welcome to Sabayon CoreCD __VERSION__
+
+Press F1control and F then 1 for help and advanced boot modes.
+Automatic Monitor detection, to force a resolution use res=<resolution>.07
+

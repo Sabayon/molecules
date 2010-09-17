@@ -1,0 +1,23 @@
+0fBOOT PARAMETERS (PART II)07                                                     09F507
+
+SabayonLinux supports some extra features that can be enabled by adding the boot
+parameters below. Moreover, you can tune the system to behave in different ways.
+
+0fsession=07 --> Parameter to force the autologin on a specific Desktop Environment
+ example: session=kde ( supported: kde,gnome,metisse-kde,metisse-gnome,fluxbox )
+0fnomusic07 --> Disable music during boot.
+ NOTE: the music is released under Creative Commons.
+0fautoscramble07 --> Randomization of root and primary user passwords.
+0fnox07 --> Start the system without X.Org.
+0flegacy07 --> Start with safe parameters - for legacy compatibility.
+0fnoaccelmanager07 --> Disable Acceleration Manager
+0fnoddc07 --> Disable DDC Monitor autoconfiguration
+0f- IN CASE OF SYSTEM BOOT FAILURES:
+0fnoapic nolapic07 --> Disable APIC
+0facpi=off07 --> Disable Proprietary Graphics Drivers (NVIDIA, ATI)
+0fpci=noacpi07 --> Disable ACPI for PCI maps (HP servers and VIA chipsets)
+0ffloppy.floppy=thinkpad07 --> For some IBM ThinkPads
+0fvga=77107 --> Laptops with screen display problems
+
+
+Press F1control and F then 1 for the help index, or ENTER to 

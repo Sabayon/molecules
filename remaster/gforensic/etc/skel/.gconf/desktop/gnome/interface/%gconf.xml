@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="monospace_font_name" mtime="1244414151" type="string">
+		<stringvalue>Droid Sans Mono 9</stringvalue>
+	</entry>
+	<entry name="document_font_name" mtime="1244414140" type="string">
+		<stringvalue>Droid Sans 9</stringvalue>
+	</entry>
+	<entry name="font_name" mtime="1244414133" type="string">
+		<stringvalue>Droid Sans 9</stringvalue>
+	</entry>
+	<entry name="gtk_color_scheme" mtime="1244414087" type="string">
+		<stringvalue>fg_color:#333333333333
+bg_color:#f9cdf9cdf9cd
+text_color:#333333333333
+base_color:#ffffffffffff
+selected_fg_color:#c03ac03ac03a
+selected_bg_color:#262625252525
+tooltip_fg_color:#000000000000
+tooltip_bg_color:#ffff99995555</stringvalue>
+	</entry>
+	<entry name="gtk_theme" mtime="1244414091" type="string">
+		<stringvalue>ClearlooksSL</stringvalue>
+	</entry>
+	<entry name="icon_theme" mtime="1244414091" type="string">
+		<stringvalue>gnome-brave</stringvalue>
+	</entry>
+</gconf>

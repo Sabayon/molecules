@@ -1,0 +1,184 @@
+F1Welcome to Sabayon Linux
+
+HELP INDEX
+
+KEY    TOPIC
+
+<F1F1>   This page, the help index.
+<F2F2>   Prerequisites for running Sabayon.
+<F3F3>   Boot methods for special ways of using this media.
+<F4F4>   Boot parameters (part I).
+<F5F5>   Boot parameters (part II).
+<F6F6>   Special features.
+<F7F7>   Gaming and multimedia capabilities.
+<F8F8>   Boot parameters for OpenGL and Accelerated Desktop.
+
+
+
+Press F2 through F8 for details, or Escape to exit help.F2Prerequisites for running SabayonLive Environment - No 3D Desktop:
+- i586 Processor (starting from AMD K5 and Intel Pentium)
+- At least 128Mb of RAM (256 suggested)
+- a 2D graphics card
+- a DDC capable Monitor
+- Mouse and keyboard
+
+Live Environment - 3D Desktop:
+- i686 Processor (starting from AMD K6 and Intel Pentium II)
+- At least 256Mb of RAM (512 suggested)
+- an OpenGL capable 3D graphics card (mostly NVIDIA, ATI, Intel)
+- a DDC capable Monitor
+- Mouse and keyboard
+
+Installation:
+- i586 Processor (see above)
+- At least 192Mb of RAM (256 suggested)
+- 8GB of free space
+- Internet connection (not mandatory but highly suggested)
+- a DDC capable Monitor
+- Mouse and keyboard
+
+Press F1 for the help index, or Escape to exit help.F4Boot methods- Available Boot methods (only from ISOLINUX command line):
+
+sabayon
+  Start the Sabayon Live system.
+install
+  Start the Graphical Installation.
+text-install
+  Start the Text mode Installation.
+genuine
+  Start the Sabayon Live system without proprietary drivers.
+console
+  Start the Sabayon Live system without loading X.Org.
+debug
+  Start the Sabayon Live system in Debug mode (expert).
+memtest
+  Perform a memory test.
+
+
+
+
+
+Press F1 for the help index, or Escape to exit help.F5Boot parameters (part I)Sabayon supports some extra features that can be enabled by adding the boot parameters below. Moreover, you can tune the system to behave in different ways.
+
+lang=
+  example: lang=fr_FR || lang=en_GB || lang=it_IT || lang=es_ES
+  note: ONLY valid glibc locale codes are accepted.
+res=
+  example: res=1280x1024 || res=1920x1440 || res=800x600
+refresh=
+  example: refresh=75 || refresh=50-85
+hsync=
+  example: hsync=64 || hsync=28-110
+xdriver=
+  example: xdriver=i810 || xdriver=sis || xdriver=mga
+insmod=
+  example: insmod=ndiswrapper || insmod=agpgart,gameport
+rmmod=
+  example: rmmod=ndiswrapper || rmmod=i2c,gameport
+sound=mute
+  Do not autoconfigure the sound mixer.
+nofreqscaling
+  Disable the autoconfiguration of CPU frequency scaling.
+noddc
+  Disable DDC Monitor autoconfiguration.
+
+Press F1 for the help index, or Escape to exit help.F6Boot parameters (part II)Sabayon supports some extra features that can be enabled by adding the boot parameters below. Moreover, you can tune the system to behave in different ways.
+
+session=
+  example: session=kde ( supported: kde,gnome,metisse-kde,metisse-gnome,fluxbox )
+music
+  Enable music during boot (experimental).
+autoscramble
+  Randomization of root and sabayonuser passwords.
+nox
+  Start the System without X.Org.
+legacy
+  Start with safe parameters - for legacy compatibility.
+noaccelmanager
+  Disable Acceleration Manager (for 3D desktop selection).
+
+noapic nolapic
+  Disable APIC (mostly used on some faulty bioses).
+acpi=off
+  Disable ACPI completely.
+pci=noacpi
+  Disable ACPI for PCI maps (HP servers and VIA chipsets).
+floppy.floppy=thinkpad
+  Useful for some ThinkPad notebooks.
+vga=771
+
+
+Press F1 for the help index, or Escape to exit help.F7Special featuresSabayon supports some enhanced features, like the ability to surf anonymously and persistent home directory.
+
+tor
+  Enable the system to use Tor/Privoxy system to surf the web anonymously.
+
+
+
+
+
+XsistenCe:
+ - What is XsistenCe?
+ - One Removable Device (USB storage) + Sabayon = your data everywhere.
+   In other words, you can use your Home directory in read/write mode and
+   your data will be stored on your external non-volatile removable device.
+
+  - Just have a previously formatted USB external disk (like a flash pen).
+  - A blank file called "xsistence-mode" on the root of the USB storage above.
+  - Some free space on it, at least 15 Mb.
+  - Add "xsistence" boot option to enable it.
+    - If the System detects a previously created image file, it will use that.
+    - If the System does not detect an XsistenCe image, it will be created.
+      - You can specify the size (MB) of it, by adding: "xsistence_mb=xxx"
+
+ - boot example: > sabayon xsistence xsistence_mb=100
+
+Press F1 for the help index, or Escape to exit help.F8Gaming and multimedia capabilitiesSabayon is the most advanced and complete Linux distribution when it comes to multimedia completeness and capabilities. Use the parameters above only in ISOLINUX command line mode.
+
+secondlife
+  Start Second Life Game.
+sauerbraten
+  Start Sauerbraten Game.
+savage
+  Start Savage Game.
+warsow
+  Start Warsow Game.
+dangerdeep
+  Start Dangerdeep Game.
+torcs
+  Start Torcs Game.
+nexuiz
+  Start Nexuiz Game.
+flightgear
+  Start FlightGear Game.
+
+geexbox
+  Start GeeXboX 1.0 Media Center.
+mediacenter
+  Start Sabayon with Freevo Media Center.
+
+Press F1 for the help index, or Escape to exit help.F9OpenGL and Accelerated DesktopIf you want to try to get your OpenGL Acceleration or your Accelerated Desktop to work, just poke with the commands above.
+
+opengl=
+  Force the System to use a specific OpenGL subsystem, when autodetection fails.
+  - example for NVIDIA (with NVIDIA Proprietary drivers) > sabayon opengl=nvidia
+  - example for ATI (with ATI Proprietary drivers) > sabayon opengl=ati
+  - example for X.Org Mesa implementation > sabayon opengl=xorg-x11
+
+agpgart
+  Force the System to load the AGP driver, when the autodetection fails.
+  - example: > sabayon opengl=xorg-x11
+
+noaccelmanager
+  Disable the loading of the Acceleration Manager application.
+  - example: > sabayon noaccelmanager
+
+aiglx
+  Enable AIGLX Desktop Acceleration and disable Acceleration Manager.
+  - example: > sabayon aiglx
+
+
+
+
+
+Press F1 for the help index, or Escape to exit help.

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="sidebar_width" mtime="1275653578" type="int" value="267"/>
+	<entry name="background_set" mtime="1268709577" type="bool" value="true"/>
+	<entry name="background_color" mtime="1268709577" type="string">
+		<stringvalue>#323232</stringvalue>
+	</entry>
+	<entry name="show_desktop" mtime="1268703858" type="bool" value="true"/>
+	<entry name="always_use_location_entry" mtime="1271941207" type="bool" value="true"/>
+	<entry name="click_policy" mtime="1268701059" type="string">
+		<stringvalue>single</stringvalue>
+	</entry>
+	<entry name="media_automount_open" mtime="1212960090" type="bool" value="false"/>
+	<entry name="media_automount" mtime="1271940432" type="bool" value="false"/>
+	<entry name="enable_delete" mtime="1212959535" type="bool" value="true"/>
+	<entry name="navigation_window_saved_maximized" mtime="1279529974" type="bool" value="false"/>
+	<entry name="navigation_window_saved_geometry" mtime="1279529974" type="string">
+		<stringvalue>820x507+1513+300</stringvalue>
+	</entry>
+	<entry name="always_use_browser" mtime="1212958817" type="bool" value="true"/>
+	<entry name="desktop_font" mtime="1244414144" type="string">
+		<stringvalue>DejaVu Sans Semi-Condensed 9</stringvalue>
+	</entry>
+</gconf>

@@ -1,0 +1,69 @@
+#!/usr/bin/python2
+import os
+import subprocess
+
+def read_elf_class(elf_file):
+    import struct
+    f = open(elf_file, "rb")
+    f.seek(4)
+    elf_class = f.read(1)
+    f.close()
+    elf_class = struct.unpack('B', elf_class)[0]
+    return elf_class
+
+def exec_chroot_cmd(args, chroot, pre_chroot = [], mount_vfs = True):
+    pid = os.fork()
+    if pid == 0:
+        os.chroot(chroot)
+        os.chdir("/")
+        myargs = pre_chroot+args
+        rc = subprocess.call(myargs)
+        if mount_vfs:
+            subprocess.call(("mount", "-t", "proc", "proc", "/proc"))
+            subprocess.call(("mount", "-t", "devpts", "devpts", "/dev/pts"))
+        os._exit(rc)
+    else:
+        rc_pid, rc = os.waitpid(pid, 0)
+        return rc_pid, rc
+
+def spawn_ssh(args, chroot):
+
+    # bind /proc and /dev
+    for path in []:
+        b_args = ["mount", "--bind", path, os.path.join(chroot, path[1:])]
+        subprocess.call(b_args)
+
+    bash_exec = os.path.join(chroot, "bin/bash") # must exists
+    elf_class = read_elf_class(bash_exec)
+    pre_chroot = []
+    if elf_class != 2: # 32 bit
+        pre_chroot = ["linux32"]
+    rc_pid, rc = exec_chroot_cmd(args, chroot, pre_chroot = pre_chroot)
+    return rc_pid, rc
+
+
+if __name__ == "__main__":
+
+    start_port = 2000
+    chroot_dir = "/sabayon/sources"
+    chroots = os.listdir(chroot_dir)
+    default_args = ["/usr/sbin/sshd"]
+    chroot_map_file = "/sabayon/CHROOTS"
+
+    ch_f = open(chroot_map_file, "w")
+    ch_f.write("Sabayon Chroots available via SSH:\n")
+    for chroot in chroots:
+        print("starting chroot %s, ssh at localhost:%s" % (chroot, start_port,))
+        start_port += 1
+        args = default_args + ["-o", "ListenAddress=127.0.0.1:%s" % (start_port,)]
+        pid, exit_st = spawn_ssh(args, os.path.join(chroot_dir, chroot))
+        if exit_st == 0:
+            print("started sshd in chroot: %s" % (chroot,))
+        else:
+            print("NOT started sshd in chroot: %s, perhaps already started?" % (chroot,))
+        ch_f.write("\t%s at: root@localhost -p %s\n" % (chroot, start_port,))
+
+    ch_f.flush()
+    ch_f.close()
+
+

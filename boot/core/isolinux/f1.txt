@@ -1,0 +1,25 @@
+                  0fWelcome to Sabayon Linux!07                                   09F107
+
+This is a Sabayon Linux media disc, can't you smell the difference?
+
+0fHELP INDEX07
+
+0fKEY    TOPIC07
+
+<09F107>   This page, the help index.
+<09F207>   Prerequisites for running SabayonLinux.
+<09F307>   Boot methods for special ways of using this media
+<09F407>   Boot parameters (part I).
+<09F507>   Boot parameters (part II).
+<09F607>   Special features.
+<09F707>   Gaming and multimedia capabilities.
+<09F807>   Boot parameters for OpenGL and Accelerated Desktop.
+
+
+
+For F1-F8 type control and F then the digit 1-8
+
+
+
+
+Press F2 through F8 for details, or ENTER to 

@@ -1,0 +1,23 @@
+0fSPECIAL FEATURES07                                                              09F607
+
+0ftor07 --> Enable the system to use Tor/Privoxy system to surf the web anonimously.
+
+
+
+0fXsistenCe:07 
+ - What is XsistenCe? 
+ - One Removable Device (USB storage) + SabayonLinux = your data everywhere.
+   In other words, you can use your Home directory in read/write mode and
+   your data will be stored on your external non-volatile removable device.
+
+  - Just have a previously formatted USB external disk (like a flash pen).
+  - A blank file called "xsistence-mode" on the root of the USB storage above.
+  - Some free space on it, at least 15 Mb.
+  - Add "xsistence" boot option to enable it.
+    - If the System detects a previously created image file, it will use that.
+    - If the System does not detect an XsistenCe image, it will be created.
+      - You can specify the size (MB) of it, by adding: "xsistence_mb=xxx"
+
+ - boot example: > sabayon xsistence xsistence_mb=100
+
+Press F1control and F then 1 for the help index, or ENTER to 

@@ -1,0 +1,30 @@
+0fGAMING AND MULTIMEDIA CAPABILITIES07                                            09F707
+SabayonLinux is the most advanced and complete Linux distribution
+when it comes to multimedia completeness and capabilities.
+
+0fsecondlife07
+  Start Second Life Game.
+0fsauerbraten07
+  Start Sauerbraten Game.
+0fsavage07
+  Start Savage Game.
+0fwarsow07
+  Start Warsow Game.
+0fdangerdeep07
+  Start Dangerdeep Game.
+0ftorcs07
+  Start Torcs Game.
+0fnexuiz07
+  Start Nexuiz Game.
+0fflightgear07
+  Start FlightGear Game.
+
+0fgeexbox07
+  Start GeeXboX 1.0 Media Center.
+0fmediacenter 07
+  Start SabayonLinux with Freevo Media Center.
+
+Press F1control and F then 1 for the help index, or ENTER to 
+
+
+

@@ -1,0 +1,23 @@
+0fBOOT PARAMETERS (PART I)07                                                      09F407
+
+0flang=07 --> Set the system Language.
+  example: lang=fr_FR || lang=en_GB || lang=it_IT || lang=es_ES
+  note: ONLY valid glibc locale codes are accepted.
+0fres=07 --> Force a specific X.Org resolution.
+  example: res=1280x1024 || res=1920x1440 || res=800x600
+0frefresh=07 --> Force a specific X.Org Vertical Refresh rate (or range).
+  example: refresh=75 || refresh=50-85
+0fhsync=07 --> Force a specific X.Org Horizontal Sync rate (or range).
+  example: hsync=64 || hsync=28-110
+0fxdriver=07 --> Force X.Org to use a specific (and valid) X driver name.
+  example: xdriver=i810 || xdriver=sis || xdriver=mga
+0finsmod=07 --> Load a specific kernel module or modules (--> separated by ",")
+  example: insmod=ndiswrapper || insmod=agpgart,gameport
+0frmmod=07 --> Remove a specific kernel module or modules (--> separated by ",")
+  example: rmmod=ndiswrapper || rmmod=i2c,gameport
+0fsound=mute07
+  Do not autoconfigure the sound mixer.
+0fnofreqscaling07
+  Disable the autoconfiguration of CPU frequency scaling.
+
+Press F1control and F then 1 for the help index, or ENTER to 
