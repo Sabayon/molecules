@@ -180,6 +180,7 @@ packages_to_add:
 	www-client/firefox,
 	www-plugins/adobe-flash,
 	www-plugins/nspluginwrapper,
+	x11-apps/fusion-icon,
 	x11-apps/xdm,
 	x11-terms/guake,
 	x11-terms/xterm,
