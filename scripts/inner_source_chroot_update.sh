@@ -17,4 +17,25 @@ equo upgrade || exit 1
 echo "-5" | equo conf update
 rm -rf /var/lib/entropy/client/packages
 
+# Copy updated portage config files to /etc/portage
+arch=$(uname -m)
+if [ "${arch}" = "x86_64" ]; then
+	arch="amd64"
+else
+	arch="x86"
+fi
+SABAYON_REPO_DIR="/var/lib/entropy/client/database/${arch}/sabayonlinux.org/standard/${arch}/5"
+for cfg in package.mask package.unmask package.keywords package.use make.conf; do
+	cfg_path="${SABAYON_REPO_DIR}/${cfg}"
+	if [ ! -f "${cfg_path}" ]; then
+		continue
+	fi
+
+	dest_cfg_path="/etc/portage/${cfg}"
+	if [ "${cfg}" = "make.conf" ]; then
+		dest_cfg_path="/etc/make.conf"
+	fi
+	cp "${cfg_path}" "${dest_cfg_path}" # ignore failures
+done
+
 equo query list installed -qv > /etc/sabayon-pkglist
