@@ -70,6 +70,7 @@ nspluginwrapper_autoinstall() {
 	fi
 }
 
+
 if [ "$1" = "lxde" ]; then
 	# Fix ~/.dmrc to have it load LXDE
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -177,7 +178,8 @@ for file in `find /usr/share/icons -name "icon-theme.cache"`; do
 done
 
 # Fixup nsplugins
-nspluginwrapper_autoinstall
+# we have new Flash, don't need it anymore
+# nspluginwrapper_autoinstall
 
 # Update package list
 equo query list installed -qv > /etc/sabayon-pkglist
