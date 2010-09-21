@@ -70,13 +70,26 @@ nspluginwrapper_autoinstall() {
 	fi
 }
 
+setup_displaymanager() {
+	# determine what is the login manager
+	if [ -n "$(equo query installed gnome-base/gdm -qv)" ]; then
+		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="gdm"/g' /etc/conf.d/xdm
+	elif [ -n "$(equo query installed lxde-base/lxdm -qv)" ]; then
+		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="lxdm"/g' /etc/conf.d/xdm
+	elif [ -n "$(equo query installed kde-base/kdm -qv)" ]; then
+		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="kdm"/g' /etc/conf.d/xdm
+	else
+		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="xdm"/g' /etc/conf.d/xdm
+	fi
+}
+
 
 if [ "$1" = "lxde" ]; then
 	# Fix ~/.dmrc to have it load LXDE
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=LXDE" >> /etc/skel/.dmrc
 	remove_desktop_files
-	sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="gdm"/g' /etc/conf.d/xdm
+	setup_displaymanager
 	# properly tweak lxde autostart tweak, adding --desktop option
 	sed -i 's/pcmanfm -d/pcmanfm -d --desktop/g' /etc/xdg/lxsession/LXDE/autostart
 	setup_cpufrequtils
@@ -85,7 +98,7 @@ elif [ "$1" = "e17" ]; then
         echo "[Desktop]" > /etc/skel/.dmrc
         echo "Session=enlightenment" >> /etc/skel/.dmrc
         remove_desktop_files
-        sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="lxdm"/g' /etc/conf.d/xdm
+	setup_displaymanager
 	# TODO: improve the lines below
 	# Make sure enlightenment is selected in lxdm
 	sed -i '/lxdm-greeter-gtk/ a\\nlast_session=enlightenment.desktop\nlast_lang=' /etc/lxdm/lxdm.conf
@@ -98,13 +111,13 @@ elif [ "$1" = "xfce" ]; then
 	echo "Session=xfce" >> /etc/skel/.dmrc
 	remove_desktop_files
 	setup_cpufrequtils
-	sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="gdm"/g' /etc/conf.d/xdm
+	setup_displaymanager
 elif [ "$1" = "fluxbox" ]; then
 	# Fix ~/.dmrc to have it load Fluxbox
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=fluxbox" >> /etc/skel/.dmrc
 	remove_desktop_files
-	sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="gdm"/g' /etc/conf.d/xdm
+	setup_displaymanager
 	setup_cpufrequtils
 elif [ "$1" = "gnome" ]; then
 	# Fix ~/.dmrc to have it load GNOME
@@ -113,14 +126,14 @@ elif [ "$1" = "gnome" ]; then
 	SHIP_NVIDIA_LEGACY="1"
 	rc-update del system-tools-backends boot
 	rc-update add system-tools-backends default
-	sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="gdm"/g' /etc/conf.d/xdm
+	setup_displaymanager
 	setup_sabayon_mce
 elif [ "$1" = "kde" ]; then
 	# Fix ~/.dmrc to have it load KDE
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=KDE-4" >> /etc/skel/.dmrc
 	SHIP_NVIDIA_LEGACY="1"
-	sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="kdm"/g' /etc/conf.d/xdm
+	setup_displaymanager
 	setup_sabayon_mce
 fi
 
