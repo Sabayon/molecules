@@ -99,17 +99,11 @@ app-crypt/ophcrack-tables, net-analyzer/nmap, net-analyzer/netcat6, net-irc/irss
 # (default is: no), values are: yes, no.
 execute_repositories_update: no
 
-
-
 # Directories to remove completely (comma separated)
 # paths_to_remove:
 
-
-
 # Directories to empty (comma separated)
 # paths_to_empty:
-
-
 
 # Build Menu
 pre_iso_script: /sabayon/scripts/gforensic_pre_iso_script.sh
