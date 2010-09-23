@@ -8,4 +8,7 @@ CHROOT_PKGS_DIR="${CHROOT_DIR}/var/lib/entropy/client/packages"
 echo "Mounting packages over"
 rm -rf "${CHROOT_PKGS_DIR}"/*
 cp ${PKGS_DIR}/* "${CHROOT_PKGS_DIR}"/ -Ra
+
+mount -t proc proc "${CHROOT_DIR}/proc"
+
 exit 0
