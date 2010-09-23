@@ -72,11 +72,11 @@ nspluginwrapper_autoinstall() {
 
 setup_displaymanager() {
 	# determine what is the login manager
-	if [ -n "$(equo query installed gnome-base/gdm -qv)" ]; then
+	if [ -n "$(equo match --installed gnome-base/gdm -qv)" ]; then
 		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="gdm"/g' /etc/conf.d/xdm
-	elif [ -n "$(equo query installed lxde-base/lxdm -qv)" ]; then
+	elif [ -n "$(equo match --installed lxde-base/lxdm -qv)" ]; then
 		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="lxdm"/g' /etc/conf.d/xdm
-	elif [ -n "$(equo query installed kde-base/kdm -qv)" ]; then
+	elif [ -n "$(equo match --installed kde-base/kdm -qv)" ]; then
 		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="kdm"/g' /etc/conf.d/xdm
 	else
 		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="xdm"/g' /etc/conf.d/xdm
@@ -148,7 +148,7 @@ if [ -n "${SHIP_NVIDIA_LEGACY}" ]; then
 	if [ "$myuname" == "x86_64" ]; then
         	mydir="amd64"
 	fi
-	kernel_tag="#$(equo query installed -qv sys-kernel/linux-sabayon | sort | head -n 1 | cut -d"-" -f 4 | sed 's/ //g')-sabayon"
+	kernel_tag="#$(equo match --installed -qv sys-kernel/linux-sabayon | sort | head -n 1 | cut -d"-" -f 4 | sed 's/ //g')-sabayon"
 
 	rm -rf /var/lib/entropy/client/packages/packages*/${mydir}/*/x11-drivers*
 	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-drivers-173*$kernel_tag
@@ -164,14 +164,14 @@ if [ -n "${SHIP_NVIDIA_LEGACY}" ]; then
 fi
 
 # fix clamav shit if available
-clamav_avail=$(equo query installed app-antivirus/clamav -q)
+clamav_avail="$(equo match --installed app-antivirus/clamav -q)"
 if [ -n "${clamav_avail}" ]; then
 	if [ ! -d "/var/log/clamav" ]; then
 		mkdir -p /var/log/clamav
 		chown clamav:clamav /var/log/clamav
 	fi
 	touch /var/log/clamav/freshclam.log
-	chown clamav:clamav /var/log/clamav/freshclam.log
+	chown clamav:clamav /var/log/clamav -R
 fi
 
 # if Sabayon GNOME, drop qt-gui bins
