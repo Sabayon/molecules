@@ -3,6 +3,9 @@
 # call parent script first
 /sabayon/scripts/remaster_generic_inner_chroot_script_after.sh $@
 
+touch /var/log/clamav/freshclam.log
+chown clamav:clamav /var/log/clamav -R
+
 # do custom stuff
 #remove desktop icons
 rm /etc/skel/Desktop/*
