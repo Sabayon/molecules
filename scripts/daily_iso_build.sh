@@ -76,6 +76,7 @@ REMASTER_OPENVZ_SPECS_TAR=(
 )
 
 [[ -d "/sabayon/molecules/daily" ]] || mkdir -p /sabayon/molecules/daily
+[[ -d "/sabayon/molecules/daily/remaster" ]] || mkdir -p /sabayon/molecules/daily/remaster
 [[ -d "/var/log/molecule" ]] || mkdir -p /var/log/molecule
 
 
