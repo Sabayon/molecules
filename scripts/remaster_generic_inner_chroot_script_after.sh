@@ -233,4 +233,6 @@ umount /proc
 equo deptest --pretend
 emaint --fix world
 
+rm -rf /var/lib/entropy/*cache*
+
 exit 0
