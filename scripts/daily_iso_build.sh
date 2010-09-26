@@ -21,6 +21,11 @@ echo "DO_PUSH=${DO_PUSH}"
 echo "DRY_RUN=${DRY_RUN}"
 echo "LOG_FILE=${LOG_FILE}"
 
+# setup default language, cron might not do that
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+export LANGUAGE="en_US.UTF-8"
+
 SOURCE_SPECS=(
 	"sabayon-x86-spinbase.spec"
 	"sabayon-amd64-spinbase.spec"
