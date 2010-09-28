@@ -68,7 +68,9 @@ layman -d sabayon
 rm -rf /var/lib/layman/sabayon
 
 # Reset users' password
-echo "root:" | chpasswd
+# chpasswd doesn't work anymore
+root_zeropass="root::$(cat /etc/shadow | grep "root:" | cut -d":" -f3-)"
+sed -i "s/^root:.*/${root_zeropass}/" /etc/shadow
 
 # protect /var/tmp
 touch /var/tmp/.keep
