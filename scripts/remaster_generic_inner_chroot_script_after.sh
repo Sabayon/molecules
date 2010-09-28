@@ -163,16 +163,13 @@ if [ -n "${SHIP_NVIDIA_LEGACY}" ]; then
 	fi
 fi
 
-# fix clamav shit if available
-clamav_avail="$(equo match --installed app-antivirus/clamav -q)"
-if [ -n "${clamav_avail}" ]; then
-	if [ ! -d "/var/log/clamav" ]; then
-		mkdir -p /var/log/clamav
-		chown clamav:clamav /var/log/clamav
-	fi
-	touch /var/log/clamav/freshclam.log
-	chown clamav:clamav /var/log/clamav -R
+# fix clamav shit if available, mainly for Gforensic
+if [ ! -d "/var/log/clamav" ]; then
+	mkdir -p /var/log/clamav
+	chown clamav:clamav /var/log/clamav
 fi
+touch /var/log/clamav/freshclam.log
+chown clamav:clamav /var/log/clamav -R
 
 # if Sabayon GNOME, drop qt-gui bins
 gnome_panel=$(qlist -ICve gnome-base/gnome-panel)
