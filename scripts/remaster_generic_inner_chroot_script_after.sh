@@ -83,6 +83,26 @@ setup_displaymanager() {
 	fi
 }
 
+gforensic_remove_skel_stuff() {
+	# remove desktop icons
+	rm /etc/skel/Desktop/*
+	# remove no longer needed folders/files
+	rm -r /etc/skel/.fluxbox
+	rm -r /etc/skel/.e
+	rm -r /etc/skel/.kde4
+	rm -r /etc/skel/.mozilla
+	rm -r /etc/skel/.emerald
+	rm -r /etc/skel/.xchat2
+	rm -r /etc/skel/.config/compiz
+	rm -r /etc/skel/.config/lxpanel
+	rm -r /etc/skel/.config/pcmanfm
+	rm -r /etc/skel/.config/Thunar
+	rm -r /etc/skel/.config/xfce4
+	rm -r /etc/skel/.gconf/apps/compiz
+	rm -r /etc/skel/.gconf/apps/gset-compiz
+	rm /etc/skel/.config/menus/applications-kmenuedit.menu
+	rm /etc/skel/.kderc
+}
 
 if [ "$1" = "lxde" ]; then
 	# Fix ~/.dmrc to have it load LXDE
@@ -128,6 +148,16 @@ elif [ "$1" = "gnome" ]; then
 	rc-update add system-tools-backends default
 	setup_displaymanager
 	setup_sabayon_mce
+elif [ "$1" = "gforensic" ]; then
+	# Fix ~/.dmrc to have it load GNOME
+	echo "[Desktop]" > /etc/skel/.dmrc
+	echo "Session=gnome" >> /etc/skel/.dmrc
+	SHIP_NVIDIA_LEGACY="1"
+	rc-update del system-tools-backends boot
+	rc-update add system-tools-backends default
+	setup_displaymanager
+	setup_sabayon_mce
+	gforensic_remove_skel_stuff
 elif [ "$1" = "kde" ]; then
 	# Fix ~/.dmrc to have it load KDE
 	echo "[Desktop]" > /etc/skel/.dmrc
