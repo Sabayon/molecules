@@ -201,6 +201,11 @@ fi
 touch /var/log/clamav/freshclam.log
 chown clamav:clamav /var/log/clamav -R
 
+# Setup SAMBA config file
+if [ -f /etc/samba/smb.conf.default ]; then
+	cp -p /etc/samba/smb.conf.default /etc/samba/smb.conf
+fi
+
 # if Sabayon GNOME, drop qt-gui bins
 gnome_panel=$(qlist -ICve gnome-base/gnome-panel)
 if [ -n "${gnome_panel}" ]; then
