@@ -193,6 +193,7 @@ if [ -n "${SHIP_NVIDIA_LEGACY}" ]; then
 	fi
 fi
 
+# !!! THERE IS A BUG IN THE CLAMAV EBUILD !!!
 # fix clamav shit if available, mainly for Gforensic
 if [ ! -d "/var/log/clamav" ]; then
 	mkdir -p /var/log/clamav
@@ -200,6 +201,7 @@ if [ ! -d "/var/log/clamav" ]; then
 fi
 touch /var/log/clamav/freshclam.log
 chown clamav:clamav /var/log/clamav -R
+chown clamav:clamav /var/lib/clamav -R
 
 # Setup SAMBA config file
 if [ -f /etc/samba/smb.conf.default ]; then
