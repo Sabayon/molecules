@@ -47,7 +47,7 @@ packages_to_add:
 	app-text/pastebunz,
 	app-misc/sabayon-skel,
 	app-misc/anaconda-runtime-gui,
-	gnome-base/gdm,
+	lxde-base/lxdm,
         media-fonts/ttf-bitstream-vera,
         media-fonts/dejavu,
         media-fonts/corefonts,
