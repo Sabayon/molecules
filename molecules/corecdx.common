@@ -51,6 +51,7 @@ packages_to_add:
         media-fonts/ttf-bitstream-vera,
         media-fonts/dejavu,
         media-fonts/corefonts,
+	media-gfx/feh,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
 	net-firewall/shorewall-lite,
