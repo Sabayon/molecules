@@ -42,6 +42,7 @@ destination_iso_directory: /sabayon/iso
 packages_to_add: 
 	@X,
 	@e17,
+        @fluxbox,
 	@wireless,
 	app-admin/sulfur,
 	app-crypt/gnupg,
@@ -69,7 +70,6 @@ packages_to_add:
 	www-client/firefox,
         x11-drivers/xf86-video-virtualbox,
         x11-misc/magneto-gtk,
-        x11-wm/fluxbox,
         x11-terms/xterm,
 	x11-themes/gtk-engines-xfce,
 	x11-themes/tango-icon-theme,

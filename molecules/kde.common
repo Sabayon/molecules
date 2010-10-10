@@ -42,6 +42,7 @@ destination_iso_directory: /sabayon/iso
 packages_to_add:
 	@X,
 	@wireless,
+	@fluxbox,
 	app-admin/packagekit-base,
 	app-admin/packagekit-qt4,
 	app-admin/sulfur,
@@ -326,7 +327,6 @@ packages_to_add:
 	x11-themes/sabayon-artwork-ooo,
 	x11-themes/sound-theme-freedesktop,
 	x11-themes/xcursor-themes,
-	x11-wm/fluxbox,
 	x11-wm/twm
 
 # Custom shell call to packages add (default is: equo install)

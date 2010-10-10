@@ -43,6 +43,7 @@ packages_to_remove:
 packages_to_add:
 	@X,
 	@lxde,
+	@fluxbox,
 	app-admin/sulfur,
 	app-crypt/gnupg,
         app-crypt/pinentry-gtk2,
@@ -62,8 +63,7 @@ packages_to_add:
 	sys-power/cpufrequtils,
 	www-client/firefox,
 	x11-misc/magneto-gtk,
-	x11-drivers/xf86-video-virtualbox,
-	x11-wm/fluxbox
+	x11-drivers/xf86-video-virtualbox
 
 # Custom shell call to packages add (default is: equo install)
 # custom_packages_add_cmd: 

@@ -42,6 +42,7 @@ destination_iso_directory: /sabayon/iso
 packages_to_add:
 	@X,
 	@gnome,
+	@fluxbox,
 	@wireless,
 	app-admin/gnome-system-tools,
 	app-admin/packagekit-base,
@@ -192,7 +193,6 @@ packages_to_add:
 	x11-themes/sound-theme-freedesktop,
 	x11-themes/xcursor-themes,
 	x11-wm/compiz,
-	x11-wm/fluxbox,
 	x11-wm/twm
 
 # Custom shell call to packages add (default is: equo install)
