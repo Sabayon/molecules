@@ -204,6 +204,11 @@ touch /var/log/clamav/freshclam.log
 chown clamav:clamav /var/log/clamav -R
 chown clamav:clamav /var/lib/clamav -R
 
+# Fixup mysqld permissions, ebuild bug?
+if [ -d "/var/run/mysqld" ]; then
+	chown mysql:mysql /var/run/mysqld -R
+fi
+
 # Setup SAMBA config file
 if [ -f /etc/samba/smb.conf.default ]; then
 	cp -p /etc/samba/smb.conf.default /etc/samba/smb.conf

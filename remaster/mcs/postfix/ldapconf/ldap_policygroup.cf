@@ -1,0 +1,8 @@
+server_host = ldap://localhost
+server_port = 389
+search_base = dc=babel,dc=it
+scope = sub
+query_filter = (&(mgrpdeliverto=%s)(objectClass=mailgroup)(mgrpbroadcasterpolicy=*))
+result_attribute = mgrpbroadcasterpolicy
+result_format = policy_lists
+

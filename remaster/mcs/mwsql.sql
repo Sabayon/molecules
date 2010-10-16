@@ -18,6 +18,9 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `mwsql`
 --
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ mwsql /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE mwsql;
+
 
 -- --------------------------------------------------------
 
