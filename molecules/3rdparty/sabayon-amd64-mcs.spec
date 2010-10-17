@@ -50,7 +50,7 @@ pre_iso_script: /sabayon/scripts/generic_pre_iso_script.sh MCS
 destination_iso_directory: /sabayon/iso
 
 # List of packages that would be removed from chrooted system (comma separated)
-packages_to_remove: app-office/openoffice, app-emulation/wine, sabayon-mce, sabayon-music
+packages_to_remove: app-office/openoffice, app-emulation/wine, sabayon-mce, sabayon-music, sun-jre-bin
 
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
