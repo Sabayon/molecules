@@ -27,14 +27,14 @@ iso_title: Sabayon MCS
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and before inner_chroot_script)
-outer_chroot_script: /sabayon/scripts/remaster_mcs_pre.sh
+outer_chroot_script: /sabayon/scripts/3rdparty/remaster_mcs_pre.sh
 
 # Execute repositories update here, in a more fault-tolerant flavor
-inner_chroot_script: /sabayon/scripts/remaster_mcs_inner_chroot_script.sh
+inner_chroot_script: /sabayon/scripts/3rdparty/remaster_mcs_inner_chroot_script.sh
 
 # Inner chroot script command, to be executed inside destination chroot after
 # packages installation and removal
-inner_chroot_script_after: /sabayon/scripts/remaster_mcs_inner_chroot_script_after.sh
+inner_chroot_script_after: /sabayon/scripts/3rdparty/remaster_mcs_inner_chroot_script_after.sh
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and AFTER inner_chroot_script)

@@ -23,14 +23,14 @@ from xml.dom import minidom
 from xml.parsers.expat import ExpatError
 
 _debug = False
-#rtsvcUrl = "http://caladmin:caladmin@velvet:28080/ucaldav/rtsvc"
-#rtsvcUrl = "http://mmt-l-al20:8080/pubcaldav/rtsvc"
+#rtsvcUrl = "http://caladminurl"
+#rtsvcUrl = "http://pubcaladminurl"
 rtsvcUrl = None
 conf_request_enabled = True
 conf_mail_enabled = True
 
-# rtsvcUser = "pippo"
-# rtsvcPass = "pluto"
+# rtsvcUser = "user1"
+# rtsvcPass = "user2"
 
 class Meeting:
 

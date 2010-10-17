@@ -3,7 +3,7 @@
 use Getopt::Std;
 use Socket;
 
-#my @HOSTNAME = ("mmt-l-fl13-prv.mymessagingtop.it", "mmt-l-fl14-prv.mymessagingtop.it");
+#my @HOSTNAME = ("host", "host");
 #my @HOSTNAME = ("localhost", "localhost");
 #my $PORTNO = "4242";
 #my $PREFIX = "PREFIX";
