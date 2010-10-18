@@ -1,7 +1,13 @@
 #!/bin/sh
 
+env-update
+source /etc/profile
+
 # merge config updates first
 echo -5 | equo conf update
+
+# make sure that sun-jdk is in use
+java-config -S sun-jdk || exit 1
 
 # setup Desktop icons
 rm /etc/skel/Desktop/*.desktop
@@ -20,6 +26,9 @@ rc-update add oemsystem-default default
 
 # setup fqdn
 sed -i 's/sabayon/localhost.localdomain sabayon/g' /etc/hosts
+sed -i 's/sabayon/localhost.localdomain/g' /etc/conf.d/hostname
+# setup fqdn in 389-admin, stop annoying apache crap
+sed -i '/^#ServerName/ s/.*/ServerName localhost.localdomain/g' /etc/dirsrv/admin-serv/httpd.conf || exit 1
 
 # setup MySQL
 # Fixup mysqld permissions, ebuild bug?

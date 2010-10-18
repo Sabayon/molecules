@@ -13,11 +13,10 @@ _setup_fds_live() {
 	# setup 389-ds
 	tmp_config_file="$(mktemp)"
 	echo "[General]
-FullMachineName=sabayon
+FullMachineName=localhost.localdomain
 SuiteSpotUserID=dirsrv
 SuiteSpotGroup=dirsrv
 ConfigDirectoryAdminPwd=mcsmanager
-AdminDomain=sabayon
 
 [slapd]
 ServerPort=389
