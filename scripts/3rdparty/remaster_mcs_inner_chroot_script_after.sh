@@ -40,7 +40,7 @@ if [ -z "${mysql_ebuild}" ]; then
 	exit 1
 fi
 echo "password=mcsmanager" > /root/.my.cnf || exit 1
-ebuild "${mysql_ebuild}" config
+HOSTNAME="somethingelse" ebuild "${mysql_ebuild}" config
 if [ "${?}" != "0" ]; then
 	exit 1
 fi
@@ -79,13 +79,41 @@ cp /.mcs/mmt_scripts /usr/local/ -Rp || exit 1
 chown root:root /usr/local/mmt_scripts -R || exit 1
 chmod 755 /usr/local/mmt_scripts/* -R || exit 1
 
+# copy mcs-ldapinit.pl somewhere, it will be used to setup mcs ldap schema at runtime
+cp /.mcs/no_repo/MailWare-Manager/scripts/mcs-ldapinit.pl /usr/sbin/ || exit 1
+chmod +x /usr/sbin/mcs-ldapinit.pl || exit 1
+chown root:root /usr/sbin/mcs-ldapinit.pl || exit 1
+
+
 # Build ejabberd
 #tar xvzf /.mcs/ejabberd-patched.tar.bz2 -C /tmp || exit 1
 #cd /tmp/ejabberd-2.1.0_rc1 || exit 1
 
+## Setup MCS
+
+# setup 389 schema
+cp /.mcs/no_repo/MailWare-Manager/ldif/schema/* /etc/dirsrv/schema/ || exit 1
+chown root:root /etc/dirsrv/schema/*.ldif -R || exit 1
+# setup config
+
+# TODO: complete
+# cp /.mcs/no_repo/MailWare-Manager/sabayon-conf/web/WEB-INF/balance.xml || exit 1 # TODO
+# cp /.mcs/no_repo/MailWare-Manager/sabayon-conf/web/WEB-INF/conf/axis2.xml || exit 1 # TODO
+# cp /.mcs/no_repo/MailWare-Manager/sabayon-conf/src/manager.properties || exit 1
+# cp /.mcs/no_repo/MailWare-Manager/sabayon-conf/src/ldap.properties || exit 1
+
+mkdir /maildirs || exit 1
+chown mail:mail /maildirs -R || exit 1
+
+
 # Setup .war stuff
 cp /.mcs/no_repo/jboss-deploy/* /opt/jboss-bin-4.2/server/default/deploy/ -Rap
 chown jboss:jboss /opt/jboss-bin-4.2/server/default/deploy/ -R
+
+# Setup dovecot
+cp /.mcs/dovecot*.conf /etc/dovecot/ || exit 1
+chown root:root /etc/dovecot/dovecot*.conf || exit 1
+chmod 644 /etc/dovecot/dovecot*.conf || exit 1
 
 # add services to init
 # autostarted by the mcs setup script

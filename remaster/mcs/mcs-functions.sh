@@ -34,6 +34,14 @@ ServerAdminPwd=mcsmanager
 " > "${tmp_config_file}"
 	# FIXME: calling the script directly, from init, won't work, WTF!
 	su - -c "/usr/sbin/setup-ds-admin.pl -f ${tmp_config_file} --silent" || return 1
+
+	# init MCS ldap data
+	( /usr/sbin/mcs-ldapinit.pl -d localhost.localdomain -b "dc=babel,dc=it" \
+		-s sa -p mcsmanager -a node1 -B "db1,db2" > /tmp/base.ldif ) || return 1
+	/usr/bin/ldapmodify -a -D "cn=directory manager" -w mcsmanager \
+		-f /tmp/base.ldif || return 1
+	rm -f /tmp/base.ldif &> /dev/null
+
 	echo "389 Directory Server configured."
 	return 0
 }
