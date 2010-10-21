@@ -86,7 +86,7 @@ packages_to_add:
 custom_packages_add_cmd: equo install --relaxed
 
 # Custom shell call to packages removal (default is: equo remove)
-custom_packages_remove_cmd: equo remove --deep
+# custom_packages_remove_cmd: equo remove --deep
 
 # Custom command for updating repositories (default is: equo update)
 # repositories_update_cmd:
