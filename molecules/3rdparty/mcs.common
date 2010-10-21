@@ -36,7 +36,37 @@ pre_iso_script: /sabayon/scripts/generic_pre_iso_script.sh MCS
 destination_iso_directory: /sabayon/iso
 
 # List of packages that would be removed from chrooted system (comma separated)
-packages_to_remove: app-office/openoffice, app-emulation/wine, sabayon-mce, sabayon-music, sun-jre-bin
+packages_to_remove:
+	app-office/openoffice,
+	app-emulation/wine,
+	sabayon-mce, 
+	sabayon-music,
+	sun-jre-bin,
+	gnome-extra/gcalctool,
+	x11-terms/guake,
+	app-misc/gnote,
+	gnome-extra/gnome-games,
+	games-puzzle/world-of-goo-demo,
+	app-text/evince,
+	media-gfx/shotwell,
+	media-gfx/gimp,
+	net-p2p/deluge,
+	net-dialup/gnome-ppp,
+	net-irc/xchat,
+	net-im/pidgin,
+	mail-client/evolution,
+	app-admin/sulfur,
+	sys-apps/magneto-core,
+	media-tv/xbmc,
+	media-sound/audacious,
+	app-cdr/brasero,
+	media-video/totem,
+	www-plugins/adobe-flash,
+	media-libs/libdvdcss,
+	media-libs/libdvdread,
+	gnome-extra/gnome-media,
+	x11-wm/compiz
+
 
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
@@ -54,6 +84,9 @@ packages_to_add:
 
 # Custom shell call to packages add (default is: equo install)
 custom_packages_add_cmd: equo install --relaxed
+
+# Custom shell call to packages removal (default is: equo remove)
+custom_packages_remove_cmd: equo remove --deep
 
 # Custom command for updating repositories (default is: equo update)
 # repositories_update_cmd:
