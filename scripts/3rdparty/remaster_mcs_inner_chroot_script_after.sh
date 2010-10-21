@@ -137,6 +137,7 @@ rm /.mcs -rf
 echo "Working out Sabayon stuff"
 rm -rf /install-data || exit 1
 rm -rf /usr/share/sabayon/xdg || exit 1
+rm -rf /usr/share/applications/sabayon-*.desktop
 
 mount -t proc proc /proc
 /lib/rc/bin/rc-depend -u

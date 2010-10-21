@@ -65,7 +65,21 @@ packages_to_remove:
 	media-libs/libdvdcss,
 	media-libs/libdvdread,
 	gnome-extra/gnome-media,
-	x11-wm/compiz
+	x11-wm/compiz,
+	media-gfx/eog,
+	net-print/gnome-cups-manager,
+	net-print/libgnomecups,
+	net-fs/samba,
+	media-libs/libgphoto2,
+	sys-apps/gnome-disk-utility,
+	app-pda/pilot-link,
+	x11-wm/mutter,
+	x11-libs/vdpau-video,
+	net-print/gutenprint,
+	net-print/foomatic-db,
+	net-print/foomatic-db-engine,
+	net-print/foomatic-db-ppds,
+	net-print/foomatic-filters-ppds
 
 
 # List of packages that would be added from chrooted system (comma separated)
