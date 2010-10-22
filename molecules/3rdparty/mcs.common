@@ -11,6 +11,7 @@ release_file: /etc/sabayon-edition
 # ISO Image title
 iso_title: Sabayon MCS
 
+
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and before inner_chroot_script)
 outer_chroot_script: /sabayon/scripts/3rdparty/remaster_mcs_pre.sh
@@ -25,6 +26,9 @@ inner_chroot_script_after: /sabayon/scripts/3rdparty/remaster_mcs_inner_chroot_s
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and AFTER inner_chroot_script)
 outer_chroot_script_after: /sabayon/scripts/remaster_post.sh
+
+# Used to umount /proc
+error_script: /sabayon/scripts/3rdparty/error_script_mcs.sh
 
 # Extra mkisofs parameters, perhaps something to include/use your bootloader
 extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat
@@ -169,12 +173,14 @@ packages_to_add:
 	app-admin/389-console,
 	net-nds/389-admin,
 	net-mail/dovecot,
-	mail-mta/postfix,
 	net-mail/cyrus-imapd,
 	www-servers/apache[threads],
 	www-servers/jboss-bin:4.2,
 	net-mail/gnarwl,
-	dev-java/log4j
+	dev-java/log4j,
+	dev-lang/erlang,
+	net-im/jabber-base,
+	net-im/ejabberd-babel
 
 # Custom shell call to packages add (default is: equo install)
 custom_packages_add_cmd: equo install --relaxed

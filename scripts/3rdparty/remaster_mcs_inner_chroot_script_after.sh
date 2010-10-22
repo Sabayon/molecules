@@ -54,8 +54,6 @@ echo "Setting up mysql"
 /etc/init.d/mysql start --nodeps || exit 1
 mysql -u root --password=mcsmanager -h localhost < /.mcs/mwsql.sql
 mysql -u root --password=mcsmanager -h localhost < /.mcs/bedework.sql
-# TODO setup user permissions?
-# TODO do not ask password
 /etc/init.d/mysql stop --nodeps
 
 # setup 389-console data
@@ -93,10 +91,6 @@ cp /.mcs/scripts/mcs-ldapinit.pl /usr/sbin/ || exit 1
 chmod +x /usr/sbin/mcs-ldapinit.pl || exit 1
 chown root:root /usr/sbin/mcs-ldapinit.pl || exit 1
 
-# Build ejabberd
-#tar xvzf /.mcs/ejabberd-patched.tar.bz2 -C /tmp || exit 1
-#cd /tmp/ejabberd-2.1.0_rc1 || exit 1
-
 ## Setup MCS
 
 # copy jboss data over
@@ -129,6 +123,7 @@ rc-update add jboss-bin-4.2 default
 rc-update add mysql default
 rc-update add dovecot default
 rc-update add postfix default
+rc-update add ejabberd default
 
 # remove unused services from init
 rc-update del sabayon-mce default

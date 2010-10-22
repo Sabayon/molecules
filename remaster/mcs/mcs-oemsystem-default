@@ -11,7 +11,7 @@ depend() {
 	need net
 	use dns
 	before 389-ds 389-ds-snmp 389-admin
-	before mysql jboss-bin-4.2 postfix
+	before mysql jboss-bin-4.2 postfix ejabberd
 }
 
 start() {
