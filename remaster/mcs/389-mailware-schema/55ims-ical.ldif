@@ -1,0 +1,61 @@
+# PROPRIETARY/CONFIDENTIAL. Use of this product is subject to
+# license terms. Copyright © 2001 Sun Microsystems, Inc.
+# Some preexisting portions Copyright © 2001 Netscape Communications Corp.
+# All rights reserved.
+# 
+#
+#===============================================================================
+# Common object classes/attributes defined and used by
+#
+#   iPlanet Messaging Server 5.x
+#   iPlanet Calendar Server 5.x
+#
+# All definitions here are in compliance with the schema interoperability
+# specification being worked on for schema interoperability across iPlanet
+# products and key partners. 
+#===============================================================================
+#
+#
+dn: cn=schema
+attributetypes: ( 2.16.840.1.113730.3.1.697 NAME 'domOrgMaxUsers' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' ) 
+attributeTypes: ( 2.16.840.1.113730.3.1.698 NAME 'domOrgNumUsers' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.699 NAME 'inetDomainSearchFilter' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.700 NAME 'inetDomainCertMap' DESC 'iPlanet Messaging Server defined attribute' SYNTAX  1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.701 NAME 'inetCanonicalDomainName' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.702 NAME 'domainUidSeparator' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.703 NAME 'pabURI' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.704 NAME 'memberOfManagedGroup' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.705 NAME 'maxPabEntries' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.706 NAME 'inetCOS' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.707 NAME 'vacationStartDate' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.708 NAME 'vacationEndDate' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.709 NAME 'mnggrpDeletionPolicy' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.710 NAME 'mnggrpAdditionPolicy' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.711 NAME 'mnggrpBillableUser' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.712 NAME 'mnggrpStatus' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.713 NAME 'mnggrpMaxUsers' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.714 NAME 'mnggrpCurrentUsers' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.715 NAME 'mnggrpMailQuota' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.716 NAME 'mnggrpUserClassOfServices' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.717 NAME 'un' DESC 'iPlanet Messaging Server defined attribute'	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.718 NAME 'memberOfPAB' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.719 NAME 'memberOfPABGroup' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.720 NAME 'nickname' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.721 NAME 'dateOfBirth' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.722 NAME 'organizationUnitName' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 0.9.2342.19200300.100.1.3 NAME ( 'mail' 'rfc822mailbox' ) DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.13  NAME 'mailAlternateAddress' DESC 'iPlanet Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.742 NAME 'icsExtendedUserPrefs' DESC 'Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calendar Services' )
+attributeTypes: ( psRoot-oid NAME 'psRoot' DESC 'Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Messaging Server' )
+attributeTypes: ( psincludeingab-oid NAME 'psIncludeInGAB' DESC 'DA defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'delegated admin' )
+attributeTypes: ( 2.16.840.1.113730.3.1.775 NAME ( 'mailSieveRuleSource' ) DESC 'Sun ONE Messaging Server defined attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15  X-ORIGIN 'Sun ONE Messaging Server' )
+objectclasses: ( 2.16.840.1.113730.3.2.131 NAME 'inetDomainAlias' DESC 'auxiliary class for hosted domain aliases' SUP alias STRUCTURAL MUST dc X-ORIGIN 'iPlanet Messaging Server' )
+objectclasses: ( 2.16.840.1.113730.3.2.132 NAME 'inetDomainOrg' DESC 'auxiliary class for suborganizations in a domain' SUP top AUXILIARY MAY ( domOrgMaxUsers $ domOrgNumUsers ) X-ORIGIN 'iPlanet Messaging Server' )
+objectclasses: ( 2.16.840.1.113730.3.2.133 NAME 'inetDomainAuthInfo' DESC 'auxiliary class for misc hosted domain attributes' SUP top AUXILIARY MAY ( inetDomainSearchFilter $ inetDomainCertMap $ domainUidSeparator $ inetCanonicalDomainName ) X-ORIGIN 'iPlanet Messaging Server' )
+objectclasses: ( 2.16.840.1.113730.3.2.135 NAME 'ipUser' DESC 'auxiliary class for extending a inetuser entry. Used by calendar and messaging servers' SUP top AUXILIARY MAY ( pabURI $ memberOfManagedGroup $ maxPabEntries $ inetCOS $ psRoot $ psIncludeInGAB )  X-ORIGIN 'iPlanet Messaging Server' )
+objectclasses: ( 2.16.840.1.113730.3.2.136 NAME 'userPresenceProfile' DESC 'auxiliary class for vacation start end dates' SUP top AUXILIARY MAY ( vacationStartDate $ vacationEndDate ) X-ORIGIN 'iPlanet Messaging Server' )
+objectclasses: ( 2.16.840.1.113730.3.2.137 NAME 'inetManagedGroup' DESC 'auxiliary class for a managed group used by family accounts' SUP top AUXILIARY MUST ( cn ) MAY ( mnggrpDeletionPolicy $ mnggrpAdditionPolicy $ mnggrpBillableUser $ description $ mnggrpStatus $ mnggrpMaxUsers $ mnggrpCurrentUsers $ mnggrpMailQuota $ owner $ nsdaModifiableBy $ mnggrpUserClassOfServices $ mailSieveRuleSource ) X-ORIGIN 'iPlanet Messaging Server' )
+objectclasses: ( 2.16.840.1.113730.3.2.138 NAME 'pabPerson' DESC 'structural class for creating personal address book entries' SUP inetOrgPerson STRUCTURAL MAY ( un $ o $ organizationUnitName $ co $ mailAlternateAddress $ dateOfBirth $ memberOfPAB $ memberOfPABGroup $ nickName $ calCalURI $ calFBURL ) X-ORIGIN 'iPlanet Messaging Server' )
+objectclasses: ( 2.16.840.1.113730.3.2.139 NAME 'pabGroup' DESC 'structural class for defininig a PAB group' SUP top STRUCTURAL MUST ( cn ) MAY ( un $ memberOfPAB $ nickName $ description ) X-ORIGIN 'iPlanet Messaging Server' )
+objectclasses: ( 2.16.840.1.113730.3.2.140 NAME 'pab' DESC 'structural class for defining a personal address book' SUP top MUST ( cn ) MAY ( un $ description ) X-ORIGIN 'iPlanet Messaging Server' )
+

@@ -173,7 +173,8 @@ packages_to_add:
 	net-mail/cyrus-imapd,
 	www-servers/apache[threads],
 	www-servers/jboss-bin:4.2,
-	net-mail/gnarwl
+	net-mail/gnarwl,
+	dev-java/log4j
 
 # Custom shell call to packages add (default is: equo install)
 custom_packages_add_cmd: equo install --relaxed

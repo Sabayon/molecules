@@ -79,11 +79,19 @@ cp /.mcs/mmt_scripts /usr/local/ -Rp || exit 1
 chown root:root /usr/local/mmt_scripts -R || exit 1
 chmod 755 /usr/local/mmt_scripts/* -R || exit 1
 
+# temp unpack jboss-deploy.tar.bz2
+echo "Unpacking jboss-deploy data"
+tar xjf /.mcs/jboss-deploy.tar.bz2 -C /tmp || exit 1
+jboss_deploy="/tmp/jboss-deploy"
+if [ ! -d "${jboss_deploy}" ]; then
+	echo "${jboss_deploy} not a dir"
+	exit 1
+fi
+
 # copy mcs-ldapinit.pl somewhere, it will be used to setup mcs ldap schema at runtime
-cp /.mcs/no_repo/MailWare-Manager/scripts/mcs-ldapinit.pl /usr/sbin/ || exit 1
+cp /.mcs/scripts/mcs-ldapinit.pl /usr/sbin/ || exit 1
 chmod +x /usr/sbin/mcs-ldapinit.pl || exit 1
 chown root:root /usr/sbin/mcs-ldapinit.pl || exit 1
-
 
 # Build ejabberd
 #tar xvzf /.mcs/ejabberd-patched.tar.bz2 -C /tmp || exit 1
@@ -91,24 +99,21 @@ chown root:root /usr/sbin/mcs-ldapinit.pl || exit 1
 
 ## Setup MCS
 
-# setup 389 schema
-cp /.mcs/no_repo/MailWare-Manager/ldif/schema/* /etc/dirsrv/schema/ || exit 1
-chown root:root /etc/dirsrv/schema/*.ldif -R || exit 1
-# setup config
+# copy jboss data over
+echo "Copying jboss-bin deploy data over"
+mv /tmp/jboss-deploy/* /opt/jboss-bin-4.2/server/default/deploy/ || exit 1
+chown jboss:jboss /opt/jboss-bin-4.2/server/default/deploy/ -R || exit 1
 
-# TODO: complete
-# cp /.mcs/no_repo/MailWare-Manager/sabayon-conf/web/WEB-INF/balance.xml || exit 1 # TODO
-# cp /.mcs/no_repo/MailWare-Manager/sabayon-conf/web/WEB-INF/conf/axis2.xml || exit 1 # TODO
-# cp /.mcs/no_repo/MailWare-Manager/sabayon-conf/src/manager.properties || exit 1
-# cp /.mcs/no_repo/MailWare-Manager/sabayon-conf/src/ldap.properties || exit 1
+# setup 389 schema
+cp /.mcs/389-mailware-schema/* /etc/dirsrv/schema/ || exit 1
+chown root:root /etc/dirsrv/schema/*.ldif -R || exit 1
+
+# setup config
+cp /.mcs/mailware-sabayon-conf/web/WEB-INF/balance.xml /opt/jboss-bin-4.2/server/default/deploy/MailWare-Manager.war/WEB-INF/balance.xml || exit 1
+cp /.mcs/mailware-sabayon-conf/web/WEB-INF/conf/axis2.xml /opt/jboss-bin-4.2/server/default/deploy/MailWare-Manager.war/WEB-INF/conf/axis2.xml || exit 1
 
 mkdir /maildirs || exit 1
 chown mail:mail /maildirs -R || exit 1
-
-
-# Setup .war stuff
-cp /.mcs/no_repo/jboss-deploy/* /opt/jboss-bin-4.2/server/default/deploy/ -Rap
-chown jboss:jboss /opt/jboss-bin-4.2/server/default/deploy/ -R
 
 # Setup dovecot
 cp /.mcs/dovecot*.conf /etc/dovecot/ || exit 1

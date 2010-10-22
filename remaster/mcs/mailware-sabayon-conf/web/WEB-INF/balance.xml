@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+
+
+
+ <bean id="balanceService" class="it.babel.manager.services.AddressBookBalanceService">
+	<property name="balanceGroups">
+		<map>
+			<entry key="isola1">
+				<bean class="it.babel.manager.model.BalanceGroup">
+					<property name="balanceItems" >
+ 		
+				  		<list>
+				 			<bean class="it.babel.manager.model.AddressBookBalanceItem">
+				 				<property name="ldapUri" value="ldap://localhost:389" />
+				 				<property name="ldapDatabase" value="db1"></property>
+				 			</bean>
+				 			<!--bean class="it.babel.manager.model.AddressBookBalanceItem">
+				 				<property name="ldapUri" value="ldap://localhost:389" />
+				 				<property name="ldapDatabase" value="db2"></property>
+				 			</bean-->
+				 		</list>
+ 		
+ 					</property>
+				</bean>
+			</entry>
+			<!-- ALTRA ENTRY PER ALTRA ISOLA -->
+			<!-- 
+			<entry key="isola2">
+				<bean class="it.babel.manager.model.BalanceGroup">
+					<property name="balanceItems" >
+ 		
+				  		<list>
+				 			<bean class="it.babel.manager.model.AddressBookBalanceItem">
+				 				<property name="ldapUri" value="ldap://localhost:389" />
+				 				<property name="ldapDatabase" value="db1"></property>
+				 			</bean>
+				 			<bean class="it.babel.manager.model.AddressBookBalanceItem">
+				 				<property name="ldapUri" value="ldap://localhost:389" />
+				 				<property name="ldapDatabase" value="db2"></property>
+				 			</bean>
+				 		</list>
+ 		
+ 					</property>
+				</bean>
+			</entry>
+			 -->
+		</map>
+	
+	</property>
+ 	
+ </bean>
+
+ 
+</beans>

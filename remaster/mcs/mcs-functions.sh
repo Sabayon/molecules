@@ -36,11 +36,10 @@ ServerAdminPwd=mcsmanager
 	su - -c "/usr/sbin/setup-ds-admin.pl -f ${tmp_config_file} --silent" || return 1
 
 	# init MCS ldap data
-	# TODO
-	#( /usr/sbin/mcs-ldapinit.pl -d localhost.localdomain -b "dc=babel,dc=it" \
-	#	-s sa -p mcsmanager -a node1 -B "db1,db2" -f /tmp/base.ldif ) || return 1
-	#/usr/bin/ldapmodify -a -D "cn=directory manager" -h localhost -w mcsmanager \
-	#	-f /tmp/base.ldif || return 1
+	( /usr/sbin/mcs-ldapinit.pl -d localhost.localdomain -b "dc=babel,dc=it" \
+		-s sa -p mcsmanager -a node1 -B "db1,db2" -f /tmp/base.ldif ) || return 1
+	/usr/bin/ldapmodify -a -D "cn=directory manager" -h localhost -w mcsmanager \
+		-f /tmp/base.ldif || return 1
 
 	echo "389 Directory Server configured."
 	return 0
