@@ -62,7 +62,6 @@ packages_to_remove:
 	dev-libs/newt,
 	dev-util/pykickstart,
 	net-misc/networkmanager,
-	net-misc/curl,
 	net-misc/fcoe-utils,
 	sys-boot/grub,
 	sys-fs/squashfs-tools,
