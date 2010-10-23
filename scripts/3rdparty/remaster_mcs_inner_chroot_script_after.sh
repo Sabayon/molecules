@@ -114,6 +114,9 @@ cp /.mcs/dovecot*.conf /etc/dovecot/ || exit 1
 chown root:root /etc/dovecot/dovecot*.conf || exit 1
 chmod 644 /etc/dovecot/dovecot*.conf || exit 1
 
+# Setup ejabberd, why do I need to enable shell for ejabberd-babel?
+usermod -s /bin/sh jabber || exit 1
+
 # add services to init
 # autostarted by the mcs setup script
 ## rc-update add 389-ds default
