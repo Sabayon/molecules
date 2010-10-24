@@ -119,10 +119,9 @@ elif [ "$1" = "e17" ]; then
         echo "Session=enlightenment" >> /etc/skel/.dmrc
         remove_desktop_files
 	setup_displaymanager
-	# Not using lxdm for now
 	# TODO: improve the lines below
 	# Make sure enlightenment is selected in lxdm
-	# sed -i '/lxdm-greeter-gtk/ a\\nlast_session=enlightenment.desktop\nlast_lang=' /etc/lxdm/lxdm.conf
+	sed -i '/lxdm-greeter-gtk/ a\\nlast_session=enlightenment.desktop\nlast_lang=' /etc/lxdm/lxdm.conf
 	# Fix ~/.gtkrc-2.0 for some nice icons in gtk
 	echo 'gtk-icon-theme-name="Tango" gtk-theme-name="Xfce"' | tr " " "\n" > /etc/skel/.gtkrc-2.0
 	setup_cpufrequtils
