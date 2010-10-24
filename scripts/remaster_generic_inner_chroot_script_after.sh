@@ -214,7 +214,11 @@ fi
 # It happens with E17 lives, for sure there is something broken
 # somewhere.
 if [ -x "/usr/bin/pango-querymodules" ]; then
-	/usr/bin/pango-querymodules > "/etc/pango/$(uname -m)-pc-linux-gnu/pango.modules"
+	if [ "$(uname -m)" = "x86_64" ]; then
+		/usr/bin/pango-querymodules > "/etc/pango/x86_64-pc-linux-gnu/pango.modules"
+	else
+		/usr/bin/pango-querymodules > "/etc/pango/pango.modules"
+	fi
 fi
 
 # Setup SAMBA config file
