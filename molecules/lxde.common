@@ -50,6 +50,7 @@ packages_to_add:
 	app-editors/leafpad,
 	app-emulation/virtualbox-guest-additions,
 	app-misc/anaconda-runtime-gui,
+	app-office/abiword,
 	app-text/pastebunz,
 	gnome-extra/nm-applet,
         media-fonts/ttf-bitstream-vera,

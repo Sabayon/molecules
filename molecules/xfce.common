@@ -51,6 +51,7 @@ packages_to_add:
         app-crypt/pinentry-gtk2,
 	app-emulation/virtualbox-guest-additions,
 	app-misc/anaconda-runtime-gui,
+	app-office/abiword,
 	app-text/pastebunz,
 	gnome-extra/nm-applet,
 	media-fonts/ttf-bitstream-vera,
