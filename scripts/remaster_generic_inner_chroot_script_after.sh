@@ -209,6 +209,13 @@ if [ -d "/var/run/mysqld" ]; then
 	chown mysql:mysql /var/run/mysqld -R
 fi
 
+# Make sure that pango stuff is properly configured
+# It happens with E17 lives, for sure there is something broken
+# somewhere.
+if [ -x "/usr/bin/pango-querymodules" ]; then
+	/usr/bin/pango-querymodules > "/etc/pango/$(uname -m)-pc-linux-gnu/pango.modules"
+fi
+
 # Setup SAMBA config file
 if [ -f /etc/samba/smb.conf.default ]; then
 	cp -p /etc/samba/smb.conf.default /etc/samba/smb.conf

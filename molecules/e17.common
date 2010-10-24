@@ -52,6 +52,7 @@ packages_to_add:
 	app-misc/anaconda-runtime-gui,
 	app-text/epdfview,
 	app-text/pastebunz,
+	dev-libs/fribidi,
 	gnome-extra/nm-applet,
 	lxde-base/lxdm,
         media-fonts/ttf-bitstream-vera,
