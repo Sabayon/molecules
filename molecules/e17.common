@@ -77,6 +77,7 @@ packages_to_add:
 	x11-themes/gnome-icon-theme,
 	x11-terms/terminal,
 	x11-themes/gtk2-E17-bling,
+	x11-themes/gtk-engines,
 	x11-themes/sabayon-artwork-gnome
 
 # Determine whether repositories update should be run (if packages_to_add is set)
