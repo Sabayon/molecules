@@ -34,13 +34,9 @@ sed -i '/^#ServerName/ s/.*/ServerName localhost.localdomain/g' /etc/dirsrv/admi
 # Fixup mysqld permissions, ebuild bug?
 chown mysql:mysql /var/run/mysqld -R
 
-mysql_ebuild="$(find /var/db/pkg/dev-db -name "mysql*.ebuild" | sort | head -n 1)"
-if [ -z "${mysql_ebuild}" ]; then
-	echo "cannot find any mysql ebuild"
-	exit 1
-fi
 echo "password=mcsmanager" > /root/.my.cnf || exit 1
-HOSTNAME="somethingelse" ebuild "${mysql_ebuild}" config
+
+HOSTNAME="somethingelse" equo config dev-db/mysql || exit 1
 if [ "${?}" != "0" ]; then
 	exit 1
 fi
@@ -116,6 +112,14 @@ chmod 644 /etc/dovecot/dovecot*.conf || exit 1
 
 # Setup ejabberd, why do I need to enable shell for ejabberd-babel?
 usermod -s /bin/sh jabber || exit 1
+usermod -d /home/jabber -m jabber || exit 1
+mkdir -p /home/jabber || exit 1
+chown jabber:jabber /home/jabber -R || exit 1
+
+# Copy babel configuration file over
+cp /.mcs/ejabberd.cfg /etc/jabber/ejabberd.cfg || exit 1
+chown root:jabber /etc/jabber/ejabberd.cfg || exit 1
+chmod 640 /etc/jabber/ejabberd.cfg || exit 1
 
 # add services to init
 # autostarted by the mcs setup script
