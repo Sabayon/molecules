@@ -13,7 +13,19 @@ java-config -S sun-jdk || exit 1
 rm /etc/skel/Desktop/*.desktop
 cp /usr/share/applications/keyboard.desktop /etc/skel/Desktop/ -p
 cp /usr/share/applications/389-console*.desktop /etc/skel/Desktop/ -p
+cp /.mcs/desktop/* /etc/skel/Desktop -R
+chmod +x /etc/skel/Desktop/*
 chown root:root /etc/skel/Desktop -R
+
+# Setup Firefox
+rm /etc/skel/.mozilla/firefox/*/bookmarks.html
+for file in `find /etc/skel/.mozilla -name prefs.js`; do
+	sed -i 's:sabayon.org:babel.it:g' "${file}"
+done
+
+mkdir -p /etc/skel/.local/share/applications
+echo "[Added Associations]" >> /etc/skel/.local/share/applications/mimeapps.list
+echo "application/octet-stream=mozilla-firefox-3.6.desktop;" >> /etc/skel/.local/share/applications/mimeapps.list
 
 # Setup init scripts
 cp /.mcs/mcs-functions.sh /sbin/mcs-functions.sh
@@ -96,7 +108,7 @@ chown jboss:jboss /opt/jboss-bin-4.2/server/default/deploy/ -R || exit 1
 rm -r /tmp/jboss-deploy || exit 1
 
 # setup jboss login info
-cat /.mcs/mailware-jboss-conf/login-config.xml.aggregation.babel >> /opt/jboss-bin-4.2/server/default/conf/login-config.xml || exit 1
+cp /.mcs/mailware-jboss-conf/login-config.xml /opt/jboss-bin-4.2/server/default/conf/login-config.xml || exit 1
 chown jboss:jboss /opt/jboss-bin-4.2/server/default/conf/login-config.xml || exit 1
 cp /.mcs/mailware-jboss-conf/jboss-log4j.xml /opt/jboss-bin-4.2/server/default/conf/jboss-log4j.xml || exit 1
 chown jboss:jboss /opt/jboss-bin-4.2/server/default/conf/jboss-log4j.xml || exit 1

@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version=1.0
+Type=Link
+Icon[en_US]=gnome-panel-launcher
+Name[en_US]=MailWare Collaboration
+URL=http://localhost:8080/MailWare-Collaboration-TrunkVersion/
+Name=MailWare Collaboration
+Icon=nm-device-wired
