@@ -1,0 +1,102 @@
+
+    <application-policy name="ucaldav-security-domain">
+      <authentication>
+         <login-module code="it.babel.security.auth.spi.LdapLoginModule" flag="required" >
+                        <module-option name="java.naming.provider.url">ldap://localhost:389/dc=babel,dc=it</module-option>
+                        <module-option name="it.babel.security.ldap.basedn">dc=babel,dc=it</module-option>
+                        <module-option name="java.naming.security.principal"></module-option>
+                        <module-option name="java.naming.security.credentials"></module-option>
+                        <module-option name="it.babel.security.ldap.sa.role.cn">cn=sa role</module-option>
+                        <module-option name="it.babel.security.ldap.ca.role.cn">cn=admin role</module-option>
+                        <module-option name="it.babel.security.ldap.checkpasswordexpiration">true</module-option>
+                        <module-option name="it.babel.security.ldap.passwordexpirationattribute">passwordExpirationTime</module-option>
+                </login-module>
+      </authentication>
+    </application-policy>
+
+    <application-policy name="caladmin-security-domain">
+        <authentication>
+            <login-module code="org.jboss.security.auth.spi.LdapLoginModule"
+                          flag="required">
+                <module-option name="java.naming.factory.initial">com.sun.jndi.ldap.LdapCtxFactory</module-option>
+                <module-option name="java.naming.provider.url">ldap://localhost:389/</module-option>
+		<module-option name="java.naming.security.authentication">simple</module-option>
+                <module-option name="principalDNPrefix">uid=</module-option>
+                <module-option name="principalDNSuffix">,ou=People,dc=babel,dc=it</module-option>
+                <module-option name="rolesCtxDN">ou=Groups,dc=babel,dc=it</module-option>
+                <module-option name="uidAttributeID">uniqueMember</module-option>
+                <module-option name="matchOnUserDN">true</module-option>
+                <module-option name="roleAttributeID">cn</module-option>
+                <module-option name="roleAttributeIsDN">false</module-option>
+            </login-module>
+        </authentication>
+    </application-policy>
+
+    <application-policy name="mcs-security-domain">
+       <authentication>
+                <login-module code="it.babel.security.auth.spi.IMAPLoginModule" flag="required">
+                        <module-option name="mail.store.protocol">imap</module-option>
+                        <module-option name="mail.imap.host">localhost</module-option>
+                        <module-option name="mail.imap.port">143</module-option>
+                        <module-option name="jaasimap.imap.useproxyauth">false</module-option>
+                        <module-option name="jaasimap.imap.adminuser"></module-option>
+                        <module-option name="jaasimap.imap.adminpassword"></module-option>
+                        <module-option name="mail.imap.secure">false</module-option>
+                </login-module>
+
+                <login-module code="it.babel.security.auth.spi.LdapLoginModule" flag="required" >
+                        <module-option name="java.naming.provider.url">ldap://localhost:389/dc=babel,dc=it</module-option>
+                        <module-option name="it.babel.security.ldap.basedn">dc=babel,dc=it</module-option>
+                        <module-option name="java.naming.security.principal"></module-option>
+                        <module-option name="java.naming.security.credentials"></module-option>
+                        <module-option name="it.babel.security.ldap.sa.role.cn">cn=sa role</module-option>
+                        <module-option name="it.babel.security.ldap.ca.role.cn">cn=admin role</module-option>
+                        <module-option name="it.babel.security.ldap.checkpasswordexpiration">true</module-option>
+                        <module-option name="it.babel.security.ldap.passwordexpirationattribute">passwordExpirationTime</module-option>
+                        <module-option name="com.sun.jndi.ldap.connect.pool.prefsize">10</module-option>
+                        <module-option name="com.sun.jndi.ldap.connect.pool.maxsize">20</module-option>
+                        <module-option name="com.sun.jndi.ldap.connect.pool.timeout">300000</module-option>
+                </login-module>
+        </authentication>
+
+    </application-policy>
+<!--WebMail 4.3 -->
+
+<!--MailwareWebmail -->
+<application-policy name="JaasImap">
+        <authentication>
+                <login-module code="it.babel.jaasimap.module.IMAPLoginModule" flag="required">
+                        <module-option name="mail.store.protocol">imap</module-option>
+                        <module-option name="mail.imap.host">localhost</module-option>
+                        <!--DOVECOT <module-option name="mail.imap.port">10143</module-option>-->
+                        <module-option name="mail.imap.port">143</module-option>
+                        <module-option name="jaasimap.imap.useproxyauth">false</module-option>
+                        <module-option name="jaasimap.imap.adminuser"></module-option>
+                        <module-option name="jaasimap.imap.adminpassword"></module-option>
+                        <module-option name="mail.imap.secure">true</module-option>
+                        <module-option name="mail.imap.socketFactory.class">javax.net.ssl.SSLSocketFactory</module-option>
+                        <module-option name="mail.imap.socketFactory.fallback">false</module-option>
+                        <module-option name="mail.imap.socketFactory.port">993</module-option>
+                </login-module>
+        </authentication>
+ </application-policy>
+
+<!-- -->
+        <!--PV MailWare-Manager -->
+
+        <application-policy name="mcs-manager-security-domain">
+        <authentication>
+                <login-module code="it.babel.security.auth.spi.LdapLoginModule" flag="required" >
+                        <module-option name="java.naming.provider.url">ldap://localhost:389/dc=babel,dc=it</module-option>
+                        <module-option name="it.babel.security.ldap.basedn">dc=babel,dc=it</module-option>
+                        <module-option name="java.naming.security.principal"></module-option>
+                        <module-option name="java.naming.security.credentials"></module-option>
+                        <module-option name="it.babel.security.ldap.sa.role.cn">cn=sa role</module-option>
+                        <module-option name="it.babel.security.ldap.ca.role.cn">cn=admin role</module-option>
+                        <module-option name="it.babel.security.ldap.checkpasswordexpiration">true</module-option>
+                        <module-option name="it.babel.security.ldap.passwordexpirationattribute">passwordExpirationTime</module-option>
+                </login-module>
+        </authentication>
+        </application-policy>
+
+</policy>

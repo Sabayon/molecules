@@ -91,8 +91,15 @@ chown root:root /usr/sbin/mcs-ldapinit.pl || exit 1
 
 # copy jboss data over
 echo "Copying jboss-bin deploy data over"
-mv /tmp/jboss-deploy/* /opt/jboss-bin-4.2/server/default/deploy/ || exit 1
+cp /tmp/jboss-deploy/* /opt/jboss-bin-4.2/server/default/deploy/ -Rp || exit 1
 chown jboss:jboss /opt/jboss-bin-4.2/server/default/deploy/ -R || exit 1
+rm -r /tmp/jboss-deploy || exit 1
+
+# setup jboss login info
+cat /.mcs/mailware-jboss-conf/login-config.xml.aggregation.babel >> /opt/jboss-bin-4.2/server/default/conf/login-config.xml || exit 1
+chown jboss:jboss /opt/jboss-bin-4.2/server/default/conf/login-config.xml || exit 1
+cp /.mcs/mailware-jboss-conf/jboss-log4j.xml /opt/jboss-bin-4.2/server/default/conf/jboss-log4j.xml || exit 1
+chown jboss:jboss /opt/jboss-bin-4.2/server/default/conf/jboss-log4j.xml || exit 1
 
 # setup 389 schema
 cp /.mcs/389-mailware-schema/* /etc/dirsrv/schema/ || exit 1
