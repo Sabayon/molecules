@@ -20,7 +20,7 @@ inner_chroot_script: /sabayon/scripts/remaster_generic_inner_chroot_script.sh
 
 # Inner chroot script command, to be executed inside destination chroot after
 # packages installation and removal
-# inner_chroot_script_after: /sabayon/scripts/remaster_generic_inner_chroot_script_after.sh fluxbox
+inner_chroot_script_after: /sabayon/scripts/remaster_nox_inner_chroot_script_after.sh serverbase
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and AFTER inner_chroot_script)
