@@ -9,6 +9,27 @@ echo -5 | equo conf update
 # make sure that sun-jdk is in use
 java-config -S sun-jdk || exit 1
 
+# Create OEM directory
+mkdir -p /etc/oem
+
+# Setup fbsplash (babel theme)
+mv /.mcs/fbsplash-babel /etc/splash/ || exit 1
+chown root:root /etc/splash/babel -R || exit 1
+echo "babel" > /etc/oem/splash_name || exit 1
+# update initramfs with new splash data
+for img in /boot/initramfs-genkernel-*; do
+	splash_geninitramfs -a "${img}" babel || exit 1
+done
+
+# copy background over
+cp /.mcs/background/* /usr/share/backgrounds/ -R || exit 1
+chown root:root /usr/share/background/ -R || exit 1
+# setup background in /etc/skel
+for file in `find /etc/skel -type f`; do
+	sed -i "s:/usr/share/backgrounds/sabayonlinux.jpg:/usr/share/backgrounds/background-mailware.jpg:g" "${file}"
+	sed -i "s:/usr/share/backgrounds/sabayonlinux.png:/usr/share/backgrounds/background-mailware.png:g" "${file}"
+done
+
 # setup Desktop icons
 rm /etc/skel/Desktop/*.desktop
 cp /usr/share/applications/keyboard.desktop /etc/skel/Desktop/ -p
