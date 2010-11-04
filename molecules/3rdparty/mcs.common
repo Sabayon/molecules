@@ -34,7 +34,7 @@ error_script: /sabayon/scripts/3rdparty/error_script_mcs.sh
 extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat
 
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
-pre_iso_script: /sabayon/scripts/generic_pre_iso_script.sh MCS
+pre_iso_script: /sabayon/scripts/3rdparty/mcs_pre_iso_script.sh
 
 # Destination directory for the ISO image path (MANDATORY)
 destination_iso_directory: /sabayon/iso
