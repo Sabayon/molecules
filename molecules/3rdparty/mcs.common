@@ -176,6 +176,7 @@ packages_to_add:
 	net-mail/cyrus-imapd,
 	www-servers/apache[threads],
 	www-servers/jboss-bin:4.2,
+	dev-java/jdbc-mysql,
 	net-mail/gnarwl,
 	dev-java/log4j,
 	dev-lang/erlang,
