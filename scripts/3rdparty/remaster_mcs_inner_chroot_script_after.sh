@@ -157,6 +157,8 @@ ln -s /usr/share/jdbc-mysql/lib/jdbc-mysql.jar /opt/jboss-bin-4.2/server/default
 sed -i "s:<password>password</password>:<password>mcsmanager</password>:g" /opt/jboss-bin-4.2/server/default/deploy/mailware-collaboration-mysql-ds.xml || exit 1
 sed -i "s:<password>password</password>:<password>mcsmanager</password>:g" /opt/jboss-bin-4.2/server/default/deploy/bedework-mysql-ds.xml || exit 1
 sed -i "s:org.bedework.global.jdbcpw=.*:org.bedework.global.jdbcpw=mcsmanager:g" /opt/jboss-bin-4.2/server/default/deploy/rpical.ear/properties/calendar/env.properties || exit 1
+sed -i "s:mailware1.babel.it:localhost:g" /opt/jboss-bin-4.2/server/default/deploy/*/WEB-INF/classes/mw-collaboration.properties || exit 1
+sed -i "s:mailware1:localhost:g" /opt/jboss-bin-4.2/server/default/deploy/*/WEB-INF/classes/mw-collaboration.properties || exit 1
 
 mkdir /maildirs || exit 1
 chown mail:mail /maildirs -R || exit 1
