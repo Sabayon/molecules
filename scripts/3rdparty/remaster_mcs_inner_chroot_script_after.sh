@@ -176,7 +176,7 @@ mkdir -p /home/jabber || exit 1
 chown jabber:jabber /home/jabber -R || exit 1
 
 # Copy babel configuration file over
-cp /.mcs/ejabberd.cfg /etc/jabber/ejabberd.cfg || exit 1
+cp /.mcs/ejabberd.cfg.vanilla.working /etc/jabber/ejabberd.cfg || exit 1
 chown root:jabber /etc/jabber/ejabberd.cfg || exit 1
 chmod 640 /etc/jabber/ejabberd.cfg || exit 1
 
