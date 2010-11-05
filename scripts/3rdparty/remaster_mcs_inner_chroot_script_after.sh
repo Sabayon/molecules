@@ -82,6 +82,7 @@ sed -i '/^#password/ s/#//g' /etc/mysql/my.cnf || exit 1
 echo "Setting up mysql"
 /etc/init.d/mysql start --nodeps || exit 1
 mysql -u root --password=mcsmanager -h localhost < /.mcs/mwsql.sql
+mysql -u root --password=mcsmanager -h localhost < /.mcs/mwsql-user.sql
 mysql -u root --password=mcsmanager -h localhost < /.mcs/bedework.sql
 /etc/init.d/mysql stop --nodeps
 
@@ -101,10 +102,17 @@ chmod 644 /etc/postfix/{main,master}.cf || exit 1
 chmod 755 /etc/postfix/ldapconf || exit 1
 chmod 644 /etc/postfix/ldapconf/*.cf || exit 1
 chown root:root /etc/postfix/ldapconf -R || exit 1
+( cd /etc/mail && newaliases ) || exit 1
+touch /etc/postfix/transport || exit 1
+( cd /etc/postfix && postmap hash:/etc/postfix/transport ) || exit 1
+mkdir /var/spool/filter || exit 1
+chown mail:mail /var/spool/filter || exit 1
+chmod 775 /var/spool/filter || exit 1
 # mmt_scripts
 cp /.mcs/mmt_scripts /usr/local/ -Rp || exit 1
 chown root:root /usr/local/mmt_scripts -R || exit 1
 chmod 755 /usr/local/mmt_scripts/* -R || exit 1
+chmod 755 /usr/local/mmt_scripts || exit 1
 
 # temp unpack jboss-deploy.tar.bz2
 echo "Unpacking jboss-deploy data"
@@ -142,6 +150,14 @@ chown root:root /etc/dirsrv/schema/*.ldif -R || exit 1
 cp /.mcs/mailware-sabayon-conf/web/WEB-INF/balance.xml /opt/jboss-bin-4.2/server/default/deploy/MailWare-Manager.war/WEB-INF/balance.xml || exit 1
 cp /.mcs/mailware-sabayon-conf/web/WEB-INF/conf/axis2.xml /opt/jboss-bin-4.2/server/default/deploy/MailWare-Manager.war/WEB-INF/conf/axis2.xml || exit 1
 
+# setup MySQL jdbc connector
+echo "setting up MySQL jdbc connector"
+ln -s /usr/share/jdbc-mysql/lib/jdbc-mysql.jar /opt/jboss-bin-4.2/server/default/lib/ || exit 1
+# setup MCS MySQL password
+sed -i "s:<password>password</password>:<password>mcsmanager</password>:g" /opt/jboss-bin-4.2/server/default/deploy/mailware-collaboration-mysql-ds.xml || exit 1
+sed -i "s:<password>password</password>:<password>mcsmanager</password>:g" /opt/jboss-bin-4.2/server/default/deploy/bedework-mysql-ds.xml || exit 1
+sed -i "s:org.bedework.global.jdbcpw=.*:org.bedework.global.jdbcpw=mcsmanager:g" /opt/jboss-bin-4.2/server/default/deploy/rpical.ear/properties/calendar/env.properties || exit 1
+
 mkdir /maildirs || exit 1
 chown mail:mail /maildirs -R || exit 1
 
@@ -149,6 +165,7 @@ chown mail:mail /maildirs -R || exit 1
 cp /.mcs/dovecot*.conf /etc/dovecot/ || exit 1
 chown root:root /etc/dovecot/dovecot*.conf || exit 1
 chmod 644 /etc/dovecot/dovecot*.conf || exit 1
+touch /etc/dovecot/passwd.masterusers || exit 1
 
 # Setup ejabberd, why do I need to enable shell for ejabberd-babel?
 usermod -s /bin/sh jabber || exit 1

@@ -178,6 +178,7 @@ packages_to_add:
 	www-servers/jboss-bin:4.2,
 	dev-java/jdbc-mysql,
 	net-mail/gnarwl,
+	dev-python/vobject,
 	dev-java/log4j,
 	dev-lang/erlang,
 	net-im/jabber-base,
