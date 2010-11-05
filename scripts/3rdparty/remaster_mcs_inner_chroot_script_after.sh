@@ -58,7 +58,7 @@ chown root:root /etc/init.d/oemsystem-default
 rc-update add oemsystem-default default
 
 # setup fqdn
-sed -i 's/sabayon/localhost.localdomain sabayon/g' /etc/hosts
+sed -i 's/sabayon/localhost.localdomain example.com sabayon/g' /etc/hosts
 sed -i 's/sabayon/localhost.localdomain/g' /etc/conf.d/hostname
 # setup fqdn in 389-admin, stop annoying apache crap
 sed -i '/^#ServerName/ s/.*/ServerName localhost.localdomain/g' /etc/dirsrv/admin-serv/httpd.conf || exit 1

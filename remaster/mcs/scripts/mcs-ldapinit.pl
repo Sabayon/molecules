@@ -53,6 +53,7 @@ sub create_calendar_ldif() {
 	 or  die("Cannot create $ldifFileName: ".$!);
 
   printf(FH "dn: uid=caladmin,ou=People,$dn\n");
+  printf(FH "changetype: add\n");
   printf(FH "businessCategory: sa\n");
   printf(FH "userPassword: $password\n");
   printf(FH "mail: caladmin\n");
@@ -70,6 +71,7 @@ sub create_calendar_ldif() {
   printf(FH "\n");
   printf(FH "\n");
   printf(FH "dn: uid=public-user,ou=People,$dn\n");
+  printf(FH "changetype: add\n");
   printf(FH "mail: public-user\n");
   printf(FH "uid: public-user\n");
   printf(FH "givenName: public\n");
@@ -81,6 +83,7 @@ sub create_calendar_ldif() {
   printf(FH "cn: public user\n");
   printf(FH "\n");
   printf(FH "dn: uid=realtime01,ou=People,$dn\n");
+  printf(FH "changetype: add\n");
   printf(FH "objectClass: top\n");
   printf(FH "objectClass: person\n");
   printf(FH "objectClass: organizationalPerson\n");
@@ -161,11 +164,13 @@ sub create_ldif() {
 	 foreach my $i   (split(/[, ]+/, $addressbooks)) {
 		printf(FH "# Create database and BackendInstance for storing personal contacts\n");
 		printf(FH "dn: cn=Addressbook%s,cn=ldbm database,cn=plugins,cn=config\n", $i);
+		printf(FH "changetype: add\n");
 		printf(FH "objectclass: extensibleObject\n");
 		printf(FH "objectclass: nsBackendInstance\n");
 		printf(FH "nsslapd-suffix: o=%s\n", $i);
 		printf(FH "\n");
 		printf(FH "dn: cn=\"o=%s\",cn=mapping tree,cn=config\n", $i);
+		printf(FH "changetype: add\n");
 		printf(FH "objectclass: top\n");
 		printf(FH "objectclass: extensibleObject\n");
 		printf(FH "objectclass: nsMappingTree\n");
@@ -174,12 +179,89 @@ sub create_ldif() {
 		printf(FH "cn: \"o=%s\"\n", $i);
 		printf(FH "\n");
 		printf(FH "dn: o=%s\n",$i);
+		printf(FH "changetype: add\n");
 		printf(FH "objectclass: top\n");
 		printf(FH "objectclass: organization\n");
 		printf(FH "o: %s\n", $i);
 		printf(FH "\n");
 	 }
   }
+
+  printf(FH "dn: o=example,node=$isola, $dn\n");
+  printf(FH "changetype: add\n");
+  printf(FH "maxusers: 1000\n");
+  printf(FH "aci: (targetattr=cn||userpassword||skypename||mailforwardingaddress||secretary||vacationstatus||vacationmessage||l||st||postalcode||postaladdress||telephonenumber||facsimiletelephonenumber||newuser||pwdreminderquestion||pwdreminderanswer)(version 3.0; acl \"SelfWrite\"; allow (read,write)(userdn=\"ldap:///self\");)\n");
+  printf(FH "aci: (targetattr = \"subschemaSubentry || companyUsedQuota\") (version 3.0;acl \"admin update used quota\";allow (read,compare,search,write)(roledn = \"ldap:///cn=admin role,o=example,node=$isola, $dn\");)\n");
+  printf(FH "companyUsedQuota: 0\n");
+  printf(FH "o: example\n");
+  printf(FH "companyQuota: 102400\n");
+  printf(FH "companyvatnumber: 1234567890\n");
+  printf(FH "objectClass: top\n");
+  printf(FH "objectClass: organization\n");
+  printf(FH "objectClass: babmwcompany\n");
+  printf(FH "maxsms: 10000\n");
+  printf(FH "maxfax: 10000\n");
+  printf(FH "\n");
+
+  printf(FH "dn: cn=admin role,o=example,node=$isola, $dn\n");
+  printf(FH "changetype: add\n");
+  printf(FH "objectClass: top\n");
+  printf(FH "objectClass: ldapsubentry\n");
+  printf(FH "objectClass: nsroledefinition\n");
+  printf(FH "objectClass: nscomplexroledefinition\n");
+  printf(FH "objectClass: nsfilteredroledefinition\n");
+  printf(FH "nsRoleFilter: (&(businesscategory=companymanager)(objectclass=inetorgperson)(objectclass=babmwcompany))\n");
+  printf(FH "cn: admin role\n");
+  printf(FH "\n");
+
+  printf(FH "dn: cn=cosindicator,o=example,node=$isola, $dn\n");
+  printf(FH "changetype: add\n");
+  printf(FH "aci: (targetattr = \"*\") (version 3.0;acl \"Company Manager Cos administrator\";allow (all)(roledn = \"ldap:///cn=admin role,o=example,node=$isola, $dn\");)\n");
+  printf(FH "objectClass: top\n");
+  printf(FH "objectClass: cossuperdefinition\n");
+  printf(FH "objectClass: cosindirectdefinition\n");
+  printf(FH "objectClass: ldapSubEntry\n");
+  printf(FH "cosAttribute: maildirquota\n");
+  printf(FH "cosAttribute: mailmaxmessagesize\n");
+  printf(FH "cosAttribute: maildirwarn1\n");
+  printf(FH "cosAttribute: maildirwarn2\n");
+  printf(FH "cosAttribute: maildirwarn3\n");
+  printf(FH "cosAttribute: smsenabled\n");
+  printf(FH "cosAttribute: faxenabled\n");
+  printf(FH "cosAttribute: imenabled\n");
+  printf(FH "cosAttribute: syncmlenabled\n");
+  printf(FH "cosAttribute: gigaenabled\n");
+  printf(FH "cosAttribute: mailcollectorenabled\n");
+  printf(FH "cosIndirectSpecifier: manager\n");
+  printf(FH "cn: cosindicator\n");
+  printf(FH "\n");
+
+  printf(FH "dn: dc=example.com,o=example,node=$isola, $dn\n");
+  printf(FH "changetype: add\n");
+  printf(FH "dc: example.com\n");
+  printf(FH "calCalURI: http://localhost:8080/ucaldav/\n");
+  printf(FH "objectClass: top\n");
+  printf(FH "objectClass: domain\n");
+  printf(FH "objectClass: babmwcompany\n");
+  printf(FH "objectClass: calentry\n");
+  printf(FH "\n");
+
+  printf(FH "dn: ou=People,dc=example.com,o=example,node=$isola, $dn\n");
+  printf(FH "changetype: add\n");
+  printf(FH "aci: (targetattr = \"*\") (version 3.0;acl \"Company Manager People\";allow (all)(roledn = \"ldap:///cn=admin role,o=example,node=$isola, $dn\");)\n");
+  printf(FH "ou: People\n");
+  printf(FH "objectClass: top\n");
+  printf(FH "objectClass: organizationalunit\n");
+  printf(FH "\n");
+
+  printf(FH "dn: ou=Groups,dc=example.com,o=example,node=$isola, $dn\n");
+  printf(FH "changetype: add\n");
+  printf(FH "aci: (targetattr = \"*\") (version 3.0;acl \"Company Manager Groups\";allow (all)(roledn = \"ldap:///cn=admin role,o=example,node=$isola, $dn\");)\n");
+  printf(FH "ou: Groups\n");
+  printf(FH "objectClass: top\n");
+  printf(FH "objectClass: organizationalunit\n");
+  printf(FH "\n");
+
   close(FH);
 }
 

@@ -363,7 +363,7 @@
 %%
 %%{acl, admin, {user, "aleksey", "localhost"}}.
 %%{acl, admin, {user, "ermine", "example.org"}}.
-{acl, admin, {user, "admin", "mailwaretest.com"}}.
+{acl, admin, {user, "admin", "example.com"}}.
 {acl, admin, {user, "admin", "localhost.localdomain"}}.
 
 %%
