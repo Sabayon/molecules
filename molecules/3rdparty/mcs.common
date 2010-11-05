@@ -182,7 +182,7 @@ packages_to_add:
 	dev-java/log4j,
 	dev-lang/erlang,
 	net-im/jabber-base,
-	net-im/ejabberd-babel
+	net-im/ejabberd
 
 # Custom shell call to packages add (default is: equo install)
 custom_packages_add_cmd: equo install --relaxed
