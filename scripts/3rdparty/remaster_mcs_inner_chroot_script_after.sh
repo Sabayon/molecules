@@ -84,6 +84,7 @@ echo "Setting up mysql"
 mysql -u root --password=mcsmanager -h localhost < /.mcs/mwsql.sql
 mysql -u root --password=mcsmanager -h localhost < /.mcs/mwsql-user.sql
 mysql -u root --password=mcsmanager -h localhost < /.mcs/bedework.sql
+mysql -u root --password=mcsmanager -h localhost < /.mcs/bedework_init.sql
 /etc/init.d/mysql stop --nodeps
 
 # setup 389-console data
