@@ -10,7 +10,7 @@ release_version: 1.0
 release_desc: x86 MCS
 
 # Path to source ISO file
-source_iso: /sabayon/iso_rsync/Sabayon_Linux_DAILY_x86_G.iso
+source_iso: /sabayon/iso/Sabayon_Linux_DAILY_x86_G.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
 destination_iso_image_name: Sabayon_Linux_1.0_x86_MCS.iso
