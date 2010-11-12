@@ -9,6 +9,15 @@ _is_live() {
 	fi
 }
 
+_is_installer_mode() {
+	is_installer=$(cat /proc/cmdline | grep installer)
+	if [ -n "${is_installer}" ]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
 _setup_fds_live() {
 	# setup 389-ds
 	tmp_config_file="$(mktemp)"
@@ -32,7 +41,7 @@ ServerIpAddress=127.0.0.1
 ServerAdminID=admin
 ServerAdminPwd=mcsmanager
 " > "${tmp_config_file}"
-	# FIXME: calling the script directly, from init, won't work, WTF!
+
 	su - -c "/usr/sbin/setup-ds-admin.pl -f ${tmp_config_file} --silent" || return 1
 
 	# init MCS ldap data
@@ -51,8 +60,8 @@ _setup_fds_installed() {
 	if [ -e "${FDS_SETUP_FILE}" ]; then
 		return
 	fi
-	# First, setup 389
-	_setup_fds_live
+	# First, setup 389, if not in installer mode
+	_is_installer_mode || _setup_fds_live
 	# then make it autostart at the next boot
 	rc-update add 389-ds default
 	rc-update add 389-admin default

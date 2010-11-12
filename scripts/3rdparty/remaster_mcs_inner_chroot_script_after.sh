@@ -143,6 +143,10 @@ chown jboss:jboss /opt/jboss-bin-4.2/server/default/conf/login-config.xml || exi
 cp /.mcs/mailware-jboss-conf/jboss-log4j.xml /opt/jboss-bin-4.2/server/default/conf/jboss-log4j.xml || exit 1
 chown jboss:jboss /opt/jboss-bin-4.2/server/default/conf/jboss-log4j.xml || exit 1
 
+# temp fix (waiting for updated pkgs) for 389-ds dir perms
+chmod 755 /var/lock/dirsrv || exit 1
+chmod 755 /var/lib/dirsrv || exit 1
+
 # setup 389 schema
 cp /.mcs/389-mailware-schema/* /etc/dirsrv/schema/ || exit 1
 chown root:root /etc/dirsrv/schema/*.ldif -R || exit 1
