@@ -29,6 +29,7 @@ for file in `find /etc/skel -type f`; do
 	sed -i "s:/usr/share/backgrounds/sabayonlinux.jpg:/usr/share/backgrounds/background-mailware.jpg:g" "${file}"
 	sed -i "s:/usr/share/backgrounds/sabayonlinux.png:/usr/share/backgrounds/background-mailware.png:g" "${file}"
 done
+sed -i "s:/usr/share/backgrounds/sabayonlinux.png:/usr/share/backgrounds/background-mailware.png:g" /etc/init.d/installer-gui
 
 # setup Desktop icons
 rm /etc/skel/Desktop/*.desktop
