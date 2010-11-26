@@ -114,6 +114,9 @@ if [ "$1" = "lxde" ]; then
 	sed -i 's/pcmanfm -d/pcmanfm -d --desktop/g' /etc/xdg/lxsession/LXDE/autostart
 	setup_cpufrequtils
 elif [ "$1" = "e17" ]; then
+	# We prefer using connman on E17 now
+	rc-update del NetworkManager default
+	rc-update add connman default
 	# Fix ~/.dmrc to have it load E17
         echo "[Desktop]" > /etc/skel/.dmrc
         echo "Session=enlightenment" >> /etc/skel/.dmrc
