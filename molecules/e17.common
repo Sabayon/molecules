@@ -63,7 +63,7 @@ packages_to_add:
 	net-dialup/rp-pppoe,
 	net-im/emesene,
 	net-irc/xchat,
-	net-misc/wicd,
+	net-misc/connman,
         sys-apps/gpu-detector,
         sys-auth/consolekit,
 	sys-fs/ntfs3g,
