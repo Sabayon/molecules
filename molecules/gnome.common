@@ -111,7 +111,6 @@ packages_to_add:
 	media-plugins/alsa-plugins,
 	media-sound/audacious,
 	media-sound/padevchooser,
-	media-sound/paman,
 	media-sound/pavucontrol,
 	media-sound/pavumeter,
 	media-tv/afatech9005-firmware,
