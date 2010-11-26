@@ -18,10 +18,6 @@ rc-update del hald boot
 rc-update del hald
 rc-update add hald boot
 
-rc-update del NetworkManager default
-rc-update del NetworkManager
-rc-update add NetworkManager default
-
 rc-update del music boot
 rc-update add music default
 
@@ -105,6 +101,9 @@ gforensic_remove_skel_stuff() {
 }
 
 if [ "$1" = "lxde" ]; then
+	rc-update del NetworkManager default
+	rc-update del NetworkManager
+	rc-update add NetworkManager default
 	# Fix ~/.dmrc to have it load LXDE
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=LXDE" >> /etc/skel/.dmrc
@@ -130,6 +129,9 @@ elif [ "$1" = "e17" ]; then
 	echo 'gtk-icon-theme-name="Tango" gtk-theme-name="Xfce"' | tr " " "\n" > /etc/skel/.gtkrc-2.0
 	setup_cpufrequtils
 elif [ "$1" = "xfce" ]; then
+        rc-update del NetworkManager default
+        rc-update del NetworkManager
+        rc-update add NetworkManager default
 	# Fix ~/.dmrc to have it load XFCE
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=xfce" >> /etc/skel/.dmrc
@@ -137,6 +139,9 @@ elif [ "$1" = "xfce" ]; then
 	setup_cpufrequtils
 	setup_displaymanager
 elif [ "$1" = "fluxbox" ]; then
+        rc-update del NetworkManager default
+        rc-update del NetworkManager
+        rc-update add NetworkManager default
 	# Fix ~/.dmrc to have it load Fluxbox
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=fluxbox" >> /etc/skel/.dmrc
@@ -144,6 +149,9 @@ elif [ "$1" = "fluxbox" ]; then
 	setup_displaymanager
 	setup_cpufrequtils
 elif [ "$1" = "gnome" ]; then
+        rc-update del NetworkManager default
+        rc-update del NetworkManager
+        rc-update add NetworkManager default
 	# Fix ~/.dmrc to have it load GNOME
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=gnome" >> /etc/skel/.dmrc
@@ -153,6 +161,9 @@ elif [ "$1" = "gnome" ]; then
 	setup_displaymanager
 	setup_sabayon_mce
 elif [ "$1" = "gforensic" ]; then
+        rc-update del NetworkManager default
+        rc-update del NetworkManager
+        rc-update add NetworkManager default
 	# Fix ~/.dmrc to have it load GNOME
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=gnome" >> /etc/skel/.dmrc
@@ -163,6 +174,9 @@ elif [ "$1" = "gforensic" ]; then
 	setup_sabayon_mce
 	gforensic_remove_skel_stuff
 elif [ "$1" = "kde" ]; then
+        rc-update del NetworkManager default
+        rc-update del NetworkManager
+        rc-update add NetworkManager default
 	# Fix ~/.dmrc to have it load KDE
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=KDE-4" >> /etc/skel/.dmrc
