@@ -211,6 +211,7 @@ fi
 if [ ! -d "/var/log/clamav" ]; then
 	mkdir -p /var/log/clamav
 	chown clamav:clamav /var/log/clamav
+        chown -R clamav /var/run/clamav
 fi
 touch /var/log/clamav/freshclam.log
 chown clamav:clamav /var/log/clamav -R

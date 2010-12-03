@@ -88,7 +88,8 @@ packages_to_add: sys-apps/slocate, media-fonts/droid, gnome-base/gvfs, app-misc/
 app-forensics/rkhunter, app-forensics/sleuthkit, app-antivirus/clamav, app-antivirus/clamtk, app-forensics/autopsy, app-forensics/mac-robber, 
 app-forensics/aide, app-forensics/rdd, app-crypt/chntpw, media-video/vlc, x11-wm/awesome, net-libs/libnet, net-libs/netwib, net-analyzer/traceroute, 
 media-gfx/picasa, app-admin/testdisk, app-crypt/fcrackzip, app-crypt/johntheripper, sys-fs/extundelete, app-forensics/magicrescue, app-crypt/ophcrack, 
-app-crypt/ophcrack-tables, net-analyzer/nmap, net-analyzer/netcat6, net-irc/irssi
+app-crypt/ophcrack-tables, net-analyzer/nmap, net-analyzer/netcat6, net-irc/irssi, 
+net-analyzer/wireshark, net-analyzer/tcpdump
 
 # Custom shell call to packages add (default is: equo install)
 # custom_packages_add_cmd:
