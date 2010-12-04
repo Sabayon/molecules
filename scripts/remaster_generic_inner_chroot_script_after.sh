@@ -124,6 +124,8 @@ elif [ "$1" = "e17" ]; then
         echo "[Desktop]" > /etc/skel/.dmrc
         echo "Session=enlightenment" >> /etc/skel/.dmrc
         remove_desktop_files
+	# E17 spin has chromium installed
+	rm /etc/skel/Desktop/mozilla-firefox-3.desktop
 	setup_displaymanager
 	# Not using lxdm for now
 	# TODO: improve the lines below
