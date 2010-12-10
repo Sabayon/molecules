@@ -17,10 +17,15 @@ echo.
 
 set DRIVE=%CD:~0,1%
 
-set KERNEL=sabayon
-set INITRD=sabayon.igz
-set KERNEL_ARGS=root=/dev/ram0 initrd=/boot/sabayon.igz aufs init=/linuxrc cdroot looptype=squashfs max_loop=64 loop=/livecd.squashfs splash=silent,theme:sabayon vga=791 console=tty1 quiet music
-set SYSLINUX=boot
-
 rem Start QEMU
-start /B %DRIVE%:\qemu\qemu.exe -m 640M -localtime -soundhw sb16 -usb -L %DRIVE%:\qemu -hda fat:%DRIVE%: -kernel %DRIVE%:\%SYSLINUX%\%KERNEL% -initrd %DRIVE%:\%SYSLINUX%\%INITRD% -append "%KERNEL_ARGS%"
+
+if "%PROCESSOR_ARCHITECTURE%"=="AMD64" goto 64BIT
+
+rem 32bit
+start /B %DRIVE%:\qemu\qemu.exe -m 768M -localtime -soundhw sb16 -usb -L %DRIVE%:\qemu -cdrom %DRIVE%:
+goto END
+
+:64BIT
+start /B %DRIVE%:\qemu\qemu-system-x86_64.exe -m 768M -localtime -soundhw sb16 -usb -L %DRIVE%:\qemu -cdrom %DRIVE%:
+
+:END

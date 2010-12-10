@@ -1,0 +1,3 @@
+dsound: Could not initialize DirectSound
+dsound: Reason: No sound driver is available for use, or the given GUID is not a valid DirectSound device ID
+audio: Could not init `dsound' audio driver
