@@ -182,7 +182,10 @@ packages_to_add:
 	dev-java/log4j,
 	dev-lang/erlang,
 	net-im/jabber-base,
-	net-im/ejabberd
+	net-im/ejabberd,
+	dev-python/python-dateutil,
+	dev-python/vobject,
+	dev-python/python-ldap
 
 # Custom shell call to packages add (default is: equo install)
 custom_packages_add_cmd: equo install --relaxed
