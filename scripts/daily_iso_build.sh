@@ -158,6 +158,6 @@ else
 fi
 
 CUR_DAY=$(date -u +%d)
-if [ "${CUR_DAY}" = "01" ]; then 
+if [ "${CUR_DAY}" = "01" ]; then
 	rm -rf /sabayon/pkgcache/*
 fi
