@@ -9,7 +9,7 @@
 rm /etc/skel/Desktop/xbmc.desktop || exit 1
 
 # Copy games icons on the desktop
-for desktop_file in $(grep -rl "Categories=Game" /usr/share/applications/*); do
+for desktop_file in $(grep -rl "Categories=.*Game" /usr/share/applications/*); do
 	desktop_name=$(basename "${desktop_file}")
 	cp "${desktop_file}" "/etc/skel/Desktop/${desktop_name}" || exit 1
 	chmod 755 "/etc/skel/Desktop/${desktop_name}" || exit 1
