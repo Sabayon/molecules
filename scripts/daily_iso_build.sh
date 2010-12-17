@@ -52,6 +52,8 @@ REMASTER_SPECS=(
 	"sabayon-amd64-serverbase.spec"
 	"sabayon-x86-serverbase.spec"
 	"sabayon-x86-gforensic.spec"
+	"sabayon-amd64-gaming.spec"
+	"sabayon-x86-gaming.spec"
 )
 REMASTER_SPECS_ISO=(
 	"Sabayon_Linux_DAILY_amd64_G.iso"
@@ -69,6 +71,8 @@ REMASTER_SPECS_ISO=(
 	"Sabayon_Linux_ServerBase_DAILY_amd64.iso"
 	"Sabayon_Linux_ServerBase_DAILY_x86.iso"
 	"Sabayon_Linux_Gforensic_DAILY_x86.iso"
+	"Sabayon_Linux_DAILY_amd64_Gaming.iso"
+	"Sabayon_Linux_DAILY_x86_Gaming.iso"
 )
 
 REMASTER_OPENVZ_SPECS=(
