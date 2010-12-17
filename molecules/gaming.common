@@ -20,8 +20,7 @@ inner_chroot_script: /sabayon/scripts/remaster_generic_inner_chroot_script.sh
 
 # Inner chroot script command, to be executed inside destination chroot after
 # packages installation and removal
-# XXX - not needed
-# inner_chroot_script_after: /sabayon/scripts/remaster_generic_inner_chroot_script_after.sh gnome
+inner_chroot_script_after: /sabayon/scripts/remaster_gaming_inner_chroot_script_after.sh
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and AFTER inner_chroot_script)
@@ -39,8 +38,6 @@ destination_iso_directory: /sabayon/iso
 # List of packages that would be removed from chrooted system (comma separated)
 # packages_to_remove:
 
-#	games-strategy/spring,
-#	games-util/springlobby,
 #	games-simulation/flightgear,
 #	games-strategy/warzone2100,
 
@@ -61,47 +58,52 @@ packages_to_add:
 	games-strategy/0ad,
 	games-strategy/freeciv,
 	games-strategy/scorched3d,
+	games-strategy/spring,
 	games-strategy/wormux,
 	games-strategy/wesnoth,
 	games-sports/foobillard,
 	games-sports/torcs,
+	games-util/springlobby,
 	gnome-extra/gnome-games
 
 packages_to_remove:
-	app-office/openoffice,
-	app-text/libwpd,
-	media-libs/libwpg,
-	media-libs/vigra,
-	media-gfx/gimp,
-	media-libs/gegl,
-	media-libs/babl,
-	net-print/footmatic-db-ppds,
-	mail-client/evolution,
 	app-crypt/gnupg,
-	app-pda/pilot-link,
-	gnome-extra/gtkhtml,
-	app-pda/gnome-pilot,
-	net-print/foomatic-filters-ppds,
-	app-editors/gedit,
-	net-p2p/deluge,
-	net-libs/rb_libtorrent,
-	dev-python/pygame,
-	dev-python/twisted,
-	media-video/dirac,
-	media-video/mplayer,
-	media-plugins/live,
-	dev-util/cppunit,
-	media-libs/netpbm,
-	app-emulation/wine,
-	gnome-extra/gnome-utils,
 	app-dicts/myspell-de,
 	app-dicts/myspell-en,
 	app-dicts/myspell-es,
 	app-dicts/myspell-fr,
 	app-dicts/myspell-it,
 	app-dicts/myspell-nl,
+	app-editors/gedit,
+	app-emulation/wine,
+	app-office/openoffice,
+	app-pda/gnome-pilot,
+	app-pda/pilot-link,
+	app-text/libwpd,
+	dev-db/mysql,
+	dev-python/pygame,
+	dev-python/twisted,
+	dev-java/sun-jre-bin,
+	dev-util/cppunit,
+	dev-vcs/subversion,
 	gnome-base/gnome-shell,
-	dev-vcs/subversion
+	gnome-extra/gnome-utils,
+	gnome-extra/gtkhtml,
+	mail-client/evolution,
+	media-libs/babl,
+	media-libs/gegl,
+	media-libs/libwpg,
+	media-libs/netpbm,
+	media-libs/vigra,
+	media-gfx/gimp,
+	media-plugins/live,
+	media-tv/xbmc,
+	media-video/dirac,
+	media-video/mplayer,
+	net-libs/rb_libtorrent,
+	net-p2p/deluge,
+	net-print/foomatic-db-ppds,
+	net-print/foomatic-filters-ppds,
 
 # Custom shell call to packages add (default is: equo install)
 # custom_packages_add_cmd: 
