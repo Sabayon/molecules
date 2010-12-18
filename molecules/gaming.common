@@ -39,7 +39,8 @@ destination_iso_directory: /sabayon/iso
 # packages_to_remove:
 
 #	games-simulation/flightgear,
-#	games-strategy/warzone2100,
+#	games-fps/tremulous,
+#	games-sports/torcs,
 
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
@@ -48,9 +49,8 @@ packages_to_add:
 	games-arcade/mars-bin,
 	games-fps/nexuiz,
 	games-fps/freedoom,
-	games-fps/warsow,
 	games-fps/alienarena,
-	games-fps/tremulous,
+	games-fps/warsow,
 	games-puzzle/neverball,
 	games-puzzle/pingus,
 	games-simulation/micropolis,
@@ -59,10 +59,10 @@ packages_to_add:
 	games-strategy/freeciv,
 	games-strategy/scorched3d,
 	games-strategy/spring,
+	games-strategy/warzone2100,
 	games-strategy/wormux,
 	games-strategy/wesnoth,
 	games-sports/foobillard,
-	games-sports/torcs,
 	games-util/springlobby,
 	gnome-extra/gnome-games
 
