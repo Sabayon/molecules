@@ -76,7 +76,6 @@ packages_to_add:
 	x11-themes/gtk-engines-xfce,
 	x11-themes/tango-icon-theme,
 	x11-themes/gnome-icon-theme,
-	x11-themes/gtk2-E17-bling,
 	x11-themes/gtk-engines,
 	x11-themes/sabayon-artwork-gnome
 
