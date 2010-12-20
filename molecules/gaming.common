@@ -45,7 +45,6 @@ packages_to_add:
 	games-arcade/stepmania,
 	games-arcade/mars-bin,
 	games-fps/nexuiz,
-	games-fps/freedoom,
 	games-fps/alienarena,
 	games-fps/tremulous,
 	games-fps/warsow,
