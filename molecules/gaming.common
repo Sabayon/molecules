@@ -24,7 +24,7 @@ inner_chroot_script_after: /sabayon/scripts/remaster_gaming_inner_chroot_script_
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and AFTER inner_chroot_script)
-outer_chroot_script_after: /sabayon/scripts/remaster_post.sh
+outer_chroot_script_after: /sabayon/scripts/gaming_remaster_post.sh
 
 # Extra mkisofs parameters, perhaps something to include/use your bootloader
 # IMPORTANT NOTE: -allow-limited-size is only supported by cdrkit provided mkisofs.
