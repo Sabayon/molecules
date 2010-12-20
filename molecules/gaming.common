@@ -52,7 +52,6 @@ packages_to_add:
 	games-puzzle/pingus,
 	games-simulation/micropolis,
 	games-simulation/simutrans,
-	games-simulation/flightgear,
 	games-strategy/0ad,
 	games-strategy/freeciv,
 	games-strategy/scorched3d,
