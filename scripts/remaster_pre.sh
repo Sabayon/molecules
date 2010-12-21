@@ -5,9 +5,10 @@ CHROOT_PKGS_DIR="${CHROOT_DIR}/var/lib/entropy/client/packages"
 [[ ! -d "${PKGS_DIR}" ]] && mkdir -p "${PKGS_DIR}"
 [[ ! -d "${CHROOT_PKGS_DIR}" ]] && mkdir -p "${CHROOT_PKGS_DIR}"
 
-echo "Mounting packages over"
+# make sure it's all clean before mounting
 rm -rf "${CHROOT_PKGS_DIR}"/*
-cp ${PKGS_DIR}/* "${CHROOT_PKGS_DIR}"/ -Ra
+echo "Mounting bind to ${CHROOT_PKGS_DIR}"
+mount --bind "${PKGS_DIR}" "${CHROOT_PKGS_DIR}" || exit 1
 
 mount -t proc proc "${CHROOT_DIR}/proc"
 

@@ -7,8 +7,7 @@ umount "${CHROOT_DIR}/proc" &> /dev/null
 umount "${CHROOT_DIR}/proc" &> /dev/null
 umount "${CHROOT_DIR}/proc" &> /dev/null
 
-echo "Merging back packages"
-cp "${CHROOT_PKGS_DIR}"/* "${PKGS_DIR}"/ -Ra
-rm -rf "${CHROOT_PKGS_DIR}"{,-nonfree,-restricted}/*
+echo "Umounting bind to ${CHROOT_PKGS_DIR}"
+umount "${CHROOT_PKGS_DIR}" || exit 1
 
 exit 0
