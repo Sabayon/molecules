@@ -16,4 +16,12 @@ for desktop_file in $(grep -rl "Categories=.*Game" /usr/share/applications/*); d
 	chown root "/etc/skel/Desktop/${desktop_name}" || exit 1
 done
 
+echo -5 | equo conf update
+
+rm /var/lib/entropy/client/database/*/sabayonlinux.org -rf
+equo rescue vacuum
+# cleanup logs and cache
+rm /var/lib/entropy/logs -rf
+rm -rf /var/lib/entropy/*cache*
+
 exit 0
