@@ -196,8 +196,7 @@ if [ -n "${SHIP_NVIDIA_LEGACY}" ]; then
 
 	rm -rf /var/lib/entropy/client/packages/packages*/${mydir}/*/x11-drivers*
 	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-drivers-173*$kernel_tag
-	# not working with >=xorg-server-1.8
-	# ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-drivers-96*$kernel_tag
+	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-drivers-96*$kernel_tag
 	# not working with >=xorg-server-1.5
 	# ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps ~x11-drivers/nvidia-drivers-71.86.*$kernel_tag
 	mv /var/lib/entropy/client/packages/packages-nonfree/${mydir}/*/x11-drivers\:nvidia-drivers*.tbz2 /install-data/drivers/
