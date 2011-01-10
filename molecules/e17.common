@@ -67,7 +67,7 @@ packages_to_add:
 	net-dialup/rp-pppoe,
 	net-im/emesene,
 	net-irc/xchat,
-	net-misc/connman,
+	gnome-extra/nm-applet,
         sys-apps/gpu-detector,
         sys-auth/consolekit,
 	sys-fs/ntfs3g,
