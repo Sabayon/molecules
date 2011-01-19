@@ -67,7 +67,7 @@ packages_to_add:
 	sys-auth/consolekit,
 	sys-fs/ntfs3g,
 	sys-power/cpufrequtils,
-	www-client/firefox,
+	www-client/midori,
 	x11-terms/xterm,
 	x11-drivers/xf86-video-virtualbox,
 	x11-misc/magneto-gtk,
