@@ -253,6 +253,7 @@ packages_to_add:
 	kde-misc/kio-sysinfo,
 	kde-misc/knetworkmanager,
 	kde-misc/magneto-kde,
+	kde-misc/synaptiks,
 	kde-misc/yakuake,
 	media-fonts/ttf-bitstream-vera,
 	media-fonts/dejavu,
