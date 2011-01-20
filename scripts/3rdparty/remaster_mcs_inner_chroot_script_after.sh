@@ -40,7 +40,6 @@ chmod +x /etc/skel/Desktop/*
 chown root:root /etc/skel/Desktop -R
 
 # Setup Firefox
-rm /etc/skel/.mozilla/firefox/*/bookmarks.html
 for file in `find /etc/skel/.mozilla -name prefs.js`; do
 	sed -i 's:sabayon.org:babel.it:g' "${file}"
 done
