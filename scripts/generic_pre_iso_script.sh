@@ -20,7 +20,7 @@ cp "${isolinux_source}" "${isolinux_destination}" || exit 1
 
 ver=${RELEASE_VERSION}
 [[ -z "${ver}" ]] && ver=${CUR_DATE}
-[[ -z "${ver}" ]] && ver="5.4"
+[[ -z "${ver}" ]] && ver="5.5"
 
 sed -i "s/__VERSION__/${ver}/g" "${isolinux_destination}"
 sed -i "s/__FLAVOUR__/${remaster_type}/g" "${isolinux_destination}"

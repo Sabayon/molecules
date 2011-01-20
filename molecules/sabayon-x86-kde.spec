@@ -4,7 +4,7 @@
 prechroot: linux32
 
 # Release Version
-release_version: 5.4
+release_version: 5.5
 
 # Release Version string description
 release_desc: x86 KDE
@@ -13,4 +13,4 @@ release_desc: x86 KDE
 source_iso: /sabayon/iso/Sabayon_Linux_SpinBase_DAILY_x86.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-destination_iso_image_name: Sabayon_Linux_5.4_x86_K.iso
+destination_iso_image_name: Sabayon_Linux_5.5_x86_K.iso
