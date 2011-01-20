@@ -236,6 +236,7 @@ packages_to_add:
 	kde-base/libplasmagenericshell,
 	kde-base/libtaskmanager,
 	kde-base/mplayerthumbs,
+	kde-base/gwenview,
 	kde-base/okular,
 	kde-base/oxygen-icons,
 	kde-base/phonon-kde,
