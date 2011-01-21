@@ -49,6 +49,8 @@ packages_to_add:
 	@xfce,
 	@fluxbox,
 	app-admin/sulfur,
+	app-arch/unrar,
+	app-arch/xarchiver,
 	app-cdr/xfburn,
 	app-crypt/gnupg,
         app-crypt/pinentry-gtk2,
