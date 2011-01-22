@@ -75,7 +75,13 @@ packages_to_add:
 	x11-misc/magneto-gtk,
 	x11-terms/terminal,
 	x11-themes/tango-icon-theme,
-	xfce-extra/xfce4-mixer
+	xfce-extra/xfce4-mixer,
+	xfce-base/xfce4-panel
+
+# NOTE: xfce-base/xfce4-panel addition is a workaround
+# to current Entropy limitations in or-dependencies
+# calculation (it makes nm-applet choose xfce4-panel
+# instead of gnome-panel)
 
 # Custom shell call to packages add (default is: equo install)
 # custom_packages_add_cmd: 
