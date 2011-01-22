@@ -104,6 +104,38 @@ gforensic_remove_skel_stuff() {
 	rm /etc/skel/.kderc
 }
 
+setup_oss_gfx_drivers() {
+	# do not tweak eselect mesa, keep defaults
+
+	# This file is polled by the isolinux.cfg setup script
+	touch /.enable_kms
+}
+
+setup_proprietary_gfx_drivers() {
+	# Prepare NVIDIA legacy drivers infrastructure
+
+	if [ ! -d "/install-data/drivers" ]; then
+		mkdir -p /install-data/drivers
+	fi
+	myuname=$(uname -m)
+	mydir="x86"
+	if [ "$myuname" == "x86_64" ]; then
+		mydir="amd64"
+	fi
+	kernel_tag="#$(equo match --installed -qv sys-kernel/linux-sabayon | sort | head -n 1 | cut -d"-" -f 4 | sed 's/ //g')-sabayon"
+
+	rm -rf /var/lib/entropy/client/packages/packages*/${mydir}/*/x11-drivers*
+	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-drivers-173*$kernel_tag
+	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-drivers-96*$kernel_tag
+	# not working with >=xorg-server-1.5
+	# ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps ~x11-drivers/nvidia-drivers-71.86.*$kernel_tag
+	mv /var/lib/entropy/client/packages/packages-nonfree/${mydir}/*/x11-drivers\:nvidia-drivers*.tbz2 /install-data/drivers/
+
+	# if we ship with ati-drivers, we have KMS disabled by default.
+	# and better set driver arch to classic
+	eselect mesa set r600 classic
+}
+
 if [ "$1" = "lxde" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load LXDE
@@ -114,6 +146,7 @@ if [ "$1" = "lxde" ]; then
 	# properly tweak lxde autostart tweak, adding --desktop option
 	sed -i 's/pcmanfm -d/pcmanfm -d --desktop/g' /etc/xdg/lxsession/LXDE/autostart
 	setup_cpufrequtils
+	setup_oss_gfx_drivers
 elif [ "$1" = "e17" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load E17
@@ -129,6 +162,7 @@ elif [ "$1" = "e17" ]; then
 	# Fix ~/.gtkrc-2.0 for some nice icons in gtk
 	echo 'gtk-icon-theme-name="Tango" gtk-theme-name="Xfce"' | tr " " "\n" > /etc/skel/.gtkrc-2.0
 	setup_cpufrequtils
+	setup_oss_gfx_drivers
 elif [ "$1" = "xfce" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load XFCE
@@ -137,6 +171,7 @@ elif [ "$1" = "xfce" ]; then
 	remove_desktop_files
 	setup_cpufrequtils
 	setup_displaymanager
+	setup_oss_gfx_drivers
 elif [ "$1" = "fluxbox" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Fluxbox
@@ -145,57 +180,36 @@ elif [ "$1" = "fluxbox" ]; then
 	remove_desktop_files
 	setup_displaymanager
 	setup_cpufrequtils
+	setup_oss_gfx_drivers
 elif [ "$1" = "gnome" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load GNOME
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=gnome" >> /etc/skel/.dmrc
-	SHIP_NVIDIA_LEGACY="1"
 	rc-update del system-tools-backends boot
 	rc-update add system-tools-backends default
 	setup_displaymanager
 	setup_sabayon_mce
+	setup_proprietary_gfx_drivers
 elif [ "$1" = "gforensic" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load GNOME
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=gnome" >> /etc/skel/.dmrc
-	SHIP_NVIDIA_LEGACY="1"
 	rc-update del system-tools-backends boot
 	rc-update add system-tools-backends default
 	setup_displaymanager
 	setup_sabayon_mce
 	gforensic_remove_skel_stuff
+	setup_proprietary_gfx_drivers
 elif [ "$1" = "kde" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load KDE
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=KDE-4" >> /etc/skel/.dmrc
-	SHIP_NVIDIA_LEGACY="1"
 	setup_displaymanager
 	setup_sabayon_mce
-fi
-
-if [ -n "${SHIP_NVIDIA_LEGACY}" ]; then
-	# Prepare NVIDIA legacy drivers infrastructure
-
-	if [ ! -d "/install-data/drivers" ]; then
-        	mkdir -p /install-data/drivers
-	fi
-	myuname=$(uname -m)
-	mydir="x86"
-	if [ "$myuname" == "x86_64" ]; then
-        	mydir="amd64"
-	fi
-	kernel_tag="#$(equo match --installed -qv sys-kernel/linux-sabayon | sort | head -n 1 | cut -d"-" -f 4 | sed 's/ //g')-sabayon"
-
-	rm -rf /var/lib/entropy/client/packages/packages*/${mydir}/*/x11-drivers*
-	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-drivers-173*$kernel_tag
-	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-drivers-96*$kernel_tag
-	# not working with >=xorg-server-1.5
-	# ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps ~x11-drivers/nvidia-drivers-71.86.*$kernel_tag
-	mv /var/lib/entropy/client/packages/packages-nonfree/${mydir}/*/x11-drivers\:nvidia-drivers*.tbz2 /install-data/drivers/
-
+	setup_proprietary_gfx_drivers
 fi
 
 # !!! THERE IS A BUG IN THE CLAMAV EBUILD !!!

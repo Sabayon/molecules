@@ -25,11 +25,19 @@ ver=${RELEASE_VERSION}
 sed -i "s/__VERSION__/${ver}/g" "${isolinux_destination}"
 sed -i "s/__FLAVOUR__/${remaster_type}/g" "${isolinux_destination}"
 
+kms_string=""
+# should KMS be enabled?
+if [ -f "${CHROOT_DIR}/.enable_kms" ]; then
+	rm "${CHROOT_DIR}/.enable_kms"
+	kms_string="radeon.modeset=1"
+fi
+sed -i "s/__KMS__/${kms_string}/g" "${isolinux_destination}"
+
 sabayon_pkgs_file="${CHROOT_DIR}/etc/sabayon-pkglist"
 if [ -f "${sabayon_pkgs_file}" ]; then
 	cp "${sabayon_pkgs_file}" "${CDROOT_DIR}/pkglist"
         if [ -n "${ISO_PATH}" ]; then # molecule 0.9.6 required
                 # copy pkglist over to ISO path + pkglist
-                cp "${sabayon_pkgs_file}" "${ISO_PATH}".pkglist 
+                cp "${sabayon_pkgs_file}" "${ISO_PATH}".pkglist
         fi
 fi
