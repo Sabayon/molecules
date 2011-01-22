@@ -31,7 +31,6 @@ rc-update add virtualbox-guest-additions boot
 remove_desktop_files() {
 	rm /etc/skel/Desktop/WorldOfGooDemo-world-of-goo-demo.desktop
 	rm /etc/skel/Desktop/fusion-icon.desktop
-	rm /etc/skel/Desktop/xbmc.desktop
 }
 
 setup_cpufrequtils() {
