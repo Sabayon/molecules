@@ -30,7 +30,6 @@ rc-update add virtualbox-guest-additions boot
 
 remove_desktop_files() {
 	rm /etc/skel/Desktop/WorldOfGooDemo-world-of-goo-demo.desktop
-	rm /etc/skel/Desktop/fusion-icon.desktop
 }
 
 setup_cpufrequtils() {
@@ -197,10 +196,6 @@ if [ -n "${SHIP_NVIDIA_LEGACY}" ]; then
 	# ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps ~x11-drivers/nvidia-drivers-71.86.*$kernel_tag
 	mv /var/lib/entropy/client/packages/packages-nonfree/${mydir}/*/x11-drivers\:nvidia-drivers*.tbz2 /install-data/drivers/
 
-	# Add fusion icon to desktop
-	if [ -f "/usr/share/applications/fusion-icon.desktop" ]; then
-		cp /usr/share/applications/fusion-icon.desktop /etc/skel/Desktop/
-	fi
 fi
 
 # !!! THERE IS A BUG IN THE CLAMAV EBUILD !!!
