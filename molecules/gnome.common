@@ -193,6 +193,7 @@ packages_to_add:
 	x11-themes/sabayon-artwork-ooo,
 	x11-themes/sound-theme-freedesktop,
 	x11-themes/xcursor-themes,
+	x11-themes/iottinka-artwork,
 	x11-wm/compiz,
 	x11-wm/twm
 
