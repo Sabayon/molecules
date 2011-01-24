@@ -89,7 +89,6 @@ gforensic_remove_skel_stuff() {
 	# remove no longer needed folders/files
 	rm -r /etc/skel/.fluxbox
 	rm -r /etc/skel/.e
-	rm -r /etc/skel/.kde4
 	rm -r /etc/skel/.mozilla
 	rm -r /etc/skel/.emerald
 	rm -r /etc/skel/.xchat2
