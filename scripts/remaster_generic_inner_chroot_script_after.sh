@@ -98,9 +98,7 @@ gforensic_remove_skel_stuff() {
 	rm -r /etc/skel/.config/Thunar
 	rm -r /etc/skel/.config/xfce4
 	rm -r /etc/skel/.gconf/apps/compiz
-	rm -r /etc/skel/.gconf/apps/gset-compiz
-	rm /etc/skel/.config/menus/applications-kmenuedit.menu
-	rm /etc/skel/.kderc
+	rm -r /etc/skel/.gconf/apps/gset-compiz	
 }
 
 setup_oss_gfx_drivers() {
