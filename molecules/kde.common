@@ -274,7 +274,6 @@ packages_to_add:
 	media-tv/ivtv-firmware,
 	media-tv/xbmc,
 	media-video/vlc,
-	net-analyzer/gnome-netstatus,
 	net-dialup/globespan-adsl,
 	net-dialup/gnome-ppp,
 	net-dialup/ppp,
