@@ -66,6 +66,7 @@ packages_to_add:
 	sys-fs/ntfs3g,
 	sys-power/cpufrequtils,
 	www-client/firefox,
+	www-plugins/adobe-flash,
 	x11-misc/magneto-gtk,
 	x11-drivers/xf86-video-virtualbox
 
