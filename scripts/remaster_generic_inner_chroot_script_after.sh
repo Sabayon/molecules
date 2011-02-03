@@ -98,7 +98,7 @@ gforensic_remove_skel_stuff() {
 	rm -r /etc/skel/.config/Thunar
 	rm -r /etc/skel/.config/xfce4
 	rm -r /etc/skel/.gconf/apps/compiz
-	rm -r /etc/skel/.gconf/apps/gset-compiz	
+	rm -r /etc/skel/.gconf/apps/gset-compiz
 }
 
 setup_oss_gfx_drivers() {
@@ -193,6 +193,17 @@ elif [ "$1" = "gforensic" ]; then
 	# Fix ~/.dmrc to have it load GNOME
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=gnome" >> /etc/skel/.dmrc
+	rc-update del system-tools-backends boot
+	rc-update add system-tools-backends default
+	setup_displaymanager
+	setup_sabayon_mce
+	gforensic_remove_skel_stuff
+	setup_proprietary_gfx_drivers
+elif [ "$1" = "kforensic" ]; then
+	setup_networkmanager
+	# Fix ~/.dmrc to have it load KDE
+	echo "[Desktop]" > /etc/skel/.dmrc
+	echo "Session=KDE-4" >> /etc/skel/.dmrc
 	rc-update del system-tools-backends boot
 	rc-update add system-tools-backends default
 	setup_displaymanager
