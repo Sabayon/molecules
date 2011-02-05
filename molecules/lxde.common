@@ -59,6 +59,7 @@ packages_to_add:
         media-fonts/ttf-bitstream-vera,
         media-fonts/dejavu,
         media-fonts/corefonts,
+	media-sound/volwheel,
 	net-dialup/rp-pppoe,
 	x11-terms/xterm,
 	sys-apps/gpu-detector,
