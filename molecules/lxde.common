@@ -48,6 +48,7 @@ packages_to_add:
 	@lxde,
 	@fluxbox,
 	app-admin/sulfur,
+	app-arch/xarchiver,
 	app-crypt/gnupg,
         app-crypt/pinentry-gtk2,
 	app-editors/leafpad,
