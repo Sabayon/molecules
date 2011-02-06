@@ -61,6 +61,7 @@ packages_to_add:
         media-fonts/corefonts,
 	media-sound/volwheel,
 	net-dialup/rp-pppoe,
+	net-im/emesene,
 	x11-terms/xterm,
 	sys-apps/gpu-detector,
 	sys-auth/consolekit,
