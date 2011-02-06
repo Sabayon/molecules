@@ -62,6 +62,7 @@ packages_to_add:
 	media-sound/volwheel,
 	net-dialup/rp-pppoe,
 	net-im/emesene,
+	net-irc/xchat,
 	x11-terms/xterm,
 	sys-apps/gpu-detector,
 	sys-auth/consolekit,
