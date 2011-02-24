@@ -58,7 +58,6 @@ packages_to_add:
 	app-misc/anaconda-runtime-gui,
 	app-office/abiword,
 	app-text/pastebunz,
-	gnome-base/gdm,
 	gnome-extra/nm-applet,
 	media-fonts/ttf-bitstream-vera,
 	media-fonts/dejavu,
