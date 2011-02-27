@@ -309,7 +309,7 @@ packages_to_add:
 	sys-fs/dmraid,
 	sys-fs/ntfs3g,
 	sys-power/acpid,
-	www-client/firefox,
+	www-client/chromium,
 	www-plugins/adobe-flash,
 	www-plugins/nspluginwrapper,
 	x11-apps/xdm,
