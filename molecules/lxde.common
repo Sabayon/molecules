@@ -72,7 +72,11 @@ packages_to_add:
 	www-client/firefox,
 	www-plugins/adobe-flash,
 	x11-misc/magneto-gtk,
-	x11-drivers/xf86-video-virtualbox
+	x11-drivers/xf86-video-virtualbox,
+	x11-themes/sabayon-artwork-gnome
+
+# x11-themes/sabayon-artwork-gnome:
+# provides the gtk theme for lxdm
 
 # Custom shell call to packages add (default is: equo install)
 # custom_packages_add_cmd: 
