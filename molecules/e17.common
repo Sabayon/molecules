@@ -73,6 +73,7 @@ packages_to_add:
 	sys-fs/ntfs3g,
 	sys-power/cpufrequtils,
 	www-client/chromium,
+	www-plugins/adobe-flash,
         x11-drivers/xf86-video-virtualbox,
         x11-misc/magneto-gtk,
         x11-terms/xterm,
