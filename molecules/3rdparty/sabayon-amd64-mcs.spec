@@ -11,4 +11,4 @@ release_desc: amd64 MCS
 source_iso: /sabayon/iso/Sabayon_Linux_DAILY_amd64_G.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-destination_iso_image_name: Sabayon_Linux_1.0_amd64_MCS.iso
+destination_iso_image_name: Sabayon_Linux_DAILY_amd64_MCS.iso
