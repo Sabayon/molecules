@@ -149,7 +149,6 @@ packages_to_add:
 	sys-apps/gpu-detector,
 	sys-apps/entropy-client-services,
 	sys-apps/gnome-disk-utility,
-	sys-apps/hal,
 	sys-apps/hdparm,
 	sys-apps/sdparm,
 	sys-apps/tuxonice-userui,

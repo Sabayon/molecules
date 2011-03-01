@@ -301,7 +301,6 @@ packages_to_add:
 	sys-auth/polkit-qt,
 	sys-apps/gpu-detector,
 	sys-apps/entropy-client-services,
-	sys-apps/hal,
 	sys-apps/hdparm,
 	sys-apps/sdparm,
 	sys-apps/tuxonice-userui,
