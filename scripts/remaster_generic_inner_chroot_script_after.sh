@@ -14,9 +14,12 @@ rc-update add xdm boot
 # consolekit must be run at boot level
 rc-update add consolekit boot
 
-rc-update del hald boot
-rc-update del hald
-rc-update add hald boot
+# if it exists
+if [ -f "/etc/init.d/hald" ]; then
+	rc-update del hald boot
+	rc-update del hald
+	rc-update add hald boot
+fi
 
 rc-update del music boot
 rc-update add music default
