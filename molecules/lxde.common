@@ -64,6 +64,7 @@ packages_to_add:
 	net-dialup/rp-pppoe,
 	net-im/emesene,
 	net-irc/xchat,
+	x11-libs/gksu,
 	x11-terms/xterm,
 	sys-apps/gpu-detector,
 	sys-auth/consolekit,
