@@ -308,6 +308,7 @@ packages_to_add:
 	sys-fs/dmraid,
 	sys-fs/ntfs3g,
 	sys-power/acpid,
+	sys-power/cpufrequtils,
 	www-client/chromium,
 	www-plugins/adobe-flash,
 	www-plugins/nspluginwrapper,
