@@ -93,7 +93,6 @@ packages_to_remove:
 	app-dicts/aspell-nl,
 	app-dicts/aspell-pl,
 	app-dicts/aspell-pt-br,
-	gnome-base/gnome-mount,
 	net-dialup/pptpclient,
 	net-dialup/gnome-ppp, 
 	net-dialup/globespan-adsl,
