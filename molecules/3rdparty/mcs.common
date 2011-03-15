@@ -41,7 +41,7 @@ destination_iso_directory: /sabayon/iso
 
 # List of packages that would be removed from chrooted system (comma separated)
 packages_to_remove:
-	app-office/openoffice,
+	app-office/libreoffice,
 	app-emulation/wine,
 	sabayon-mce, 
 	sabayon-music,
