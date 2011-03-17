@@ -4,7 +4,7 @@
 
 remaster_type="${1}"
 isolinux_source="/sabayon/remaster/minimal_isolinux.cfg"
-isolinux_destination="${CDROOT_DIR}/isolinux/isolinux.cfg"
+isolinux_destination="${CDROOT_DIR}/isolinux/txt.cfg"
 
 if [ "${remaster_type}" = "KDE" ] || [ "${remaster_type}" = "GNOME" ]; then
 	isolinux_source="/sabayon/remaster/standard_isolinux.cfg"

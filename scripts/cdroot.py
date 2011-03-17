@@ -42,8 +42,8 @@ def replace_version(path):
     cf_new.close()
     os.rename(path+".cdroot", path)
 
-# Change isolinux.cfg and isolinux.txt to match version
-isolinux_cfg = os.path.join(cdroot_dir, "isolinux/isolinux.cfg")
+# Change txt.cfg and isolinux.txt to match version
+isolinux_cfg = os.path.join(cdroot_dir, "isolinux/txt.cfg")
 isolinux_txt = os.path.join(cdroot_dir, "isolinux/isolinux.txt")
 replace_version(isolinux_cfg)
 replace_version(isolinux_txt)

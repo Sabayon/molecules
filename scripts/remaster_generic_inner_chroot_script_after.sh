@@ -107,7 +107,8 @@ gforensic_remove_skel_stuff() {
 setup_oss_gfx_drivers() {
 	# do not tweak eselect mesa, keep defaults
 
-	# This file is polled by the isolinux.cfg setup script
+	# This file is polled by the txt.cfg
+	# (isolinux config file) setup script
 	touch /.enable_kms
 }
 

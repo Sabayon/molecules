@@ -13,4 +13,4 @@ cp "${boot_kernel}" "${CDROOT_DIR}/boot/sabayon" || exit 1
 cp "${boot_ramfs}" "${CDROOT_DIR}/boot/sabayon.igz" || exit 1
 
 # Setup default splash theme
-sed -i "s/theme:sabayon/theme:babel/g" "${CDROOT_DIR}/isolinux/isolinux.cfg" || exit 1
+sed -i "s/theme:sabayon/theme:babel/g" "${CDROOT_DIR}/isolinux/txt.cfg" || exit 1
