@@ -77,7 +77,7 @@ packages_to_remove:
 	app-dicts/myspell-nl,
 	app-editors/gedit,
 	app-emulation/wine,
-	app-office/openoffice,
+	app-office/libreoffice,
 	app-pda/gnome-pilot,
 	app-pda/pilot-link,
 	app-text/libwpd,

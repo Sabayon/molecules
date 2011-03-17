@@ -202,6 +202,7 @@ elif [ "$1" = "gforensic" ]; then
 	setup_sabayon_mce
 	gforensic_remove_skel_stuff
 	setup_proprietary_gfx_drivers
+	setup_cpufrequtils
 elif [ "$1" = "kforensic" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load KDE
@@ -213,6 +214,7 @@ elif [ "$1" = "kforensic" ]; then
 	setup_sabayon_mce
 	gforensic_remove_skel_stuff
 	setup_proprietary_gfx_drivers
+	setup_cpufrequtils
 elif [ "$1" = "kde" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load KDE
@@ -221,6 +223,7 @@ elif [ "$1" = "kde" ]; then
 	setup_displaymanager
 	setup_sabayon_mce
 	setup_proprietary_gfx_drivers
+	setup_cpufrequtils
 fi
 
 # !!! THERE IS A BUG IN THE CLAMAV EBUILD !!!
