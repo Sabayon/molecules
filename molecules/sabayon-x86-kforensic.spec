@@ -130,7 +130,6 @@ packages_to_add:
 	media-fonts/droid,
 	app-misc/sabayon-skel,
 	app-misc/screen,
-	www-client/chromium,
 	app-forensics/cmospwd,
 	app-forensics/rkhunter,
 	app-forensics/sleuthkit,
@@ -157,7 +156,8 @@ packages_to_add:
 	net-analyzer/netcat6,
 	net-irc/irssi,
 	net-analyzer/wireshark,
-	net-analyzer/tcpdump
+	net-analyzer/tcpdump,
+        net-misc/knock
 
 # Custom shell call to packages add (default is: equo install)
 # custom_packages_add_cmd:

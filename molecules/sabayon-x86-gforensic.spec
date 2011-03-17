@@ -87,13 +87,40 @@ packages_to_remove: gnome-base/gnome-mount, net-dialup/pptpclient, net-dialup/gn
 # custom_packages_remove_cmd:
 
 # List of packages that would be added from chrooted system (comma separated)
-packages_to_add: sys-apps/mlocate, media-fonts/droid, gnome-base/gvfs, 
-app-misc/sabayon-skel, app-misc/screen, www-client/chromium, app-forensics/cmospwd, 
-app-forensics/rkhunter, app-forensics/sleuthkit, app-antivirus/clamav, app-antivirus/clamtk, app-forensics/autopsy, app-forensics/mac-robber, 
-app-forensics/aide, app-forensics/rdd, app-crypt/chntpw, media-video/vlc, x11-wm/awesome, net-libs/libnet, net-libs/netwib, net-analyzer/traceroute, 
-media-gfx/picasa, app-admin/testdisk, app-crypt/fcrackzip, app-crypt/johntheripper, sys-fs/extundelete, app-forensics/magicrescue, app-crypt/ophcrack, 
-app-crypt/ophcrack-tables, net-analyzer/nmap, net-analyzer/netcat6, net-irc/irssi, 
-net-analyzer/wireshark, net-analyzer/tcpdump
+packages_to_add: sys-apps/mlocate,
+	media-fonts/droid, 
+	gnome-base/gvfs, 
+	app-misc/sabayon-skel, 
+	app-misc/screen, 
+	app-forensics/cmospwd, 
+	app-forensics/rkhunter, 
+	app-forensics/sleuthkit, 
+	app-antivirus/clamav, 
+	app-antivirus/clamtk, 
+	app-forensics/autopsy, 
+	app-forensics/mac-robber,
+	app-forensics/aide, 
+	app-forensics/rdd, 
+	app-crypt/chntpw, 
+	media-video/vlc, 
+	x11-wm/awesome, 
+	net-libs/libnet, 
+	net-libs/netwib, 
+	net-analyzer/traceroute, 
+	media-gfx/picasa, 
+	app-admin/testdisk, 
+	app-crypt/fcrackzip, 
+	app-crypt/johntheripper, 
+	sys-fs/extundelete, 
+	app-forensics/magicrescue, 
+	app-crypt/ophcrack, 
+	app-crypt/ophcrack-tables, 
+	net-analyzer/nmap, 
+	net-analyzer/netcat6, 
+	net-irc/irssi, 
+	net-analyzer/wireshark, 
+	net-analyzer/tcpdump,
+	net-misc/knock
 
 # Custom shell call to packages add (default is: equo install)
 # custom_packages_add_cmd:
