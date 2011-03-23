@@ -125,6 +125,7 @@ sub create_ldif() {
   printf(FH "objectClass: organizationalPerson\n");
   printf(FH "objectClass: inetorgperson\n");
   printf(FH "objectClass: babmwcompany\n");
+  printf(FH "objectClass: mailrecipient\n");
   printf(FH "sn: Administrator\n");
   printf(FH "cn: Service Administrator\n");
   printf(FH "userPassword: $password\n");
@@ -196,6 +197,8 @@ sub create_ldif() {
   printf(FH "o: example\n");
   printf(FH "companyQuota: 102400\n");
   printf(FH "companyvatnumber: 1234567890\n");
+  printf(FH "mailHost: localhost\n");
+  printf(FH "mailUserAgentHost: 127.0.0.1\n");
   printf(FH "objectClass: top\n");
   printf(FH "objectClass: organization\n");
   printf(FH "objectClass: babmwcompany\n");

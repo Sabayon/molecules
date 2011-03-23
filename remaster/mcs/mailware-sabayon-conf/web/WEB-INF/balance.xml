@@ -10,7 +10,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
  <bean id="balanceService" class="it.babel.manager.services.AddressBookBalanceService">
 	<property name="balanceGroups">
 		<map>
-			<entry key="isola1">
+			<entry key="node1">
 				<bean class="it.babel.manager.model.BalanceGroup">
 					<property name="balanceItems" >
  		
@@ -30,7 +30,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 			</entry>
 			<!-- ALTRA ENTRY PER ALTRA ISOLA -->
 			<!-- 
-			<entry key="isola2">
+			<entry key="node2">
 				<bean class="it.babel.manager.model.BalanceGroup">
 					<property name="balanceItems" >
  		
