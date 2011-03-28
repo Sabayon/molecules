@@ -4,6 +4,7 @@
 -- ------------------------------------------------------
 -- Server version	5.1.37-1ubuntu5.4
 
+USE bedework;
 
 --
 -- Table structure for table `bw_adminGroupMembers`
