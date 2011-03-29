@@ -12,10 +12,12 @@ done
 
 CUR_DATE=$(date -u +%Y%m%d)
 LOG_FILE="/var/log/molecule/autobuild-${CUR_DATE}-${$}.log"
+BUILDING_DAILY=1
 
 # to make ISO remaster spec files working (pre_iso_script)
 export CUR_DATE
 export ETP_NONINTERACTIVE=1
+export BUILDING_DAILY
 
 echo "DO_PUSH=${DO_PUSH}"
 echo "DRY_RUN=${DRY_RUN}"
