@@ -214,8 +214,19 @@ CREATE TABLE IF NOT EXISTS `users_settings` (
   `language` varchar(5) DEFAULT NULL,
   `sendvcard` char(1) DEFAULT NULL,
   `sendtype` varchar(20) DEFAULT NULL,
+   timesavemessage INTEGER DEFAULT 300,
+   forward_type char(1) NULL
+
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `users_calendar_settings`;
+CREATE TABLE `users_calendar_settings` (
+  `username` VARCHAR(320)  NOT NULL,
+  `timezone` VARCHAR(320)  NOT NULL DEFAULT 'Europe/Rome',
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 --
 -- Limiti per le tabelle scaricate
