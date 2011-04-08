@@ -46,7 +46,7 @@ done
 
 mkdir -p /etc/skel/.local/share/applications
 echo "[Added Associations]" >> /etc/skel/.local/share/applications/mimeapps.list
-echo "application/octet-stream=mozilla-firefox-3.6.desktop;" >> /etc/skel/.local/share/applications/mimeapps.list
+echo "application/octet-stream=firefox.desktop;" >> /etc/skel/.local/share/applications/mimeapps.list
 
 # Setup init scripts
 cp /.mcs/mcs-functions.sh /sbin/mcs-functions.sh
