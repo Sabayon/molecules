@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `users_settings` (
   `sendvcard` char(1) DEFAULT NULL,
   `sendtype` varchar(20) DEFAULT NULL,
   `timesavemessage` int DEFAULT 300,
-  `forward_type` char(1) NULL
+  `forward_type` char(1) NULL,
 
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
