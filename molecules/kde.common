@@ -209,6 +209,7 @@ packages_to_add:
 	kde-base/ksplash,
 	kde-base/ksquares,
 	kde-base/kstartupconfig,
+	kde-base/kstyles,
 	kde-base/ksudoku,
 	kde-base/ksysguard,
 	kde-base/ksystraycmd,
