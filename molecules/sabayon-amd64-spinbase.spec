@@ -3,7 +3,7 @@
 
 # Release Version
 # Keep this here, otherwise daily builds automagic won't work
-release_version: 5.5
+release_version: 6
 
 # Release Version string description
 release_desc: amd64 SpinBase
@@ -13,4 +13,4 @@ source_chroot: /sabayon/sources/amd64_core-2010
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
 # Keep this here and set, otherwise daily builds automagic won't work
-destination_iso_image_name: Sabayon_Linux_SpinBase_5.5_amd64.iso
+destination_iso_image_name: Sabayon_Linux_SpinBase_6_amd64.iso

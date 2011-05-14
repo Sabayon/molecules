@@ -15,7 +15,7 @@ release_string: Sabayon Linux
 release_file: /etc/sabayon-edition
 
 # Release Version
-release_version: 5.5
+release_version: 6
 
 # Release Version string description
 release_desc: x86 Kforensic
@@ -59,7 +59,7 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat
 destination_iso_directory: /sabayon/iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-destination_iso_image_name: Sabayon_Linux_Kforensic_5.5_x86.iso
+destination_iso_image_name: Sabayon_Linux_Kforensic_6_x86.iso
 
 # Output iso image title
 iso_title: Sabayon_Linux_Forensic_x86_K

@@ -5,7 +5,7 @@
 prechroot: linux32
 
 # Release Version
-release_version: 5.5
+release_version: 6
 
 # Release Version string description
 release_desc: x86 Gaming Edition
@@ -14,4 +14,4 @@ release_desc: x86 Gaming Edition
 source_iso: /sabayon/iso/Sabayon_Linux_DAILY_x86_G.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-destination_iso_image_name: Sabayon_Linux_5.5_x86_Gaming.iso
+destination_iso_image_name: Sabayon_Linux_6_x86_Gaming.iso
