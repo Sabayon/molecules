@@ -267,6 +267,9 @@ fi
 # we don't want this on our ISO
 rm -f /usr/share/applications/sandbox.desktop
 
+# beanshell app, not wanted in our start menu
+rm -f /usr/share/applications/bsh-console-bsh.desktop
+
 # Remove wicd from autostart
 rm -f /usr/share/autostart/wicd-tray.desktop /etc/xdg/autostart/wicd-tray.desktop
 
