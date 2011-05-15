@@ -101,7 +101,6 @@ packages_to_add:
 	gnome-extra/nm-applet,
 	gnome-extra/polkit-gnome,
 	games-puzzle/world-of-goo-demo,
-	mail-client/evolution,
 	media-fonts/ttf-bitstream-vera,
 	media-fonts/dejavu,
 	media-fonts/corefonts,
