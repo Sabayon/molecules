@@ -100,7 +100,7 @@ packages_to_remove:
 	media-tv/xbmc,
 	media-video/dirac,
 	media-video/mplayer,
-	net-p2p/deluge,
+	net-p2p/transmission-gtk+,
 	net-print/foomatic-db-ppds,
 	net-print/foomatic-filters-ppds,
 
