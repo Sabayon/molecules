@@ -135,7 +135,7 @@ build_sabayon() {
 			# tweak release version
 			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || exit 1
 			echo "${dst}: iso: ${REMASTER_SPECS_ISO[i]} date: ${CUR_DATE}"
-			remaster_specs+="\"${dst}\" "
+			remaster_specs+="${dst} "
 		done
 
 		for i in ${!REMASTER_OPENVZ_SPECS[@]}
@@ -149,7 +149,7 @@ build_sabayon() {
 			# tweak release version
 			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || exit 1
 			echo "${dst}: iso: ${REMASTER_OPENVZ_SPECS_TAR[i]} date: ${CUR_DATE}"
-			remaster_specs+="\"${dst}\" "
+			remaster_specs+="${dst} "
 		done
 
 		molecule --nocolor ${source_specs} && \
