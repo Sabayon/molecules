@@ -120,7 +120,7 @@ build_sabayon() {
 			# tweak release version
 			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || exit 1
 			echo "${dst}: iso: ${SOURCE_SPECS_ISO[i]} date: ${CUR_DATE}"
-			source_specs+="\"${dst}\" "
+			source_specs+="${dst} "
 		done
 
 		local remaster_specs=""
