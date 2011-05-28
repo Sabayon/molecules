@@ -106,6 +106,7 @@ build_sabayon() {
 		rm -rf /sabayon/molecules/daily/*.spec
 		rm -rf /sabayon/molecules/daily/remaster/*.spec
 
+		local source_specs=""
 		for i in ${!SOURCE_SPECS[@]}
 		do
 			src="/sabayon/molecules/${SOURCE_SPECS[i]}"
@@ -119,8 +120,10 @@ build_sabayon() {
 			# tweak release version
 			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || exit 1
 			echo "${dst}: iso: ${SOURCE_SPECS_ISO[i]} date: ${CUR_DATE}"
+			source_specs+="\"${dst}\" "
 		done
 
+		local remaster_specs=""
 		for i in ${!REMASTER_SPECS[@]}
 		do
 			src="/sabayon/molecules/${REMASTER_SPECS[i]}"
@@ -132,6 +135,7 @@ build_sabayon() {
 			# tweak release version
 			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || exit 1
 			echo "${dst}: iso: ${REMASTER_SPECS_ISO[i]} date: ${CUR_DATE}"
+			remaster_specs+="\"${dst}\" "
 		done
 
 		for i in ${!REMASTER_OPENVZ_SPECS[@]}
@@ -145,10 +149,11 @@ build_sabayon() {
 			# tweak release version
 			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || exit 1
 			echo "${dst}: iso: ${REMASTER_OPENVZ_SPECS_TAR[i]} date: ${CUR_DATE}"
+			remaster_specs+="\"${dst}\" "
 		done
 
-		molecule --nocolor /sabayon/molecules/daily/*.spec && \
-			molecule --nocolor /sabayon/molecules/daily/remaster/*.spec && \
+		molecule --nocolor ${source_specs} && \
+			molecule --nocolor ${remaster_specs} && \
 			cp /sabayon/iso/*DAILY* /sabayon/iso_rsync/ && \
 			( date > /sabayon/iso_rsync/RELEASE_DATE_DAILY ) && \
 			/sabayon/scripts/make_torrents.sh
