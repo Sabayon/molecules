@@ -68,7 +68,6 @@ packages_to_add:
 	x11-libs/gksu,
 	x11-terms/xterm,
 	sys-apps/gpu-detector,
-	sys-apps/hal,
 	sys-auth/consolekit,
 	sys-fs/ntfs3g,
 	sys-power/cpufrequtils,
