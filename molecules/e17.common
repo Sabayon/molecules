@@ -63,7 +63,7 @@ packages_to_add:
         media-fonts/dejavu,
         media-fonts/corefonts,
 	media-gfx/ristretto,
-	media-video/totem,
+	media-sound/xnoise,
 	net-dialup/rp-pppoe,
 	net-im/pidgin,
 	net-irc/xchat,
