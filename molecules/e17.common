@@ -65,7 +65,7 @@ packages_to_add:
 	media-gfx/ristretto,
 	media-video/totem,
 	net-dialup/rp-pppoe,
-	net-im/emesene,
+	net-im/pidgin,
 	net-irc/xchat,
 	gnome-extra/nm-applet,
         sys-apps/gpu-detector,
