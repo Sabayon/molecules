@@ -62,6 +62,7 @@ packages_to_add:
         media-fonts/dejavu,
         media-fonts/corefonts,
 	media-sound/volwheel,
+	media-sound/xnoise,
 	net-dialup/rp-pppoe,
 	net-im/pidgin,
 	net-irc/xchat,
