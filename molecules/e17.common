@@ -69,6 +69,7 @@ packages_to_add:
 	net-irc/xchat,
 	net-p2p/transmission-gtk+,
 	gnome-extra/nm-applet,
+	sys-apps/gnome-disk-utility,
         sys-apps/gpu-detector,
         sys-auth/consolekit,
 	sys-fs/ntfs3g,
