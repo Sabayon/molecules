@@ -77,6 +77,7 @@ packages_to_add:
 	www-plugins/adobe-flash,
 	x11-misc/magneto-gtk,
 	x11-drivers/xf86-video-virtualbox,
+	games-misc/cowsay,
 	x11-themes/sabayon-artwork-gnome
 
 # x11-themes/sabayon-artwork-gnome:

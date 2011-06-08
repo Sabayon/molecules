@@ -77,6 +77,7 @@ packages_to_add:
 	www-client/midori,
 	www-plugins/adobe-flash,
         x11-drivers/xf86-video-virtualbox,
+	games-misc/cowsay,
         x11-misc/magneto-gtk,
         x11-terms/xterm,
 	x11-themes/gtk-engines-xfce,
