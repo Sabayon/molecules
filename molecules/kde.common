@@ -144,8 +144,6 @@ packages_to_add:
 	kde-base/kdeartwork-kscreensaver,
 	kde-base/kdeartwork-sounds,
 	kde-base/kdeartwork-styles,
-	kde-base/kdeartwork-wallpapers,
-	kde-base/kdeartwork-weatherwallpapers,
 	kde-base/kdebase-cursors,
 	kde-base/kdebase-runtime-meta,
 	kde-base/kdebase-startkde,
