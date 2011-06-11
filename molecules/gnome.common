@@ -111,7 +111,7 @@ packages_to_add:
 	media-libs/libdvdplay,
 	media-libs/libdvdnav,
 	media-plugins/alsa-plugins,
-	media-sound/audacious,
+	media-sound/exaile,
 	media-sound/pavucontrol,
 	media-tv/afatech9005-firmware,
 	media-tv/ivtv-firmware,
