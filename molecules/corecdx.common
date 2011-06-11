@@ -57,7 +57,6 @@ packages_to_add:
 	media-gfx/feh,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
-	net-firewall/shorewall-lite,
 	x11-terms/xterm,
 	x11-themes/hicolor-icon-theme,
 	dev-python/libgnomecanvas-python,
