@@ -78,8 +78,7 @@ packages_to_add:
 	x11-themes/tango-icon-theme,
 	xfce-extra/xfce4-mixer,
 	xfce-base/xfce4-panel,
-	x11-misc/notify-osd,
-	x11-themes/sabayon-artwork-gnome
+	x11-misc/notify-osd
 
 # x11-themes/sabayon-artwork-gnome:
 # provides the gtk theme for lxdm
