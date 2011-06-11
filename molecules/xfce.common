@@ -52,7 +52,7 @@ packages_to_add:
 	app-arch/unrar,
 	app-cdr/xfburn,
 	app-crypt/gnupg,
-        app-crypt/pinentry-gtk2,
+	app-crypt/pinentry-gtk2,
 	app-emulation/virtualbox-guest-additions,
 	app-misc/anaconda-runtime-gui,
 	app-office/abiword,

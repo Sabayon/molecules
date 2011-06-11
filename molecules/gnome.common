@@ -177,7 +177,6 @@ packages_to_add:
 	x11-plugins/pidgin-libnotify,
 	x11-terms/gnome-terminal,
 	x11-themes/emerald-themes,
-	x11-themes/gnome-backgrounds,
 	x11-themes/gnome-icon-theme,
 	x11-themes/gnome-themes,
 	x11-themes/gtk-engines,
