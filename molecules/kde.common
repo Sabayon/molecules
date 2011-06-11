@@ -319,7 +319,6 @@ packages_to_add:
 	x11-misc/desktop-acceleration-helpers,
 	x11-misc/xvkbd,
 	x11-themes/gtk-engines,
-	x11-themes/gtk-engines-murrine,
 	x11-themes/gtk-engines-qtcurve,
 	x11-themes/iottinka-artwork,
 	x11-themes/sabayon-artwork-extra,
