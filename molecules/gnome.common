@@ -123,6 +123,7 @@ packages_to_add:
 	net-dialup/gnome-ppp,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
+	net-firewall/ufw-frontends,
 	net-fs/samba,
 	net-im/pidgin,
 	net-irc/xchat,
