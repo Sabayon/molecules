@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# copy /root defaults from /etc/skel
+rm -rf /root
+cp /etc/skel /root -Rap
+chown root:root /root -R
+
 source /etc/profile
 /usr/sbin/env-update && source /etc/profile
 
