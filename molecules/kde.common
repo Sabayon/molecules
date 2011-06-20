@@ -321,6 +321,7 @@ packages_to_add:
 	x11-themes/gtk-engines,
 	x11-themes/gtk-engines-qtcurve,
 	x11-themes/iottinka-artwork,
+	x11-themes/oxygen-gtk,
 	x11-themes/sabayon-artwork-extra,
 	x11-themes/sabayon-artwork-kde,
 	x11-themes/sabayon-artwork-ooo,
