@@ -79,7 +79,7 @@ packages_to_add:
 	app-office/libreoffice-l10n-it,
 	app-office/libreoffice-l10n-nl,
 	app-office/libreoffice-l10n-pt,
-	dev-java/sun-jre-bin,
+	dev-java/icedtea6-bin,
 	games-puzzle/world-of-goo-demo,
 	kde-base/kde-l10n-bg,
 	kde-base/kde-l10n-ca,
