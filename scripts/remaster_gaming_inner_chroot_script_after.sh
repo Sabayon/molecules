@@ -16,6 +16,7 @@ done
 echo -5 | equo conf update
 
 rm /var/lib/entropy/client/database/*/sabayonlinux.org -rf
+rm /var/lib/entropy/client/database/*/sabayon-weekly -rf
 equo rescue vacuum
 # cleanup logs and cache
 rm /var/lib/entropy/logs -rf

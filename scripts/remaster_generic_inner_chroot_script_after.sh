@@ -309,6 +309,7 @@ mount -t proc proc /proc
 
 echo "Vacuum cleaning client db"
 rm /var/lib/entropy/client/database/*/sabayonlinux.org -rf
+rm /var/lib/entropy/client/database/*/sabayon-weekly -rf
 equo rescue vacuum
 
 # cleanup log dir
