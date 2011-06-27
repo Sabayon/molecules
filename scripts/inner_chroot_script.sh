@@ -65,6 +65,10 @@ umount /proc
 equo deptest --pretend
 emaint --fix world
 
+# copy entropy repositories config
+# the one in chroots is optimized to use Garr mirror
+cp /etc/entropy/repositories.conf.example /etc/entropy/repositories.conf -p
+
 # copy Portage config from sabayonlinux.org entropy repo to system
 cp /var/lib/entropy/client/database/*/sabayonlinux.org/standard/*/*/package.mask /etc/portage/package.mask
 cp /var/lib/entropy/client/database/*/sabayonlinux.org/standard/*/*/package.unmask /etc/portage/package.unmask
