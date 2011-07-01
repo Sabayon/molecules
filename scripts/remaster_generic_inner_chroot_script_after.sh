@@ -312,6 +312,9 @@ rm /var/lib/entropy/client/database/*/sabayonlinux.org -rf
 rm /var/lib/entropy/client/database/*/sabayon-weekly -rf
 equo rescue vacuum
 
+# restore original repositories.conf (all mirrors were filtered for speed)
+cp /etc/entropy/repositories.conf.example /etc/entropy/repositories.conf || exit 1
+
 # cleanup log dir
 rm /var/lib/entropy/logs -rf
 
