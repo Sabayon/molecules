@@ -1,15 +1,14 @@
 #!/bin/sh
-# For Spins without X.Org
-flavour="${1}"
 
 rc-update del installer-gui boot
 rc-update del x-setup boot
 rc-update del hald boot
-rc-update del NetworkManager default
 rc-update del avahi-daemon default
 
+# A RUNNING NetworkManager is required by Anaconda !!
 # re-enable rc_hotplug
-sed -i 's:^rc_hotplug=.*:rc_hotplug="*":g' /etc/rc.conf
+# sed -i 's:^rc_hotplug=.*:rc_hotplug="*":g' /etc/rc.conf
+# rc-update del NetworkManager default
 
 # install-data dir is really not needed
 rm -rf /install-data
