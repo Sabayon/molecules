@@ -58,7 +58,7 @@ packages_to_add:
 	dev-libs/fribidi,
 	games-misc/cowsay,
 	gnome-extra/nm-applet,
-	gnome-base/gdm,
+	lxde-base/lxdm,
 	lxde-base/lxterminal,
         media-fonts/ttf-bitstream-vera,
         media-fonts/dejavu,
