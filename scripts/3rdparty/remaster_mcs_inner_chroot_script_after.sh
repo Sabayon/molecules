@@ -222,6 +222,7 @@ equo rescue vacuum
 rm /var/lib/entropy/logs -rf
 
 # Generate openrc cache
+touch /lib/rc/init.d/softlevel
 /etc/init.d/savecache start
 /etc/init.d/savecache zap
 
