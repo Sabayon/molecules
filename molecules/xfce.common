@@ -75,6 +75,7 @@ packages_to_add:
 	games-misc/cowsay,
 	x11-misc/magneto-gtk,
 	x11-terms/terminal,
+	x11-themes/gtk-engines,
 	x11-themes/tango-icon-theme,
 	xfce-extra/xfce4-mixer,
 	xfce-base/xfce4-panel,
