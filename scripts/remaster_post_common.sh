@@ -7,3 +7,6 @@ if [ -z "${BUILDING_DAILY}" ]; then
         sed -i "/^officialrepositoryid/ s/sabayonlinux.org/sabayon-weekly/" "${repo_conf}" || exit 1
         sed -i "/^official-repository-id/ s/sabayonlinux.org/sabayon-weekly/" "${repo_conf}" || exit 1
 fi
+
+# remove entropy hwash
+rm -f "${CHROOT_DIR}"/etc/entropy/.hw.hash

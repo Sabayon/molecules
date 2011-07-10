@@ -4,3 +4,6 @@
 
 # Generate list of installed packages
 equo query list installed -qv > /etc/sabayon-pkglist
+
+# remove hw hash
+rm -f /etc/entropy/.hw.hash

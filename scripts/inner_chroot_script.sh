@@ -114,4 +114,7 @@ rm -rf /var/lib/entropy/logs
 rm -rf /var/lib/entropy/glsa
 rm -rf /var/lib/entropy/tmp
 
+# remove entropy hwhash
+rm -f /etc/entropy/.hw.hash
+
 exit 0
