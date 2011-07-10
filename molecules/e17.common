@@ -78,6 +78,7 @@ packages_to_add:
 	www-client/midori,
 	www-plugins/adobe-flash,
         x11-drivers/xf86-video-virtualbox,
+	x11-libs/gksu,
         x11-misc/magneto-gtk,
 	x11-misc/notify-osd,
         x11-terms/xterm,
