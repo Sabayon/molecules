@@ -4,7 +4,11 @@ env-update
 source /etc/profile
 
 export FORCE_EAPI=2
-equo update || ( sleep 1200 && equo update ) || exit 1
+equo update
+if [ "${?}" != "0" ]; then
+        sleep 1200 || exit 1
+        equo update || exit 1
+fi
 
 # unmask apache with worker MPM
 equo unmask www-servers/apache[threads]

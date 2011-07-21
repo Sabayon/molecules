@@ -1,6 +1,10 @@
 #!/bin/sh
 export FORCE_EAPI=2
-equo update || ( sleep 1200 && equo update ) || exit 1
+equo update
+if [ "${?}" != "0" ]; then
+        sleep 1200 || exit 1
+        equo update || exit 1
+fi
 
 # disable all mirrors but GARR
 sed -n -e "/pkg.sabayon.org/p" -e "/garr.it/p" -e "/^branch/p" \

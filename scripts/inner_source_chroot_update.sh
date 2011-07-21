@@ -12,7 +12,11 @@ fi
 
 export ETP_NOINTERACTIVE=1
 export FORCE_EAPI=2
-equo update || ( sleep 1200 && equo update ) || exit 1
+equo update
+if [ "${?}" != "0" ]; then
+	sleep 1200 || exit 1
+	equo update || exit 1
+fi
 equo upgrade || exit 1
 echo "-5" | equo conf update
 rm -rf /var/lib/entropy/client/packages
