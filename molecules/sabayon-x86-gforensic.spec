@@ -81,7 +81,7 @@ iso_title: Sabayon_Linux_Forensic_x86_G
 
 # List of packages that would be removed from chrooted system (comma separated)
 # List of packages that would be removed from chrooted system (comma separated)
-packages_to_remove: net-dialup/pptpclient, net-dialup/gnome-ppp, net-dialup/globespan-adsl, net-dialup/wvdial, app-office/libreoffice-l10n-de, app-office/libreoffice-l10n-es, app-office/libreoffice-l10n-fr, app-office/libreoffice-l10n-it, app-office/libreoffice-l10n-nl, app-office/libreoffice-l10n-pt, games-puzzle/world-of-goo-demo, media-tv/xbmc, net-irc/xchat, www-client/firefox, x11-wm/fluxbox, x11-libs/compiz-bcop, x11-plugins/compiz-plugins-extra, x11-plugins/compiz-plugins-main, x11-wm/compiz, x11-wm/emerald, x11-themes/emerald-themes, x11-apps/fusion-icon, app-emulation/virtualbox-guest-additions, x11-drivers/xf86-input-virtualbox, x11-drivers/xf86-video-virtualbox, x11-terms/guake, gnome-extra/gnome-games, media-tv/linuxtv-dvb-headers, media-tv/ivtv-firmware, media-tv/afatech9005-firmware, www-client/lynx, net-p2p/deluge, media-gfx/gimp, app-admin/packagekit-base, app-admin/packagekit-gtk, app-misc/sabayon-music, net-misc/mobile-broadband-provider-info
+packages_to_remove: net-dialup/pptpclient, net-dialup/gnome-ppp, net-dialup/globespan-adsl, net-dialup/wvdial, app-office/libreoffice-l10n-de, app-office/libreoffice-l10n-es, app-office/libreoffice-l10n-fr, app-office/libreoffice-l10n-it, app-office/libreoffice-l10n-nl, app-office/libreoffice-l10n-pt, games-puzzle/world-of-goo-demo, media-tv/xbmc, net-irc/xchat, www-client/firefox, x11-wm/fluxbox, x11-libs/compiz-bcop, x11-plugins/compiz-plugins-extra, x11-plugins/compiz-plugins-main, x11-wm/compiz, x11-wm/emerald, x11-themes/emerald-themes, x11-apps/fusion-icon, app-emulation/virtualbox-guest-additions, x11-drivers/xf86-input-virtualbox, x11-drivers/xf86-video-virtualbox, x11-terms/guake, gnome-extra/gnome-games, media-tv/linuxtv-dvb-headers, media-tv/ivtv-firmware, media-tv/afatech9005-firmware, www-client/lynx, net-p2p/deluge, media-gfx/gimp, app-admin/packagekit-base, app-admin/packagekit-gtk, app-misc/sabayon-music 
 
 # Custom shell call to packages removal (default is: equo remove)
 # custom_packages_remove_cmd:
@@ -120,6 +120,7 @@ packages_to_add: sys-apps/mlocate,
 	net-irc/irssi, 
 	net-analyzer/wireshark, 
 	net-analyzer/tcpdump,
+        gnome-extra/nm-applet,
 	net-misc/knock
 
 # Custom shell call to packages add (default is: equo install)
