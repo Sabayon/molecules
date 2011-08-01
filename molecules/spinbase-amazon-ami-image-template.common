@@ -32,7 +32,7 @@ inner_chroot_script_after: /sabayon/scripts/image_generic_inner_chroot_script_af
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and AFTER inner_chroot_script)
-outer_chroot_script_after: /sabayon/scripts/remaster_post.sh
+outer_chroot_script_after: /sabayon/scripts/image_remaster_post.sh
 
 # Pre-image building script. Hook called before image file creation
 # Variables exported:

@@ -22,8 +22,8 @@ rc-update del x-setup boot
 # Enable ssh
 rc-update add sshd default
 
-# setup default root password
-echo "root:sabayonamichangeme" | chpasswd
+# delete root password, only ssh allowed
+passwd -d root
 
 # setup UTC clock
 sed -i 's:clock=".*":clock="UTC":' /etc/conf.d/hwclock || exit 1
@@ -57,7 +57,6 @@ root (hd0)
 kernel ${kernel_bin} root=/dev/sda1
 " > /boot/grub/grub.conf
 # initrd ${initrd_bin}
-
 
 # Generate list of installed packages
 equo query list installed -qv > /etc/sabayon-pkglist

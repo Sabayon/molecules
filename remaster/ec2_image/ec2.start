@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Setup Amazon EC2 provided SSH key
+
+ssh_root=/root/.ssh
+if [ ! -d "${ssh_root}" ] ; then
+	mkdir "${ssh_root}"
+fi
+chmod 700 "${ssh_root}"
+
+# As documented in http://awsdocs.s3.amazonaws.com/EC2/latest/ec2-ug.pdf
+wget -qO- http://169.254.169.254/latest/meta-data/public-keys/0/openssh-key > /tmp/openssh-key
+if [ "${?}" = "0" ]; then
+	cat /tmp/openssh-key >> "${ssh_root}"/authorized_keys
+fi
+rm -f /tmp/openssh-key
