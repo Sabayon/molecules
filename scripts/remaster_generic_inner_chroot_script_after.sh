@@ -112,6 +112,18 @@ setup_oss_gfx_drivers() {
 	touch /.enable_kms
 }
 
+has_proprietary_drivers() {
+	local is_nvidia=$(equo match --installed x11-drivers/nvidia-drivers -qv)
+	if [ -n "${is_nvidia}" ]; then
+		return 0
+	fi
+	local is_ati=$(equo match --installed x11-drivers/ati-drivers -qv)
+	if [ -n "${is_ati}" ]; then
+		return 0
+	fi
+	return 1
+}
+
 setup_proprietary_gfx_drivers() {
 	# Prepare NVIDIA legacy drivers infrastructure
 
@@ -147,7 +159,7 @@ if [ "$1" = "lxde" ]; then
 	# properly tweak lxde autostart tweak, adding --desktop option
 	sed -i 's/pcmanfm -d/pcmanfm -d --desktop/g' /etc/xdg/lxsession/LXDE/autostart
 	setup_cpufrequtils
-	setup_oss_gfx_drivers
+	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "e17" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load E17
@@ -163,7 +175,7 @@ elif [ "$1" = "e17" ]; then
 	# Fix ~/.gtkrc-2.0 for some nice icons in gtk
 	echo 'gtk-icon-theme-name="Tango" gtk-theme-name="Xfce"' | tr " " "\n" > /etc/skel/.gtkrc-2.0
 	setup_cpufrequtils
-	setup_oss_gfx_drivers
+	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "xfce" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load XFCE
@@ -172,7 +184,7 @@ elif [ "$1" = "xfce" ]; then
 	remove_desktop_files
 	setup_cpufrequtils
 	setup_displaymanager
-	setup_oss_gfx_drivers
+	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "fluxbox" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Fluxbox
@@ -181,7 +193,7 @@ elif [ "$1" = "fluxbox" ]; then
 	remove_desktop_files
 	setup_displaymanager
 	setup_cpufrequtils
-	setup_oss_gfx_drivers
+	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "gnome" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load GNOME
@@ -191,7 +203,7 @@ elif [ "$1" = "gnome" ]; then
 	rc-update add system-tools-backends default
 	setup_displaymanager
 	setup_sabayon_mce
-	setup_proprietary_gfx_drivers
+	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "gforensic" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load GNOME
@@ -202,8 +214,8 @@ elif [ "$1" = "gforensic" ]; then
 	setup_displaymanager
 	setup_sabayon_mce
 	gforensic_remove_skel_stuff
-	setup_proprietary_gfx_drivers
 	setup_cpufrequtils
+	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "kforensic" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load KDE
@@ -214,8 +226,8 @@ elif [ "$1" = "kforensic" ]; then
 	setup_displaymanager
 	setup_sabayon_mce
 	gforensic_remove_skel_stuff
-	setup_proprietary_gfx_drivers
 	setup_cpufrequtils
+	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "kde" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load KDE
@@ -223,8 +235,8 @@ elif [ "$1" = "kde" ]; then
 	echo "Session=KDE-4" >> /etc/skel/.dmrc
 	setup_displaymanager
 	setup_sabayon_mce
-	setup_proprietary_gfx_drivers
 	setup_cpufrequtils
+	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 fi
 
 # !!! THERE IS A BUG IN THE CLAMAV EBUILD !!!
