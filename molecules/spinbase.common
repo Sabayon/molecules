@@ -32,6 +32,9 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
 pre_iso_script: /sabayon/scripts/cdroot.py
 
+# Post-ISO building script, called after ISO image generation.    
+post_iso_script: /sabayon/scripts/generic_post_iso_script.sh
+
 # Destination directory for the ISO image path
 destination_iso_directory: /sabayon/iso
 

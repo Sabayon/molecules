@@ -1,0 +1,22 @@
+#!/bin/bash
+# Update ISO image in order to make it USB bootable
+# out of the box
+#
+# Available env vars:
+# ISO_PATH = path to generated ISO
+# ISO_CHECKSUM_PATH = path to generated md5 for ISO
+#
+# This script requires isohybrid (which comes from syslinux package)
+
+/usr/sbin/env-update && source /etc/profile
+
+echo
+echo "Spawning isohybrid for:"
+echo "ISO_PATH = ${ISO_PATH}"
+echo "ISO_CHECKSUM_PATH = ${ISO_CHECKSUM_PATH}"
+echo
+
+isohybrid "${ISO_PATH}" || exit 1
+md5sum "${ISO_PATH}" > "${ISO_CHECKSUM_PATH}"
+exit ${?}
+
