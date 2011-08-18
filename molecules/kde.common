@@ -270,8 +270,6 @@ packages_to_add:
 	media-plugins/kipi-plugins,
 	media-sound/clementine,
 	media-sound/pavucontrol,
-	media-tv/afatech9005-firmware,
-	media-tv/ivtv-firmware,
 	media-tv/xbmc,
 	media-video/vlc,
 	net-dialup/globespan-adsl,
@@ -327,7 +325,7 @@ packages_to_add:
 	x11-themes/oxygen-gtk,
 	x11-themes/sabayon-artwork-extra,
 	x11-themes/sabayon-artwork-kde,
-	x11-themes/sabayon-artwork-ooo,
+	x11-themes/sabayon-artwork-loo,
 	x11-themes/sound-theme-freedesktop,
 	x11-themes/xcursor-themes,
 	x11-wm/twm

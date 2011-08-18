@@ -129,7 +129,6 @@ packages_to_add:
 	x11-themes/gtk-engines,
 	x11-themes/iottinka-artwork,
 	x11-themes/tango-icon-theme,
-	x11-misc/notify-osd,
 	xfce-extra/xfce4-mixer,
 	xfce-base/xfce4-panel
 
