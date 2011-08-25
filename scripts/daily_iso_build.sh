@@ -111,14 +111,14 @@ build_sabayon() {
 		do
 			src="/sabayon/molecules/${SOURCE_SPECS[i]}"
 			dst="/sabayon/molecules/daily/${SOURCE_SPECS[i]}"
-			cp "${src}" "${dst}" -p || exit 1
+			cp "${src}" "${dst}" -p || return 1
 			echo >> "${dst}"
 			echo "inner_source_chroot_script: /sabayon/scripts/inner_source_chroot_update.sh" >> "${dst}"
 			# tweak iso image name
-			sed -i "s/^#.*destination_iso_image_name/destination_iso_image_name:/" "${dst}" || exit 1
-			sed -i "s/destination_iso_image_name.*/destination_iso_image_name: ${SOURCE_SPECS_ISO[i]}/" "${dst}" || exit 1
+			sed -i "s/^#.*destination_iso_image_name/destination_iso_image_name:/" "${dst}" || return 1
+			sed -i "s/destination_iso_image_name.*/destination_iso_image_name: ${SOURCE_SPECS_ISO[i]}/" "${dst}" || return 1
 			# tweak release version
-			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || exit 1
+			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || return 1
 			echo "${dst}: iso: ${SOURCE_SPECS_ISO[i]} date: ${CUR_DATE}"
 			source_specs+="${dst} "
 		done
@@ -128,12 +128,12 @@ build_sabayon() {
 		do
 			src="/sabayon/molecules/${REMASTER_SPECS[i]}"
 			dst="/sabayon/molecules/daily/remaster/${REMASTER_SPECS[i]}"
-			cp "${src}" "${dst}" -p || exit 1
+			cp "${src}" "${dst}" -p || return 1
 			# tweak iso image name
-			sed -i "s/^#.*destination_iso_image_name/destination_iso_image_name:/" "${dst}" || exit 1
-			sed -i "s/destination_iso_image_name.*/destination_iso_image_name: ${REMASTER_SPECS_ISO[i]}/" "${dst}" || exit 1
+			sed -i "s/^#.*destination_iso_image_name/destination_iso_image_name:/" "${dst}" || return 1
+			sed -i "s/destination_iso_image_name.*/destination_iso_image_name: ${REMASTER_SPECS_ISO[i]}/" "${dst}" || return 1
 			# tweak release version
-			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || exit 1
+			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || return 1
 			echo "${dst}: iso: ${REMASTER_SPECS_ISO[i]} date: ${CUR_DATE}"
 			remaster_specs+="${dst} "
 		done
@@ -142,31 +142,45 @@ build_sabayon() {
 		do
 			src="/sabayon/molecules/${REMASTER_OPENVZ_SPECS[i]}"
 			dst="/sabayon/molecules/daily/remaster/${REMASTER_OPENVZ_SPECS[i]}"
-			cp "${src}" "${dst}" -p || exit 1
+			cp "${src}" "${dst}" -p || return 1
 			# tweak tar name
-			sed -i "s/^#.*tar_name/tar_name:/" "${dst}" || exit 1
-			sed -i "s/tar_name.*/tar_name: ${REMASTER_OPENVZ_SPECS_TAR[i]}/" "${dst}" || exit 1
+			sed -i "s/^#.*tar_name/tar_name:/" "${dst}" || return 1
+			sed -i "s/tar_name.*/tar_name: ${REMASTER_OPENVZ_SPECS_TAR[i]}/" "${dst}" || return 1
 			# tweak release version
-			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || exit 1
+			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || return 1
 			echo "${dst}: iso: ${REMASTER_OPENVZ_SPECS_TAR[i]} date: ${CUR_DATE}"
 			remaster_specs+="${dst} "
 		done
 
-		molecule --nocolor ${source_specs} && \
-			molecule --nocolor ${remaster_specs} && \
-			cp /sabayon/iso/*DAILY* /sabayon/iso_rsync/ && \
-			( date > /sabayon/iso_rsync/RELEASE_DATE_DAILY ) && \
-			/sabayon/scripts/make_torrents.sh
+		molecule --nocolor ${source_specs} || return 1
+		molecule --nocolor ${remaster_specs} || return 1
+		cp /sabayon/iso/*DAILY* /sabayon/iso_rsync/ || return 1
+		date > /sabayon/iso_rsync/RELEASE_DATE_DAILY
+		/sabayon/scripts/make_torrents.sh || return 1
 	fi
 }
 
+out="0"
 if [ -n "${DO_STDOUT}" ]; then
-	build_sabayon && move_to_pkg_sabayon_org
+	build_sabayon
+	out=${?}
+	if [ "${out}" = "0" ]; then
+		move_to_pkg_sabayon_org
+		out=${?}
+	fi
 else
-	( build_sabayon && move_to_pkg_sabayon_org ) &> "/var/log/molecule/autobuild-${CUR_DATE}-${$}.log"
+	log_file="/var/log/molecule/autobuild-${CUR_DATE}-${$}.log"
+	build_sabayon &> "${log_file}"
+	out=${?}
+	if [ "${out}" = "0" ]; then
+		move_to_pkg_sabayon_org &>> "${log_file}"
+		out=${?}
+	fi
 fi
+echo "EXIT_STATUS: ${out}"
 
 CUR_DAY=$(date -u +%d)
 if [ "${CUR_DAY}" = "01" ]; then
 	rm -rf /sabayon/pkgcache/*
 fi
+exit ${out}
