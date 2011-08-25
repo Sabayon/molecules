@@ -158,6 +158,7 @@ build_sabayon() {
 		date > /sabayon/iso_rsync/RELEASE_DATE_DAILY
 		/sabayon/scripts/make_torrents.sh || return 1
 	fi
+	return 0
 }
 
 out="0"
