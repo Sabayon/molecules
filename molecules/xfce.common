@@ -113,7 +113,7 @@ packages_to_add:
 	sys-block/gparted,
 	sys-fs/ntfs3g,
 	sys-power/cpufrequtils,
-	www-client/chromium,
+	www-client/midori,
 	www-plugins/adobe-flash,
 	x11-libs/gksu,
 	x11-terms/xterm,
