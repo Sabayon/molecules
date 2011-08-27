@@ -1,4 +1,4 @@
-W# Define an alternative execution strategy, in this case, the value must be
+# Define an alternative execution strategy, in this case, the value must be
 # "iso_remaster"
 execution_strategy: iso_remaster
 
