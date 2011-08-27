@@ -1,4 +1,4 @@
-# Define an alternative execution strategy, in this case, the value must be
+W# Define an alternative execution strategy, in this case, the value must be
 # "iso_remaster"
 execution_strategy: iso_remaster
 
@@ -268,7 +268,7 @@ packages_to_add:
 	media-libs/libdvdnav,
 	media-plugins/alsa-plugins,
 	media-plugins/kipi-plugins,
-	media-sound/clementine,
+	media-sound/amarok,
 	media-sound/pavucontrol,
 	media-tv/xbmc,
 	media-video/vlc,
