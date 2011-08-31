@@ -10,3 +10,7 @@ fi
 
 # remove entropy hwash
 rm -f "${CHROOT_DIR}"/etc/entropy/.hw.hash
+# remove entropy pid file
+rm -f "${CHROOT_DIR}"/var/run/entropy/entropy.lock
+
+exit 0

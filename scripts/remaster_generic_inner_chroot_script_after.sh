@@ -342,4 +342,7 @@ emaint --fix world
 
 rm -rf /var/lib/entropy/*cache*
 
+# remove entropy pid file
+rm -f /var/run/entropy/entropy.lock
+
 exit 0

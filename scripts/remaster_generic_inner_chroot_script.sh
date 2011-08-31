@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# make sure there is no stale pid file around that prevents entropy from running
+rm -f /var/run/entropy/entropy.lock
+
 export FORCE_EAPI=2
 equo update
 if [ "${?}" != "0" ]; then

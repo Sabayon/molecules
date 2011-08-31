@@ -117,4 +117,7 @@ rm -rf /var/lib/entropy/tmp
 # remove entropy hwhash
 rm -f /etc/entropy/.hw.hash
 
+# remove entropy pid file
+rm -f /var/run/entropy/entropy.lock
+
 exit 0
