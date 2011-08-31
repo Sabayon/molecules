@@ -237,6 +237,15 @@ elif [ "$1" = "kde" ]; then
 	setup_sabayon_mce
 	setup_cpufrequtils
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
+elif [ "$1" = "awesome" ]; then
+	setup_networkmanager
+	# Fix ~/.dmrc to have it load Awesome
+	echo "[Desktop]" > /etc/skel/.dmrc
+	echo "Session=awesome" >> /etc/skel/.dmrc
+	remove_desktop_files
+	setup_displaymanager
+	setup_cpufrequtils
+	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 fi
 
 # !!! THERE IS A BUG IN THE CLAMAV EBUILD !!!
