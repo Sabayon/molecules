@@ -248,22 +248,6 @@ elif [ "$1" = "awesome" ]; then
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 fi
 
-# !!! THERE IS A BUG IN THE CLAMAV EBUILD !!!
-# fix clamav shit if available, mainly for Gforensic
-if [ ! -d "/var/log/clamav" ]; then
-	mkdir -p /var/log/clamav
-	chown clamav:clamav /var/log/clamav
-        chown -R clamav /var/run/clamav
-fi
-touch /var/log/clamav/freshclam.log
-chown clamav:clamav /var/log/clamav -R
-chown clamav:clamav /var/lib/clamav -R
-
-# Fixup mysqld permissions, ebuild bug?
-if [ -d "/var/run/mysqld" ]; then
-	chown mysql:mysql /var/run/mysqld -R
-fi
-
 # Make sure that pango stuff is properly configured
 # It happens with E17 lives, for sure there is something broken
 # somewhere.
