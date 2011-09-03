@@ -67,6 +67,21 @@ nspluginwrapper_autoinstall() {
 	fi
 }
 
+switch_kernel() {
+	local from_kernel="${1}"
+	local to_kernel="${2}"
+
+	kernel-switcher switch "${to_kernel}"
+	if [ "${?}" != "0" ]; then
+		return 1
+	fi
+	equo remove "${from_kernel}"
+	if [ "${?}" != "0" ]; then
+		return 1
+	fi
+	return 0
+}
+
 setup_displaymanager() {
 	# determine what is the login manager
 	if [ -n "$(equo match --installed gnome-base/gdm -qv)" ]; then
@@ -242,6 +257,7 @@ elif [ "$1" = "awesome" ]; then
 	# Fix ~/.dmrc to have it load Awesome
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=awesome" >> /etc/skel/.dmrc
+	switch_kernel "sys-kernel/linux-sabayon" "sys-kernel/linux-fusion"
 	remove_desktop_files
 	setup_displaymanager
 	setup_cpufrequtils
