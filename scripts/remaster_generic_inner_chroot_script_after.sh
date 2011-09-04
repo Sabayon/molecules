@@ -193,7 +193,7 @@ elif [ "$1" = "e17" ]; then
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "xfce" ]; then
 	setup_networkmanager
-	# Fix ~/.dmrc to have it load XFCE
+	# Fix ~/.dmrc to have it load Xfce
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=xfce" >> /etc/skel/.dmrc
 	remove_desktop_files

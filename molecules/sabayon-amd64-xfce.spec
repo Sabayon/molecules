@@ -5,10 +5,10 @@
 release_version: 6
 
 # Release Version string description
-release_desc: amd64 XFCE
+release_desc: amd64 Xfce
 
 # Path to source ISO file (MANDATORY)
 source_iso: /sabayon/iso/Sabayon_Linux_SpinBase_DAILY_amd64.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-destination_iso_image_name: Sabayon_Linux_6_amd64_XFCE.iso
+destination_iso_image_name: Sabayon_Linux_6_amd64_Xfce.iso

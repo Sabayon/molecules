@@ -29,7 +29,7 @@ echo "inet_interfaces = localhost" >> /etc/postfix/main.cf
 # turn bashlogin shells to actual login shells
 sed -i 's:exec -l /bin/bash:exec -l /bin/bash -l:' /bin/bashlogin
 
-# setup /etc/hosts, add sabayon as default hostname (required by XFCE)
+# setup /etc/hosts, add sabayon as default hostname (required by Xfce)
 sed -i "/^127.0.0.1/ s/localhost/localhost sabayon/" /etc/hosts
 sed -i "/^::1/ s/localhost/localhost sabayon/" /etc/hosts
 

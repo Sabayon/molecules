@@ -5,7 +5,7 @@
 release_version: 6
 
 # Release Version string description
-release_desc: x86 XFCE
+release_desc: x86 Xfce
 
 # 32bit chroot
 prechroot: linux32
@@ -14,4 +14,4 @@ prechroot: linux32
 source_iso: /sabayon/iso/Sabayon_Linux_SpinBase_DAILY_x86.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-destination_iso_image_name: Sabayon_Linux_6_x86_XFCE.iso
+destination_iso_image_name: Sabayon_Linux_6_x86_Xfce.iso
