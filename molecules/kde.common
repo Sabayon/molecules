@@ -187,6 +187,7 @@ packages_to_add:
 	kde-base/knotify,
 	kde-base/kolf,
 	kde-base/kollision,
+	kde-base/konqueror,
 	kde-base/konquest,
 	kde-base/konsole,
 	kde-base/konsolekalendar,
