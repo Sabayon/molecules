@@ -126,6 +126,7 @@ packages_to_add:
 	x11-misc/magneto-gtk,
 	x11-misc/xvkbd,
 	x11-terms/terminal,
+	x11-themes/equinox-themes,
 	x11-themes/gtk-engines,
 	x11-themes/iottinka-artwork,
 	x11-themes/tango-icon-theme,
