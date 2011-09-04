@@ -65,6 +65,7 @@ packages_to_add:
 	dev-python/libgnomecanvas-python,
 	x11-apps/xhost,
 	x11-apps/setxkbmap,
+	x11-themes/equinox-themes,
 	x11-themes/gtk-engines,
 	sys-apps/gpu-detector,
 	sys-power/cpufrequtils,
