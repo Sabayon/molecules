@@ -12,7 +12,8 @@ release_file: /etc/sabayon-edition
 destination_chroot: /sabayon
 
 # Extra mirror (r)sync parameters
-extra_rsync_parameters: --one-file-system --exclude "/proc/*" --exclude "/dev/pts/*"
+# this avoids /proc/* and /dev/pts/*
+extra_rsync_parameters: --one-file-system
 
 # Inner chroot script command, to be executed inside destination chroot before packing it
 # - kmerge.sh - setup kernel bins
