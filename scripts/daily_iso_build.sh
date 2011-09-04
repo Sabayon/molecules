@@ -53,6 +53,8 @@ REMASTER_SPECS=(
 	"sabayon-x86-corecdx.spec"
 	"sabayon-amd64-serverbase.spec"
 	"sabayon-x86-serverbase.spec"
+	"sabayon-amd64-awesome.spec"
+	"sabayon-x86-awesome.spec"
 )
 REMASTER_SPECS_ISO=(
 	"Sabayon_Linux_DAILY_amd64_G.iso"
@@ -69,6 +71,8 @@ REMASTER_SPECS_ISO=(
 	"Sabayon_Linux_CoreCDX_DAILY_x86.iso"
 	"Sabayon_Linux_ServerBase_DAILY_amd64.iso"
 	"Sabayon_Linux_ServerBase_DAILY_x86.iso"
+	"Sabayon_Linux_DAILY_amd64_Awesome.iso"
+	"Sabayon_Linux_DAILY_x86_Awesome.iso"
 )
 
 REMASTER_OPENVZ_SPECS=(
