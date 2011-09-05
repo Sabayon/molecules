@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# create /proc if it doesn't exist
+# rsync doesn't copy it
+if [ ! -d "/proc" ]; then
+	mkdir /proc
+	touch /proc/.keep
+fi
+if [ ! -d "/dev/pts" ]; then
+	mkdir /dev/pts
+	touch /dev/pts/.keep
+fi
+
 # copy /root defaults from /etc/skel
 rm -rf /root
 cp /etc/skel /root -Rap
