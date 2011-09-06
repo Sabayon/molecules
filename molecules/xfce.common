@@ -83,6 +83,7 @@ packages_to_add:
 	dev-java/icedtea6-bin,
 	games-misc/cowsay,
 	gnome-extra/nm-applet,
+	gnome-extra/polkit-gnome,
 	media-fonts/ttf-bitstream-vera,
 	media-fonts/dejavu,
 	media-fonts/corefonts,
@@ -135,7 +136,9 @@ packages_to_add:
 	xfce-extra/xfce4-mixer
 
 # x11-themes/sabayon-artwork-gnome:
-# provides the gtk theme for lxdm
+#   provides the gtk theme for lxdm
+# gnome-extra/polkit-gnome:
+#   required to make nm-applet work
 
 # NOTE: xfce-base/xfce4-panel addition is a workaround
 # to current Entropy limitations in or-dependencies
