@@ -62,6 +62,7 @@ packages_to_add:
 	app-text/pastebunz,
 	games-misc/cowsay,
 	gnome-extra/nm-applet,
+	lxde-base/lxpolkit,
         media-fonts/ttf-bitstream-vera,
         media-fonts/dejavu,
         media-fonts/corefonts,
