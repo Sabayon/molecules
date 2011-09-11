@@ -100,7 +100,6 @@ packages_to_add:
 	gnome-extra/nautilus-sendto,
 	gnome-extra/nm-applet,
 	gnome-extra/polkit-gnome,
-	games-puzzle/world-of-goo-demo,
 	media-fonts/ttf-bitstream-vera,
 	media-fonts/dejavu,
 	media-fonts/corefonts,
