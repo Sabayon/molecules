@@ -153,6 +153,7 @@ packages_to_add:
 	sys-power/acpid,
 	sys-power/cpufrequtils,
 	www-client/chromium,
+	www-plugins/adobe-flash,
 	www-plugins/nspluginwrapper,
 	x11-apps/ccsm,
 	x11-apps/fusion-icon,

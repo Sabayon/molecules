@@ -68,6 +68,7 @@ packages_to_remove:
 	media-sound/audacious,
 	app-cdr/brasero,
 	media-video/totem,
+	www-plugins/adobe-flash,
 	media-libs/libdvdcss,
 	media-libs/libdvdread,
 	gnome-extra/gnome-media,

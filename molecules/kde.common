@@ -307,6 +307,7 @@ packages_to_add:
 	sys-power/acpid,
 	sys-power/cpufrequtils,
 	www-client/chromium,
+	www-plugins/adobe-flash,
 	www-plugins/nspluginwrapper,
 	x11-apps/xdm,
 	x11-terms/xterm,
