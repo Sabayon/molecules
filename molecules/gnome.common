@@ -153,7 +153,6 @@ packages_to_add:
 	www-client/chromium,
 	www-plugins/adobe-flash,
 	www-plugins/nspluginwrapper,
-	x11-apps/ccsm,
 	x11-apps/xdm,
 	x11-terms/guake,
 	x11-terms/xterm,
