@@ -27,6 +27,10 @@ echo LC_ALL=\"en_US.UTF-8\" >> /etc/env.d/02locale
 # remove SSH keys
 rm -rf /etc/ssh/*_key*
 
+# remove LDAP keys
+rm -f /etc/openldap/ssl/ldap.pem /etc/openldap/ssl/ldap.key \
+	/etc/openldap/ssl/ldap.csr /etc/openldap/ssl/ldap.crt
+
 # better remove postfix package manager generated
 # SSL certificates
 rm -rf /etc/ssl/postfix/server.*
