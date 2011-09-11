@@ -168,11 +168,8 @@ packages_to_add:
 	x11-misc/alacarte,
 	x11-misc/magneto-gtk,
 	x11-misc/xvkbd,
-	x11-plugins/compiz-plugins-extra,
-	x11-plugins/compiz-plugins-main,
 	x11-plugins/pidgin-libnotify,
 	x11-terms/gnome-terminal,
-	x11-themes/emerald-themes,
 	x11-themes/gnome-icon-theme,
 	x11-themes/gnome-themes,
 	x11-themes/gtk-engines,
@@ -183,7 +180,6 @@ packages_to_add:
 	x11-themes/sound-theme-freedesktop,
 	x11-themes/xcursor-themes,
 	x11-themes/iottinka-artwork,
-	x11-wm/compiz,
 	x11-wm/twm
 
 # Custom shell call to packages add (default is: equo install)
