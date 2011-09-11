@@ -11,11 +11,7 @@ rc-update del networkmanager default &> /dev/null
 # add eth0, should get dhcp by default already
 rc-update add net.eth0 default
 
-# drop ufw
-rc-update del ufw default
-
 # drop other useless services
-
 rc-update del sabayonlive boot
 rc-update del x-setup boot
 
