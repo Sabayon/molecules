@@ -94,6 +94,7 @@ packages_to_add:
 	gnome-extra/gnome-power-manager,
 	gnome-extra/gnome-screensaver,
 	gnome-extra/gnome-system-monitor,
+	gnome-extra/gnome-tweak-tool,
 	gnome-extra/gnome-utils,
 	gnome-extra/gucharmap,
 	gnome-extra/nautilus-open-terminal,
