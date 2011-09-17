@@ -9,5 +9,5 @@
 # Path to source ISO file (MANDATORY)
 source_iso: /sabayon/iso/Sabayon_Linux_SpinBase_DAILY_amd64.iso
 
-release_version: 6
-image_name: Sabayon_Linux_SpinBase_6_amd64_ami.img
+release_version: 7
+image_name: Sabayon_Linux_SpinBase_7_amd64_ami.img
