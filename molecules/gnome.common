@@ -55,6 +55,7 @@ packages_to_add:
 	app-admin/packagekit-gtk,
 	app-admin/sulfur,
 	app-admin/system-tools-backends,
+	app-backup/deja-dup,
 	app-crypt/gnupg,
 	app-crypt/pinentry-gtk2,
 	app-dicts/aspell-de,
