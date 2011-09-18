@@ -102,8 +102,6 @@ setup_networkmanager() {
 }
 
 gforensic_remove_skel_stuff() {
-	# remove desktop icons
-	rm /etc/skel/Desktop/*
 	# remove no longer needed folders/files
 	rm -r /etc/skel/.fluxbox
 	rm -r /etc/skel/.e
