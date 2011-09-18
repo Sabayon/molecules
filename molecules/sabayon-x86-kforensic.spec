@@ -85,7 +85,6 @@ iso_title: Sabayon_Linux_Forensic_x86_K
 # List of packages that would be removed from chrooted system (comma separated)
 packages_to_remove:
 	x11-wm/twm,
-	net-misc/mobile-broadband-provider-info,
 	mail-client/mailx,
 	mail-client/mailx-support,
 	app-misc/sabayon-music,
