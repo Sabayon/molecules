@@ -46,9 +46,10 @@ destination_iso_directory: /sabayon/iso
 
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
+	@fluxbox,
+	@gst-plugins,
 	@X,
 	@wireless,
-	@fluxbox,
 	app-admin/packagekit-base,
 	app-admin/packagekit-qt4,
 	app-admin/sulfur,

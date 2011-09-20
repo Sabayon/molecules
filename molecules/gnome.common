@@ -48,6 +48,7 @@ destination_iso_directory: /sabayon/iso
 packages_to_add:
 	@X,
 	@gnome,
+	@gst-plugins,
 	@fluxbox,
 	@wireless,
 	app-admin/gnome-system-tools,
