@@ -148,6 +148,7 @@ packages_to_add:
 	sys-apps/hdparm,
 	sys-apps/sdparm,
 	sys-apps/tuxonice-userui,
+	sys-block/parted,
 	sys-block/gparted,
 	sys-fs/dmraid,
 	sys-fs/ntfs3g,

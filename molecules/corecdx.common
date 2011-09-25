@@ -68,6 +68,7 @@ packages_to_add:
 	x11-themes/equinox-themes,
 	x11-themes/gtk-engines,
 	sys-apps/gpu-detector,
+	sys-block/parted,
 	sys-power/cpufrequtils,
         app-emulation/virtualbox-guest-additions,
         x11-drivers/xf86-video-virtualbox

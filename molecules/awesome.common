@@ -62,6 +62,7 @@ packages_to_add:
 	net-irc/xchat,
 	sys-power/cpufrequtils,
 	sys-apps/gpu-detector,
+	sys-block/parted,
 	www-client/chromium,
 	x11-apps/setxkbmap,
 	x11-apps/xhost,

@@ -112,6 +112,7 @@ packages_to_add:
 	net-wireless/gnome-bluetooth,
 	sys-apps/gpu-detector,
 	sys-auth/consolekit,
+	sys-block/parted,
 	sys-block/gparted,
 	sys-fs/ntfs3g,
 	sys-power/cpufrequtils,
