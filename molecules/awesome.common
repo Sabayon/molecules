@@ -50,6 +50,7 @@ packages_to_add:
 	app-emulation/virtualbox-guest-additions,
 	app-misc/anaconda-runtime-gui,
 	app-misc/sabayon-skel,
+	app-text/epdfview,
 	app-text/pastebunz,
 	dev-python/libgnomecanvas-python,
 	lxde-base/lxdm,
