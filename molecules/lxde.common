@@ -59,6 +59,7 @@ packages_to_add:
 	app-misc/anaconda-runtime-gui,
 	app-office/abiword,
 	app-office/gnumeric,
+	app-text/epdfview,
 	app-text/pastebunz,
 	games-misc/cowsay,
 	gnome-extra/nm-applet,
