@@ -262,17 +262,6 @@ elif [ "$1" = "awesome" ]; then
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 fi
 
-# Make sure that pango stuff is properly configured
-# It happens with E17 lives, for sure there is something broken
-# somewhere.
-if [ -x "/usr/bin/pango-querymodules" ]; then
-	if [ "$(uname -m)" = "x86_64" ]; then
-		/usr/bin/pango-querymodules > "/etc/pango/x86_64-pc-linux-gnu/pango.modules"
-	else
-		/usr/bin/pango-querymodules > "/etc/pango/pango.modules"
-	fi
-fi
-
 # Setup SAMBA config file
 if [ -f /etc/samba/smb.conf.default ]; then
 	cp -p /etc/samba/smb.conf.default /etc/samba/smb.conf
