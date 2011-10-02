@@ -148,7 +148,16 @@ setup_proprietary_gfx_drivers() {
 	if [ "$myuname" == "x86_64" ]; then
 		mydir="amd64"
 	fi
-	kernel_tag="#$(equo match --installed -qv sys-kernel/linux-sabayon | sort | head -n 1 | cut -d"-" -f 4 | sed 's/ //g')-sabayon"
+	kernel_ver="$(equo match --installed -qv virtual/linux-binary | cut -d/ -f 2)"
+	# strip -r** if exists, hopefully we don't have PN ending with -r
+	kernel_ver="${kernel_ver%-r*}"
+	kernel_tag_file="/etc/kernels/${kernel_ver}/RELEASE_LEVEL"
+	if [ ! -f "${kernel_tag_file}" ]; then
+		echo "cannot find ${kernel_tag_file}, wtf" >&2
+		# do not return 1 !!!
+		return 0
+	fi
+	kernel_tag="#$(cat \"${kernel_tag_file}\")"
 
 	rm -rf /var/lib/entropy/client/packages/packages*/${mydir}/*/x11-drivers*
 	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-drivers-173*$kernel_tag
