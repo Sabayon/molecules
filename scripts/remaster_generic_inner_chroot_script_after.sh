@@ -262,6 +262,25 @@ elif [ "$1" = "awesome" ]; then
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 fi
 
+FONTCONFIG_ENABLE="
+	10-autohint.conf
+	10-no-sub-pixel.conf
+	10-sub-pixel-bgr.conf
+	10-sub-pixel-rgb.conf
+	10-sub-pixel-vbgr.conf
+	10-sub-pixel-vrgb.conf
+	10-unhinted.conf
+	31-cantarell.conf"
+
+for fc_en in ${FONTCONFIG_ENABLE}; do
+	if [ -f "/etc/fonts/conf.avail/${fc_en}" ]; then
+		# beautify font rendering
+		eselect fontconfig enable "${fc_en}"
+	else
+		echo "ouch, /etc/fonts/conf.avail/${fc_en} is not available" >&2
+	fi
+done
+
 # Setup SAMBA config file
 if [ -f /etc/samba/smb.conf.default ]; then
 	cp -p /etc/samba/smb.conf.default /etc/samba/smb.conf
