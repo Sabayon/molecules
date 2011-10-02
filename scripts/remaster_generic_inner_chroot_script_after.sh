@@ -270,6 +270,9 @@ FONTCONFIG_ENABLE="
 	10-sub-pixel-vbgr.conf
 	10-sub-pixel-vrgb.conf
 	10-unhinted.conf
+	20-unhint-small-dejavu-sans.conf
+	20-unhint-small-dejavu-sans-mono.conf
+	20-unhint-small-dejavu-serif.conf
 	31-cantarell.conf
 	57-dejavu-sans.conf
 	57-dejavu-sans-mono.conf
