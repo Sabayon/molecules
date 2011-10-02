@@ -270,7 +270,10 @@ FONTCONFIG_ENABLE="
 	10-sub-pixel-vbgr.conf
 	10-sub-pixel-vrgb.conf
 	10-unhinted.conf
-	31-cantarell.conf"
+	31-cantarell.conf
+	57-dejavu-sans.conf
+	57-dejavu-sans-mono.conf
+	57-dejavu-serif.conf"
 
 for fc_en in ${FONTCONFIG_ENABLE}; do
 	if [ -f "/etc/fonts/conf.avail/${fc_en}" ]; then
