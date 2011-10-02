@@ -262,14 +262,16 @@ elif [ "$1" = "awesome" ]; then
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 fi
 
+# Cause some rendering glitches on vbox as of 2011-10-02
+#	10-autohint.conf
+#	10-no-sub-pixel.conf
+#	10-sub-pixel-bgr.conf
+#	10-sub-pixel-rgb.conf
+#	10-sub-pixel-vbgr.conf
+#	10-sub-pixel-vrgb.conf
+#	10-unhinted.conf
+
 FONTCONFIG_ENABLE="
-	10-autohint.conf
-	10-no-sub-pixel.conf
-	10-sub-pixel-bgr.conf
-	10-sub-pixel-rgb.conf
-	10-sub-pixel-vbgr.conf
-	10-sub-pixel-vrgb.conf
-	10-unhinted.conf
 	20-unhint-small-dejavu-sans.conf
 	20-unhint-small-dejavu-sans-mono.conf
 	20-unhint-small-dejavu-serif.conf
