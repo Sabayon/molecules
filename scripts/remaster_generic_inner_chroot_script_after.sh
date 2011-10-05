@@ -157,7 +157,7 @@ setup_proprietary_gfx_drivers() {
 		# do not return 1 !!!
 		return 0
 	fi
-	kernel_tag="#$(cat \"${kernel_tag_file}\")"
+	kernel_tag="#$(cat "${kernel_tag_file}")"
 
 	rm -rf /var/lib/entropy/client/packages/packages*/${mydir}/*/x11-drivers*
 	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-drivers-173*$kernel_tag
