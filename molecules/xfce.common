@@ -110,7 +110,6 @@ packages_to_add:
 	net-wireless/bluez,
 	net-wireless/bluez-firmware,
 	net-wireless/bluez-hcidump,
-	net-wireless/gnome-bluetooth,
 	sys-apps/gpu-detector,
 	sys-auth/consolekit,
 	sys-block/parted,
@@ -146,6 +145,10 @@ packages_to_add:
 #   provides the gtk theme for lxdm
 # gnome-extra/polkit-gnome:
 #   required to make nm-applet work
+
+# gnome-base/gnome-session is a PDEPEND
+packages_to_remove:
+	gnome-base/gnome-session
 
 # NOTE: xfce-base/xfce4-panel addition is a workaround
 # to current Entropy limitations in or-dependencies
