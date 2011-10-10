@@ -17,6 +17,8 @@ echo "ISO_CHECKSUM_PATH = ${ISO_CHECKSUM_PATH}"
 echo
 
 isohybrid "${ISO_PATH}" || exit 1
-md5sum "${ISO_PATH}" > "${ISO_CHECKSUM_PATH}"
+cd "$(dirname "${ISO_PATH}")" || exit 1
+iso_name=$(basename "${ISO_PATH}")
+md5sum "${iso_name}" > "${ISO_CHECKSUM_PATH}"
 exit ${?}
 
