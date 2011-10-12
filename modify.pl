@@ -108,9 +108,10 @@ while (my $line = <$fh>) {
 	}
 	else {
 		say $fh_out $line;
-		# if (index($line, $section) == 0) {
-		if ($line eq $section) {
+		# if ($line eq $section) {
+		if ($line =~ /^\Q$section\E(\s*)/) {
 			say "*   in section $line ($file)";
+			say "    warning, trailing whitespace after section name" if ($1);
 			$in_section = 1;
 		}
 	}
@@ -192,8 +193,15 @@ sub insert_elem {
 	if ($opts{sort}) {
 		# $text_to_input doesn't need to be defined - provide --sort without
 		# adding anything
-		push @section_strings, $text_to_input if defined $text_to_input;
+		if (@section_strings > 0) {
+			# to have commas where they need to be after sorting
+			$section_strings[-1] .= "," unless $section_strings[-1] =~ /,$/;
+		}
+		push @section_strings, $text_to_input . "," if defined $text_to_input;
 		@section_strings = sort @section_strings;
+		if (@section_strings > 0) {
+			chop ($section_strings[-1]) if $section_strings[-1] =~ /,$/;
+		}
 		# cannot simply check if array before and after is the same and return 0
 		# because it happens to fix indentation too (using $indent)
 		return 1;
