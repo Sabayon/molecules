@@ -101,20 +101,38 @@ setup_networkmanager() {
 	rc-update add NetworkManager default
 }
 
-gforensic_remove_skel_stuff() {
+xfceforensic_remove_skel_stuff() {
 	# remove no longer needed folders/files
-	rm -r /etc/skel/.fluxbox
-	rm -r /etc/skel/.e
-	rm -r /etc/skel/.mozilla
-	rm -r /etc/skel/.emerald
-	rm -r /etc/skel/.xchat2
-	rm -r /etc/skel/.config/compiz
-	rm -r /etc/skel/.config/lxpanel
-	rm -r /etc/skel/.config/pcmanfm
-	rm -r /etc/skel/.config/Thunar
-	rm -r /etc/skel/.config/xfce4
-	rm -r /etc/skel/.gconf/apps/compiz
-	rm -r /etc/skel/.gconf/apps/gset-compiz
+	rm -rf /etc/skel/.config/compiz
+    rm -rf /etc/skel/.config/lxpanel
+    rm -rf /etc/skel/.config/lxsession
+    rm -rf /etc/skel/.config/lxterminal
+    rm -rf /etc/skel/.config/menus
+    rm -rf /etc/skel/.config/metacity
+    rm -rf /etc/skel/.config/nautilus
+    rm -rf /etc/skel/.config/openbox
+    # rm -rf /etc/skel/.config/pcmanfm
+    rm -rf /etc/skel/.config/Terminal
+    rm -rf /etc/skel/.config/vlc
+    rm -rf /etc/skel/.config/xfce4/desktop
+    rm -rf /etc/skel/.config/xfce4/panel
+    rm -rf /etc/skel/.e
+    rm -rf /etc/skel/.emerald
+    rm -rf /etc/skel/.gconf/apps/compiz
+    rm -rf /etc/skel/.gconf/apps/gset-compiz
+    rm -rf /etc/skel/.gconf/apps/tomboy
+    rm -rf /etc/skel/.gconf/apps/nautilus
+    rm -rf /etc/skel/.gconf/apps/metacity
+    rm -rf /etc/skel/.gstreamer-0.10
+    rm -rf /etc/skel/.fluxbox
+    rm -rf /etc/skel/.kde4
+    rm -rf /etc/skel/.mozilla
+    # rm -rf /etc/skel/.opera
+    rm -rf /etc/skel/.ssh
+    rm -rf /etc/skel/.xine
+    rm -rf /etc/skel/Desktop/*
+    rm -rf /usr/share/backgrounds/iottinka
+    rm -rf /usr/share/wallpapers/*
 }
 
 setup_oss_gfx_drivers() {
@@ -226,29 +244,15 @@ elif [ "$1" = "gnome" ]; then
 	setup_displaymanager
 	setup_sabayon_mce
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
-elif [ "$1" = "gforensic" ]; then
+elif [ "$1" = "xfceforensic" ]; then
 	setup_networkmanager
-	# Fix ~/.dmrc to have it load GNOME
+	# Fix ~/.dmrc to have it load Xfce
 	echo "[Desktop]" > /etc/skel/.dmrc
-	echo "Session=gnome" >> /etc/skel/.dmrc
-	rc-update del system-tools-backends boot
-	rc-update add system-tools-backends default
-	setup_displaymanager
-	setup_sabayon_mce
-	gforensic_remove_skel_stuff
+	echo "Session=xfce" >> /etc/skel/.dmrc
+	remove_desktop_files
 	setup_cpufrequtils
-	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
-elif [ "$1" = "kforensic" ]; then
-	setup_networkmanager
-	# Fix ~/.dmrc to have it load KDE
-	echo "[Desktop]" > /etc/skel/.dmrc
-	echo "Session=KDE-4" >> /etc/skel/.dmrc
-	rc-update del system-tools-backends boot
-	rc-update add system-tools-backends default
 	setup_displaymanager
-	setup_sabayon_mce
 	gforensic_remove_skel_stuff
-	setup_cpufrequtils
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "kde" ]; then
 	setup_networkmanager

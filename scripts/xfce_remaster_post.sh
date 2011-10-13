@@ -17,5 +17,3 @@ cp "${GFORENSIC_DIR}"/files/helpers.rc "${CHROOT_DIR}/etc/skel/.config/xfce4/hel
 cp "${GFORENSIC_DIR}"/files/rc.lua "${CHROOT_DIR}/etc/xdg/awesome/rc.lua"
 cp -r "${GFORENSIC_DIR}"/files/OSDark "${CHROOT_DIR}/usr/share/icons/"
 cp -r "${GFORENSIC_DIR}"/files/NewSlickness-round "${CHROOT_DIR}/usr/share/themes/"
-# cp "${GFORENSIC_DIR}"/etc/skel/.gconf/desktop/gnome/interface/%gconf.xml "${CHROOT_DIR}/etc/skel/.gconf/desktop/gnome/interface/%gconf.xml"
-# cp "${GFORENSIC_DIR}"/etc/skel/.gconf/apps/nautilus/preferences/%gconf.xml "${CHROOT_DIR}/etc/skel/.gconf/apps/nautilus/preferences/%gconf.xml"
