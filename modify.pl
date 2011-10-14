@@ -193,17 +193,8 @@ sub insert_elem {
 	if ($opts{sort}) {
 		# $text_to_input doesn't need to be defined - provide --sort without
 		# adding anything
-		if (@section_strings > 0) {
-			# to have commas where they need to be after sorting
-			$section_strings[-1] .= "," unless $section_strings[-1] =~ /,$/;
-		}
-		push @section_strings, $text_to_input . "," if defined $text_to_input;
-		@section_strings = sort @section_strings;
-		if (@section_strings > 0) {
-			chop ($section_strings[-1]) if $section_strings[-1] =~ /,$/;
-		}
-		# cannot simply check if array before and after is the same and return 0
-		# because it happens to fix indentation too (using $indent)
+		unshift @section_strings, $text_to_input . "," if defined $text_to_input;
+		sort_elem();
 		return 1;
 	}
 	else {
@@ -263,7 +254,7 @@ sub delete_elem {
 		splice @section_strings, $del, 1;
 	}
 	if ($opts{sort}) {
-		@section_strings = sort @section_strings;
+		sort_elem();
 		# cannot simply check if array before and after is the same and return 0
 		# because it happens to fix indentation too (using $indent)
 	}
@@ -272,7 +263,8 @@ sub delete_elem {
 
 # search for duplicated entries, return their indexes
 sub search_dups {
-	my $text = shift or die "no arg to search_dups";
+	my $text = shift;
+	die "no arg to search_dups" unless defined $text;
 	my $text_c = $text . ",";
 	my $stop_at_first = shift;
 	my @ret = ();
@@ -283,6 +275,15 @@ sub search_dups {
 		}
 	}
 	@ret;
+}
+
+# sort items (modify array in place), handle commas
+sub sort_elem {
+	return if @section_strings == 0;
+	# to have commas where they need to be after sorting
+	$section_strings[-1] .= "," unless $section_strings[-1] =~ /,$/;
+	@section_strings = sort @section_strings;
+	chop ($section_strings[-1]) if $section_strings[-1] =~ /,$/;
 }
 
 # write "section" strings only
