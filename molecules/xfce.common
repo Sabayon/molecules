@@ -128,7 +128,6 @@ packages_to_add:
 	x11-misc/xvkbd,
 	x11-terms/terminal,
 	x11-terms/xterm,
-	x11-themes/elementary-icon-theme,
 	x11-themes/equinox-themes,
 	x11-themes/gtk-engines,
 	x11-themes/iottinka-artwork,
