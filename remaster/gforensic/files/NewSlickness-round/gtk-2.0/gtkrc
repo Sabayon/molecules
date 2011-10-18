@@ -48,7 +48,7 @@ style "default"
 	GtkButton      ::child-displacement-x		= 0
 	GtkButton      ::child-displacement-y		= 1
 
-	fg[NORMAL]		= "#000000"
+	fg[NORMAL]		= "#9b3d1d"
 	fg[ACTIVE]		= "#000000"
 	fg[PRELIGHT]		= "#000000"
 	fg[SELECTED]		= "#ffffff"
