@@ -103,33 +103,8 @@ setup_networkmanager() {
 
 xfceforensic_remove_skel_stuff() {
 	# remove no longer needed folders/files
-	rm -rf /etc/skel/.config/compiz
-    rm -rf /etc/skel/.config/lxpanel
-    rm -rf /etc/skel/.config/lxsession
-    rm -rf /etc/skel/.config/lxterminal
-    rm -rf /etc/skel/.config/menus
-    rm -rf /etc/skel/.config/metacity
-    rm -rf /etc/skel/.config/nautilus
-    rm -rf /etc/skel/.config/openbox
-    # rm -rf /etc/skel/.config/pcmanfm
-    rm -rf /etc/skel/.config/Terminal
-    rm -rf /etc/skel/.config/vlc
     rm -rf /etc/skel/.config/xfce4/desktop
     rm -rf /etc/skel/.config/xfce4/panel
-    rm -rf /etc/skel/.e
-    rm -rf /etc/skel/.emerald
-    rm -rf /etc/skel/.gconf/apps/compiz
-    rm -rf /etc/skel/.gconf/apps/gset-compiz
-    rm -rf /etc/skel/.gconf/apps/tomboy
-    rm -rf /etc/skel/.gconf/apps/nautilus
-    rm -rf /etc/skel/.gconf/apps/metacity
-    rm -rf /etc/skel/.gstreamer-0.10
-    rm -rf /etc/skel/.fluxbox
-    rm -rf /etc/skel/.kde4
-    rm -rf /etc/skel/.mozilla
-    # rm -rf /etc/skel/.opera
-    rm -rf /etc/skel/.ssh
-    rm -rf /etc/skel/.xine
     rm -rf /etc/skel/Desktop/*
     rm -rf /usr/share/backgrounds/iottinka
     rm -rf /usr/share/wallpapers/*
@@ -252,7 +227,7 @@ elif [ "$1" = "xfceforensic" ]; then
 	remove_desktop_files
 	setup_cpufrequtils
 	setup_displaymanager
-	gforensic_remove_skel_stuff
+	xfceforensic_remove_skel_stuff
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "kde" ]; then
 	setup_networkmanager
