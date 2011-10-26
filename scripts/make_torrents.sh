@@ -9,6 +9,11 @@ cd "${iso_dir}"
 for iso_file in "${iso_dir}"/*.{iso,tar.gz}; do
 	iso_name="${iso_file/.iso}"
 	iso_name="${iso_name/.tar.gz}"
+	# do not make torrents for DAILY iso images
+	is_daily=$(echo ${iso_name} | grep DAILY)
+	if [ -n "${is_daily}" ]; then
+		continue
+	fi
 	torrent_file="${iso_file}.torrent"
 	[[ -f "${torrent_file}" ]] && rm "${torrent_file}"
 	iso_file_name="$(basename ${iso_file})"
