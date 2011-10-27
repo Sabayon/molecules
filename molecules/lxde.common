@@ -62,7 +62,7 @@ packages_to_add:
 	app-text/epdfview,
 	app-text/pastebunz,
 	games-misc/cowsay,
-	gnome-extra/nm-applet,
+	gnome-extra/nm-applet-gtk2,
 	lxde-base/lxpolkit,
         media-fonts/ttf-bitstream-vera,
         media-fonts/dejavu,

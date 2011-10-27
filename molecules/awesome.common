@@ -53,6 +53,7 @@ packages_to_add:
 	app-text/epdfview,
 	app-text/pastebunz,
 	dev-python/libgnomecanvas-python,
+	gnome-extra/nm-applet-gtk2,
 	lxde-base/lxdm,
 	media-fonts/corefonts,
 	media-fonts/dejavu,

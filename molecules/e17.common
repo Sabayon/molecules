@@ -60,7 +60,7 @@ packages_to_add:
 	app-text/pastebunz,
 	dev-libs/fribidi,
 	games-misc/cowsay,
-	gnome-extra/nm-applet,
+	gnome-extra/nm-applet-gtk2,
 	lxde-base/lxdm,
 	lxde-base/lxpolkit,
 	lxde-base/lxterminal,
