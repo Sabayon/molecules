@@ -7,7 +7,7 @@ if [ -z "${BUILDING_DAILY}" ]; then
         sed -i "/^official-repository-id/ s/sabayonlinux.org/sabayon-weekly/" "${repo_conf}" || exit 1
         sed -i "/^repository =/ s/sabayonlinux.org/sabayon-weekly/" "${repo_conf}" || exit 1
 	# new style repository config files (inside repositories.conf.d/ directory)
-	repo_conf_d="${CHROOT_DIR}/etc/entropy/repositories.conf.d/"
+	repo_conf_d="${CHROOT_DIR}/etc/entropy/repositories.conf.d"
 	src_conf="${repo_conf_d}/entropy_sabayonlinux.org"
 	dst_conf="${repo_conf_d}/entropy_sabayon-weekly"
 	if [ -f "${src_conf}" ]; then
