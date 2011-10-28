@@ -103,11 +103,15 @@ setup_networkmanager() {
 
 xfceforensic_remove_skel_stuff() {
 	# remove no longer needed folders/files
-    rm -rf /etc/skel/.config/xfce4/desktop
-    rm -rf /etc/skel/.config/xfce4/panel
-    rm -rf /etc/skel/Desktop/*
-    rm -rf /usr/share/backgrounds/iottinka
-    rm -rf /usr/share/wallpapers/*
+	rm -rf /etc/skel/.config/xfce4/desktop
+	rm -rf /etc/skel/.config/xfce4/panel
+	rm -rf /etc/skel/Desktop/*
+	rm -rf /usr/share/backgrounds/iottinka
+	rm -rf /usr/share/wallpapers/*
+}
+
+remove_mozilla_skel_cruft() {
+	rm -rf /etc/skel/.mozilla
 }
 
 setup_oss_gfx_drivers() {
@@ -173,6 +177,7 @@ if [ "$1" = "lxde" ]; then
 	setup_displaymanager
 	# properly tweak lxde autostart tweak, adding --desktop option
 	sed -i 's/pcmanfm -d/pcmanfm -d --desktop/g' /etc/xdg/lxsession/LXDE/autostart
+	remove_mozilla_skel_cruft
 	setup_cpufrequtils
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "e17" ]; then
@@ -189,6 +194,7 @@ elif [ "$1" = "e17" ]; then
 	# sed -i '/lxdm-greeter-gtk/ a\\nlast_session=enlightenment.desktop\nlast_lang=' /etc/lxdm/lxdm.conf
 	# Fix ~/.gtkrc-2.0 for some nice icons in gtk
 	echo 'gtk-icon-theme-name="Tango" gtk-theme-name="Xfce"' | tr " " "\n" > /etc/skel/.gtkrc-2.0
+	remove_mozilla_skel_cruft
 	setup_cpufrequtils
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "xfce" ]; then
@@ -197,6 +203,7 @@ elif [ "$1" = "xfce" ]; then
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=xfce" >> /etc/skel/.dmrc
 	remove_desktop_files
+	remove_mozilla_skel_cruft
 	setup_cpufrequtils
 	setup_displaymanager
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
@@ -207,6 +214,7 @@ elif [ "$1" = "fluxbox" ]; then
 	echo "Session=fluxbox" >> /etc/skel/.dmrc
 	remove_desktop_files
 	setup_displaymanager
+	remove_mozilla_skel_cruft
 	setup_cpufrequtils
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "gnome" ]; then
@@ -227,6 +235,7 @@ elif [ "$1" = "xfceforensic" ]; then
 	remove_desktop_files
 	setup_cpufrequtils
 	setup_displaymanager
+	remove_mozilla_skel_cruft
 	xfceforensic_remove_skel_stuff
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "kde" ]; then
@@ -246,6 +255,7 @@ elif [ "$1" = "awesome" ]; then
 	switch_kernel "sys-kernel/linux-sabayon" "sys-kernel/linux-fusion"
 	remove_desktop_files
 	setup_displaymanager
+	remove_mozilla_skel_cruft
 	setup_cpufrequtils
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 fi
