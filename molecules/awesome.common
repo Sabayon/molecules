@@ -47,7 +47,6 @@ destination_iso_directory: /sabayon/iso
 packages_to_add:
 	@X,
 	app-editors/gedit,
-	app-emulation/virtualbox-guest-additions,
 	app-misc/anaconda-runtime-gui,
 	app-misc/sabayon-skel,
 	app-text/epdfview,
@@ -68,7 +67,6 @@ packages_to_add:
 	www-client/chromium,
 	x11-apps/setxkbmap,
 	x11-apps/xhost,
-	x11-drivers/xf86-video-virtualbox,
 	x11-terms/xterm,
 	x11-themes/equinox-themes,
 	x11-themes/gtk-engines,
