@@ -79,7 +79,6 @@ packages_to_add:
 	sys-fs/ntfs3g,
 	sys-power/cpufrequtils,
 	www-client/midori,
-	www-plugins/adobe-flash,
 	x11-misc/magneto-gtk,
 	x11-themes/equinox-themes,
 	x11-themes/gtk-engines,
