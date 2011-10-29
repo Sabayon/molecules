@@ -72,7 +72,6 @@ packages_to_add:
 	net-im/pidgin,
 	net-irc/xchat,
 	net-p2p/transmission-gtk+,
-	gnome-extra/nm-applet,
 	sys-apps/gnome-disk-utility,
         sys-apps/gpu-detector,
         sys-auth/consolekit,
