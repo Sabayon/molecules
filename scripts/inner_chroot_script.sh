@@ -88,6 +88,10 @@ emaint --fix world
 # copy entropy repositories config
 # the one in chroots is optimized to use Garr mirror
 cp /etc/entropy/repositories.conf.example /etc/entropy/repositories.conf -p
+for repo_conf in /etc/entropy/repositories.conf.d/entropy_*.example; do
+	new_repo_conf="${repo_conf%.example}"
+	cp "${repo_conf}" "${new_repo_conf}"
+done
 
 # copy Portage config from sabayonlinux.org entropy repo to system
 cp /var/lib/entropy/client/database/*/sabayonlinux.org/standard/*/*/package.mask /etc/portage/package.mask
