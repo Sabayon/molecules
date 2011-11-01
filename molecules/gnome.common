@@ -88,7 +88,7 @@ packages_to_add:
 	app-office/libreoffice-l10n-it,
 	app-office/libreoffice-l10n-nl,
 	app-office/libreoffice-l10n-pt,
-	dev-java/icedtea6-bin,
+	dev-java/icedtea-bin,
 	gnome-base/gnome-shell,
 	gnome-extra/gcalctool,
 	gnome-extra/gconf-editor,

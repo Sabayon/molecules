@@ -82,7 +82,7 @@ packages_to_add:
 	app-office/libreoffice-l10n-pt,
 	app-text/epdfview,
 	app-text/pastebunz,
-	dev-java/icedtea6-bin,
+	dev-java/icedtea-bin,
 	games-misc/cowsay,
 	gnome-extra/nm-applet,
 	gnome-extra/polkit-gnome,
