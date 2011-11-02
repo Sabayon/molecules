@@ -66,7 +66,7 @@ packages_to_add:
 	x11-apps/xhost,
 	x11-apps/setxkbmap,
 	x11-themes/equinox-themes,
-	x11-themes/gtk-engines,
+	x11-themes/gtk-engines:2,
 	sys-apps/gpu-detector,
 	sys-block/parted,
 	sys-power/cpufrequtils,

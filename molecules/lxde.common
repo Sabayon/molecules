@@ -81,7 +81,7 @@ packages_to_add:
 	www-client/midori,
 	x11-misc/magneto-gtk,
 	x11-themes/equinox-themes,
-	x11-themes/gtk-engines,
+	x11-themes/gtk-engines:2,
 	xfce-extra/xfce4-notifyd
 
 # x11-themes/sabayon-artwork-gnome:

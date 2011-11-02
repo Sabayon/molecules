@@ -69,7 +69,7 @@ packages_to_add:
 	x11-apps/xhost,
 	x11-terms/xterm,
 	x11-themes/equinox-themes,
-	x11-themes/gtk-engines,
+	x11-themes/gtk-engines:2,
 	x11-themes/hicolor-icon-theme,
 	x11-wm/awesome
 
