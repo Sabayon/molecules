@@ -67,6 +67,7 @@ packages_to_add:
         media-fonts/ttf-bitstream-vera,
         media-fonts/dejavu,
         media-fonts/corefonts,
+	media-plugins/alsa-plugins,
 	media-sound/xnoise,
 	net-dialup/rp-pppoe,
 	net-irc/xchat,
