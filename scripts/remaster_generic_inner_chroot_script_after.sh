@@ -252,7 +252,8 @@ elif [ "$1" = "awesome" ]; then
 	# Fix ~/.dmrc to have it load Awesome
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=awesome" >> /etc/skel/.dmrc
-	switch_kernel "sys-kernel/linux-sabayon" "sys-kernel/linux-fusion"
+	# Disabled for now, maybe next round
+	# switch_kernel "sys-kernel/linux-sabayon" "sys-kernel/linux-fusion"
 	remove_desktop_files
 	setup_displaymanager
 	remove_mozilla_skel_cruft
