@@ -334,6 +334,8 @@ fi
 
 layman -d sabayon
 rm -rf /var/lib/layman/sabayon
+layman -d sabayon-distro
+rm -rf /var/lib/layman/sabayon-distro
 
 
 echo -5 | equo conf update

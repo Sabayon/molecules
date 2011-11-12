@@ -102,6 +102,8 @@ cp /var/lib/entropy/client/database/*/sabayonlinux.org/standard/*/*/make.conf /e
 # Update sabayon overlay
 layman -d sabayon
 rm -rf /var/lib/layman/sabayon
+layman -d sabayon-distro
+rm -rf /var/lib/layman/sabayon-distro
 
 # Reset users' password
 # chpasswd doesn't work anymore
