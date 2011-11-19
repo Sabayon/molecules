@@ -87,7 +87,7 @@ packages_to_remove:
 	dev-db/mysql,
 	dev-python/pygame,
 	dev-python/twisted,
-	dev-java/icedtea-bin,
+	dev-java/icedtea,
 	dev-util/cppunit,
 	gnome-base/gnome-shell,
 	gnome-extra/gnome-utils,
