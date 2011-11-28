@@ -11,6 +11,9 @@ if [ ! -d "/dev/pts" ]; then
 	touch /dev/pts/.keep
 fi
 
+# Cleanup Perl cruft
+perl-cleaner --ph-clean
+
 # copy /root defaults from /etc/skel
 rm -rf /root
 cp /etc/skel /root -Rap
