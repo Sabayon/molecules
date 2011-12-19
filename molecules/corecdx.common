@@ -49,10 +49,11 @@ destination_iso_directory: /sabayon/iso
 packages_to_add:
 	@X,
 	@fluxbox,
-	x11-libs/libXxf86misc,
-	app-text/pastebunz,
+        app-emulation/virtualbox-guest-additions,
 	app-misc/sabayon-skel,
 	app-misc/anaconda-runtime-gui,
+	app-text/pastebunz,
+	dev-python/libgnomecanvas-python,
 	lxde-base/lxdm,
         media-fonts/ttf-bitstream-vera,
         media-fonts/dejavu,
@@ -60,18 +61,18 @@ packages_to_add:
 	media-gfx/feh,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
-	x11-terms/xterm,
-	x11-themes/hicolor-icon-theme,
-	dev-python/libgnomecanvas-python,
+	net-misc/tightvnc,
+	sys-apps/gpu-detector,
+	sys-block/parted,
+	sys-power/cpufrequtils,
 	x11-apps/xhost,
 	x11-apps/setxkbmap,
 	x11-themes/equinox-themes,
 	x11-themes/gtk-engines:2,
-	sys-apps/gpu-detector,
-	sys-block/parted,
-	sys-power/cpufrequtils,
-        app-emulation/virtualbox-guest-additions,
-        x11-drivers/xf86-video-virtualbox
+        x11-drivers/xf86-video-virtualbox,
+	x11-libs/libXxf86misc,
+	x11-themes/hicolor-icon-theme,
+	x11-terms/xterm
 
 # Determine whether repositories update should be run (if packages_to_add is set)
 # (default is: no), values are: yes, no.
