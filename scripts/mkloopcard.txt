@@ -7,6 +7,10 @@ export LC_ALL=C
 # Expected env variables:
 # PATHS_TO_REMOVE = ";" separated list of paths to rm -rf
 # PATHS_TO_EMPTY = ";" separated list of paths to rm -rf (keeping the dir)
+# RELEASE_STRING
+# RELEASE_VERSION
+# RELEASE_DESC
+# RELEASE_FILE
 
 if [ ${#} -ne 4 ]; then
 	echo "usage: ${0} <path to regular file containing the image> <size in Mb> <source boot files dir> <source chroot>"
@@ -135,6 +139,13 @@ for path in "${tmp_dir}"/${PATHS_TO_EMPTY}; do
 	fi
 done
 IFS="${oldifs}"
+
+if [ -n "${RELEASE_FILE}" ]; then
+	release_file="${tmp_dir}"/"${RELEASE_FILE}"
+	release_dir=$(dirname "${release_file}")
+	[[ ! -d "${release_dir}" ]] && { mkdir -p "${release_dir}" || exit 1; }
+	echo "${RELEASE_STRING} ${RELEASE_VERSION} ${RELEASE_DESC}" > "${release_file}"
+fi
 
 umount "${tmp_dir}" || exit 1
 
