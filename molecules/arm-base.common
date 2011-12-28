@@ -26,13 +26,6 @@ image_name: Sabayon_Linux_DAILY_armv7a_Base.img
 # The same can be copied onto a MMC by using dd
 image_generator_script: /sabayon/scripts/mkloopcard.txt
 
-# Specify the image file size in Megabytes. This is mandatory.
-# To avoid runtime failure, make sure the image is large enough to fit your
-# chroot data.
-# Example: 5000 (means: ~5GB)
-# Example: 15000 (means: ~15GB)
-image_mb: 2048
-
 # Directories to remove completely (comma separated)
 # paths_to_remove:
 
