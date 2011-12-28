@@ -1,0 +1,142 @@
+#! /bin/sh
+# (c) Copyright 2012 Fabio Erculiani <lxnay@sabayon.org>
+# Licensed under terms of GPLv2
+
+export LC_ALL=C
+
+# Expected env variables:
+# PATHS_TO_REMOVE = ";" separated list of paths to rm -rf
+# PATHS_TO_EMPTY = ";" separated list of paths to rm -rf (keeping the dir)
+
+if [ ${#} -ne 4 ]; then
+	echo "usage: ${0} <path to regular file containing the image> <size in Mb> <source boot files dir> <source chroot>"
+	exit 1
+fi
+
+FILE="${1}"
+SIZE="${2}"
+BOOT_DIR="${3}"
+CHROOT_DIR="${4}"
+
+cleanup_loopbacks() {
+	sync
+	sync
+	sleep 5
+	sync
+	[[ -n "${vfat_part}" ]] && losetup -d "${vfat_part}" 2> /dev/null
+	[[ -n "${ext_part}" ]] && losetup -d "${ext_part}" 2> /dev/null
+	[[ -n "${DRIVE}" ]] && losetup -d "${DRIVE}" 2> /dev/null
+	[[ -n "${tmp_dir}" ]] && { umount "${tmp_dir}" &> /dev/null; rmdir "${tmp_dir}" &> /dev/null; }
+}
+trap "cleanup_loopbacks" 1 2 3 6 9 14 15 EXIT
+
+# Erase the file
+echo "Generating the empty image file at ${FILE}"
+dd if=/dev/zero of="${FILE}" bs=1024000 count="${SIZE}"
+[[ "$?" != "0" ]] && exit 1
+
+DRIVE=$(losetup -f "${FILE}" --show 2> /dev/null)
+if [ -z "${DRIVE}" ]; then
+	echo "Cannot execute losetup for $FILE"
+	exit 1
+fi
+
+echo "Configured the loopback partition at ${DRIVE}"
+
+# Calculate size using fdisk
+SIZE=$(fdisk -l "${DRIVE}" | grep Disk | grep bytes | awk '{print $5}')
+CYLINDERS=$((SIZE/255/63/512))
+# Magic first partition size, given 9 cylinders below
+MAGICSIZE="73995264"
+STARTOFFSET="32256"
+
+echo "Disk size    : ${SIZE} bytes"
+echo "Disk cyls    : ${CYLINDERS}"
+echo "Magic size   : ${MAGICSIZE} bytes (boot part size)"
+echo "Start offset : ${STARTOFFSET} bytes"
+
+# this will create a first partition that is 73995264 bytes long
+# Starts at sect 63, ends at sect 144584, each sector is 512bytes
+# In fact it creates 9 cyls
+{
+echo ,9,0x0C,*
+echo ,,,-
+} | sfdisk -D -H 255 -S 63 -C $CYLINDERS $DRIVE
+
+sleep 2
+
+# The second partiton will start at block 144585, get the end block
+ENDBLOCK=$(fdisk -l "${DRIVE}" | grep "${DRIVE}p2" | awk '{print $3}')
+EXTSIZE=$(((ENDBLOCK - 144585) * 512))
+# Get other two loopback devices first
+EXTOFFSET=$((STARTOFFSET + MAGICSIZE))
+
+echo "ExtFS size   : ${EXTSIZE} bytes"
+echo "ExtFS offset : ${EXTOFFSET} bytes"
+
+# Get other two loopback devices first
+vfat_part=$(losetup -f --offset "${STARTOFFSET}" --sizelimit "${MAGICSIZE}" "${FILE}" --show 2> /dev/null)
+if [ -z "${vfat_part}" ]; then
+	echo "Cannot setup the vfat partition loopback"
+	exit 1
+fi
+
+
+ext_part=$(losetup -f --offset "${EXTOFFSET}" --sizelimit "${EXTSIZE}" "${FILE}" --show 2> /dev/null)
+if [ -z "${ext_part}" ]; then
+	echo "Cannot setup the ext3 partition loopback"
+	exit 1
+fi
+
+echo "VFAT Partiton at   : ${vfat_part}"
+echo "ExtFS Partition at : ${ext_part}"
+
+# Format vfat
+echo "Formatting VFAT ${vfat_part}..."
+mkfs.vfat -n "boot" -F 32 "${vfat_part}" || exit 1
+
+# Format extfs
+echo "Formatting ExtFS ${ext_part}..."
+mkfs.ext3 -L "Sabayon" "${ext_part}" || exit 1
+
+tmp_dir=$(mktemp -d)
+if [ -z "${tmp_dir}" ]]; then
+	echo "Cannot create temporary dir"
+	exit 1
+fi
+chmod 755 "${tmp_dir}" || exit 1
+
+sleep 2
+sync
+
+echo "Setting up the boot directory content, mounting on ${tmp_dir}"
+mount "${vfat_part}" "${tmp_dir}"
+cp -R "${BOOT_DIR}"/* "${tmp_dir}"/ || exit 1
+umount "${tmp_dir}" || exit 1
+
+echo "Setting up the extfs directory content, mounting on ${tmp_dir}"
+mount "${ext_part}" "${tmp_dir}"
+rsync -avP _H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ || exit 1
+
+# work out paths to empty and paths to remove
+# XXX
+oldifs="${IFS}"
+IFS=";"
+for path in "${tmp_dir}"/${PATHS_TO_REMOVE}; do
+	if [ -e "${path}" ]; then
+		echo "Removing: ${path}"
+		rm -rf "${path}"
+	fi
+done
+for path in "${tmp_dir}"/${PATHS_TO_EMPTY}; do
+	if [ -d "${path}" ]; then
+		echo "Emptying: ${path}"
+		rm -rf "${path}"/*
+	fi
+done
+IFS="${oldifs}"
+
+umount "${tmp_dir}" || exit 1
+
+cleanup_loopbacks
+echo "Your MMC image \"${FILE}\" is ready"
