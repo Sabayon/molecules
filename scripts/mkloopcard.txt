@@ -27,10 +27,11 @@ cleanup_loopbacks() {
 	sync
 	sleep 5
 	sync
+	[[ -n "${tmp_dir}" ]] && { umount "${tmp_dir}" &> /dev/null; rmdir "${tmp_dir}" &> /dev/null; }
+	sleep 1
 	[[ -n "${vfat_part}" ]] && losetup -d "${vfat_part}" 2> /dev/null
 	[[ -n "${ext_part}" ]] && losetup -d "${ext_part}" 2> /dev/null
 	[[ -n "${DRIVE}" ]] && losetup -d "${DRIVE}" 2> /dev/null
-	[[ -n "${tmp_dir}" ]] && { umount "${tmp_dir}" &> /dev/null; rmdir "${tmp_dir}" &> /dev/null; }
 }
 trap "cleanup_loopbacks" 1 2 3 6 9 14 15 EXIT
 
@@ -104,7 +105,7 @@ echo "Formatting ExtFS ${ext_part}..."
 mkfs.ext3 -L "Sabayon" "${ext_part}" || exit 1
 
 tmp_dir=$(mktemp -d)
-if [ -z "${tmp_dir}" ]]; then
+if [[ -z "${tmp_dir}" ]]; then
 	echo "Cannot create temporary dir"
 	exit 1
 fi
@@ -120,24 +121,27 @@ umount "${tmp_dir}" || exit 1
 
 echo "Setting up the extfs directory content, mounting on ${tmp_dir}"
 mount "${ext_part}" "${tmp_dir}"
-rsync -avP _H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ || exit 1
+rsync -a -H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ || exit 1
 
 # work out paths to empty and paths to remove
-# XXX
 oldifs="${IFS}"
 IFS=";"
-for path in "${tmp_dir}"/${PATHS_TO_REMOVE}; do
-	if [ -e "${path}" ]; then
-		echo "Removing: ${path}"
-		rm -rf "${path}"
-	fi
-done
-for path in "${tmp_dir}"/${PATHS_TO_EMPTY}; do
-	if [ -d "${path}" ]; then
-		echo "Emptying: ${path}"
-		rm -rf "${path}"/*
-	fi
-done
+if [ -n "${PATHS_TO_REMOVE}" ]; then
+	for path in "${tmp_dir}"/${PATHS_TO_REMOVE}; do
+		if [ -e "${path}" ]; then
+			echo "Removing: ${path}"
+			rm -rf "${path}"
+		fi
+	done
+fi
+if [ -n "${PATHS_TO_EMPTY}" ]; then
+	for path in "${tmp_dir}"/${PATHS_TO_EMPTY}; do
+		if [ -d "${path}" ]; then
+			echo "Emptying: ${path}"
+			rm -rf "${path}"/*
+		fi
+	done
+fi
 IFS="${oldifs}"
 
 if [ -n "${RELEASE_FILE}" ]; then
