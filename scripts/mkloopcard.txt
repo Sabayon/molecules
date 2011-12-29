@@ -121,7 +121,8 @@ umount "${tmp_dir}" || exit 1
 
 echo "Setting up the extfs directory content, mounting on ${tmp_dir}"
 mount "${ext_part}" "${tmp_dir}"
-rsync -a -H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ || exit 1
+rsync -a -H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ --exclude "/proc/*" --exclude "/sys/*" \
+	--exclude "/dev/pts/*" --exclude "/dev/shm/*" || exit 1
 
 # work out paths to empty and paths to remove
 oldifs="${IFS}"
