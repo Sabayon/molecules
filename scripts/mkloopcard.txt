@@ -130,6 +130,13 @@ mount "${ext_part}" "${tmp_dir}"
 rsync -a -H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ --exclude "/proc/*" --exclude "/sys/*" \
 	--exclude "/dev/pts/*" --exclude "/dev/shm/*" || exit 1
 
+# setup root password to... root!
+echo "echo root:root | chpasswd" | chroot "${tmp_dir}"
+# enable sshd by default
+echo "rc-update add sshd default" | chroot "${tmp_dir}"
+# unfortunately net.eth0 link heartbeat doesn't always work
+echo "rc-update add net.eth0 default" | chroot "${tmp_dir}"
+
 # work out paths to empty and paths to remove
 oldifs="${IFS}"
 IFS=";"
