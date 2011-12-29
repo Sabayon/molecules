@@ -141,19 +141,15 @@ echo "rc-update --update" | chroot "${tmp_dir}"
 if [ -n "${PATHS_TO_REMOVE}" ]; then
 	for path in $(echo ${PATHS_TO_REMOVE} | tr ";" "\n"); do
 		path="${tmp_dir}/${path}"
-		if [ -e "${path}" ]; then
-			echo "Removing: ${path}"
-			rm -rf "${path}"
-		fi
+		echo "Removing: ${path}"
+		rm -rf "${path}"
 	done
 fi
 if [ -n "${PATHS_TO_EMPTY}" ]; then
 	for path in $(echo ${PATHS_TO_EMPTY} | tr ";" "\n"); do
 		path="${tmp_dir}/${path}"
-		if [ -d "${path}" ]; then
-			echo "Emptying: ${path}"
-			rm -rf "${path}"/*
-		fi
+		echo "Emptying: ${path}"
+		rm -rf "${path}"/*
 	done
 fi
 
