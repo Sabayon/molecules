@@ -11,6 +11,8 @@ export LC_ALL=C
 # RELEASE_VERSION
 # RELEASE_DESC
 # RELEASE_FILE
+# IMAGE_NAME
+# DESTINATION_IMAGE_DIR
 
 if [ ${#} -ne 4 ]; then
 	echo "usage: ${0} <path to regular file containing the image> <size in Mb> <source boot files dir> <source chroot>"
@@ -21,12 +23,16 @@ FILE="${1}"
 SIZE="${2}"
 BOOT_DIR="${3}"
 CHROOT_DIR="${4}"
+# Should we make a tarball of the rootfs and bootfs?
+MAKE_TARBALL="${MAKE_TARBALL:-1}"
 
 cleanup_loopbacks() {
+	cd /
 	sync
 	sync
 	sleep 5
 	sync
+	[[ -n "${tmp_file}" ]] && rm "${tmp_file}" 2> /dev/null
 	[[ -n "${tmp_dir}" ]] && { umount "${tmp_dir}" &> /dev/null; rmdir "${tmp_dir}" &> /dev/null; }
 	sleep 1
 	[[ -n "${vfat_part}" ]] && losetup -d "${vfat_part}" 2> /dev/null
@@ -152,6 +158,32 @@ if [ -n "${RELEASE_FILE}" ]; then
 	release_dir=$(dirname "${release_file}")
 	[[ ! -d "${release_dir}" ]] && { mkdir -p "${release_dir}" || exit 1; }
 	echo "${RELEASE_STRING} ${RELEASE_VERSION} ${RELEASE_DESC}" > "${release_file}"
+fi
+
+if [ -n "${DESTINATION_IMAGE_DIR}" ]; then
+	# Create the rootfs tarball
+	ROOTFS_TARBALL="${DESTINATION_IMAGE_DIR}/${IMAGE_NAME}.rootfs.tar.xz"
+	echo "Creating the roofs tarball: ${ROOTFS_TARBALL}"
+	tmp_file=$(mktemp --suffix=.tar.xz 2> /dev/null)
+	[[ -z "${tmp_file}" ]] && exit 1
+	cd "${tmp_dir}" || exit 1
+	tar --numeric-owner --preserve-permissions --same-owner -cJf "${tmp_file}" ./ || exit 1
+	mv "${tmp_file}" "${ROOTFS_TARBALL}" || exit 1
+	chmod 644 "${ROOTFS_TARBALL}" || exit 1
+	cd "$(dirname "${ROOTFS_TARBALL}")" || exit 1
+	md5sum "$(basename "${ROOTFS_TARBALL}")" > "$(basename "${ROOTFS_TARBALL}")".md5
+
+	# Create the boot dir tarball
+	BOOTFS_TARBALL="${DESTINATION_IMAGE_DIR}/${IMAGE_NAME}.bootfs.tar.xz"
+	echo "Creating the bootfs tarball: ${BOOTFS_TARBALL}"
+	tmp_file=$(mktemp --suffix=.tar.xz 2> /dev/null)
+	[[ -z "${tmp_file}" ]] && exit 1
+	cd "${BOOT_DIR}" || exit 1
+	tar --numeric-owner --preserve-permissions --same-owner -cJf "${tmp_file}" ./ || exit 1
+	mv "${tmp_file}" "${BOOTFS_TARBALL}" || exit 1
+	chmod 644 "${BOOTFS_TARBALL}" || exit 1
+	cd "$(dirname "${BOOTFS_TARBALL}")" || exit 1
+	md5sum "$(basename "${BOOTFS_TARBALL}")" > "$(basename "${BOOTFS_TARBALL}")".md5
 fi
 
 umount "${tmp_dir}" || exit 1
