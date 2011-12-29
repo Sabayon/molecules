@@ -61,6 +61,7 @@ paths_to_remove:
     /var/lib/entropy/smartapps/*/*,
     /var/lib/entropy/tmp/*,
     /var/lib/entropy/packages*/*,
+    /var/lib/entropy/client/packages*/*,
     /var/tmp/entropy/*,
     /*.txt,
     /usr/portage/a*,
