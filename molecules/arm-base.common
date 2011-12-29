@@ -49,10 +49,6 @@ post_image_script: /sabayon/scripts/post_mmc_image_script.sh
 # Destination directory for the image path (MANDATORY)
 destination_image_directory: /sabayon/images
 
-# Specify image file name (image file name will be automatically
-# produced otherwise)
-image_name: Sabayon_Linux_DAILY_armv7a_Base.img
-
 # External script that will generate the image file.
 # The same can be copied onto a MMC by using dd
 image_generator_script: /sabayon/scripts/mkloopcard.txt
@@ -68,12 +64,6 @@ release_file: /etc/sabayon-edition
 
 # Release string (the actual distro name)
 release_string: Sabayon Linux
-
-# Release desc (the actual release description)
-release_desc: armv7a Base
-
-# Release Version (used to generate release_file)
-release_version: 7
 
 # Directories to remove completely (comma separated)
 paths_to_remove:
