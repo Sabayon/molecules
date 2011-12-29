@@ -1,6 +1,27 @@
 # Define an alternative execution strategy, in this case, the value must be
 execution_strategy: chroot_to_mmc
 
+# Prefix command to add to chroot calls, when on x86_64 and touching a i686
+# chroot, set it to "linux32"
+# prechroot: 
+
+# Outer source chroot script. It's executed before entering the source_chroot.
+# This is the very first thing molecule does. You can use it to setup
+# packages cache.
+# Variables exported:
+# CHROOT_DIR = path pointing to the chroot
+# outer_source_chroot_script: /path/to/some/script.sh
+
+# Inner source chroot script. Called from inside the source_chroot.
+# Can be used to spawn package updates inside the chroot.
+# inner_source_chroot_script: /sabayon/scripts/inner_source_chroot_update.sh
+
+# Outer source chroot script, executed after inner_source_chroot_script.
+# Can be used to unload resources allocated by outer_source_chroot_script.
+# Variables exported:
+# CHROOT_DIR = path pointing to the chroot
+# outer_source_chroot_script_after: /path/to/some/script.sh
+
 # Error script command, executed when something went wrong and molecule has
 # to terminate the execution
 # error_script: /path/to/some/error_script.sh
@@ -26,12 +47,6 @@ image_name: Sabayon_Linux_DAILY_armv7a_Base.img
 # The same can be copied onto a MMC by using dd
 image_generator_script: /sabayon/scripts/mkloopcard.txt
 
-# Directories to remove completely (comma separated)
-# paths_to_remove:
-
-# Directories to empty (comma separated)
-# paths_to_empty:
-
 # Path to source chroot (mandatory)
 source_chroot: /sabayon/sources/armv7l_core-2012
 
@@ -49,3 +64,77 @@ release_desc: armv7a Base
 
 # Release Version (used to generate release_file)
 release_version: 7
+
+# Directories to remove completely (comma separated)
+paths_to_remove:
+    /var/lib/entropy/client/database/*/sabayonlinux.org,
+    /root/.subversion,
+    /lib/udev-state/devices.tar.bz2,
+    /var/log/scrollkeeper.log, /var/log/genkernel.log,
+    /var/log/emerge.log, /usr/tmp/portage/*,
+    /root/.bash_history,
+    /usr/share/slocate/slocate.db,
+    /root/test-results.txt,
+    /root/test.sh,
+    /usr/portage/distfiles/*,
+    /usr/portage/packages/*,
+    /root/.revdep*,
+    /install-data/games/*,
+    /var/lib/entropy/store/*,
+    /var/log/entropy/*,
+    /var/lib/entropy/caches/*,
+    /var/lib/entropy/smartapps/*/*,
+    /var/lib/entropy/smartapps/*/*,
+    /var/lib/entropy/tmp/*,
+    /var/lib/entropy/packages*/*,
+    /var/tmp/entropy/*,
+    /*.txt,
+    /usr/portage/a*,
+    /usr/portage/b*,
+    /usr/portage/c*,
+    /usr/portage/d*,
+    /usr/portage/e*,
+    /usr/portage/f*,
+    /usr/portage/g*,
+    /usr/portage/h*,
+    /usr/portage/i*,
+    /usr/portage/j*,
+    /usr/portage/k*,
+    /usr/portage/licenses,
+    /usr/portage/lxde*,
+    /usr/portage/m*,
+    /usr/portage/n*,
+    /usr/portage/o*,
+    /usr/portage/packages,
+    /usr/portage/pe*,
+    /usr/portage/q*,
+    /usr/portage/r*,
+    /usr/portage/s*,
+    /usr/portage/t*,
+    /usr/portage/u*,
+    /usr/portage/v*,
+    /usr/portage/w*,
+    /usr/portage/x*,
+    /usr/portage/y*,
+    /usr/portage/z*,
+    /etc/ssh/ssh_host_*,
+    /entropy,
+    /tmp/equoerror.txt,
+    /var/cache/man,
+    /var/lib/entropy/glsa/*,
+    /root/local,
+    /var/tmp/*,
+    /root/.ssh,
+    /etc/distcc/.ssh
+
+# Directories to empty (comma separated)
+paths_to_empty:
+    /home/sabayonuser/.thumbnails/,
+    /root/.ccache,
+    /var/tmp/portage,
+    /var/tmp/ccache,
+    /var/tmp/portage-pkg,
+    /var/tmp/binpkgs,
+    /var/lib/entropy/portage,
+    /var/lib/entropy/logs,
+    /var/cache/genkernel
