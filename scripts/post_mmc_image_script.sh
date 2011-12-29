@@ -23,6 +23,10 @@ xz --compress --force "${IMAGE_PATH}" || exit 1
 
 cd "$(dirname "${COMPRESSED_IMAGE_PATH}")" || exit 1
 img_name=$(basename "${COMPRESSED_IMAGE_PATH}")
-md5sum "${img_name}" > "${COMPRESSED_IMAGE_CHECKSUM_PATH}"
+md5sum "${img_name}" > "${COMPRESSED_IMAGE_CHECKSUM_PATH}" || exit 1
+
+# remove uncompressed image
+rm "${IMAGE_PATH}" "${IMAGE_CHECKSUM_PATH}"
+
 exit ${?}
 
