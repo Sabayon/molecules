@@ -134,8 +134,6 @@ rsync -a -H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ --exclude "/pro
 echo "echo root:root | chpasswd" | chroot "${tmp_dir}"
 # enable sshd by default
 echo "rc-update add sshd default" | chroot "${tmp_dir}"
-# unfortunately net.eth0 link heartbeat doesn't always work
-echo "rc-update add net.eth0 default" | chroot "${tmp_dir}"
 # cleaning up deps
 echo "rc-update --update" | chroot "${tmp_dir}"
 
