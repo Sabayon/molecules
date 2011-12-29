@@ -136,6 +136,8 @@ echo "echo root:root | chpasswd" | chroot "${tmp_dir}"
 echo "rc-update add sshd default" | chroot "${tmp_dir}"
 # unfortunately net.eth0 link heartbeat doesn't always work
 echo "rc-update add net.eth0 default" | chroot "${tmp_dir}"
+# cleaning up deps
+echo "rc-update --update" | chroot "${tmp_dir}"
 
 # work out paths to empty and paths to remove
 if [ -n "${PATHS_TO_REMOVE}" ]; then
