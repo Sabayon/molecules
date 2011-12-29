@@ -9,6 +9,8 @@ execution_strategy: chroot_to_mmc
 # This is the very first thing molecule does. You can use it to setup
 # packages cache.
 # Variables exported:
+# IMAGE_NAME = name of the final MMC image
+# DESTINATION_IMAGE_DIR = path to the destination image directory
 # CHROOT_DIR = path pointing to the chroot
 # outer_source_chroot_script: /path/to/some/script.sh
 
@@ -19,6 +21,8 @@ execution_strategy: chroot_to_mmc
 # Outer source chroot script, executed after inner_source_chroot_script.
 # Can be used to unload resources allocated by outer_source_chroot_script.
 # Variables exported:
+# IMAGE_NAME = name of the final MMC image
+# DESTINATION_IMAGE_DIR = path to the destination image directory
 # CHROOT_DIR = path pointing to the chroot
 # outer_source_chroot_script_after: /path/to/some/script.sh
 
@@ -27,11 +31,17 @@ execution_strategy: chroot_to_mmc
 # error_script: /path/to/some/error_script.sh
 
 # Pre-image building script. Hook called before image file creation
+# IMAGE_NAME = name of the final MMC image
+# DESTINATION_IMAGE_DIR = path to the destination image directory
+# CHROOT_DIR = path pointing to the chroot
 # pre_image_script: /sabayon/scripts/pre_image_script.sh
 
 # Post-image building script. Hook called after image file creation and move
 # into destination directory.
 # Variables exported:
+# IMAGE_NAME = name of the final MMC image
+# DESTINATION_IMAGE_DIR = path to the destination image directory
+# CHROOT_DIR = path pointing to the chroot
 # IMAGE_PATH = path pointing to the destination image file
 # IMAGE_CHECKSUM_PATH = path pointing to the destination image file checksum (md5)
 post_image_script: /sabayon/scripts/post_mmc_image_script.sh
