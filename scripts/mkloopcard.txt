@@ -127,7 +127,8 @@ rsync -a -H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ || exit 1
 oldifs="${IFS}"
 IFS=";"
 if [ -n "${PATHS_TO_REMOVE}" ]; then
-	for path in "${tmp_dir}"/${PATHS_TO_REMOVE}; do
+	for path in ${PATHS_TO_REMOVE}; do
+		path="${tmp_dir}/${path}"
 		if [ -e "${path}" ]; then
 			echo "Removing: ${path}"
 			rm -rf "${path}"
@@ -135,7 +136,8 @@ if [ -n "${PATHS_TO_REMOVE}" ]; then
 	done
 fi
 if [ -n "${PATHS_TO_EMPTY}" ]; then
-	for path in "${tmp_dir}"/${PATHS_TO_EMPTY}; do
+	for path in ${PATHS_TO_EMPTY}; do
+		path="${tmp_dir}/${path}"
 		if [ -d "${path}" ]; then
 			echo "Emptying: ${path}"
 			rm -rf "${path}"/*
