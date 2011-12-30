@@ -20,6 +20,7 @@ done
 CUR_DATE=$(date -u +%Y%m%d)
 LOG_FILE="/var/log/molecule/autobuild-${CUR_DATE}-${$}.log"
 BUILDING_DAILY=1
+MAKE_TORRENTS="${MAKE_TORRENTS:-0}"
 
 # to make ISO remaster spec files working (pre_iso_script)
 export CUR_DATE
@@ -36,6 +37,16 @@ export LANG="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
 
 if [ "${ACTION}" = "weekly" ]; then
+	ARM_SOURCE_SPECS=(
+		"sabayon-arm-base-4G.spec"
+		"sabayon-arm-base-8G.spec"
+		"sabayon-arm-base-16G.spec"
+	)
+	ARM_SOURCE_SPECS_IMG=(
+		"Sabayon_Linux_DAILY_armv7a_Base_4GB.img"
+		"Sabayon_Linux_DAILY_armv7a_Base_8GB.img"
+		"Sabayon_Linux_DAILY_armv7a_Base_16GB.img"
+	)
 	SOURCE_SPECS=()
 	SOURCE_SPECS_ISO=()
 	REMASTER_SPECS=(
@@ -51,6 +62,8 @@ if [ "${ACTION}" = "weekly" ]; then
                 "Sabayon_Linux_DAILY_x86_ForensicsXfce.iso"
 	)
 elif [ "${ACTION}" = "daily" ]; then
+	ARM_SOURCE_SPECS=()
+	ARM_SOURCE_SPECS_IMG=()
 	SOURCE_SPECS=(
 		"sabayon-x86-spinbase.spec"
 		"sabayon-amd64-spinbase.spec"
@@ -133,6 +146,23 @@ build_sabayon() {
 			source_specs+="${dst} "
 		done
 
+		local arm_source_specs=""
+		for i in ${!ARM_SOURCE_SPECS[@]}
+		do
+			src="/sabayon/molecules/${ARM_SOURCE_SPECS[i]}"
+			dst="/sabayon/molecules/daily/${ARM_SOURCE_SPECS[i]}"
+			cp "${src}" "${dst}" -p || return 1
+			echo >> "${dst}"
+			echo "inner_source_chroot_script: /sabayon/scripts/inner_source_chroot_update.sh" >> "${dst}"
+			# tweak iso image name
+			sed -i "s/^#.*image_name/image_name:/" "${dst}" || return 1
+			sed -i "s/image_name.*/image_name: ${ARM_SOURCE_SPECS_IMG[i]}/" "${dst}" || return 1
+			# tweak release version
+			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || return 1
+			echo "${dst}: image: ${ARM_SOURCE_SPECS_IMG[i]} date: ${CUR_DATE}"
+			arm_source_specs+="${dst} "
+		done
+
 		local remaster_specs=""
 		for i in ${!REMASTER_SPECS[@]}
 		do
@@ -162,7 +192,13 @@ build_sabayon() {
 			remaster_specs+="${dst} "
 		done
 
+		local done_images=0
 		local done_something=0
+		if [ -n "${arm_source_specs}" ]; then
+			molecule --nocolor ${arm_source_specs} || return 1
+			done_something=1
+			done_images=1
+		fi
 		if [ -n "${source_specs}" ]; then
 			molecule --nocolor ${source_specs} || return 1
 			done_something=1
@@ -172,9 +208,14 @@ build_sabayon() {
 			done_something=1
 		fi
 		if [ "${done_something}" = "1" ]; then
+			if [ "${done_images}" = "1" ]; then
+				cp /sabayon/images/*DAILY* /sabayon/iso_rsync/ || return 1
+			fi
 			cp /sabayon/iso/*DAILY* /sabayon/iso_rsync/ || return 1
 			date > /sabayon/iso_rsync/RELEASE_DATE_DAILY
-			/sabayon/scripts/make_torrents.sh || return 1
+			if [ "${MAKE_TORRENTS}" != "0" ]; then
+				/sabayon/scripts/make_torrents.sh || return 1
+			fi
 		fi
 	fi
 	return 0
