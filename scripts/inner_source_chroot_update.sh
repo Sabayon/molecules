@@ -25,7 +25,7 @@ rm -rf /var/lib/entropy/client/packages
 arch=$(uname -m)
 if [ "${arch}" = "x86_64" ]; then
 	arch="amd64"
-else
+elif [ "${arch}" = "i686" ]; then
 	arch="x86"
 fi
 SABAYON_REPO_DIR="/var/lib/entropy/client/database/${arch}/sabayonlinux.org/standard/${arch}/5"
