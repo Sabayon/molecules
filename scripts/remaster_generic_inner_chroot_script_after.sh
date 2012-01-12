@@ -219,9 +219,13 @@ elif [ "$1" = "fluxbox" ]; then
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 elif [ "$1" = "gnome" ]; then
 	setup_networkmanager
-	# Fix ~/.dmrc to have it load GNOME
+	# Fix ~/.dmrc to have it load GNOME or Cinnamon
 	echo "[Desktop]" > /etc/skel/.dmrc
-	echo "Session=gnome" >> /etc/skel/.dmrc
+	if [ -f "/usr/share/xsessions/cinnamon.desktop" ]; then
+		echo "Session=cinnamon" >> /etc/skel/.dmrc
+	else
+		echo "Session=gnome" >> /etc/skel/.dmrc
+	fi
 	rc-update del system-tools-backends boot
 	rc-update add system-tools-backends default
 	setup_displaymanager

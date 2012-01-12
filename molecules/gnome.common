@@ -90,6 +90,7 @@ packages_to_add:
 	app-office/libreoffice-l10n-pt,
 	dev-java/icedtea,
 	gnome-base/gnome-shell,
+	gnome-extra/cinnamon,
 	gnome-extra/gcalctool,
 	gnome-extra/gconf-editor,
 	gnome-extra/gnome-games,
