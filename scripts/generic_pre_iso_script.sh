@@ -41,3 +41,9 @@ if [ -f "${sabayon_pkgs_file}" ]; then
                 cp "${sabayon_pkgs_file}" "${ISO_PATH}".pkglist
         fi
 fi
+
+# copy back.jpg to proper location
+isolinux_img="${CHROOT_DIR}/usr/share/backgrounds/isolinux/back.jpg"
+if [ -f "${isolinux_img}" ]; then
+	cp "${isolinux_img}" "${CDROOT_DIR}/isolinux/" || exit 1
+fi

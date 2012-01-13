@@ -55,3 +55,8 @@ if os.path.isfile(sabayon_pkgs_file):
     iso_path = os.getenv("ISO_PATH")
     if iso_path:
         shutil.copy2(sabayon_pkgs_file, iso_path+".pkglist")
+
+# copy back.jpg to proper location
+isolinux_img = os.path.join(chroot_dir, "usr/share/backgrounds/isolinux/back.jpg")
+if os.path.isfile(isolinux_img):
+    shutil.copy2(isolinux_img, os.path.join(cdroot_dir, "isolinux/back.jpg"))
