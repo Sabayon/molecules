@@ -30,6 +30,9 @@ kms_string=""
 if [ -f "${CHROOT_DIR}/.enable_kms" ]; then
 	rm "${CHROOT_DIR}/.enable_kms"
 	kms_string="radeon.modeset=1"
+else
+	# enable vesafb-tng then
+	kms_string="video=vesafb:ywrap,mtrr:3"
 fi
 sed -i "s/__KMS__/${kms_string}/g" "${isolinux_destination}"
 
