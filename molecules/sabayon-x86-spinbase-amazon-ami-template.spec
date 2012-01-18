@@ -9,5 +9,5 @@ prechroot: linux32
 # Path to source ISO file (MANDATORY)
 source_iso: /sabayon/iso/Sabayon_Linux_SpinBase_DAILY_x86.iso
 
-release_version: 7
-image_name: Sabayon_Linux_SpinBase_7_x86_ami.img
+release_version: 8
+image_name: Sabayon_Linux_SpinBase_8_x86_ami.img

@@ -1,7 +1,7 @@
 # use abs path, otherwise daily iso build automagic won't work
 %import /sabayon/molecules/serverbase.common
 
-release_version: 7
+release_version: 8
 release_desc: x86 ServerBase
 
 # pre chroot command, example, for 32bit chroots on 64bit system, you always
@@ -12,4 +12,4 @@ prechroot: linux32
 source_iso: /sabayon/iso/Sabayon_Linux_SpinBase_DAILY_x86.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-destination_iso_image_name: Sabayon_Linux_ServerBase_7_x86.iso
+destination_iso_image_name: Sabayon_Linux_ServerBase_8_x86.iso
