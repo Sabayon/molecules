@@ -168,6 +168,13 @@ setup_proprietary_gfx_drivers() {
 	eselect mesa set r600 classic
 }
 
+setup_gnome_shell_extensions() {
+	local extensions="windowlist@o2net.cl"
+	for ext in ${extensions}; do
+		eselect gnome-shell-extensions enable "${ext}"
+	done
+}
+
 if [ "$1" = "lxde" ]; then
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load LXDE
@@ -225,6 +232,7 @@ elif [ "$1" = "gnome" ]; then
 		echo "Session=cinnamon" >> /etc/skel/.dmrc
 	else
 		echo "Session=gnome" >> /etc/skel/.dmrc
+		setup_gnome_shell_extensions
 	fi
 	rc-update del system-tools-backends boot
 	rc-update add system-tools-backends default
