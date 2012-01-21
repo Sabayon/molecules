@@ -2,34 +2,34 @@
 
 # do not remove these
 /usr/sbin/env-update
-source /etc/profile
+. /etc/profile
 
-eselect opengl set xorg-x11 &> /dev/null
+basic_environment_setup() {
+	eselect opengl set xorg-x11 &> /dev/null
 
-# automatically start xdm
-rc-update del xdm default
-rc-update del xdm boot
-rc-update add xdm boot
+	# automatically start xdm
+	rc-update del xdm default
+	rc-update del xdm boot
+	rc-update add xdm boot
 
-# consolekit must be run at boot level
-rc-update add consolekit boot
+	# consolekit must be run at boot level
+	rc-update add consolekit boot
 
-# if it exists
-if [ -f "/etc/init.d/hald" ]; then
-	rc-update del hald boot
-	rc-update del hald
-	rc-update add hald boot
-fi
+	# if it exists
+	if [ -f "/etc/init.d/hald" ]; then
+		rc-update del hald boot
+		rc-update del hald
+		rc-update add hald boot
+	fi
 
-rc-update del music boot
-rc-update add music default
+	rc-update del music boot
+	rc-update add music default
+	rc-update del sabayon-mce default
+	rc-update add nfsmount default
 
-rc-update del sabayon-mce default
-
-rc-update add nfsmount default
-
-# Always startup this
-rc-update add virtualbox-guest-additions boot
+	# Always startup this
+	rc-update add virtualbox-guest-additions boot
+}
 
 remove_desktop_files() {
 	rm /etc/skel/Desktop/WorldOfGooDemo-world-of-goo-demo.desktop
@@ -45,26 +45,6 @@ setup_sabayon_mce() {
 	# Sabayon Media Center user setup
 	# source /sbin/sabayon-functions.sh
 	# sabayon_setup_live_user "sabayonmce"
-}
-
-nspluginwrapper_autoinstall() {
-	if [ -x /usr/bin/nspluginwrapper ]; then
-		echo "Auto installing 32bit ns plugins..."
-		nspluginwrapper -a -i
-		ls /usr/lib/nsbrowser/plugins
-
-		# Remove wrappers if equivalent 64-bit plugins exist
-		# TODO: May be better to patch nspluginwrapper so it doesn't create
-		#       duplicate wrappers in the first place...
-		local DIR64="/usr/lib/nsbrowser/plugins/"
-		for f in "${DIR64}"/npwrapper.*.so; do
-			local PLUGIN=${f##*/npwrapper.}
-			if [[ -f ${DIR64}/${PLUGIN} ]]; then
-				echo "  Removing duplicate wrapper for native 64-bit ${PLUGIN}"
-				nspluginwrapper -r "${f}"
-			fi
-		done
-	fi
 }
 
 switch_kernel() {
@@ -175,7 +155,116 @@ setup_gnome_shell_extensions() {
 	done
 }
 
-if [ "$1" = "lxde" ]; then
+setup_fonts() {
+	# Cause some rendering glitches on vbox as of 2011-10-02
+	#	10-autohint.conf
+	#	10-no-sub-pixel.conf
+	#	10-sub-pixel-bgr.conf
+	#	10-sub-pixel-rgb.conf
+	#	10-sub-pixel-vbgr.conf
+	#	10-sub-pixel-vrgb.conf
+	#	10-unhinted.conf
+	FONTCONFIG_ENABLE="
+		20-unhint-small-dejavu-sans.conf
+		20-unhint-small-dejavu-sans-mono.conf
+		20-unhint-small-dejavu-serif.conf
+		31-cantarell.conf
+		57-dejavu-sans.conf
+		57-dejavu-sans-mono.conf
+		57-dejavu-serif.conf"
+	for fc_en in ${FONTCONFIG_ENABLE}; do
+		if [ -f "/etc/fonts/conf.avail/${fc_en}" ]; then
+			# beautify font rendering
+			eselect fontconfig enable "${fc_en}"
+		else
+			echo "ouch, /etc/fonts/conf.avail/${fc_en} is not available" >&2
+		fi
+	done
+}
+
+setup_misc_stuff() {
+	# Setup SAMBA config file
+	if [ -f /etc/samba/smb.conf.default ]; then
+		cp -p /etc/samba/smb.conf.default /etc/samba/smb.conf
+	fi
+
+	# if Sabayon GNOME, drop qt-gui bins
+	gnome_panel=$(qlist -ICve gnome-base/gnome-panel)
+	if [ -n "${gnome_panel}" ]; then
+		find /usr/share/applications -name "*qt-gui*.desktop" | xargs rm
+	fi
+	# we don't want this on our ISO
+	rm -f /usr/share/applications/sandbox.desktop
+
+	# beanshell app, not wanted in our start menu
+	rm -f /usr/share/applications/bsh-console-bsh.desktop
+
+	# drop gnome-system-log desktop file (broken)
+	rm -f /usr/share/applications/gnome-system-log.desktop
+
+	# Remove wicd from autostart
+	rm -f /usr/share/autostart/wicd-tray.desktop /etc/xdg/autostart/wicd-tray.desktop
+
+	# EXPERIMENTAL, clean icon cache files
+	for file in $(find /usr/share/icons -name "icon-theme.cache"); do
+		rm $file
+	done
+
+	# Setup basic GTK theme for root user
+	if [ ! -f "/root/.gtkrc-2.0" ]; then
+		echo "include \"/usr/share/themes/Clearlooks/gtk-2.0/gtkrc\"" > /root/.gtkrc-2.0
+	fi
+	# Regenerate Fluxbox menu
+	if [ -x "/usr/bin/fluxbox-generate_menu" ]; then
+		fluxbox-generate_menu -o /etc/skel/.fluxbox/menu
+	fi
+}
+
+setup_installed_packages() {
+	# Update package list
+	equo query list installed -qv > /etc/sabayon-pkglist
+	echo -5 | equo conf update
+
+	echo "Vacuum cleaning client db"
+	rm /var/lib/entropy/client/database/*/sabayonlinux.org -rf
+	rm /var/lib/entropy/client/database/*/sabayon-weekly -rf
+	equo rescue vacuum
+
+	# restore original repositories.conf (all mirrors were filtered for speed)
+	cp /etc/entropy/repositories.conf.example /etc/entropy/repositories.conf || exit 1
+	for repo_conf in /etc/entropy/repositories.conf.d/entropy_*.example; do
+		new_repo_conf="${repo_conf%.example}"
+		cp "${repo_conf}" "${new_repo_conf}"
+	done
+
+	# cleanup log dir
+	rm /var/lib/entropy/logs -rf
+	rm -rf /var/lib/entropy/*cache*
+	# remove entropy pid file
+	rm -f /var/run/entropy/entropy.lock
+}
+
+setup_portage() {
+	layman -d sabayon
+	rm -rf /var/lib/layman/sabayon
+	layman -d sabayon-distro
+	rm -rf /var/lib/layman/sabayon-distro
+	emaint --fix world
+}
+
+setup_startup_caches() {
+	mount -t proc proc /proc
+	/lib/rc/bin/rc-depend -u
+	# Generate openrc cache
+	touch /lib/rc/init.d/softlevel
+	/etc/init.d/savecache start
+	/etc/init.d/savecache zap
+	ldconfig
+	ldconfig
+	umount /proc
+}
+
+prepare_lxde() {
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load LXDE
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -187,12 +276,14 @@ if [ "$1" = "lxde" ]; then
 	remove_mozilla_skel_cruft
 	setup_cpufrequtils
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
-elif [ "$1" = "e17" ]; then
+}
+
+prepare_e17() {
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load E17
-        echo "[Desktop]" > /etc/skel/.dmrc
-        echo "Session=enlightenment" >> /etc/skel/.dmrc
-        remove_desktop_files
+	echo "[Desktop]" > /etc/skel/.dmrc
+	echo "Session=enlightenment" >> /etc/skel/.dmrc
+	remove_desktop_files
 	# E17 spin has chromium installed
 	setup_displaymanager
 	# Not using lxdm for now
@@ -204,7 +295,9 @@ elif [ "$1" = "e17" ]; then
 	remove_mozilla_skel_cruft
 	setup_cpufrequtils
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
-elif [ "$1" = "xfce" ]; then
+}
+
+prepare_xfce() {
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Xfce
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -214,7 +307,9 @@ elif [ "$1" = "xfce" ]; then
 	setup_cpufrequtils
 	setup_displaymanager
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
-elif [ "$1" = "fluxbox" ]; then
+}
+
+prepare_fluxbox() {
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Fluxbox
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -224,7 +319,9 @@ elif [ "$1" = "fluxbox" ]; then
 	remove_mozilla_skel_cruft
 	setup_cpufrequtils
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
-elif [ "$1" = "gnome" ]; then
+}
+
+prepare_gnome() {
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load GNOME or Cinnamon
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -239,7 +336,9 @@ elif [ "$1" = "gnome" ]; then
 	setup_displaymanager
 	setup_sabayon_mce
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
-elif [ "$1" = "xfceforensic" ]; then
+}
+
+prepare_xfceforensic() {
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Xfce
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -250,7 +349,9 @@ elif [ "$1" = "xfceforensic" ]; then
 	remove_mozilla_skel_cruft
 	xfceforensic_remove_skel_stuff
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
-elif [ "$1" = "kde" ]; then
+}
+
+prepare_kde() {
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load KDE
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -259,130 +360,48 @@ elif [ "$1" = "kde" ]; then
 	setup_sabayon_mce
 	setup_cpufrequtils
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
-elif [ "$1" = "awesome" ]; then
+}
+
+prepare_awesome() {
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Awesome
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=awesome" >> /etc/skel/.dmrc
-	# Disabled for now, maybe next round
-	# switch_kernel "sys-kernel/linux-sabayon" "sys-kernel/linux-fusion"
 	remove_desktop_files
 	setup_displaymanager
 	remove_mozilla_skel_cruft
 	setup_cpufrequtils
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
-fi
+}
 
-# Cause some rendering glitches on vbox as of 2011-10-02
-#	10-autohint.conf
-#	10-no-sub-pixel.conf
-#	10-sub-pixel-bgr.conf
-#	10-sub-pixel-rgb.conf
-#	10-sub-pixel-vbgr.conf
-#	10-sub-pixel-vrgb.conf
-#	10-unhinted.conf
-
-FONTCONFIG_ENABLE="
-	20-unhint-small-dejavu-sans.conf
-	20-unhint-small-dejavu-sans-mono.conf
-	20-unhint-small-dejavu-serif.conf
-	31-cantarell.conf
-	57-dejavu-sans.conf
-	57-dejavu-sans-mono.conf
-	57-dejavu-serif.conf"
-
-for fc_en in ${FONTCONFIG_ENABLE}; do
-	if [ -f "/etc/fonts/conf.avail/${fc_en}" ]; then
-		# beautify font rendering
-		eselect fontconfig enable "${fc_en}"
-	else
-		echo "ouch, /etc/fonts/conf.avail/${fc_en} is not available" >&2
+prepare_system() {
+	if [ "$1" = "lxde" ]; then
+		prepare_lxde
+	elif [ "$1" = "e17" ]; then
+		prepare_e17
+	elif [ "$1" = "xfce" ]; then
+		prepare_xfce
+	elif [ "$1" = "fluxbox" ]; then
+		prepare_fluxbox
+	elif [ "$1" = "gnome" ]; then
+		prepare_gnome
+	elif [ "$1" = "xfceforensic" ]; then
+		prepare_xfceforensic
+	elif [ "$1" = "kde" ]; then
+		prepare_kde
+	elif [ "$1" = "awesome" ]; then
+		prepare_awesome
 	fi
-done
+}
 
-# Setup SAMBA config file
-if [ -f /etc/samba/smb.conf.default ]; then
-	cp -p /etc/samba/smb.conf.default /etc/samba/smb.conf
-fi
-
-# if Sabayon GNOME, drop qt-gui bins
-gnome_panel=$(qlist -ICve gnome-base/gnome-panel)
-if [ -n "${gnome_panel}" ]; then
-        find /usr/share/applications -name "*qt-gui*.desktop" | xargs rm
-fi
-# we don't want this on our ISO
-rm -f /usr/share/applications/sandbox.desktop
-
-# beanshell app, not wanted in our start menu
-rm -f /usr/share/applications/bsh-console-bsh.desktop
-
-# drop gnome-system-log desktop file (broken)
-rm -f /usr/share/applications/gnome-system-log.desktop
-
-# Remove wicd from autostart
-rm -f /usr/share/autostart/wicd-tray.desktop /etc/xdg/autostart/wicd-tray.desktop
-
-# EXPERIMENTAL, clean icon cache files
-for file in `find /usr/share/icons -name "icon-theme.cache"`; do
-        rm $file
-done
-
-# Fixup nsplugins
-# we have new Flash, don't need it anymore
-# nspluginwrapper_autoinstall
-
-# Update package list
-equo query list installed -qv > /etc/sabayon-pkglist
-
-# Setup basic GTK theme for root user
-if [ ! -f "/root/.gtkrc-2.0" ]; then
-	echo "include \"/usr/share/themes/Clearlooks/gtk-2.0/gtkrc\"" > /root/.gtkrc-2.0
-fi
-
-# Regenerate Fluxbox menu
-if [ -x "/usr/bin/fluxbox-generate_menu" ]; then
-	fluxbox-generate_menu -o /etc/skel/.fluxbox/menu
-fi
-
-layman -d sabayon
-rm -rf /var/lib/layman/sabayon
-layman -d sabayon-distro
-rm -rf /var/lib/layman/sabayon-distro
-
-
-echo -5 | equo conf update
-mount -t proc proc /proc
-/lib/rc/bin/rc-depend -u
-
-echo "Vacuum cleaning client db"
-rm /var/lib/entropy/client/database/*/sabayonlinux.org -rf
-rm /var/lib/entropy/client/database/*/sabayon-weekly -rf
-equo rescue vacuum
-
-# restore original repositories.conf (all mirrors were filtered for speed)
-cp /etc/entropy/repositories.conf.example /etc/entropy/repositories.conf || exit 1
-for repo_conf in /etc/entropy/repositories.conf.d/entropy_*.example; do
-	new_repo_conf="${repo_conf%.example}"
-	cp "${repo_conf}" "${new_repo_conf}"
-done
-
-# cleanup log dir
-rm /var/lib/entropy/logs -rf
-
-# Generate openrc cache
-touch /lib/rc/init.d/softlevel
-/etc/init.d/savecache start
-/etc/init.d/savecache zap
-
-ldconfig
-ldconfig
-umount /proc
-
-emaint --fix world
-
-rm -rf /var/lib/entropy/*cache*
-
-# remove entropy pid file
-rm -f /var/run/entropy/entropy.lock
+basic_environment_setup
+setup_fonts
+# setup Desktop Environment, might add packages
+prepare_system
+# These have to run after prepare_system
+setup_misc_stuff
+setup_installed_packages
+setup_portage
+setup_startup_caches
 
 exit 0
