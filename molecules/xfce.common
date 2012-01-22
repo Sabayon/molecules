@@ -70,6 +70,7 @@ packages_to_add:
 	app-dicts/myspell-nl,
 	app-emulation/virtualbox-guest-additions,
 	app-emulation/wine,
+	app-laptop/nvidiabl,
 	app-misc/anaconda-runtime-gui,
 	app-misc/gnote,
 	app-misc/sabayon-music,
