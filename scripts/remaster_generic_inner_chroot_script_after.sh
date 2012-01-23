@@ -376,21 +376,22 @@ prepare_awesome() {
 }
 
 prepare_system() {
-	if [ "$1" = "lxde" ]; then
+	local de="${1}"
+	if [ "${de}" = "lxde" ]; then
 		prepare_lxde
-	elif [ "$1" = "e17" ]; then
+	elif [ "${de}" = "e17" ]; then
 		prepare_e17
-	elif [ "$1" = "xfce" ]; then
+	elif [ "${de}" = "xfce" ]; then
 		prepare_xfce
-	elif [ "$1" = "fluxbox" ]; then
+	elif [ "${de}" = "fluxbox" ]; then
 		prepare_fluxbox
-	elif [ "$1" = "gnome" ]; then
+	elif [ "${de}" = "gnome" ]; then
 		prepare_gnome
-	elif [ "$1" = "xfceforensic" ]; then
+	elif [ "${de}" = "xfceforensic" ]; then
 		prepare_xfceforensic
-	elif [ "$1" = "kde" ]; then
+	elif [ "${de}" = "kde" ]; then
 		prepare_kde
-	elif [ "$1" = "awesome" ]; then
+	elif [ "${de}" = "awesome" ]; then
 		prepare_awesome
 	fi
 }
@@ -398,7 +399,7 @@ prepare_system() {
 basic_environment_setup
 setup_fonts
 # setup Desktop Environment, might add packages
-prepare_system
+prepare_system "${1}"
 # These have to run after prepare_system
 setup_misc_stuff
 setup_installed_packages
