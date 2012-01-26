@@ -49,10 +49,6 @@ post_image_script: /sabayon/scripts/post_mmc_image_script.sh
 # Destination directory for the image path (MANDATORY)
 destination_image_directory: /sabayon/images
 
-# External script that will generate the image file.
-# The same can be copied onto a MMC by using dd
-image_generator_script: /sabayon/scripts/mkloopcard.txt
-
 # Path to source chroot (mandatory)
 source_chroot: /sabayon/sources/armv7l_core-2012
 
@@ -123,6 +119,7 @@ paths_to_remove:
     /root/local,
     /var/tmp/*,
     /root/.ssh,
+    /root/.distcc,
     /etc/distcc/.ssh
 
 # Directories to empty (comma separated)

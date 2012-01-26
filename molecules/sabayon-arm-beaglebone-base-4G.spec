@@ -1,7 +1,7 @@
 %import /sabayon/molecules/arm-base.common
 
 # Release desc (the actual release description)
-release_desc: armv7a Base
+release_desc: armv7a BeagleBone Base
 
 # Release Version (used to generate release_file)
 release_version: 8
@@ -18,3 +18,6 @@ image_mb: 3800
 # Path to boot partition data (MLO, u-boot.img etc)
 source_boot_directory: /sabayon/beaglebone/boot
 
+# External script that will generate the image file.
+# The same can be copied onto a MMC by using dd
+image_generator_script: /sabayon/scripts/beaglebone_image_generator_script.sh

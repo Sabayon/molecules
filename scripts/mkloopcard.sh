@@ -14,15 +14,20 @@ export LC_ALL=C
 # IMAGE_NAME
 # DESTINATION_IMAGE_DIR
 
-if [ ${#} -ne 4 ]; then
+if [ ${#} -ne 5 ]; then
 	echo "usage: ${0} <path to regular file containing the image> <size in Mb> <source boot files dir> <source chroot>"
 	exit 1
 fi
 
-FILE="${1}"
-SIZE="${2}"
-BOOT_DIR="${3}"
-CHROOT_DIR="${4}"
+CHROOT_SCRIPT="${1}"
+if [ ! -x "${CHROOT_SCRIPT}" ]; then
+	echo "${CHROOT_SCRIPT} is not executable"
+	exit 1
+fi
+FILE="${2}"
+SIZE="${3}"
+BOOT_DIR="${4}"
+CHROOT_DIR="${5}"
 # Should we make a tarball of the rootfs and bootfs?
 MAKE_TARBALL="${MAKE_TARBALL:-1}"
 
@@ -130,12 +135,14 @@ mount "${ext_part}" "${tmp_dir}"
 rsync -a -H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ --exclude "/proc/*" --exclude "/sys/*" \
 	--exclude "/dev/pts/*" --exclude "/dev/shm/*" || exit 1
 
-# setup root password to... root!
-echo "echo root:root | chpasswd" | chroot "${tmp_dir}"
-# enable sshd by default
-echo "rc-update add sshd default" | chroot "${tmp_dir}"
-# cleaning up deps
-echo "rc-update --update" | chroot "${tmp_dir}"
+# execute CHROOT_SCRIPT hook inside chroot
+chroot_script_name=$(basename "${CHROOT_SCRIPT}")
+target_chroot_script="${tmp_dir}"/"${chroot_script_name}"
+cp -p "${CHROOT_SCRIPT}" "${target_chroot_script}" || exit 1
+chmod 700 "${target_chroot_script}" || exit 1
+chown root "${target_chroot_script}" || exit 1
+chroot "${tmp_dir}" "/${chroot_script_name}" || exit 1
+rm -f "${target_chroot_script}"
 
 # work out paths to empty and paths to remove
 if [ -n "${PATHS_TO_REMOVE}" ]; then
