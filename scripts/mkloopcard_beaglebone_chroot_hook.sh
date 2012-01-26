@@ -14,6 +14,8 @@ rc-update add sshd default
 # which directive is appended by iso_build.sh script
 equo install sys-kernel/linux-beaglebone
 
+eselect uimage set 1
+
 # setup root password to... root!
 echo root:root | chpasswd
 # cleaning up deps
