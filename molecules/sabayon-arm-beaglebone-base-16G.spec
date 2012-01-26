@@ -16,7 +16,7 @@ image_name: Sabayon_Linux_8_armv7a_BeagleBone_Base_16GB.img
 image_mb: 16000
 
 # Path to boot partition data (MLO, u-boot.img etc)
-source_boot_directory: /sabayon/beaglebone/boot
+source_boot_directory: /sabayon/boot/arm/beaglebone
 
 # External script that will generate the image file.
 # The same can be copied onto a MMC by using dd
