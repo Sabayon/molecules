@@ -9,7 +9,7 @@ release_version: 8
 
 # Specify image file name (image file name will be automatically
 # produced otherwise)
-image_name: Sabayon_Linux_8_armv7a_BeagleBoard_xM_16GB.img
+image_name: Sabayon_Linux_8_armv7a_BeagleBoard_xM_4GB.img
 
 # Specify the image file size in Megabytes. This is mandatory.
 # To avoid runtime failure, make sure the image is large enough to fit your
