@@ -1,9 +1,6 @@
 # List of packages to add on the BeagleBoard xM
 packages_to_add:
-	lxde-base/lxdm,
-	sys-kernel/linux-beagle,
-	x11-base/xorg-server,
-	x11-drivers/xf86-video-omapfb
+	sys-kernel/linux-beaglebone
 
 # List of packages to remove from the BeagleBoard xM image
 packages_to_remove:

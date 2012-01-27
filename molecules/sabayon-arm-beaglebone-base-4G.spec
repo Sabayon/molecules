@@ -1,7 +1,8 @@
 %import /sabayon/molecules/arm-base.common
+%import /sabayon/molecules/beaglebone.common
 
 # Release desc (the actual release description)
-release_desc: armv7a BeagleBone Base
+release_desc: armv7a BeagleBone
 
 # Release Version (used to generate release_file)
 release_version: 8
