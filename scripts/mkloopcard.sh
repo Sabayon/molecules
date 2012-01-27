@@ -51,7 +51,7 @@ echo "Generating the empty image file at ${FILE}"
 dd if=/dev/zero of="${FILE}" bs=1024000 count="${SIZE}"
 [[ "$?" != "0" ]] && exit 1
 
-DRIVE=$(losetup -f "${FILE}" --show 2> /dev/null)
+DRIVE=$(losetup -f "${FILE}" --show)
 if [ -z "${DRIVE}" ]; then
 	echo "Cannot execute losetup for $FILE"
 	exit 1
@@ -91,14 +91,14 @@ echo "ExtFS size   : ${EXTSIZE} bytes"
 echo "ExtFS offset : ${EXTOFFSET} bytes"
 
 # Get other two loopback devices first
-vfat_part=$(losetup -f --offset "${STARTOFFSET}" --sizelimit "${MAGICSIZE}" "${FILE}" --show 2> /dev/null)
+vfat_part=$(losetup -f --offset "${STARTOFFSET}" --sizelimit "${MAGICSIZE}" "${FILE}" --show)
 if [ -z "${vfat_part}" ]; then
 	echo "Cannot setup the vfat partition loopback"
 	exit 1
 fi
 
 
-ext_part=$(losetup -f --offset "${EXTOFFSET}" --sizelimit "${EXTSIZE}" "${FILE}" --show 2> /dev/null)
+ext_part=$(losetup -f --offset "${EXTOFFSET}" --sizelimit "${EXTSIZE}" "${FILE}" --show)
 if [ -z "${ext_part}" ]; then
 	echo "Cannot setup the ext3 partition loopback"
 	exit 1
@@ -167,11 +167,11 @@ if [ -n "${RELEASE_FILE}" ]; then
 	echo "${RELEASE_STRING} ${RELEASE_VERSION} ${RELEASE_DESC}" > "${release_file}"
 fi
 
-if [ -n "${DESTINATION_IMAGE_DIR}" ]; then
+if [ -n "${DESTINATION_IMAGE_DIR}" ] && [ "${MAKE_TARBALL}" = "1" ]; then
 	# Create the rootfs tarball
 	ROOTFS_TARBALL="${DESTINATION_IMAGE_DIR}/${IMAGE_NAME}.rootfs.tar.xz"
 	echo "Creating the roofs tarball: ${ROOTFS_TARBALL}"
-	tmp_file=$(mktemp --suffix=.tar.xz 2> /dev/null)
+	tmp_file=$(mktemp --suffix=.tar.xz)
 	[[ -z "${tmp_file}" ]] && exit 1
 	cd "${tmp_dir}" || exit 1
 	tar --numeric-owner --preserve-permissions --same-owner -cJf "${tmp_file}" ./ || exit 1
@@ -183,7 +183,7 @@ if [ -n "${DESTINATION_IMAGE_DIR}" ]; then
 	# Create the boot dir tarball
 	BOOTFS_TARBALL="${DESTINATION_IMAGE_DIR}/${IMAGE_NAME}.bootfs.tar.xz"
 	echo "Creating the bootfs tarball: ${BOOTFS_TARBALL}"
-	tmp_file=$(mktemp --suffix=.tar.xz 2> /dev/null)
+	tmp_file=$(mktemp --suffix=.tar.xz)
 	[[ -z "${tmp_file}" ]] && exit 1
 	cd "${BOOT_DIR}" || exit 1
 	tar --numeric-owner --preserve-permissions --same-owner -cJf "${tmp_file}" ./ || exit 1
