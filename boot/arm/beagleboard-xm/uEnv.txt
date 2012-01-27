@@ -1,0 +1,1 @@
+optargs=run_hardware_tests quiet earlyprintk=serial,uart1,115200

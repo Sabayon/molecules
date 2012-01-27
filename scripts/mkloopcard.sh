@@ -2,6 +2,9 @@
 # (c) Copyright 2012 Fabio Erculiani <lxnay@sabayon.org>
 # Licensed under terms of GPLv2
 
+env-update
+. /etc/profile
+
 export LC_ALL=C
 
 # Expected env variables:
@@ -13,6 +16,8 @@ export LC_ALL=C
 # RELEASE_FILE
 # IMAGE_NAME
 # DESTINATION_IMAGE_DIR
+# PACKAGES_TO_ADD
+# PACKAGES_TO_REMOVE
 
 if [ ${#} -ne 5 ]; then
 	echo "usage: ${0} <path to regular file containing the image> <size in Mb> <source boot files dir> <source chroot>"
@@ -134,6 +139,18 @@ echo "Setting up the extfs directory content, mounting on ${tmp_dir}"
 mount "${ext_part}" "${tmp_dir}"
 rsync -a -H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ --exclude "/proc/*" --exclude "/sys/*" \
 	--exclude "/dev/pts/*" --exclude "/dev/shm/*" || exit 1
+
+# execute PACKAGES_TO_ADD and PACKAGES_TO_REMOVE
+export ETP_NONINTERACTIVE=1
+if [ -n "${PACKAGES_TO_ADD}" ]; then
+	add_cmd="equo install ${PACKAGES_TO_ADD}"
+	chroot "${tmp_dir}" ${add_cmd} || exit 1
+fi
+if [ -n "${PACKAGES_TO_REMOVE}" ]; then
+	rem_cmd="equo remove ${PACKAGES_TO_REMOVE}"
+	chroot "${tmp_dir}" ${rem_cmd} || exit 1
+fi
+
 
 # execute CHROOT_SCRIPT hook inside chroot
 chroot_script_name=$(basename "${CHROOT_SCRIPT}")
