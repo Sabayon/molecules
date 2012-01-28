@@ -142,6 +142,8 @@ rsync -a -H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ --exclude "/pro
 
 # execute PACKAGES_TO_ADD and PACKAGES_TO_REMOVE
 export ETP_NONINTERACTIVE=1
+# Entropy doesn't like non-UTF locale encodings
+export LC_ALL=en_US.UTF-8
 if [ -n "${PACKAGES_TO_ADD}" ]; then
 	add_cmd="equo install ${PACKAGES_TO_ADD}"
 	chroot "${tmp_dir}" ${add_cmd} || exit 1
@@ -151,7 +153,6 @@ if [ -n "${PACKAGES_TO_REMOVE}" ]; then
 	chroot "${tmp_dir}" ${rem_cmd} || exit 1
 fi
 
-
 # execute CHROOT_SCRIPT hook inside chroot
 chroot_script_name=$(basename "${CHROOT_SCRIPT}")
 target_chroot_script="${tmp_dir}"/"${chroot_script_name}"
@@ -160,6 +161,8 @@ chmod 700 "${target_chroot_script}" || exit 1
 chown root "${target_chroot_script}" || exit 1
 chroot "${tmp_dir}" "/${chroot_script_name}" || exit 1
 rm -f "${target_chroot_script}"
+
+export LC_ALL=C
 
 # work out paths to empty and paths to remove
 if [ -n "${PATHS_TO_REMOVE}" ]; then
