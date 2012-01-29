@@ -162,6 +162,9 @@ chown root "${target_chroot_script}" || exit 1
 chroot "${tmp_dir}" "/${chroot_script_name}" || exit 1
 rm -f "${target_chroot_script}"
 
+# execute final cleanup of entropy stuff
+chroot "${tmp_dir}" equo rescue vacuum
+
 export LC_ALL=C
 
 # work out paths to empty and paths to remove
