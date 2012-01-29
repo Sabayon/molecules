@@ -1,1 +1,1 @@
-optargs=run_hardware_tests quiet earlyprintk=serial,uart1,115200 omapfb.mode=dvi:1280x720MR-16@50
+optargs=run_hardware_tests quiet earlyprintk=serial,uart1,115200 omapfb.mode=dvi:1280x720MR-24@50 console=tty1
