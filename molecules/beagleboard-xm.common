@@ -6,7 +6,6 @@ packages_to_add:
 	app-admin/syslog-ng,
 	lxde-base/lxdm,
 	gnome-extra/nm-applet-gtk2,
-	net-fs/nfs-utils,
 	net-misc/networkmanager,
 	net-misc/ntp,
 	sys-apps/keyboard-configuration-helpers,
