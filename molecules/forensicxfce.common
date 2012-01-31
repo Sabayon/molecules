@@ -41,7 +41,7 @@ post_iso_script: /sabayon/scripts/generic_post_iso_script.sh
 # Destination directory for the ISO image path (MANDATORY)
 destination_iso_directory: /sabayon/iso
 
-# List of packages that would be removed from chrooted system (comma separated)
+# List of packages that would be removed from chrooted system (comma separated )
 packages_to_remove:
         app-dicts/aspell-de,
         app-dicts/aspell-fr,
