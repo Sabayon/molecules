@@ -72,6 +72,7 @@ packages_to_add:
 	app-admin/testdisk,
         app-antivirus/clamav, 
 	app-antivirus/clamtk,
+        app-arch/xarchiver,
         app-cdr/xfburn,
         app-forensics/magicrescue, 
 	app-forensics/cmospwd, 
