@@ -10,6 +10,9 @@ rm -rf "${CHROOT_PKGS_DIR}"/*
 echo "Mounting bind to ${CHROOT_PKGS_DIR}"
 mount --bind "${PKGS_DIR}" "${CHROOT_PKGS_DIR}" || exit 1
 
-mount -t proc proc "${CHROOT_DIR}/proc"
+content=$(ls -1 "${CHROOT_DIR}/proc" | wc -l)
+if [ "${content}" -le 3 ]; then
+	mount -t proc proc "${CHROOT_DIR}/proc"
+fi
 
 exit 0
