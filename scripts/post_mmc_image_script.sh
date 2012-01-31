@@ -6,7 +6,8 @@
 # IMAGE_CHECKSUM_PATH = path to generated md5 for image
 #
 
-/usr/sbin/env-update && source /etc/profile
+/usr/sbin/env-update
+. /etc/profile
 
 COMPRESSED_IMAGE_PATH="${IMAGE_PATH}.xz"
 COMPRESSED_IMAGE_CHECKSUM_PATH="${COMPRESSED_IMAGE_PATH}.md5"
