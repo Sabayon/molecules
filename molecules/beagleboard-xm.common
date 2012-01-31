@@ -1,9 +1,27 @@
 # List of packages to add on the BeagleBoard xM
 packages_to_add:
+	@lxde,
+	app-misc/sabayonlive-tools,
+	app-misc/sabayon-skel,
+	app-admin/syslog-ng,
 	lxde-base/lxdm,
+	gnome-extra/nm-applet-gtk2,
+	net-fs/nfs-utils,
+	net-misc/networkmanager,
+	net-misc/ntp,
+	sys-apps/keyboard-configuration-helpers,
+	sys-apps/language-configuration-helpers,
 	sys-kernel/linux-beagle,
 	x11-base/xorg-server,
-	x11-drivers/xf86-video-omapfb
+	x11-drivers/xf86-input-evdev,
+	x11-drivers/xf86-video-omapfb,
+	x11-terms/xterm,
+	x11-terms/eterm,
+	x11-themes/equinox-themes,
+	x11-themes/gtk-engines:2,
+	x11-themes/sabayon-artwork-core,
+	x11-wm/fluxbox,
+	www-client/midori
 
 # List of packages to remove from the BeagleBoard xM image
 packages_to_remove:
