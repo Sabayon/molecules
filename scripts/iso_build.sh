@@ -38,14 +38,12 @@ export LANGUAGE="en_US.UTF-8"
 
 if [ "${ACTION}" = "weekly" ]; then
 	ARM_SOURCE_SPECS=(
+		"sabayon-arm-beaglebone-base-2G.spec"
 		"sabayon-arm-beaglebone-base-4G.spec"
-		"sabayon-arm-beaglebone-base-8G.spec"
-		"sabayon-arm-beaglebone-base-16G.spec"
 	)
 	ARM_SOURCE_SPECS_IMG=(
+		"Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_2GB.img"
 		"Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_4GB.img"
-		"Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_8GB.img"
-		"Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_16GB.img"
 	)
 	SOURCE_SPECS=()
 	SOURCE_SPECS_ISO=()

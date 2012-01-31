@@ -6,19 +6,39 @@
 env-update
 . /etc/profile
 
-# enable sshd by default
-rc-update add sshd default
+setup_boot() {
+	# enable sshd by default
+	rc-update add sshd default
+	# select the first available kernel
+	eselect uimage set 1
+	# cleaning up deps
+	rc-update --update
+}
 
-# select the first available kernel
-eselect uimage set 1
+setup_users() {
+	# setup root password to... root!
+	echo root:root | chpasswd
+	# setup normal user "sabayon"
+	(
+		if [ ! -x "/sbin/sabayon-functions.sh" ]; then
+			echo "no /sbin/sabayon-functions.sh found"
+			exit 1
+		fi
+		. /sbin/sabayon-functions.sh
+		sabayon_setup_live_user "sabayon" || exit 1
+		# setup "sabayon" password to... sabayon!
+		echo "sabayon:sabayon" | chpasswd
+	)
+}
 
-# setup root password to... root!
-echo root:root | chpasswd
-# cleaning up deps
-rc-update --update
+setup_serial() {
+	# Setup serial login
+	echo "s0:12345:respawn:/sbin/agetty 115200 ttyO0 vt100" >> /etc/inittab
+}
 
-# Setup serial login
-echo "s0:12345:respawn:/sbin/agetty 115200 ttyO0 vt100" >> /etc/inittab
+setup_boot
+setup_users
+setup_serial
 
 exit 0
 
