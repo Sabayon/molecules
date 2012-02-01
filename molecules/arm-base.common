@@ -12,7 +12,7 @@ execution_strategy: chroot_to_mmc
 # IMAGE_NAME = name of the final MMC image
 # DESTINATION_IMAGE_DIR = path to the destination image directory
 # CHROOT_DIR = path pointing to the chroot
-outer_source_chroot_script: /sabayon/scripts/remaster_pre.sh
+# outer_source_chroot_script: /some/path.sh
 
 # Inner source chroot script. Called from inside the source_chroot.
 # Can be used to spawn package updates inside the chroot.
@@ -24,7 +24,7 @@ outer_source_chroot_script: /sabayon/scripts/remaster_pre.sh
 # IMAGE_NAME = name of the final MMC image
 # DESTINATION_IMAGE_DIR = path to the destination image directory
 # CHROOT_DIR = path pointing to the chroot
-outer_source_chroot_script_after: /sabayon/scripts/mmc_remaster_post.sh
+# outer_source_chroot_script_after: /some/path.sh
 
 # Error script command, executed when something went wrong and molecule has
 # to terminate the execution
