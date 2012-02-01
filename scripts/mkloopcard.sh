@@ -33,6 +33,8 @@ FILE="${2}"
 SIZE="${3}"
 BOOT_DIR="${4}"
 CHROOT_DIR="${5}"
+# we use this in *remaster_{pre,post}.sh scripts
+export CHROOT_DIR
 # Should we make a tarball of the rootfs and bootfs?
 MAKE_TARBALL="${MAKE_TARBALL:-1}"
 
