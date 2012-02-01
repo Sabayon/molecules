@@ -31,6 +31,19 @@ setup_users() {
 	)
 }
 
+setup_startup_caches() {
+	mount -t proc proc /proc
+	/lib/rc/bin/rc-depend -u
+	# Generate openrc cache
+	touch /lib/rc/init.d/softlevel
+	/etc/init.d/savecache start
+	/etc/init.d/savecache zap
+	ldconfig
+	ldconfig
+	umount /proc
+}
+
+
 setup_serial() {
 	# Setup serial login
 	echo "s0:12345:respawn:/sbin/agetty 115200 ttyO0 vt100" >> /etc/inittab
@@ -39,6 +52,7 @@ setup_serial() {
 setup_boot
 setup_users
 setup_serial
+setup_startup_caches
 
 exit 0
 
