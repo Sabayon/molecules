@@ -12,6 +12,7 @@ packages_to_add:
 	lxde-base/lxde-meta,
 	lxde-base/lxdm,
 	lxde-base/lxpolkit,
+	gnome-base/gvfs,
 	gnome-extra/nm-applet-gtk2,
 	media-fonts/ttf-bitstream-vera,
 	media-fonts/dejavu,
