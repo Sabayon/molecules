@@ -19,11 +19,27 @@ setup_displaymanager() {
 	fi
 }
 
+setup_desktop_environment() {
+	if [ -f "/usr/share/xsessions/LXDE.desktop" ]; then
+		echo "[Desktop]" > /etc/skel/.dmrc
+		echo "Session=LXDE" >> /etc/skel/.dmrc
+	elif [ -n "/usr/share/xsessions/xfce.desktop" ]; then
+		echo "[Desktop]" > /etc/skel/.dmrc
+		echo "Session=xfce" >> /etc/skel/.dmrc
+
+	else
+		# Fluxbox is always there
+		echo "[Desktop]" > /etc/skel/.dmrc
+		echo "Session=fluxbox" >> /etc/skel/.dmrc
+	fi
+}
+
 setup_boot() {
 	# enable sshd by default
 	rc-update add sshd default
 	# enable logger by default
 	rc-update add syslog-ng boot
+	rc-update add vixie-cron boot
 	# enable dbus, of course, and also NetworkManager
 	rc-update add dbus boot
 	rc-update add NetworkManager default
@@ -74,6 +90,7 @@ setup_serial() {
 }
 
 setup_displaymanager
+setup_desktop_environment
 setup_users
 setup_boot
 setup_serial
