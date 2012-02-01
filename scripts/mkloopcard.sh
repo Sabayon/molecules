@@ -202,18 +202,6 @@ if [ -n "${DESTINATION_IMAGE_DIR}" ] && [ "${MAKE_TARBALL}" = "1" ]; then
 	chmod 644 "${ROOTFS_TARBALL}" || exit 1
 	cd "$(dirname "${ROOTFS_TARBALL}")" || exit 1
 	md5sum "$(basename "${ROOTFS_TARBALL}")" > "$(basename "${ROOTFS_TARBALL}")".md5
-
-	# Create the boot dir tarball
-	BOOTFS_TARBALL="${DESTINATION_IMAGE_DIR}/${IMAGE_NAME}.bootfs.tar.xz"
-	echo "Creating the bootfs tarball: ${BOOTFS_TARBALL}"
-	tmp_file=$(mktemp --suffix=.tar.xz)
-	[[ -z "${tmp_file}" ]] && exit 1
-	cd "${BOOT_DIR}" || exit 1
-	tar --numeric-owner --preserve-permissions --same-owner -cJf "${tmp_file}" ./ || exit 1
-	mv "${tmp_file}" "${BOOTFS_TARBALL}" || exit 1
-	chmod 644 "${BOOTFS_TARBALL}" || exit 1
-	cd "$(dirname "${BOOTFS_TARBALL}")" || exit 1
-	md5sum "$(basename "${BOOTFS_TARBALL}")" > "$(basename "${BOOTFS_TARBALL}")".md5
 fi
 
 umount "${tmp_dir}" || exit 1
