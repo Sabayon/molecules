@@ -1,11 +1,19 @@
 # List of packages to add on the BeagleBoard xM
 packages_to_add:
 	@lxde,
+	app-admin/sudo,
+	app-arch/xarchiver,
+	app-editors/leafpad,
 	app-misc/sabayonlive-tools,
 	app-misc/sabayon-skel,
+	app-office/abiword,
 	app-admin/syslog-ng,
 	lxde-base/lxdm,
+	lxde-base/lxpolkit,
 	gnome-extra/nm-applet-gtk2,
+	media-fonts/ttf-bitstream-vera,
+	media-fonts/dejavu,
+	media-fonts/corefonts,
 	net-misc/networkmanager,
 	net-misc/ntp,
 	sys-apps/keyboard-configuration-helpers,
@@ -20,6 +28,7 @@ packages_to_add:
 	x11-themes/gtk-engines:2,
 	x11-themes/sabayon-artwork-core,
 	x11-wm/fluxbox,
+	xfce-extra/xfce4-notifyd,
 	www-client/midori
 
 # List of packages to remove from the BeagleBoard xM image
