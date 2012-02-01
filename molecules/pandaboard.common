@@ -1,0 +1,37 @@
+# List of packages to add on the BeagleBoard xM
+packages_to_add:
+	app-admin/syslog-ng,
+	app-admin/sudo,
+	app-arch/xarchiver,
+	app-editors/leafpad,
+	app-misc/sabayonlive-tools,
+	app-misc/sabayon-skel,
+	app-office/abiword,
+	app-text/epdfview,
+	lxde-base/lxde-meta,
+	lxde-base/lxdm,
+	lxde-base/lxpolkit,
+	gnome-extra/nm-applet-gtk2,
+	media-fonts/ttf-bitstream-vera,
+	media-fonts/dejavu,
+	media-fonts/corefonts,
+	net-misc/networkmanager,
+	net-misc/ntp,
+	sys-apps/keyboard-configuration-helpers,
+	sys-apps/language-configuration-helpers,
+	sys-kernel/linux-beagle,
+	sys-process/vixie-cron,
+	x11-base/xorg-server,
+	x11-drivers/xf86-input-evdev,
+	x11-drivers/xf86-video-omapfb,
+	x11-terms/xterm,
+	x11-terms/eterm,
+	x11-themes/equinox-themes,
+	x11-themes/gtk-engines:2,
+	x11-themes/sabayon-artwork-core,
+	x11-wm/fluxbox,
+	xfce-extra/xfce4-notifyd,
+	www-client/midori
+
+# List of packages to remove from the BeagleBoard xM image
+packages_to_remove:
