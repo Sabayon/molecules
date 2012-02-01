@@ -81,6 +81,9 @@ setup_users() {
 		sabayon_setup_live_user "sabayon" || exit 1
 		# setup "sabayon" password to... sabayon!
 		echo "sabayon:sabayon" | chpasswd
+
+		# also add "sabayon" to disk group
+		usermod -a -G disk sabayon
 	)
 }
 
