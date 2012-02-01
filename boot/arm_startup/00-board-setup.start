@@ -1,0 +1,12 @@
+#!/bin/sh
+# The first boot is actually a reboot, to let openrc realize that
+# clock is screwed. This fixes xdm startup.
+
+echo
+echo "Hello, this is the first boot. System is being configured"
+echo "A reboot will happen shortly. Thanks"
+echo
+rc-update --update
+
+# kill myself
+rm -f /etc/local.d/00-board-setup.start
