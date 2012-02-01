@@ -3,8 +3,11 @@
 # clock is screwed. This fixes xdm startup.
 
 echo
-echo "Hello, this is the first boot. System is being configured"
-echo "A reboot will happen shortly. Thanks"
+echo "Hello, this is the first boot. System is being configured..."
+echo "The root password is: root"
+echo "There is also a user called \"sabayon\", with password \"sabayon\""
+echo
+echo "Enjoy ARM"
 echo
 rc-update --update
 
