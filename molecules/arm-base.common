@@ -60,7 +60,7 @@ release_string: Sabayon Linux
 
 # Directories to remove completely (comma separated)
 paths_to_remove:
-    /var/lib/entropy/client/database/*/sabayonlinux.org,
+    /var/lib/entropy/client/database/*/sabayon*,
     /root/.subversion,
     /lib/udev-state/devices.tar.bz2,
     /var/log/scrollkeeper.log, /var/log/genkernel.log,
@@ -79,8 +79,6 @@ paths_to_remove:
     /var/lib/entropy/smartapps/*/*,
     /var/lib/entropy/smartapps/*/*,
     /var/lib/entropy/tmp/*,
-    /var/lib/entropy/packages*/*,
-    /var/lib/entropy/client/packages*/*,
     /var/tmp/entropy/*,
     /*.txt,
     /usr/portage/a*,

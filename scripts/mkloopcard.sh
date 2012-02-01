@@ -170,16 +170,14 @@ export LC_ALL=C
 # work out paths to empty and paths to remove
 if [ -n "${PATHS_TO_REMOVE}" ]; then
 	for path in $(echo ${PATHS_TO_REMOVE} | tr ";" "\n"); do
-		path="${tmp_dir}/${path}"
 		echo "Removing: ${path}"
-		rm -rf "${path}"
+		rm -rf "${tmp_dir}"/${path}
 	done
 fi
 if [ -n "${PATHS_TO_EMPTY}" ]; then
 	for path in $(echo ${PATHS_TO_EMPTY} | tr ";" "\n"); do
-		path="${tmp_dir}/${path}"
 		echo "Emptying: ${path}"
-		rm -rf "${path}"/*
+		rm -rf "${tmp_dir}"/"${path}"/*
 	done
 fi
 
