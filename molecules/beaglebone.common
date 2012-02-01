@@ -3,10 +3,12 @@ packages_to_add:
 	app-misc/sabayonlive-tools,
 	app-misc/sabayon-skel,
 	app-admin/syslog-ng,
+	net-misc/cnetworkmanager,
 	net-misc/ntp,
 	sys-apps/keyboard-configuration-helpers,
 	sys-apps/language-configuration-helpers,
-	sys-kernel/linux-beaglebone
+	sys-kernel/linux-beaglebone,
+	sys-process/vixie-cron
 
 # List of packages to remove from the BeagleBoard xM image
 packages_to_remove:

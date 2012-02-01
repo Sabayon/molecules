@@ -9,6 +9,11 @@ env-update
 setup_boot() {
 	# enable sshd by default
 	rc-update add sshd default
+	rc-update add syslog-ng boot
+	rc-update add vixie-cron boot
+	rc-update add dbus boot
+	rc-update add NetworkManager default
+
 	# select the first available kernel
 	eselect uimage set 1
 	# cleaning up deps
