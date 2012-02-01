@@ -156,6 +156,17 @@ fi
 
 # execute PACKAGES_TO_ADD and PACKAGES_TO_REMOVE
 export ETP_NONINTERACTIVE=1
+
+# do I have to run "equo update?"
+# If we are running outside the DAILY scope, it's
+# better to do it here. If instead we're doing a
+# DAILY, this is already done by other scripts.
+if [ -z "$(basename ${IMAGE_NAME} | grep DAILY)" ]; then
+	FORCE_EAPI=2 chroot "${tmp_dir}" equo update || \
+	FORCE_EAPI=2 chroot "${tmp_dir}" equo update || \
+		exit 1
+fi
+
 # Entropy doesn't like non-UTF locale encodings
 export LC_ALL=en_US.UTF-8
 if [ -n "${PACKAGES_TO_ADD}" ]; then
@@ -180,6 +191,12 @@ CHROOT_DIR="${tmp_dir}" /sabayon/scripts/mmc_remaster_post.sh
 
 # execute final cleanup of entropy stuff
 chroot "${tmp_dir}" equo rescue vacuum
+
+# setup sudoers, enable wheel group
+if [ -f "${tmp_dir}/etc/sudoers" ]; then
+	echo "# added by Sabayon Molecule" >> "${tmp_dir}/etc/sudoers"
+	echo "%wheel  ALL=ALL" >> "${tmp_dir}/etc/sudoers"
+fi
 
 export LC_ALL=C
 
