@@ -1,4 +1,4 @@
-# List of packages to add on the BeagleBoard xM
+# List of packages to add on the PandaBoard
 packages_to_add:
 	app-admin/syslog-ng,
 	app-admin/sudo,
@@ -25,7 +25,7 @@ packages_to_add:
 	sys-auth/consolekit,
 	sys-block/parted,
 	sys-fs/ntfs3g,
-	sys-kernel/linux-beagle,
+	sys-kernel/linux-panda,
 	sys-process/vixie-cron,
 	x11-base/xorg-server,
 	x11-drivers/xf86-input-evdev,
@@ -40,5 +40,5 @@ packages_to_add:
 	xfce-extra/xfce4-notifyd,
 	www-client/midori
 
-# List of packages to remove from the BeagleBoard xM image
+# List of packages to remove from the PandaBoard image
 packages_to_remove:
