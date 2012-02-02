@@ -20,7 +20,7 @@ iso_title: Sabayon GNOME
 
 # Inner chroot script command, to be executed inside destination chroot after
 # packages installation and removal
-# inner_chroot_script_after:
+inner_chroot_script_after: /sabayon/scripts/amd64_x86_inner_chroot_script_after.sh
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and AFTER inner_chroot_script)
