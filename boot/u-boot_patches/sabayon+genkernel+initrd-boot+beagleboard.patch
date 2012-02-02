@@ -1,0 +1,62 @@
+diff --git a/include/configs/omap3_beagle.h b/include/configs/omap3_beagle.h
+index 91af8a0..07e48eb 100644
+--- a/include/configs/omap3_beagle.h
++++ b/include/configs/omap3_beagle.h
+@@ -217,7 +217,6 @@
+ 	"optargs=\0" \
+ 	"camera=none\0" \
+ 	"vram=12M\0" \
+-	"dvimode=640x480MR-16@60\0" \
+ 	"defaultdisplay=dvi\0" \
+ 	"mmcdev=0\0" \
+ 	"mmcroot=/dev/mmcblk0p2 rw\0" \
+@@ -232,7 +231,6 @@
+ 		"buddy=${buddy} "\
+ 		"camera=${camera} "\
+ 		"vram=${vram} " \
+-		"omapfb.mode=dvi:${dvimode} " \
+ 		"omapdss.def_disp=${defaultdisplay} " \
+ 		"root=${mmcroot} " \
+ 		"rootfstype=${mmcrootfstype}\0" \
+@@ -242,7 +240,6 @@
+ 		"buddy=${buddy} "\
+ 		"camera=${camera} "\
+ 		"vram=${vram} " \
+-		"omapfb.mode=dvi:${dvimode} " \
+ 		"omapdss.def_disp=${defaultdisplay} " \
+ 		"root=${nandroot} " \
+ 		"rootfstype=${nandrootfstype}\0" \
+@@ -255,16 +252,19 @@
+ 		"mpurate=${mpurate} " \
+ 		"buddy=${buddy} "\
+ 		"vram=${vram} " \
+-		"omapfb.mode=dvi:${dvimode} " \
+ 		"omapdss.def_disp=${defaultdisplay} " \
+ 		"root=${ramroot} " \
+ 		"rootfstype=${ramrootfstype}\0" \
+ 	"loadramdisk=fatload mmc ${mmcdev} ${rdaddr} ramdisk.gz\0" \
+ 	"loaduimagefat=fatload mmc ${mmcdev} ${loadaddr} uImage\0" \
+ 	"loaduimage=ext2load mmc ${mmcdev}:2 ${loadaddr} /boot/uImage\0" \
++	"loaduinitrd=ext2load mmc ${mmcdev}:2 ${rdaddr} /boot/uInitrd\0" \
+ 	"mmcboot=echo Booting from mmc ...; " \
+ 		"run mmcargs; " \
+ 		"bootm ${loadaddr}\0" \
++	"mmcbootrd=echo Booting from mmc (+uInitrd)...; " \
++		"run mmcargs; " \
++		"bootm ${loadaddr} ${rdaddr}\0" \
+ 	"nandboot=echo Booting from nand ...; " \
+ 		"run nandargs; " \
+ 		"nand read ${loadaddr} 280000 400000; " \
+@@ -288,7 +288,11 @@
+ 			"run uenvcmd;" \
+ 		"fi;" \
+ 		"if run loaduimage; then " \
+-			"run mmcboot;" \
++			"if run loaduinitrd; then " \
++				"run mmcbootrd;" \
++			"else " \
++				"run mmcboot;" \
++			"fi;" \
+ 		"fi;" \
+ 	"fi;" \
+ 	"run nandboot;" \
