@@ -74,3 +74,36 @@ isolinux_img="${CHROOT_DIR}/usr/share/backgrounds/isolinux/back.jpg"
 if [ -f "${isolinux_img}" ]; then
 	cp "${isolinux_img}" "${CDROOT_DIR}/isolinux/" || exit 1
 fi
+
+# copy ARM images on the ISO
+arm_images_dir="/sabayon/images"
+arm_dir="${CDROOT_DIR}/ARM"
+mkdir -p "${arm_dir}" || exit 1
+
+beaglebone_image="Sabayon_Linux_8_armv7a_BeagleBone_Base_2GB.img.xz"
+beagleboard_xm_image="Sabayon_Linux_8_armv7a_BeagleBoard_xM_4GB.img.xz"
+pandaboard_image="Sabayon_Linux_8_armv7a_PandaBoard_4GB.img.xz"
+
+# BeagleBone
+arm_card_dir="${arm_dir}/BeagleBone"
+arm_card_boot_dir="/sabayon/boot/arm/beaglebone"
+mkdir "${arm_card_dir}" -p || exit 1
+cp "${arm_images_dir}/${beaglebone_image}" "${arm_card_dir}"/ || exit 1
+cp "${arm_images_dir}/${beaglebone_image}.md5" "${arm_card_dir}"/ || exit 1
+cp "${arm_card_boot_dir}/README.txt" "${arm_card_dir}"/ || exit 1
+
+# BeagleBoard xM
+#arm_card_dir="${arm_dir}/BeagleBoard-xM"
+#arm_card_boot_dir="/sabayon/boot/arm/beagleboard-xm"
+#mkdir "${arm_card_dir}" -p || exit 1
+#cp "${arm_images_dir}/${beaglebone_image}" "${arm_card_dir}"/ || exit 1
+#cp "${arm_images_dir}/${beaglebone_image}.md5" "${arm_card_dir}"/ || exit 1
+#cp "${arm_card_boot_dir}/README.txt" "${arm_card_dir}"/ || exit 1
+
+# PandaBoard
+arm_card_dir="${arm_dir}/PandaBoard"
+arm_card_boot_dir="/sabayon/boot/arm/pandaboard"
+mkdir "${arm_card_dir}" -p || exit 1
+cp "${arm_images_dir}/${beaglebone_image}" "${arm_card_dir}"/ || exit 1
+cp "${arm_images_dir}/${beaglebone_image}.md5" "${arm_card_dir}"/ || exit 1
+cp "${arm_card_boot_dir}/README.txt" "${arm_card_dir}"/ || exit 1
