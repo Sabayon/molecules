@@ -156,6 +156,8 @@ fi
 
 # execute PACKAGES_TO_ADD and PACKAGES_TO_REMOVE
 export ETP_NONINTERACTIVE=1
+# Entropy doesn't like non-UTF locale encodings
+export LC_ALL=en_US.UTF-8
 
 # do I have to run "equo update?"
 # If we are running outside the DAILY scope, it's
@@ -167,8 +169,6 @@ if [ -z "$(basename ${IMAGE_NAME} | grep DAILY)" ]; then
 		exit 1
 fi
 
-# Entropy doesn't like non-UTF locale encodings
-export LC_ALL=en_US.UTF-8
 if [ -n "${PACKAGES_TO_ADD}" ]; then
 	add_cmd="equo install ${PACKAGES_TO_ADD}"
 	chroot "${tmp_dir}" ${add_cmd} || exit 1
