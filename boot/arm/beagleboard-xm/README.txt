@@ -68,3 +68,16 @@ Once you've added your line, just type:
   # language-setup "<your locale, without the .UTF-8 part>" system
 
 Then reboot!
+
+
+You want to know more?
+----------------------
+Just go to http://www.sabayon.org and to http://wiki.sabayon.org
+and search for "BeagleBoard".
+We're full of guides.
+
+
+Contact
+-------
+Just mail us at website@sabayon.org if you need any help or register
+to our mailing list at http://lists.sabayon.org/cgi-bin/mailman/listinfo/devel
