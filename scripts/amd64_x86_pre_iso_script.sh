@@ -93,12 +93,12 @@ cp "${arm_images_dir}/${beaglebone_image}.md5" "${arm_card_dir}"/ || exit 1
 cp "${arm_card_boot_dir}/README.txt" "${arm_card_dir}"/ || exit 1
 
 # BeagleBoard xM
-#arm_card_dir="${arm_dir}/BeagleBoard-xM"
-#arm_card_boot_dir="/sabayon/boot/arm/beagleboard-xm"
-#mkdir "${arm_card_dir}" -p || exit 1
-#cp "${arm_images_dir}/${beaglebone_image}" "${arm_card_dir}"/ || exit 1
-#cp "${arm_images_dir}/${beaglebone_image}.md5" "${arm_card_dir}"/ || exit 1
-#cp "${arm_card_boot_dir}/README.txt" "${arm_card_dir}"/ || exit 1
+arm_card_dir="${arm_dir}/BeagleBoard-xM"
+arm_card_boot_dir="/sabayon/boot/arm/beagleboard-xm"
+mkdir "${arm_card_dir}" -p || exit 1
+cp "${arm_images_dir}/${beaglebone_image}" "${arm_card_dir}"/ || exit 1
+cp "${arm_images_dir}/${beaglebone_image}.md5" "${arm_card_dir}"/ || exit 1
+cp "${arm_card_boot_dir}/README.txt" "${arm_card_dir}"/ || exit 1
 
 # PandaBoard
 arm_card_dir="${arm_dir}/PandaBoard"
