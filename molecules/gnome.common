@@ -101,6 +101,7 @@ packages_to_add:
 	gnome-extra/gnome-tweak-tool,
 	gnome-extra/gnome-utils,
 	gnome-extra/gucharmap,
+	gnome-extra/nautilus-file-roller,
 	gnome-extra/nautilus-open-terminal,
 	gnome-extra/nautilus-sendto,
 	gnome-extra/nm-applet,
