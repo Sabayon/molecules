@@ -70,7 +70,7 @@ cp "${tmp_dir}/boot/sabayon" "${CDROOT_DIR}/boot/sabayon${other_arch}" || exit 1
 cp "${tmp_dir}/boot/sabayon.igz" "${CDROOT_DIR}/boot/sabayon${other_arch}.igz" || exit 1
 
 # copy back.jpg to proper location
-isolinux_img="${CHROOT_DIR}/usr/share/backgrounds/isolinux/back.jpg"
+isolinux_img="/sabayon/remaster/embedded_world/back.jpg"
 if [ -f "${isolinux_img}" ]; then
 	cp "${isolinux_img}" "${CDROOT_DIR}/isolinux/" || exit 1
 fi
