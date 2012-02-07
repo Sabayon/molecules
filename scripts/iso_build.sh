@@ -42,12 +42,16 @@ if [ "${ACTION}" = "weekly" ]; then
 		"sabayon-arm-beaglebone-base-4G.spec"
 		"sabayon-arm-beagleboard-xm-4G.spec"
 		"sabayon-arm-beagleboard-xm-8G.spec"
+		"sabayon-arm-pandaboard-4G.spec"
+		"sabayon-arm-pandaboard-8G.spec"
 	)
 	ARM_SOURCE_SPECS_IMG=(
 		"Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_2GB.img"
 		"Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_4GB.img"
 		"Sabayon_Linux_DAILY_armv7a_BeagleBoard_xM_4GB.img"
 		"Sabayon_Linux_DAILY_armv7a_BeagleBoard_xM_8GB.img"
+		"Sabayon_Linux_DAILY_armv7a_PandaBoard_4GB.img"
+		"Sabayon_Linux_DAILY_armv7a_PandaBoard_8GB.img"
 	)
 	SOURCE_SPECS=()
 	SOURCE_SPECS_ISO=()
