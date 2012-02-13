@@ -133,7 +133,7 @@ packages_to_add:
 	net-misc/networkmanager-pptp,
 	net-misc/networkmanager-vpnc,
 	net-misc/ntp,
-	net-p2p/transmission-gtk+,
+	net-p2p/transmission-gtk,
 	net-print/cups,
 	net-print/gnome-cups-manager,
 	net-print/foomatic-db,

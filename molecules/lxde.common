@@ -71,7 +71,7 @@ packages_to_add:
 	media-sound/xnoise,
 	net-dialup/rp-pppoe,
 	net-irc/xchat,
-	net-p2p/transmission-gtk+,
+	net-p2p/transmission-gtk,
 	x11-libs/gksu,
 	x11-terms/xterm,
 	sys-apps/gnome-disk-utility,

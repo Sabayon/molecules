@@ -57,7 +57,7 @@ packages_to_remove:
         mail-client/mailx,
         mail-client/mailx-support,
         net-p2p/transmission-base,
-        net-p2p/transmission-gtk+,
+        net-p2p/transmission-gtk,
         www-client/midori,
         x11-wm/fluxbox,
         x11-terms/xterm,

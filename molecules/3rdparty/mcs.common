@@ -57,7 +57,7 @@ packages_to_remove:
 	app-text/evince,
 	media-gfx/shotwell,
 	media-gfx/gimp,
-	net-p2p/transmission-gtk+,
+	net-p2p/transmission-gtk,
 	net-dialup/gnome-ppp,
 	net-irc/xchat,
 	net-im/pidgin,

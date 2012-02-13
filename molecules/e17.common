@@ -73,7 +73,7 @@ packages_to_add:
 	net-dialup/rp-pppoe,
 	net-im/pidgin,
 	net-irc/xchat,
-	net-p2p/transmission-gtk+,
+	net-p2p/transmission-gtk,
 	sys-apps/gnome-disk-utility,
         sys-apps/gpu-detector,
         sys-auth/consolekit,
