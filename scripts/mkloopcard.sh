@@ -35,6 +35,12 @@ BOOT_DIR="${4}"
 CHROOT_DIR="${5}"
 # Should we make a tarball of the rootfs and bootfs?
 MAKE_TARBALL="${MAKE_TARBALL:-1}"
+# Boot partition type
+BOOT_PART_TYPE="${BOOT_PART_TYPE:-vfat}"
+# Root partition type
+ROOT_PART_TYPE="${ROOT_PART_TYPE:-ext3}"
+# Copy /boot content from Root partition to Boot partition?
+BOOT_PART_TYPE_INSIDE_ROOT="${BOOT_PART_TYPE_INSIDE_ROOT:-}"
 
 cleanup_loopbacks() {
 	cd /
@@ -44,9 +50,10 @@ cleanup_loopbacks() {
 	sync
 	[[ -n "${tmp_file}" ]] && rm "${tmp_file}" 2> /dev/null
 	[[ -n "${tmp_dir}" ]] && { umount "${tmp_dir}" &> /dev/null; rmdir "${tmp_dir}" &> /dev/null; }
+	[[ -n "${boot_tmp_dir}" ]] && { umount "${boot_tmp_dir}" &> /dev/null; rmdir "${boot_tmp_dir}" &> /dev/null; }
 	sleep 1
-	[[ -n "${vfat_part}" ]] && losetup -d "${vfat_part}" 2> /dev/null
-	[[ -n "${ext_part}" ]] && losetup -d "${ext_part}" 2> /dev/null
+	[[ -n "${boot_part}" ]] && losetup -d "${boot_part}" 2> /dev/null
+	[[ -n "${root_part}" ]] && losetup -d "${root_part}" 2> /dev/null
 	[[ -n "${DRIVE}" ]] && losetup -d "${DRIVE}" 2> /dev/null
 	# make sure to have run this
 	[[ -n "${tmp_dir}" ]] && CHROOT_DIR="${tmp_dir}" /sabayon/scripts/mmc_remaster_post.sh
@@ -98,29 +105,36 @@ echo "ExtFS size   : ${EXTSIZE} bytes"
 echo "ExtFS offset : ${EXTOFFSET} bytes"
 
 # Get other two loopback devices first
-vfat_part=$(losetup -f --offset "${STARTOFFSET}" --sizelimit "${MAGICSIZE}" "${FILE}" --show)
-if [ -z "${vfat_part}" ]; then
-	echo "Cannot setup the vfat partition loopback"
+boot_part=$(losetup -f --offset "${STARTOFFSET}" --sizelimit "${MAGICSIZE}" "${FILE}" --show)
+if [ -z "${boot_part}" ]; then
+	echo "Cannot setup the boot partition loopback"
 	exit 1
 fi
 
 
-ext_part=$(losetup -f --offset "${EXTOFFSET}" --sizelimit "${EXTSIZE}" "${FILE}" --show)
-if [ -z "${ext_part}" ]; then
-	echo "Cannot setup the ext3 partition loopback"
+root_part=$(losetup -f --offset "${EXTOFFSET}" --sizelimit "${EXTSIZE}" "${FILE}" --show)
+if [ -z "${root_part}" ]; then
+	echo "Cannot setup the ${ROOT_PART_TYPE} partition loopback"
 	exit 1
 fi
 
-echo "VFAT Partiton at   : ${vfat_part}"
-echo "ExtFS Partition at : ${ext_part}"
+echo "Boot Partiton at   : ${boot_part}"
+echo "Root Partition at : ${root_part}"
 
-# Format vfat
-echo "Formatting VFAT ${vfat_part}..."
-mkfs.vfat -n "boot" -F 32 "${vfat_part}" || exit 1
+# Format boot
+echo "Formatting ${BOOT_PART_TYPE} ${boot_part}..."
+"mkfs.${BOOT_PART_TYPE}" -n "boot" -F 32 "${boot_part}" || exit 1
 
 # Format extfs
-echo "Formatting ExtFS ${ext_part}..."
-mkfs.ext3 -L "Sabayon" "${ext_part}" || exit 1
+echo "Formatting ${ROOT_PART_TYPE} ${root_part}..."
+"mkfs.${ROOT_PART_TYPE}" -L "Sabayon" "${root_part}" || exit 1
+
+boot_tmp_dir=$(mktemp -d)
+if [[ -z "${boot_tmp_dir}" ]]; then
+	echo "Cannot create temporary dir (boot)"
+	exit 1
+fi
+chmod 755 "${boot_tmp_dir}" || exit 1
 
 tmp_dir=$(mktemp -d)
 if [[ -z "${tmp_dir}" ]]; then
@@ -132,13 +146,12 @@ chmod 755 "${tmp_dir}" || exit 1
 sleep 2
 sync
 
-echo "Setting up the boot directory content, mounting on ${tmp_dir}"
-mount "${vfat_part}" "${tmp_dir}"
-cp -R "${BOOT_DIR}"/* "${tmp_dir}"/ || exit 1
-umount "${tmp_dir}" || exit 1
+echo "Setting up the boot directory content, mounting on ${boot_tmp_dir}"
+mount "${boot_part}" "${boot_tmp_dir}"
+cp -R "${BOOT_DIR}"/* "${boot_tmp_dir}"/ || exit 1
 
 echo "Setting up the extfs directory content, mounting on ${tmp_dir}"
-mount "${ext_part}" "${tmp_dir}"
+mount "${root_part}" "${tmp_dir}"
 rsync -a -H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ --exclude "/proc/*" --exclude "/sys/*" \
 	--exclude "/dev/pts/*" --exclude "/dev/shm/*" || exit 1
 
@@ -228,6 +241,14 @@ if [ -n "${RELEASE_FILE}" ]; then
 	[[ ! -d "${release_dir}" ]] && { mkdir -p "${release_dir}" || exit 1; }
 	echo "${RELEASE_STRING} ${RELEASE_VERSION} ${RELEASE_DESC}" > "${release_file}"
 fi
+
+# BOOT_PART_TYPE_INSIDE_ROOT
+if [ -n "${BOOT_PART_TYPE_INSIDE_ROOT}" ]; then
+	echo "Copying data from ${tmp_dir}/boot to ${boot_tmp_dir} as requested..."
+	cp -Rp "${tmp_dir}/boot/*" "${boot_tmp_dir}/" || exit 1
+fi
+umount "${boot_tmp_dir}" || exit 1
+
 
 if [ -n "${DESTINATION_IMAGE_DIR}" ] && [ "${MAKE_TARBALL}" = "1" ]; then
 	# Create the rootfs tarball
