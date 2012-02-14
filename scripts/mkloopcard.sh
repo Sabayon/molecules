@@ -51,6 +51,7 @@ cleanup_loopbacks() {
 	sleep 5
 	sync
 	[[ -n "${tmp_file}" ]] && rm "${tmp_file}" 2> /dev/null
+	[[ -n "${tmp_dir}" ]] && { umount "${tmp_dir}/proc" &> /dev/null; }
 	[[ -n "${tmp_dir}" ]] && { umount "${tmp_dir}" &> /dev/null; rmdir "${tmp_dir}" &> /dev/null; }
 	[[ -n "${boot_tmp_dir}" ]] && { umount "${boot_tmp_dir}" &> /dev/null; rmdir "${boot_tmp_dir}" &> /dev/null; }
 	sleep 1
