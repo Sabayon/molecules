@@ -248,7 +248,7 @@ fi
 # BOOT_PART_TYPE_INSIDE_ROOT
 if [ -n "${BOOT_PART_TYPE_INSIDE_ROOT}" ]; then
 	echo "Copying data from ${tmp_dir}/boot to ${boot_tmp_dir} as requested..."
-	cp -Rp "${tmp_dir}/boot/*" "${boot_tmp_dir}/" || exit 1
+	cp -Rp "${tmp_dir}/boot/"* "${boot_tmp_dir}/" || exit 1
 fi
 umount "${boot_tmp_dir}" || exit 1
 
