@@ -37,8 +37,10 @@ CHROOT_DIR="${5}"
 MAKE_TARBALL="${MAKE_TARBALL:-1}"
 # Boot partition type
 BOOT_PART_TYPE="${BOOT_PART_TYPE:-vfat}"
+BOOT_PART_MKFS_ARGS="${BOOT_PART_MKFS_ARGS:--n boot -F 32}"
 # Root partition type
 ROOT_PART_TYPE="${ROOT_PART_TYPE:-ext3}"
+ROOT_PART_MKFS_ARGS="${ROOT_PART_MKFS_ARGS:--L Sabayon}"
 # Copy /boot content from Root partition to Boot partition?
 BOOT_PART_TYPE_INSIDE_ROOT="${BOOT_PART_TYPE_INSIDE_ROOT:-}"
 
@@ -123,11 +125,11 @@ echo "Root Partition at : ${root_part}"
 
 # Format boot
 echo "Formatting ${BOOT_PART_TYPE} ${boot_part}..."
-"mkfs.${BOOT_PART_TYPE}" -n "boot" -F 32 "${boot_part}" || exit 1
+"mkfs.${BOOT_PART_TYPE}" ${BOOT_PART_MKFS_ARGS} "${boot_part}" || exit 1
 
 # Format extfs
 echo "Formatting ${ROOT_PART_TYPE} ${root_part}..."
-"mkfs.${ROOT_PART_TYPE}" -L "Sabayon" "${root_part}" || exit 1
+"mkfs.${ROOT_PART_TYPE}" ${ROOT_PART_MKFS_ARGS} "${root_part}" || exit 1
 
 boot_tmp_dir=$(mktemp -d)
 if [[ -z "${boot_tmp_dir}" ]]; then
