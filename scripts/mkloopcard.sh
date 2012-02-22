@@ -37,6 +37,7 @@ CHROOT_DIR="${5}"
 MAKE_TARBALL="${MAKE_TARBALL:-1}"
 # Boot partition type
 BOOT_PART_TYPE="${BOOT_PART_TYPE:-vfat}"
+BOOT_PART_TYPE_MBR="${BOOT_PART_TYPE_MBR:-0x0C}"
 BOOT_PART_MKFS_ARGS="${BOOT_PART_MKFS_ARGS:--n boot -F 32}"
 # Root partition type
 ROOT_PART_TYPE="${ROOT_PART_TYPE:-ext3}"
@@ -92,7 +93,7 @@ echo "Start offset : ${STARTOFFSET} bytes"
 # Starts at sect 63, ends at sect 144584, each sector is 512bytes
 # In fact it creates 9 cyls
 {
-echo ,9,0x0C,*
+echo ,9,${BOOT_PART_TYPE_MBR},*
 echo ,,,-
 } | sfdisk -D -H 255 -S 63 -C $CYLINDERS $DRIVE
 
