@@ -96,7 +96,7 @@ setup_serial() {
 setup_fstab() {
 	# add /dev/mmcblk0p1 to /etc/fstab
 	local boot_part_type="${BOOT_PART_TYPE:-ext3}"
-	echo "/dev/mmcblk0p1  /boot  ${boot_part_type}  defaults  0 1" >> /etc/fstab
+	echo "/dev/mmcblk0p1  /boot  ${boot_part_type}  noauto  0 1" >> /etc/fstab
 }
 
 setup_displaymanager
