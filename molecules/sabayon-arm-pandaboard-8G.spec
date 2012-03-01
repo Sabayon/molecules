@@ -14,7 +14,7 @@ image_name: Sabayon_Linux_8_armv7a_PandaBoard_8GB.img
 # Specify the image file size in Megabytes. This is mandatory.
 # To avoid runtime failure, make sure the image is large enough to fit your
 # chroot data.
-image_mb: 7700
+image_mb: 7400
 
 # Path to boot partition data (MLO, u-boot.img etc)
 source_boot_directory: /sabayon/boot/arm/pandaboard
