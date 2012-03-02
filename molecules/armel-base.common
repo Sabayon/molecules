@@ -1,0 +1,133 @@
+# Define an alternative execution strategy, in this case, the value must be
+execution_strategy: chroot_to_mmc
+
+# Prefix command to add to chroot calls, when on x86_64 and touching a i686
+# chroot, set it to "linux32"
+# prechroot: 
+
+# Outer source chroot script. It's executed before entering the source_chroot.
+# This is the very first thing molecule does. You can use it to setup
+# packages cache.
+# Variables exported:
+# IMAGE_NAME = name of the final MMC image
+# DESTINATION_IMAGE_DIR = path to the destination image directory
+# CHROOT_DIR = path pointing to the chroot
+# outer_source_chroot_script: /some/path.sh
+
+# Inner source chroot script. Called from inside the source_chroot.
+# Can be used to spawn package updates inside the chroot.
+# inner_source_chroot_script: /sabayon/scripts/inner_source_chroot_update.sh
+
+# Outer source chroot script, executed after inner_source_chroot_script.
+# Can be used to unload resources allocated by outer_source_chroot_script.
+# Variables exported:
+# IMAGE_NAME = name of the final MMC image
+# DESTINATION_IMAGE_DIR = path to the destination image directory
+# CHROOT_DIR = path pointing to the chroot
+# outer_source_chroot_script_after: /some/path.sh
+
+# Error script command, executed when something went wrong and molecule has
+# to terminate the execution
+# error_script: /path/to/some/error_script.sh
+
+# Pre-image building script. Hook called before image file creation
+# IMAGE_NAME = name of the final MMC image
+# DESTINATION_IMAGE_DIR = path to the destination image directory
+# CHROOT_DIR = path pointing to the chroot
+# pre_image_script: /sabayon/scripts/pre_image_script.sh
+
+# Post-image building script. Hook called after image file creation and move
+# into destination directory.
+# Variables exported:
+# IMAGE_NAME = name of the final MMC image
+# DESTINATION_IMAGE_DIR = path to the destination image directory
+# CHROOT_DIR = path pointing to the chroot
+# IMAGE_PATH = path pointing to the destination image file
+# IMAGE_CHECKSUM_PATH = path pointing to the destination image file checksum (md5)
+post_image_script: /sabayon/scripts/post_mmc_image_script.sh
+
+# Destination directory for the image path (MANDATORY)
+destination_image_directory: /sabayon/images
+
+# Path to source chroot (mandatory)
+source_chroot: /sabayon/sources/armv7l_softfp_core-2012
+
+# Release file that will be created onto the root filesystem
+release_file: /etc/sabayon-edition
+
+# Release string (the actual distro name)
+release_string: Sabayon Linux
+
+# Directories to remove completely (comma separated)
+paths_to_remove:
+    /var/lib/entropy/client/database/*/sabayon*,
+    /root/.subversion,
+    /lib/udev-state/devices.tar.bz2,
+    /var/log/scrollkeeper.log, /var/log/genkernel.log,
+    /var/log/emerge.log, /usr/tmp/portage/*,
+    /root/.bash_history,
+    /usr/share/slocate/slocate.db,
+    /root/test-results.txt,
+    /root/test.sh,
+    /usr/portage/distfiles/*,
+    /usr/portage/packages/*,
+    /root/.revdep*,
+    /install-data/games/*,
+    /var/lib/entropy/store/*,
+    /var/log/entropy/*,
+    /var/lib/entropy/caches/*,
+    /var/lib/entropy/smartapps/*/*,
+    /var/lib/entropy/smartapps/*/*,
+    /var/lib/entropy/tmp/*,
+    /var/tmp/entropy/*,
+    /*.txt,
+    /usr/portage/a*,
+    /usr/portage/b*,
+    /usr/portage/c*,
+    /usr/portage/d*,
+    /usr/portage/e*,
+    /usr/portage/f*,
+    /usr/portage/g*,
+    /usr/portage/h*,
+    /usr/portage/i*,
+    /usr/portage/j*,
+    /usr/portage/k*,
+    /usr/portage/licenses,
+    /usr/portage/lxde*,
+    /usr/portage/m*,
+    /usr/portage/n*,
+    /usr/portage/o*,
+    /usr/portage/packages,
+    /usr/portage/pe*,
+    /usr/portage/q*,
+    /usr/portage/r*,
+    /usr/portage/s*,
+    /usr/portage/t*,
+    /usr/portage/u*,
+    /usr/portage/v*,
+    /usr/portage/w*,
+    /usr/portage/x*,
+    /usr/portage/y*,
+    /usr/portage/z*,
+    /etc/ssh/ssh_host_*,
+    /entropy,
+    /tmp/equoerror.txt,
+    /var/cache/man,
+    /var/lib/entropy/glsa/*,
+    /root/local,
+    /var/tmp/*,
+    /root/.ssh,
+    /root/.distcc,
+    /etc/distcc/.ssh
+
+# Directories to empty (comma separated)
+paths_to_empty:
+    /home/sabayonuser/.thumbnails/,
+    /root/.ccache,
+    /var/tmp/portage,
+    /var/tmp/ccache,
+    /var/tmp/portage-pkg,
+    /var/tmp/binpkgs,
+    /var/lib/entropy/portage,
+    /var/lib/entropy/logs,
+    /var/cache/genkernel
