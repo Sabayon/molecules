@@ -51,6 +51,7 @@ setup_startup_caches() {
 
 setup_serial() {
 	# Setup serial login
+	sed -i "s:^s0.*::" /etc/inittab
 	echo "s0:12345:respawn:/sbin/agetty 115200 ttyO0 vt100" >> /etc/inittab
 }
 

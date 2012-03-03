@@ -89,6 +89,7 @@ setup_users() {
 
 setup_serial() {
 	# setup serial login
+	sed -i "s:^s0.*::" /etc/inittab
 	echo "s0:12345:respawn:/sbin/agetty 115200 ttymxc0 vt100" >> /etc/inittab
 	echo "ttymxc0" >> /etc/securetty
 }
