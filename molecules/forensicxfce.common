@@ -98,6 +98,7 @@ packages_to_add:
 	net-misc/knock,	
 	media-fonts/droid, 
 	media-gfx/picasa,
+        media-gfx/pqstego,
 	media-sound/pavucontrol,
 	media-video/vlc,
 	net-analyzer/nmap, 
