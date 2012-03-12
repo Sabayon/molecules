@@ -53,6 +53,7 @@ packages_to_add:
 	@gst-plugins,
 	@xfce,
 	app-admin/sulfur,
+	app-arch/file-roller,
 	app-arch/unrar,
 	app-crypt/gnupg,
 	app-crypt/pinentry-gtk2,
