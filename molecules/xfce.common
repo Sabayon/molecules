@@ -86,7 +86,7 @@ packages_to_add:
 	app-text/pastebunz,
 	dev-java/icedtea-bin,
 	games-misc/cowsay,
-	gnome-extra/nm-applet,
+	gnome-extra/nm-applet-gtk2,
 	gnome-extra/polkit-gnome,
 	media-fonts/corefonts,
 	media-fonts/dejavu,
