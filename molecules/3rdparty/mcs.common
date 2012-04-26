@@ -62,7 +62,7 @@ packages_to_remove:
 	net-irc/xchat,
 	net-im/pidgin,
 	mail-client/evolution,
-	app-admin/sulfur,
+	app-admin/rigo,
 	sys-apps/magneto-core,
 	media-tv/xbmc,
 	media-sound/audacious,

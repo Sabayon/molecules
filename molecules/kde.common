@@ -52,7 +52,7 @@ packages_to_add:
 	@wireless,
 	app-admin/packagekit-base,
 	app-admin/packagekit-qt4,
-	app-admin/sulfur,
+	app-admin/rigo,
 	app-cdr/k3b,
 	app-crypt/gnupg,
 	app-crypt/pinentry-qt4,

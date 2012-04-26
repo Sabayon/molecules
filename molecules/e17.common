@@ -50,7 +50,7 @@ packages_to_add:
 	@e17,
         @fluxbox,
 	@wireless,
-	app-admin/sulfur,
+	app-admin/rigo,
 	app-crypt/gnupg,
         app-crypt/pinentry-gtk2,
 	app-emulation/virtualbox-guest-additions,

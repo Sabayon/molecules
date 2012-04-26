@@ -54,7 +54,7 @@ packages_to_add:
 	app-admin/gnome-system-tools,
 	app-admin/packagekit-base,
 	app-admin/packagekit-gtk,
-	app-admin/sulfur,
+	app-admin/rigo,
 	app-admin/system-tools-backends,
 	app-backup/deja-dup,
 	app-crypt/gnupg,

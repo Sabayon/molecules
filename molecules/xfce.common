@@ -52,7 +52,7 @@ packages_to_add:
 	@fluxbox,
 	@gst-plugins,
 	@xfce,
-	app-admin/sulfur,
+	app-admin/rigo,
 	app-arch/file-roller,
 	app-arch/unrar,
 	app-crypt/gnupg,

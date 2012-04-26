@@ -50,7 +50,7 @@ packages_to_add:
 	@X,
 	@lxde,
 	@fluxbox,
-	app-admin/sulfur,
+	app-admin/rigo,
 	app-arch/xarchiver,
 	app-crypt/gnupg,
         app-crypt/pinentry-gtk2,
