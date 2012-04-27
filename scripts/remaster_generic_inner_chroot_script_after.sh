@@ -137,11 +137,12 @@ setup_proprietary_gfx_drivers() {
 	kernel_tag="#$(cat "${kernel_tag_file}")"
 
 	rm -rf /var/lib/entropy/client/packages/packages*/${mydir}/*/x11-drivers*
-	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-drivers-173*$kernel_tag
-	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-drivers-96.43.20*$kernel_tag
+	# dead with >=xorg-server-1.11
+	# ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-drivers-173*$kernel_tag
+	# ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-drivers-96.43.20*$kernel_tag
 	## not working with >=xorg-server-1.5
 	## ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps ~x11-drivers/nvidia-drivers-71.86.*$kernel_tag
-	mv /var/lib/entropy/client/packages/packages-nonfree/${mydir}/*/x11-drivers\:nvidia-drivers*.tbz2 /install-data/drivers/
+	# mv /var/lib/entropy/client/packages/packages-nonfree/${mydir}/*/x11-drivers\:nvidia-drivers*.tbz2 /install-data/drivers/
 
 	# if we ship with ati-drivers, we have KMS disabled by default.
 	# and better set driver arch to classic
