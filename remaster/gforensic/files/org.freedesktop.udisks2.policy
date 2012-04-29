@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
+<policyconfig>
+  <vendor>The udisks Project</vendor>
+  <vendor_url>http://udisks.freedesktop.org/</vendor_url>
+  <icon_name>drive-removable-media</icon_name>
+
+  
+  <action id="org.freedesktop.udisks2.filesystem-mount">
+    <description>Mount a filesystem</description>
+    <message>Authentication is required to mount the filesystem</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>yes</allow_active>
+    </defaults>
+  </action>
+
+  <action id="org.freedesktop.udisks2.filesystem-mount-system">
+    <description>Mount a filesystem on a system device</description>
+    <message>Authentication is required to mount the filesystem</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>yes</allow_active>
+    </defaults>
+  </action>
+
+  <action id="org.freedesktop.udisks2.filesystem-fstab">
+    <description>Mount/unmount filesystems defined in the fstab file with the x-udisks-auth option</description>
+    <message>Authentication is required to mount/unmount the filesystem</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+  </action>
+
+  <action id="org.freedesktop.udisks2.filesystem-unmount-others">
+    <description>Unmount a device mounted by another user</description>
+    <message>Authentication is required to unmount a filesystem mounted by another user</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+  </action>
+
+  
+  <action id="org.freedesktop.udisks2.encrypted-unlock">
+    <description>Unlock an encrypted device</description>
+    <message>Authentication is required to unlock an encrypted device</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>yes</allow_active>
+    </defaults>
+  </action>
+
+  <action id="org.freedesktop.udisks2.encrypted-unlock-system">
+    <description>Unlock an encrypted system device</description>
+    <message>Authentication is required to unlock an encrypted device</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+  </action>
+
+  <action id="org.freedesktop.udisks2.encrypted-unlock-crypttab">
+    <description>Unlock an encrypted device specified in the crypttab file with the x-udisks-auth option</description>
+    <message>Authentication is required to unlock an encrypted device</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+  </action>
+
+  <action id="org.freedesktop.udisks2.encrypted-lock-others">
+    <description>Lock an encrypted device unlocked by another user</description>
+    <message>Authentication is required to lock an encrypted device unlocked by another user</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+  </action>
+
+  <action id="org.freedesktop.udisks2.encrypted-change-passphrase">
+    <description>Change passphrase for an encrypted device</description>
+    <message>Authentication is required to change the passphrase for an encrypted device</message>
+    <message xml:lang="da">Autorisering er påkrævet for at ændre kode-ordet for en krypteret enhed</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>yes</allow_active>
+    </defaults>
+  </action>
+
+  <action id="org.freedesktop.udisks2.encrypted-change-passphrase-system">
+    <description>Change passphrase for an encrypted device</description>
+    <message>Authentication is required to change the passphrase for an encrypted device</message>
+    <message xml:lang="da">Autorisering er påkrævet for at ændre kode-ordet for en krypteret enhed</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+  </action>
+
+  
+  <action id="org.freedesktop.udisks2.loop-setup">
+    <description>Manage loop devices</description>
+    <message>Authentication is required to set up a loop device</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      
+      <allow_active>yes</allow_active>
+    </defaults>
+  </action>
+
+  <action id="org.freedesktop.udisks2.loop-delete-others">
+    <description>Manage loop devices</description>
+    <message>Authentication is required to delete a loop device set up by another user</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+  </action>
+
+  
+  <action id="org.freedesktop.udisks2.manage-swapspace">
+    <description>Manage swapspace</description>
+    <message>Authentication is required to manage swapspace</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+  </action>
+
+  
+  <action id="org.freedesktop.udisks2.modify-device">
+    <description>Modify a device</description>
+    <message>Authentication is required to modify a device</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>yes</allow_active>
+    </defaults>
+  </action>
+
+  <action id="org.freedesktop.udisks2.modify-device-system">
+    <description>Modify a system device</description>
+    <message>Authentication is required to modify a device</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+  </action>
+
+  
+  <action id="org.freedesktop.udisks2.open-device">
+    <description>Open a device</description>
+    <message>Authentication is required to open a device</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+  </action>
+
+  <action id="org.freedesktop.udisks2.open-device-system">
+    <description>Open a system device</description>
+    <message>Authentication is required to open a device</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+  </action>
+
+  
+  <action id="org.freedesktop.udisks2.modify-system-configuration">
+    <description>Modify system-wide configuration</description>
+    <message>Authentication is required to modify system-wide configuration</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+  </action>
+
+  
+  <action id="org.freedesktop.udisks2.read-system-configuration-secrets">
+    <description>Modify system-wide configuration</description>
+    <message>Authentication is required to retrieve secrets from system-wide configuration</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+  </action>
+
+  
+  <action id="org.freedesktop.udisks2.ata-smart-update">
+    <description>Update SMART data</description>
+    <message>Authentication is required to update SMART data</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>yes</allow_active>
+    </defaults>
+  </action>
+
+  
+  <action id="org.freedesktop.udisks2.ata-smart-selftest">
+    <description>Run SMART self-test</description>
+    <message>Authentication is required to run a SMART self-test</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+  </action>
+
+</policyconfig>
