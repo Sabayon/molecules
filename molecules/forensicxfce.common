@@ -60,7 +60,6 @@ packages_to_remove:
         net-p2p/transmission-gtk,
         www-client/midori,
         x11-wm/fluxbox,
-        x11-terms/xterm,
         media-gfx/shotwell,
         net-firewall/ufw,
         net-firewall/ufw-frontends,
