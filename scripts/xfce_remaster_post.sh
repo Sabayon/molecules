@@ -16,5 +16,6 @@ cp "${GFORENSIC_DIR}"/files/xsettings.xml "${CHROOT_DIR}/etc/skel/.config/xfce4/
 cp "${GFORENSIC_DIR}"/files/xfce4-panel.xml "${CHROOT_DIR}/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
 cp "${GFORENSIC_DIR}"/files/helpers.rc "${CHROOT_DIR}/etc/skel/.config/xfce4/helpers.rc"
 cp "${GFORENSIC_DIR}"/files/rc.lua "${CHROOT_DIR}/etc/xdg/awesome/rc.lua"
+cp "${GFORENSIC_DIR}"/files/theme.lua "${CHROOT_DIR}/etc/xdg/awesome/themes/default/theme.lua"
 cp -r "${GFORENSIC_DIR}"/files/OSDark "${CHROOT_DIR}/usr/share/icons/"
 cp -r "${GFORENSIC_DIR}"/files/NewSlickness-round "${CHROOT_DIR}/usr/share/themes/"
