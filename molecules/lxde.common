@@ -82,6 +82,8 @@ packages_to_add:
 	sys-power/cpufrequtils,
 	www-client/midori,
 	x11-misc/magneto-gtk,
+	x11-drivers/ati-drivers,
+	x11-drivers/nvidia-drivers,
 	x11-drivers/xf86-video-virtualbox,
 	x11-themes/equinox-themes,
 	x11-themes/gtk-engines:2,
