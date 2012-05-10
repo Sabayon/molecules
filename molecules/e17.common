@@ -81,6 +81,8 @@ packages_to_add:
 	sys-fs/ntfs3g,
 	sys-power/cpufrequtils,
 	www-client/midori,
+	x11-drivers/ati-drivers,
+	x11-drivers/nvidia-drivers,
         x11-drivers/xf86-video-virtualbox,
 	x11-libs/gksu,
         x11-misc/magneto-gtk,
