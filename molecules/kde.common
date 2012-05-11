@@ -271,7 +271,7 @@ packages_to_add:
 	media-libs/libdvdnav,
 	media-plugins/alsa-plugins,
 	media-plugins/kipi-plugins,
-	media-sound/amarok,
+	media-sound/clementine,
 	media-tv/xbmc,
 	media-video/vlc,
 	net-dialup/globespan-adsl,
