@@ -97,10 +97,36 @@ for repo_conf in /etc/entropy/repositories.conf.d/entropy_*.example; do
 done
 
 # copy Portage config from sabayonlinux.org entropy repo to system
-cp /var/lib/entropy/client/database/*/sabayonlinux.org/standard/*/*/package.mask /etc/portage/package.mask
-cp /var/lib/entropy/client/database/*/sabayonlinux.org/standard/*/*/package.unmask /etc/portage/package.unmask
-cp /var/lib/entropy/client/database/*/sabayonlinux.org/standard/*/*/package.use /etc/portage/package.use
-cp /var/lib/entropy/client/database/*/sabayonlinux.org/standard/*/*/make.conf /etc/make.conf
+for conf in package.mask package.unmask package.keywords make.conf package.use; do
+	repo_path=/var/lib/entropy/client/database/*/sabayonlinux.org/standard
+	repo_conf=$(ls -1 ${repo_path}/*/*/${conf} | sort | tail -n 1 2>/dev/null)
+	if [ -n "${repo_conf}" ]; then
+		target_path="/etc/portage/${conf}"
+		if [ "${conf}" = "make.conf" ]; then
+			target_path="/etc/make.conf"
+		fi
+		if [ ! -d "${target_path}" ]; then # do not touch dirs
+			cp "${repo_conf}" "${target_path}" # ignore
+		fi
+	fi
+done
+# split config file
+for conf in 00-sabayon.package.use; do
+	repo_path=/var/lib/entropy/client/database/*/sabayonlinux.org/standard
+	repo_conf=$(ls -1 ${repo_path}/*/*/${conf} | sort | tail -n 1 2>/dev/null)
+	if [ -n "${repo_conf}" ]; then
+		target_path="/etc/portage/${conf/00-sabayon.}/${conf}"
+		target_dir=$(dirname "${target_path}")
+		if [ -f "${target_dir}" ]; then # remove old file
+			rm "${target_dir}" # ignore failure
+		fi
+		if [ ! -d "${target_path}" ]; then
+			mkdir -p "${target_path}" # ignore failure
+		fi
+		cp "${repo_conf}" "${target_path}" # ignore
+
+	fi
+done
 
 # Update sabayon overlay
 layman -d sabayon

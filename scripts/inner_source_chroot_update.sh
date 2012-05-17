@@ -21,25 +21,37 @@ equo upgrade || exit 1
 echo "-5" | equo conf update
 rm -rf /var/lib/entropy/client/packages
 
-# Copy updated portage config files to /etc/portage
-arch=$(uname -m)
-if [ "${arch}" = "x86_64" ]; then
-	arch="amd64"
-elif [ "${arch}" = "i686" ]; then
-	arch="x86"
-fi
-SABAYON_REPO_DIR="/var/lib/entropy/client/database/${arch}/sabayonlinux.org/standard/${arch}/5"
-for cfg in package.mask package.unmask package.keywords package.use make.conf; do
-	cfg_path="${SABAYON_REPO_DIR}/${cfg}"
-	if [ ! -f "${cfg_path}" ]; then
-		continue
+# copy Portage config from sabayonlinux.org entropy repo to system
+for conf in package.mask package.unmask package.keywords make.conf package.use; do
+	repo_path=/var/lib/entropy/client/database/*/sabayonlinux.org/standard
+	repo_conf=$(ls -1 ${repo_path}/*/*/${conf} | sort | tail -n 1 2>/dev/null)
+	if [ -n "${repo_conf}" ]; then
+		target_path="/etc/portage/${conf}"
+		if [ "${conf}" = "make.conf" ]; then
+			target_path="/etc/make.conf"
+		fi
+		if [ ! -d "${target_path}" ]; then # do not touch dirs
+			cp "${repo_conf}" "${target_path}" # ignore
+		fi
 	fi
+done
 
-	dest_cfg_path="/etc/portage/${cfg}"
-	if [ "${cfg}" = "make.conf" ]; then
-		dest_cfg_path="/etc/make.conf"
+# split config file
+for conf in 00-sabayon.package.use; do
+	repo_path=/var/lib/entropy/client/database/*/sabayonlinux.org/standard
+	repo_conf=$(ls -1 ${repo_path}/*/*/${conf} | sort | tail -n 1 2>/dev/null)
+	if [ -n "${repo_conf}" ]; then
+		target_path="/etc/portage/${conf/00-sabayon.}/${conf}"
+		target_dir=$(dirname "${target_path}")
+		if [ -f "${target_dir}" ]; then # remove old file
+			rm "${target_dir}" # ignore failure
+		fi
+		if [ ! -d "${target_path}" ]; then
+			mkdir -p "${target_path}" # ignore failure
+		fi
+		cp "${repo_conf}" "${target_path}" # ignore
+
 	fi
-	cp "${cfg_path}" "${dest_cfg_path}" # ignore failures
 done
 
 equo query list installed -qv > /etc/sabayon-pkglist
