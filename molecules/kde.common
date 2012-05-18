@@ -84,6 +84,7 @@ packages_to_add:
 	app-office/libreoffice-l10n-it,
 	app-office/libreoffice-l10n-nl,
 	app-office/libreoffice-l10n-pt,
+	app-officeext/languagetool,
 	dev-java/icedtea,
 	kde-base/kde-l10n-bg,
 	kde-base/kde-l10n-ca,
