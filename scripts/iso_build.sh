@@ -209,9 +209,9 @@ build_sabayon() {
 		fi
 		if [ "${done_something}" = "1" ]; then
 			if [ "${done_images}" = "1" ]; then
-				cp /sabayon/images/*DAILY* /sabayon/iso_rsync/ || return 1
+				cp -p /sabayon/images/*DAILY* /sabayon/iso_rsync/ || return 1
 			fi
-			cp /sabayon/iso/*DAILY* /sabayon/iso_rsync/ || return 1
+			cp -p /sabayon/iso/*DAILY* /sabayon/iso_rsync/ || return 1
 			date > /sabayon/iso_rsync/RELEASE_DATE_DAILY
 			if [ "${MAKE_TORRENTS}" != "0" ]; then
 				/sabayon/scripts/make_torrents.sh || return 1
