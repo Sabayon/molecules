@@ -320,7 +320,6 @@ packages_to_add:
 	x11-drivers/nvidia-drivers,
 	x11-libs/vdpau-video,
 	x11-libs/xvba-video,
-	x11-misc/bumblebee,
 	x11-misc/desktop-acceleration-helpers,
 	x11-misc/xvkbd,
 	x11-themes/gtk-engines:2,

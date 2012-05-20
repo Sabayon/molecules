@@ -85,7 +85,6 @@ packages_to_add:
 	x11-drivers/nvidia-drivers,
 	x11-drivers/xf86-video-virtualbox,
 	x11-libs/gksu,
-	x11-misc/bumblebee,
 	x11-misc/magneto-gtk,
 	x11-terms/xterm,
 	x11-themes/equinox-themes,
