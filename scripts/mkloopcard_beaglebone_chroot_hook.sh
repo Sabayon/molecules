@@ -13,6 +13,7 @@ setup_boot() {
 	rc-update add vixie-cron boot
 	rc-update add dbus boot
 	rc-update add NetworkManager default
+	rc-update add NetworkManager-setup default
 
 	# select the first available kernel
 	eselect uimage set 1

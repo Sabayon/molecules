@@ -43,6 +43,7 @@ setup_boot() {
 	# enable dbus, of course, and also NetworkManager
 	rc-update add dbus boot
 	rc-update add NetworkManager default
+	rc-update add NetworkManager-setup default
 	rc-update del net.eth0 default
 
 	# start X.Org by default

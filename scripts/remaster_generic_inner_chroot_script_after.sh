@@ -79,6 +79,7 @@ setup_networkmanager() {
 	rc-update del NetworkManager default
 	rc-update del NetworkManager
 	rc-update add NetworkManager default
+	rc-update add NetworkManager-setup default
 }
 
 xfceforensic_remove_skel_stuff() {
