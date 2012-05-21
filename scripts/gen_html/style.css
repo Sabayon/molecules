@@ -1,0 +1,28 @@
+body
+{
+font-size: 14px;
+font-family: Verdana,sans-serif,"Times New Roman"
+}
+
+table
+{
+border: 1px solid #A0522D;
+border-collapse:collapse;
+width: 80%;
+}
+
+td
+{
+border:1px solid #A0522D;
+}
+
+th
+{
+background-color: #90EE90;
+color:black;
+}
+
+td:hover
+{
+background-color: #CACACA;
+}
