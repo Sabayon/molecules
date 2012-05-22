@@ -37,7 +37,7 @@ fi
 
 # main
 if ! "$script" $common_args \
-		main --template main.tmpl --dir "$main_dir" \
+		main --template "$script_dir/main.tmpl" --dir "$main_dir" \
 		> "$tmpfile"; then
 	warn "script for main releases failed"
 	rm -f "$tmpfile"
@@ -52,7 +52,7 @@ fi
 
 # dailies
 if ! "$script" $common_args \
-		daily --template daily.tmpl --dir "$dailies_dir" \
+		daily --template "$script_dir/daily.tmpl" --dir "$dailies_dir" \
 		> "$tmpfile"; then
 	warn "script for daily releases failed"
 	rm -f "$tmpfile"
