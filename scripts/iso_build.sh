@@ -120,8 +120,12 @@ move_to_pkg_sabayon_org() {
 	if [ -n "${DO_PUSH}" ] || [ -f /sabayon/DO_PUSH ]; then
 		rm -f /sabayon/DO_PUSH
 		rsync -av --partial --delete-excluded /sabayon/iso_rsync/*DAILY* \
-	       	        entropy@pkg.sabayon.org:/sabayon/rsync/rsync.sabayon.org/iso/daily
+			entropy@pkg.sabayon.org:/sabayon/rsync/rsync.sabayon.org/iso/daily || return 1
+		rsync -av --partial --delete-excluded /sabayon/scripts/gen_html \
+			entropy@pkg.sabayon.org:/sabayon/rsync/iso_html_generator || return 1
+		ssh entropy@pkg.sabayon.org /sabayon/rsync/iso_html_generator/gen_html/gen.sh
 	fi
+	return 0
 }
 
 build_sabayon() {
