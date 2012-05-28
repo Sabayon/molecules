@@ -2,7 +2,7 @@
 %import /sabayon/molecules/gnome.common
 
 # Release Version
-release_version: 8
+release_version: 9
 
 # Release Version string description
 release_desc: amd64 GNOME
@@ -11,4 +11,4 @@ release_desc: amd64 GNOME
 source_iso: /sabayon/iso/Sabayon_Linux_SpinBase_DAILY_amd64.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-destination_iso_image_name: Sabayon_Linux_8_amd64_G.iso
+destination_iso_image_name: Sabayon_Linux_9_amd64_G.iso

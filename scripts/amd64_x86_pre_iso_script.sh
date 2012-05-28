@@ -80,9 +80,9 @@ arm_images_dir="/sabayon/images"
 arm_dir="${CDROOT_DIR}/ARM"
 mkdir -p "${arm_dir}" || exit 1
 
-beaglebone_image="Sabayon_Linux_8_armv7a_BeagleBone_Base_2GB.img.xz"
-beagleboard_xm_image="Sabayon_Linux_8_armv7a_BeagleBoard_xM_4GB.img.xz"
-pandaboard_image="Sabayon_Linux_8_armv7a_PandaBoard_4GB.img.xz"
+beaglebone_image="Sabayon_Linux_9_armv7a_BeagleBone_Base_2GB.img.xz"
+beagleboard_xm_image="Sabayon_Linux_9_armv7a_BeagleBoard_xM_4GB.img.xz"
+pandaboard_image="Sabayon_Linux_9_armv7a_PandaBoard_4GB.img.xz"
 
 # BeagleBone
 arm_card_dir="${arm_dir}/BeagleBone"

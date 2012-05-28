@@ -5,11 +5,11 @@
 release_desc: armv7a PandaBoard
 
 # Release Version (used to generate release_file)
-release_version: 8
+release_version: 9
 
 # Specify image file name (image file name will be automatically
 # produced otherwise)
-image_name: Sabayon_Linux_8_armv7a_PandaBoard_8GB.img
+image_name: Sabayon_Linux_9_armv7a_PandaBoard_8GB.img
 
 # Specify the image file size in Megabytes. This is mandatory.
 # To avoid runtime failure, make sure the image is large enough to fit your

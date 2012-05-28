@@ -4,7 +4,7 @@
 prechroot: linux32
 
 # Release Version
-release_version: 8
+release_version: 9
 
 # Release Version string description
 release_desc: x86 ForensicsXfce
