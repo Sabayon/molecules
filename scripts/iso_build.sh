@@ -211,6 +211,10 @@ build_sabayon() {
 			molecule --nocolor ${remaster_specs} || return 1
 			done_something=1
 		fi
+
+		# package phases keep loading dbus, let's kill pids back
+		ps ax | grep -- "/usr/bin/dbus-daemon --fork .* --session" | awk '{ print $1 }' | xargs kill 2> /dev/null
+
 		if [ "${done_something}" = "1" ]; then
 			if [ "${done_images}" = "1" ]; then
 				cp -p /sabayon/images/*DAILY* /sabayon/iso_rsync/ || return 1
