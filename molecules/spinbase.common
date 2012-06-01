@@ -112,3 +112,6 @@ paths_to_empty:
     /var/lib/entropy/portage,
     /var/lib/entropy/logs,
     /var/cache/genkernel
+
+packages_to_add:
+	sys-fs/zfs
