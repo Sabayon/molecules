@@ -27,6 +27,10 @@ basic_environment_setup() {
 	rc-update del sabayon-mce default
 	rc-update add nfsmount default
 
+	if [ -f /etc/init.d/zfs ]; then
+		rc-update add zfs boot
+	fi
+
 	# Always startup this
 	rc-update add virtualbox-guest-additions boot
 }
