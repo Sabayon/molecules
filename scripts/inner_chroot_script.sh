@@ -163,11 +163,14 @@ rm -rf /var/tmp/entropy/*
 rm -rf /var/lib/entropy/logs
 rm -rf /var/lib/entropy/glsa
 rm -rf /var/lib/entropy/tmp
+rm -rf /var/lib/entropy/*cache*
 
 # remove entropy hwhash
 rm -f /etc/entropy/.hw.hash
 
 # remove entropy pid file
 rm -f /var/run/entropy/entropy.lock
+rm -f /var/lib/entropy/entropy.pid
+rm -f /var/lib/entropy/entropy.lock # old?
 
 exit 0
