@@ -118,7 +118,6 @@ packages_to_add:
 	sys-block/gparted,
 	sys-block/parted,
 	sys-fs/ntfs3g,
-	sys-fs/zfs,
 	sys-power/cpufrequtils,
 	www-client/midori,
 	www-plugins/adobe-flash,

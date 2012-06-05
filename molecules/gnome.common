@@ -154,7 +154,6 @@ packages_to_add:
 	sys-block/gparted,
 	sys-fs/dmraid,
 	sys-fs/ntfs3g,
-	sys-fs/zfs,
 	sys-power/acpid,
 	sys-power/cpufrequtils,
 	www-client/chromium,
