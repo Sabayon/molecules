@@ -113,6 +113,9 @@ paths_to_empty:
     /var/lib/entropy/logs,
     /var/cache/genkernel
 
+packages_to_add:
+	sys-fs/zfs
+
 # Make sure they don't end up into the ISO
 packages_to_remove:
 	app-i18n/man-pages-da,
