@@ -364,6 +364,10 @@ prepare_kde() {
 	# Fix ~/.dmrc to have it load KDE
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=KDE-4" >> /etc/skel/.dmrc
+	# Configure proper GTK3 theme
+	# TODO: find a better solution?
+	mv /etc/skel/.config/gtk-3.0/settings.ini._kde_molecule \
+		/etc/skel/.config/gtk-3.0/settings.ini
 	setup_displaymanager
 	setup_sabayon_mce
 	setup_cpufrequtils
