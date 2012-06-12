@@ -82,7 +82,6 @@ packages_to_add:
 	app-office/libreoffice-l10n-it,
 	app-office/libreoffice-l10n-nl,
 	app-office/libreoffice-l10n-pt,
-	app-officeext/languagetool,
 	app-text/epdfview,
 	app-text/pastebunz,
 	dev-java/icedtea-bin,
