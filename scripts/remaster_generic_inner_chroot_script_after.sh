@@ -286,6 +286,18 @@ prepare_lxde() {
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 }
 
+prepare_mate() {
+        setup_networkmanager
+        # Fix ~/.dmrc to have it load LXDE
+        echo "[Desktop]" > /etc/skel/.dmrc
+        echo "Session=MATE" >> /etc/skel/.dmrc
+        remove_desktop_files
+        setup_displaymanager
+        remove_mozilla_skel_cruft
+        setup_cpufrequtils
+        has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers	
+}
+
 prepare_e17() {
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load E17
@@ -390,6 +402,8 @@ prepare_system() {
 	local de="${1}"
 	if [ "${de}" = "lxde" ]; then
 		prepare_lxde
+        elif [ "${de}" = "mate" ]; then
+                prepare_mate
 	elif [ "${de}" = "e17" ]; then
 		prepare_e17
 	elif [ "${de}" = "xfce" ]; then
