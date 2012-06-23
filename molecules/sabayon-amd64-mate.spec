@@ -1,5 +1,5 @@
 # Use abs path, otherwise daily builds automagic won't work
-%import /sabayon/molecules/lxde.common
+%import /sabayon/molecules/mate.common
 
 # Release Version
 release_version: 9
