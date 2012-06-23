@@ -81,7 +81,7 @@ elif [ "${ACTION}" = "daily" ]; then
 		"sabayon-x86-gnome.spec"
 		"sabayon-amd64-kde.spec"
 		"sabayon-x86-kde.spec"
-
+		"sabayon-amd64-mate.spec"
 		"sabayon-amd64-lxde.spec"
 		"sabayon-x86-lxde.spec"
 		"sabayon-amd64-xfce.spec"
@@ -98,6 +98,7 @@ elif [ "${ACTION}" = "daily" ]; then
 		"Sabayon_Linux_DAILY_x86_G.iso"
 		"Sabayon_Linux_DAILY_amd64_K.iso"
 		"Sabayon_Linux_DAILY_x86_K.iso"
+                "Sabayon_Linux_DAILY_amd64_MATE.iso"
 		"Sabayon_Linux_DAILY_amd64_LXDE.iso"
 		"Sabayon_Linux_DAILY_x86_LXDE.iso"
 		"Sabayon_Linux_DAILY_amd64_Xfce.iso"
