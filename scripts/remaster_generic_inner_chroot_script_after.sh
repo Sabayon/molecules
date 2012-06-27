@@ -288,9 +288,6 @@ prepare_lxde() {
 
 prepare_mate() {
         setup_networkmanager
-        # Fix ~/.dmrc to have it load LXDE
-        echo "[Desktop]" > /etc/skel/.dmrc
-        echo "Session=MATE" >> /etc/skel/.dmrc
         remove_desktop_files
         setup_displaymanager
         remove_mozilla_skel_cruft
