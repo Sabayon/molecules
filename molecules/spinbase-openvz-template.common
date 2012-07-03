@@ -59,6 +59,7 @@ packages_to_remove:
 	app-admin/anaconda,
 	app-admin/system-config-date,
 	app-misc/anaconda-runtime,
+	app-misc/sabayonlive-tools,
 	dev-libs/newt,
 	dev-util/pykickstart,
 	net-misc/networkmanager,
@@ -70,8 +71,8 @@ packages_to_remove:
 	sys-fs/xfsprogs,
 	sys-fs/jfsutils,
 	sys-fs/mdadm,
-	sys-libs/slang
-	
+	sys-libs/slang,
+	sys-kernel/linux-sabayon
 
 # Custom shell call to packages removal (default is: equo remove)
 # custom_packages_remove_cmd:

@@ -65,6 +65,14 @@ if [ "${ACTION}" = "weekly" ]; then
                 "Sabayon_Linux_DAILY_amd64_ForensicsXfce.iso"
                 "Sabayon_Linux_DAILY_x86_ForensicsXfce.iso"
 	)
+	REMASTER_OPENVZ_SPECS=(
+		"sabayon-x86-spinbase-openvz-template.spec"
+		"sabayon-amd64-spinbase-openvz-template.spec"
+	)
+	REMASTER_OPENVZ_SPECS_TAR=(
+		"Sabayon_Linux_SpinBase_DAILY_x86_openvz.tar.gz"
+		"Sabayon_Linux_SpinBase_DAILY_amd64_openvz.tar.gz"
+	)
 elif [ "${ACTION}" = "daily" ]; then
 	ARM_SOURCE_SPECS=()
 	ARM_SOURCE_SPECS_IMG=()
@@ -110,6 +118,8 @@ elif [ "${ACTION}" = "daily" ]; then
 		"Sabayon_Linux_ServerBase_DAILY_amd64.iso"
 		"Sabayon_Linux_ServerBase_DAILY_x86.iso"
 	)
+	REMASTER_OPENVZ_SPECS=()
+	REMASTER_OPENVZ_SPECS_TAR=()
 fi
 
 [[ -d "/sabayon/molecules/daily" ]] || mkdir -p /sabayon/molecules/daily
@@ -204,7 +214,7 @@ build_sabayon() {
 			sed -i "s/tar_name.*/tar_name: ${REMASTER_OPENVZ_SPECS_TAR[i]}/" "${dst}" || return 1
 			# tweak release version
 			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || return 1
-			echo "${dst}: iso: ${REMASTER_OPENVZ_SPECS_TAR[i]} date: ${CUR_DATE}"
+			echo "${dst}: tar: ${REMASTER_OPENVZ_SPECS_TAR[i]} date: ${CUR_DATE}"
 			remaster_specs+="${dst} "
 		done
 
