@@ -9,6 +9,7 @@ DROP_SERVICES="
 	alsasound
 	avahi-daemon
 	consolefont
+	dbus
 	fbcondecor
 	fsck
 	hotplug
@@ -31,6 +32,7 @@ for serv in ${DROP_SERVICES}; do
 	rc-update del ${serv} default
 	rc-update del ${serv} boot
 done
+rc-update add vixie-cron default
 
 # Generate list of installed packages
 equo query list installed -qv > /etc/sabayon-pkglist
