@@ -6,7 +6,9 @@
 userdel sabayonuser
 
 DROP_SERVICES="
+	alsasound
 	avahi-daemon
+	consolefont
 	fbcondecor
 	fsck
 	hotplug
