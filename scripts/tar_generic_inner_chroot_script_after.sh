@@ -33,6 +33,8 @@ for serv in ${DROP_SERVICES}; do
 	rc-update del ${serv} boot
 done
 rc-update add vixie-cron default
+rc-update del udev sysinit
+rc-update del dmesg sysinit
 
 # Generate list of installed packages
 equo query list installed -qv > /etc/sabayon-pkglist
