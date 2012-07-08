@@ -90,6 +90,7 @@ elif [ "${ACTION}" = "daily" ]; then
 		"sabayon-amd64-kde.spec"
 		"sabayon-x86-kde.spec"
 		"sabayon-amd64-mate.spec"
+		"sabayon-x86-mate.spec"
 		"sabayon-amd64-lxde.spec"
 		"sabayon-x86-lxde.spec"
 		"sabayon-amd64-xfce.spec"
