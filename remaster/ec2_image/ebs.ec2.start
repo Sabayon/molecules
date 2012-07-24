@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Setup Amazon EC2 provided SSH key
+
+ssh_home=/home/ec2-user/.ssh
+if [ ! -d "${ssh_home}" ] ; then
+	mkdir -p "${ssh_home}"
+fi
+chmod 700 "${ssh_home}"
+chown ec2-user:users "${ssh_home}"
+
+tmp_file=$(mktemp)
+wget -q -O - http://169.254.169.254/latest/meta-data/public-keys/0/openssh-key > "${tmp_file}"
+if [ "${?}" = "0" ]; then
+	auth_key_file="${ssh_home}"/authorized_keys
+	cat "${tmp_file}" > "${auth_key_file}"
+	chown ec2-user:users "${auth_key_file}"
+	chmod 600 "${auth_key_file}"
+fi
+rm -f "${tmp_file}"
+
+# delete myself in a safe way
+( rm -f /etc/local.d/ebs.ec2.start )

@@ -65,13 +65,17 @@ if [ "${ACTION}" = "weekly" ]; then
                 "Sabayon_Linux_DAILY_amd64_ForensicsXfce.iso"
                 "Sabayon_Linux_DAILY_x86_ForensicsXfce.iso"
 	)
-	REMASTER_OPENVZ_SPECS=(
+	REMASTER_TAR_SPECS=(
 		"sabayon-x86-spinbase-openvz-template.spec"
 		"sabayon-amd64-spinbase-openvz-template.spec"
+		"sabayon-x86-spinbase-amazon-ebs-image.spec"
+		"sabayon-amd64-spinbase-amazon-ebs-image.spec"
 	)
-	REMASTER_OPENVZ_SPECS_TAR=(
+	REMASTER_TAR_SPECS_TAR=(
 		"Sabayon_Linux_SpinBase_DAILY_x86_openvz.tar.gz"
 		"Sabayon_Linux_SpinBase_DAILY_amd64_openvz.tar.gz"
+		"Sabayon_Linux_SpinBase_DAILY_x86_Amazon_EBS_ext4_filesystem_image.tar.gz"
+		"Sabayon_Linux_SpinBase_DAILY_x86_Amazon_EBS_ext4_filesystem_image.tar.gz"
 	)
 elif [ "${ACTION}" = "daily" ]; then
 	ARM_SOURCE_SPECS=()
@@ -119,8 +123,8 @@ elif [ "${ACTION}" = "daily" ]; then
 		"Sabayon_Linux_ServerBase_DAILY_amd64.iso"
 		"Sabayon_Linux_ServerBase_DAILY_x86.iso"
 	)
-	REMASTER_OPENVZ_SPECS=()
-	REMASTER_OPENVZ_SPECS_TAR=()
+	REMASTER_TAR_SPECS=()
+	REMASTER_TAR_SPECS_TAR=()
 fi
 
 [[ -d "/sabayon/molecules/daily" ]] || mkdir -p /sabayon/molecules/daily
@@ -205,17 +209,17 @@ build_sabayon() {
 			remaster_specs+="${dst} "
 		done
 
-		for i in ${!REMASTER_OPENVZ_SPECS[@]}
+		for i in ${!REMASTER_TAR_SPECS[@]}
 		do
-			src="/sabayon/molecules/${REMASTER_OPENVZ_SPECS[i]}"
-			dst="/sabayon/molecules/daily/remaster/${REMASTER_OPENVZ_SPECS[i]}"
+			src="/sabayon/molecules/${REMASTER_TAR_SPECS[i]}"
+			dst="/sabayon/molecules/daily/remaster/${REMASTER_TAR_SPECS[i]}"
 			cp "${src}" "${dst}" -p || return 1
 			# tweak tar name
 			sed -i "s/^#.*tar_name/tar_name:/" "${dst}" || return 1
-			sed -i "s/tar_name.*/tar_name: ${REMASTER_OPENVZ_SPECS_TAR[i]}/" "${dst}" || return 1
+			sed -i "s/tar_name.*/tar_name: ${REMASTER_TAR_SPECS_TAR[i]}/" "${dst}" || return 1
 			# tweak release version
 			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || return 1
-			echo "${dst}: tar: ${REMASTER_OPENVZ_SPECS_TAR[i]} date: ${CUR_DATE}"
+			echo "${dst}: tar: ${REMASTER_TAR_SPECS_TAR[i]} date: ${CUR_DATE}"
 			remaster_specs+="${dst} "
 		done
 
