@@ -1,8 +1,0 @@
-# reject all internal domains
-server_host = ldap://localhost
-server_port = 389
-search_base = dc=babel,dc=it
-scope = sub
-query_filter = (&(dc=%d)(objectClass=domain))
-result_attribute = dc
-result_filter = REJECT
