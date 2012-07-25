@@ -10,6 +10,10 @@ other_iso_path="${4}"
 /usr/sbin/env-update
 . /etc/profile
 
+# Path to molecules.git dir
+SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
+export SABAYON_MOLECULE_HOME
+
 pre_iso_signal_handler() {
 	if [ -d "${tmp_dir}" ] && [ -n "${tmp_dir}" ]; then
 		umount -f "${tmp_dir}"
@@ -25,7 +29,7 @@ if [ ! -f "${other_iso_path}" ]; then
 fi
 
 isolinux_destination="${CDROOT_DIR}/isolinux/txt.cfg"
-isolinux_source="/sabayon/remaster/minimal_amd64_x86_isolinux.cfg"
+isolinux_source="${SABAYON_MOLECULE_HOME}/remaster/minimal_amd64_x86_isolinux.cfg"
 cp "${isolinux_source}" "${isolinux_destination}" || exit 1
 
 ver=${RELEASE_VERSION}
@@ -70,13 +74,13 @@ cp "${tmp_dir}/boot/sabayon" "${CDROOT_DIR}/boot/sabayon${other_arch}" || exit 1
 cp "${tmp_dir}/boot/sabayon.igz" "${CDROOT_DIR}/boot/sabayon${other_arch}.igz" || exit 1
 
 # copy back.jpg to proper location
-isolinux_img="/sabayon/remaster/embedded_world/back.jpg"
+isolinux_img="${SABAYON_MOLECULE_HOME}/remaster/embedded_world/back.jpg"
 if [ -f "${isolinux_img}" ]; then
 	cp "${isolinux_img}" "${CDROOT_DIR}/isolinux/" || exit 1
 fi
 
 # copy ARM images on the ISO
-arm_images_dir="/sabayon/images"
+arm_images_dir="${SABAYON_MOLECULE_HOME}/images"
 arm_dir="${CDROOT_DIR}/ARM"
 mkdir -p "${arm_dir}" || exit 1
 
@@ -86,7 +90,7 @@ pandaboard_image="Sabayon_Linux_9_armv7a_PandaBoard_4GB.img.xz"
 
 # BeagleBone
 arm_card_dir="${arm_dir}/BeagleBone"
-arm_card_boot_dir="/sabayon/boot/arm/beaglebone"
+arm_card_boot_dir="${SABAYON_MOLECULE_HOME}/boot/arm/beaglebone"
 mkdir "${arm_card_dir}" -p || exit 1
 cp "${arm_images_dir}/${beaglebone_image}" "${arm_card_dir}"/ || exit 1
 cp "${arm_images_dir}/${beaglebone_image}.md5" "${arm_card_dir}"/ || exit 1
@@ -94,7 +98,7 @@ cp "${arm_card_boot_dir}/README.txt" "${arm_card_dir}"/ || exit 1
 
 # BeagleBoard xM
 arm_card_dir="${arm_dir}/BeagleBoard-xM"
-arm_card_boot_dir="/sabayon/boot/arm/beagleboard-xm"
+arm_card_boot_dir="${SABAYON_MOLECULE_HOME}/boot/arm/beagleboard-xm"
 mkdir "${arm_card_dir}" -p || exit 1
 cp "${arm_images_dir}/${beaglebone_image}" "${arm_card_dir}"/ || exit 1
 cp "${arm_images_dir}/${beaglebone_image}.md5" "${arm_card_dir}"/ || exit 1
@@ -102,7 +106,7 @@ cp "${arm_card_boot_dir}/README.txt" "${arm_card_dir}"/ || exit 1
 
 # PandaBoard
 arm_card_dir="${arm_dir}/PandaBoard"
-arm_card_boot_dir="/sabayon/boot/arm/pandaboard"
+arm_card_boot_dir="${SABAYON_MOLECULE_HOME}/boot/arm/pandaboard"
 mkdir "${arm_card_dir}" -p || exit 1
 cp "${arm_images_dir}/${beaglebone_image}" "${arm_card_dir}"/ || exit 1
 cp "${arm_images_dir}/${beaglebone_image}.md5" "${arm_card_dir}"/ || exit 1

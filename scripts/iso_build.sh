@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Path to molecules.git dir
+SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
+export SABAYON_MOLECULE_HOME
+
 ACTION="${1}"
 if [ "${ACTION}" != "daily" ] && [ "${ACTION}" != "weekly" ]; then
 	echo "invalid action: ${ACTION}" >&2
@@ -140,14 +144,14 @@ cleanup_on_exit() {
 trap "cleanup_on_exit" EXIT INT TERM
 
 move_to_pkg_sabayon_org() {
-	if [ -n "${DO_PUSH}" ] || [ -f /sabayon/DO_PUSH ]; then
-		rm -f /sabayon/DO_PUSH
+	if [ -n "${DO_PUSH}" ] || [ -f "${SABAYON_MOLECULE_HOME}"/DO_PUSH ]; then
+		rm -f "${SABAYON_MOLECULE_HOME}"/DO_PUSH
 		local executed=
 		for ((i=0; i < 5; i++)); do
-			rsync -av --partial --delete-excluded /sabayon/iso_rsync/*DAILY* \
+			rsync -av --partial --delete-excluded "${SABAYON_MOLECULE_HOME}"/iso_rsync/*DAILY* \
 				entropy@pkg.sabayon.org:/sabayon/rsync/rsync.sabayon.org/iso/daily \
 				|| { sleep 10; continue; }
-			rsync -av --partial --delete-excluded /sabayon/scripts/gen_html \
+			rsync -av --partial --delete-excluded "${SABAYON_MOLECULE_HOME}"/scripts/gen_html \
 			entropy@pkg.sabayon.org:/sabayon/rsync/iso_html_generator \
 				|| { sleep 10; continue; }
 			ssh entropy@pkg.sabayon.org \
@@ -173,11 +177,11 @@ build_sabayon() {
 		local source_specs=""
 		for i in ${!SOURCE_SPECS[@]}
 		do
-			src="/sabayon/molecules/${SOURCE_SPECS[i]}"
+			src="${SABAYON_MOLECULE_HOME}/molecules/${SOURCE_SPECS[i]}"
 			dst="${DAILY_TMPDIR}/${SOURCE_SPECS[i]}"
 			cp "${src}" "${dst}" -p || return 1
 			echo >> "${dst}"
-			echo "inner_source_chroot_script: /sabayon/scripts/inner_source_chroot_update.sh" >> "${dst}"
+			echo "inner_source_chroot_script: ${SABAYON_MOLECULE_HOME}/scripts/inner_source_chroot_update.sh" >> "${dst}"
 			# tweak iso image name
 			sed -i "s/^#.*destination_iso_image_name/destination_iso_image_name:/" "${dst}" || return 1
 			sed -i "s/destination_iso_image_name.*/destination_iso_image_name: ${SOURCE_SPECS_ISO[i]}/" "${dst}" || return 1
@@ -190,11 +194,11 @@ build_sabayon() {
 		local arm_source_specs=""
 		for i in ${!ARM_SOURCE_SPECS[@]}
 		do
-			src="/sabayon/molecules/${ARM_SOURCE_SPECS[i]}"
+			src="${SABAYON_MOLECULE_HOME}/molecules/${ARM_SOURCE_SPECS[i]}"
 			dst="${DAILY_TMPDIR}/${ARM_SOURCE_SPECS[i]}"
 			cp "${src}" "${dst}" -p || return 1
 			echo >> "${dst}"
-			echo "inner_source_chroot_script: /sabayon/scripts/inner_source_chroot_update.sh" >> "${dst}"
+			echo "inner_source_chroot_script: ${SABAYON_MOLECULE_HOME}/scripts/inner_source_chroot_update.sh" >> "${dst}"
 			# tweak iso image name
 			sed -i "s/^#.*image_name/image_name:/" "${dst}" || return 1
 			sed -i "s/image_name.*/image_name: ${ARM_SOURCE_SPECS_IMG[i]}/" "${dst}" || return 1
@@ -207,7 +211,7 @@ build_sabayon() {
 		local remaster_specs=""
 		for i in ${!REMASTER_SPECS[@]}
 		do
-			src="/sabayon/molecules/${REMASTER_SPECS[i]}"
+			src="${SABAYON_MOLECULE_HOME}/molecules/${REMASTER_SPECS[i]}"
 			dst="${DAILY_TMPDIR_REMASTER}/${REMASTER_SPECS[i]}"
 			cp "${src}" "${dst}" -p || return 1
 			# tweak iso image name
@@ -221,7 +225,7 @@ build_sabayon() {
 
 		for i in ${!REMASTER_TAR_SPECS[@]}
 		do
-			src="/sabayon/molecules/${REMASTER_TAR_SPECS[i]}"
+			src="${SABAYON_MOLECULE_HOME}/molecules/${REMASTER_TAR_SPECS[i]}"
 			dst="${DAILY_TMPDIR_REMASTER}/${REMASTER_TAR_SPECS[i]}"
 			cp "${src}" "${dst}" -p || return 1
 			# tweak tar name
@@ -254,12 +258,12 @@ build_sabayon() {
 
 		if [ "${done_something}" = "1" ]; then
 			if [ "${done_images}" = "1" ]; then
-				cp -p /sabayon/images/*DAILY* /sabayon/iso_rsync/ || return 1
+				cp -p "${SABAYON_MOLECULE_HOME}"/images/*DAILY* "${SABAYON_MOLECULE_HOME}"/iso_rsync/ || return 1
 			fi
-			cp -p /sabayon/iso/*DAILY* /sabayon/iso_rsync/ || return 1
-			date > /sabayon/iso_rsync/RELEASE_DATE_DAILY
+			cp -p "${SABAYON_MOLECULE_HOME}"/iso/*DAILY* "${SABAYON_MOLECULE_HOME}"/iso_rsync/ || return 1
+			date > "${SABAYON_MOLECULE_HOME}"/iso_rsync/RELEASE_DATE_DAILY
 			if [ "${MAKE_TORRENTS}" != "0" ]; then
-				/sabayon/scripts/make_torrents.sh || return 1
+				"${SABAYON_MOLECULE_HOME}"/scripts/make_torrents.sh || return 1
 			fi
 		fi
 	fi

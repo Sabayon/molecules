@@ -5,7 +5,11 @@
 env-update
 . /etc/profile
 
-export LC_ALL=C
+export LC_ALL=en_US.UTF-8
+
+# Path to molecules.git dir
+SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
+export SABAYON_MOLECULE_HOME
 
 # Expected env variables:
 # PATHS_TO_REMOVE = ";" separated list of paths to rm -rf
@@ -60,7 +64,7 @@ cleanup_loopbacks() {
 	[[ -n "${root_part}" ]] && losetup -d "${root_part}" 2> /dev/null
 	[[ -n "${DRIVE}" ]] && losetup -d "${DRIVE}" 2> /dev/null
 	# make sure to have run this
-	[[ -n "${tmp_dir}" ]] && CHROOT_DIR="${tmp_dir}" /sabayon/scripts/mmc_remaster_post.sh
+	[[ -n "${tmp_dir}" ]] && CHROOT_DIR="${tmp_dir}" "${SABAYON_MOLECULE_HOME}"/scripts/mmc_remaster_post.sh
 }
 trap "cleanup_loopbacks" 1 2 3 6 9 14 15 EXIT
 
@@ -95,7 +99,7 @@ echo "Start offset : ${STARTOFFSET} bytes"
 {
 echo ,9,${BOOT_PART_TYPE_MBR},*
 echo ,,,-
-} | sfdisk -D -H 255 -S 63 -C $CYLINDERS $DRIVE
+} | sfdisk -D -H 255 -S 63 -C ${CYLINDERS} ${DRIVE}
 
 sleep 2
 
@@ -159,10 +163,10 @@ mount "${root_part}" "${tmp_dir}"
 rsync -a -H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ --exclude "/proc/*" --exclude "/sys/*" \
 	--exclude "/dev/pts/*" --exclude "/dev/shm/*" || exit 1
 
-CHROOT_DIR="${tmp_dir}" /sabayon/scripts/remaster_pre.sh || exit 1
+CHROOT_DIR="${tmp_dir}" "${SABAYON_MOLECULE_HOME}"/scripts/remaster_pre.sh || exit 1
 
 # Configure 00-board-setup.start
-source_board_setup="/sabayon/boot/arm_startup/00-board-setup.start"
+source_board_setup="${SABAYON_MOLECULE_HOME}/boot/arm_startup/00-board-setup.start"
 dest_board_setup="${CHROOT_DIR}/etc/local.d/00-board-setup.start"
 if [ -f "${source_board_setup}" ]; then
 	echo "Setting up ${dest_board_setup}"
@@ -204,7 +208,7 @@ chown root "${target_chroot_script}" || exit 1
 chroot "${tmp_dir}" "/${chroot_script_name}" || exit 1
 rm -f "${target_chroot_script}"
 
-CHROOT_DIR="${tmp_dir}" /sabayon/scripts/mmc_remaster_post.sh
+CHROOT_DIR="${tmp_dir}" "${SABAYON_MOLECULE_HOME}"/scripts/mmc_remaster_post.sh
 
 # execute final cleanup of entropy stuff
 chroot "${tmp_dir}" equo rescue vacuum

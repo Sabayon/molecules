@@ -1,6 +1,7 @@
 #!/bin/sh
 
-/usr/sbin/env-update && source /etc/profile
+/usr/sbin/env-update
+. /etc/profile
 
 # remove sabayonuser
 userdel sabayonuser
