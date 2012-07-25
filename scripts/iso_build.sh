@@ -21,6 +21,7 @@ CUR_DATE=$(date -u +%Y%m%d)
 LOG_FILE="/var/log/molecule/autobuild-${CUR_DATE}-${$}.log"
 BUILDING_DAILY=1
 MAKE_TORRENTS="${MAKE_TORRENTS:-0}"
+DAILY_TMPDIR=
 
 # to make ISO remaster spec files working (pre_iso_script)
 export CUR_DATE
@@ -127,10 +128,16 @@ elif [ "${ACTION}" = "daily" ]; then
 	REMASTER_TAR_SPECS_TAR=()
 fi
 
-[[ -d "/sabayon/molecules/daily" ]] || mkdir -p /sabayon/molecules/daily
-[[ -d "/sabayon/molecules/daily/remaster" ]] || mkdir -p /sabayon/molecules/daily/remaster
 [[ -d "/var/log/molecule" ]] || mkdir -p /var/log/molecule
 
+cleanup_on_exit() {
+	if [ -n "${DAILY_TMPDIR}" ] && [ -d "${DAILY_TMPDIR}" ]; then
+		rm -rf "${DAILY_TMPDIR}"
+		# don't care about races
+		DAILY_TMPDIR=""
+	fi
+}
+trap "cleanup_on_exit" EXIT INT TERM
 
 move_to_pkg_sabayon_org() {
 	if [ -n "${DO_PUSH}" ] || [ -f /sabayon/DO_PUSH ]; then
@@ -157,14 +164,17 @@ move_to_pkg_sabayon_org() {
 
 build_sabayon() {
 	if [ -z "${DRY_RUN}" ]; then
-		rm -rf /sabayon/molecules/daily/*.spec
-		rm -rf /sabayon/molecules/daily/remaster/*.spec
+
+		DAILY_TMPDIR=$(mktemp -d --suffix=.iso_build.sh --tmpdir=/tmp)
+		[[ -z "${DAILY_TMPDIR}" ]] && return 1
+		DAILY_TMPDIR_REMASTER="${DAILY_TMPDIR}/remaster"
+		mkdir "${DAILY_TMPDIR_REMASTER}" || return 1
 
 		local source_specs=""
 		for i in ${!SOURCE_SPECS[@]}
 		do
 			src="/sabayon/molecules/${SOURCE_SPECS[i]}"
-			dst="/sabayon/molecules/daily/${SOURCE_SPECS[i]}"
+			dst="${DAILY_TMPDIR}/${SOURCE_SPECS[i]}"
 			cp "${src}" "${dst}" -p || return 1
 			echo >> "${dst}"
 			echo "inner_source_chroot_script: /sabayon/scripts/inner_source_chroot_update.sh" >> "${dst}"
@@ -181,7 +191,7 @@ build_sabayon() {
 		for i in ${!ARM_SOURCE_SPECS[@]}
 		do
 			src="/sabayon/molecules/${ARM_SOURCE_SPECS[i]}"
-			dst="/sabayon/molecules/daily/${ARM_SOURCE_SPECS[i]}"
+			dst="${DAILY_TMPDIR}/${ARM_SOURCE_SPECS[i]}"
 			cp "${src}" "${dst}" -p || return 1
 			echo >> "${dst}"
 			echo "inner_source_chroot_script: /sabayon/scripts/inner_source_chroot_update.sh" >> "${dst}"
@@ -198,7 +208,7 @@ build_sabayon() {
 		for i in ${!REMASTER_SPECS[@]}
 		do
 			src="/sabayon/molecules/${REMASTER_SPECS[i]}"
-			dst="/sabayon/molecules/daily/remaster/${REMASTER_SPECS[i]}"
+			dst="${DAILY_TMPDIR_REMASTER}/${REMASTER_SPECS[i]}"
 			cp "${src}" "${dst}" -p || return 1
 			# tweak iso image name
 			sed -i "s/^#.*destination_iso_image_name/destination_iso_image_name:/" "${dst}" || return 1
@@ -212,7 +222,7 @@ build_sabayon() {
 		for i in ${!REMASTER_TAR_SPECS[@]}
 		do
 			src="/sabayon/molecules/${REMASTER_TAR_SPECS[i]}"
-			dst="/sabayon/molecules/daily/remaster/${REMASTER_TAR_SPECS[i]}"
+			dst="${DAILY_TMPDIR_REMASTER}/${REMASTER_TAR_SPECS[i]}"
 			cp "${src}" "${dst}" -p || return 1
 			# tweak tar name
 			sed -i "s/^#.*tar_name/tar_name:/" "${dst}" || return 1
@@ -275,8 +285,4 @@ else
 fi
 echo "EXIT_STATUS: ${out}"
 
-CUR_DAY=$(date -u +%d)
-if [ "${CUR_DAY}" = "01" ]; then
-	rm -rf /sabayon/pkgcache/*
-fi
 exit ${out}
