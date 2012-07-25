@@ -8,7 +8,8 @@
 #
 # This script requires isohybrid (which comes from syslinux package)
 
-/usr/sbin/env-update && source /etc/profile
+/usr/sbin/env-update
+. /etc/profile
 
 echo
 echo "Spawning isohybrid for:"

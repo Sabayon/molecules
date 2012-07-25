@@ -19,8 +19,8 @@ rm -rf /root
 cp /etc/skel /root -Rap
 chown root:root /root -R
 
-source /etc/profile
-/usr/sbin/env-update && source /etc/profile
+/usr/sbin/env-update
+. /etc/profile
 
 # Setup locale to en_US
 echo LANG=\"en_US.UTF-8\" > /etc/env.d/02locale

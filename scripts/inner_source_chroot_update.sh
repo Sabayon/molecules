@@ -1,8 +1,7 @@
 #!/bin/bash
 
-source /etc/profile
-env-update
-source /etc/profile
+/usr/sbin/env-update
+. /etc/profile
 
 # Setup environment vars
 export ETP_NONINTERACTIVE=1
