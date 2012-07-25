@@ -109,8 +109,10 @@ paths_to_empty:
     /var/tmp/ccache,
     /var/tmp/portage-pkg,
     /var/tmp/binpkgs,
-    /var/lib/entropy/portage,
+    /var/lib/entropy/glsa,
     /var/lib/entropy/logs,
+    /var/lib/entropy/portage,
+    /var/cache/fontconfig,
     /var/cache/genkernel
 
 packages_to_add:
