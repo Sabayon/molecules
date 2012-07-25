@@ -75,7 +75,7 @@ if [ "${ACTION}" = "weekly" ]; then
 		"Sabayon_Linux_SpinBase_DAILY_x86_openvz.tar.gz"
 		"Sabayon_Linux_SpinBase_DAILY_amd64_openvz.tar.gz"
 		"Sabayon_Linux_SpinBase_DAILY_x86_Amazon_EBS_ext4_filesystem_image.tar.gz"
-		"Sabayon_Linux_SpinBase_DAILY_x86_Amazon_EBS_ext4_filesystem_image.tar.gz"
+		"Sabayon_Linux_SpinBase_DAILY_amd64_Amazon_EBS_ext4_filesystem_image.tar.gz"
 	)
 elif [ "${ACTION}" = "daily" ]; then
 	ARM_SOURCE_SPECS=()
