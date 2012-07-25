@@ -60,9 +60,10 @@ hiddenmenu
 
 title Sabayon Linux AMI (PV)
 root (hd0)
-kernel /boot/bzImage root=/dev/sda1 console=hvc0 rootfstype=ext4
+kernel /boot/bzImage root=LABEL=/ console=hvc0 rootfstype=ext4
 initrd /boot/Initrd
 " > /boot/grub/grub.conf
+( cd /boot/grub && ln -sf grub.conf menu.lst ) || exit 1
 
 # Generate list of installed packages
 equo query list installed -qv > /etc/sabayon-pkglist
@@ -83,6 +84,8 @@ done
 
 # cleanup log dir
 rm /var/lib/entropy/logs -rf
+# cleanup install-data dir
+rm -rf /install-data
 
 # Generate openrc cache
 touch /lib/rc/init.d/softlevel
