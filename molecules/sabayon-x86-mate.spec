@@ -1,6 +1,8 @@
 # Use abs path, otherwise daily builds automagic won't work
 %import /sabayon/molecules/mate.common
 
+prechroot: linux32
+
 # Release Version
 release_version: 9
 
