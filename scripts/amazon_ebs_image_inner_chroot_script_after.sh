@@ -37,7 +37,7 @@ sed -i 's:clock=".*":clock="UTC":' /etc/conf.d/hwclock || exit 1
 
 # setup fstab
 echo "# molecule generated fstab
-/dev/sda1 / ext4 defaults 1 1
+LABEL=/ / ext4 defaults 1 1
 none /dev/shm tmpfs defaults 0 0" > /etc/fstab
 
 # setup networking, reset /etc/conf.d/net
