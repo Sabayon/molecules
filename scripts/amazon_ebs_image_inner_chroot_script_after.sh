@@ -22,6 +22,8 @@ rc-update del x-setup boot
 
 # Enable ssh
 rc-update add sshd default
+# Enable cron
+rc-update add vixie-cron default
 
 # delete root password, only ssh allowed
 passwd -d root
