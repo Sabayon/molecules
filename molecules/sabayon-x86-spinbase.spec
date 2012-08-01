@@ -1,5 +1,5 @@
 # Use abs path, otherwise daily builds automagic won't work
-%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/spinbase.common
+%import /sabayon/molecules/spinbase.common
 
 # 32bit build
 prechroot: linux32
