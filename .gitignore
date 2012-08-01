@@ -3,3 +3,4 @@ iso/*
 livecd/*
 pkgcache/*
 sources/*
+iso_rsync/*
