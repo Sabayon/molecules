@@ -16,7 +16,7 @@ extra_rsync_parameters: --one-file-system --exclude /proc --exclude /dev/pts
 
 # Inner chroot script command, to be executed inside destination chroot before packing it
 # - kmerge.sh - setup kernel bins
-# inner_chroot_script: /sabayon/scripts/inner_chroot_script.sh
+# %env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/inner_chroot_script.sh
 %env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/inner_chroot_script.sh spinbase
 
 # Destination LiveCD root directory, where files are placed before getting mkisofs'ed

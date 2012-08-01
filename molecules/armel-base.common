@@ -34,7 +34,7 @@ execution_strategy: chroot_to_mmc
 # IMAGE_NAME = name of the final MMC image
 # DESTINATION_IMAGE_DIR = path to the destination image directory
 # CHROOT_DIR = path pointing to the chroot
-# pre_image_script: /sabayon/scripts/pre_image_script.sh
+# %env pre_image_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/pre_image_script.sh
 
 # Post-image building script. Hook called after image file creation and move
 # into destination directory.
@@ -44,13 +44,13 @@ execution_strategy: chroot_to_mmc
 # CHROOT_DIR = path pointing to the chroot
 # IMAGE_PATH = path pointing to the destination image file
 # IMAGE_CHECKSUM_PATH = path pointing to the destination image file checksum (md5)
-post_image_script: /sabayon/scripts/post_mmc_image_script.sh
+%env post_image_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/post_mmc_image_script.sh
 
 # Destination directory for the image path (MANDATORY)
-destination_image_directory: /sabayon/images
+%env destination_image_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/images
 
 # Path to source chroot (mandatory)
-source_chroot: /sabayon/sources/armv7l_softfp_core-2012
+%env source_chroot: ${SABAYON_MOLECULE_HOME:-/sabayon}/sources/armv7l_softfp_core-2012
 
 # Release file that will be created onto the root filesystem
 release_file: /etc/sabayon-edition

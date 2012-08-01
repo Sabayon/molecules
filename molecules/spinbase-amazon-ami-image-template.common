@@ -16,39 +16,39 @@ execution_strategy: iso_to_image
 # to terminate the execution
 # Variables exported:
 # LOOP_DEVICE = loop device (/dev/loopN) currently in use
-error_script: /sabayon/scripts/image_error_script.sh
+%env error_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/image_error_script.sh
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and before inner_chroot_script)
-outer_chroot_script: /sabayon/scripts/remaster_pre.sh
+%env outer_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_pre.sh
 
 # Inner chroot script command, to be executed inside destination chroot before
 # packing it
-inner_chroot_script: /sabayon/scripts/remaster_generic_inner_chroot_script.sh
+%env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_generic_inner_chroot_script.sh
 
 # Inner chroot script command, to be executed inside destination chroot after
 # packages installation and removal
-inner_chroot_script_after: /sabayon/scripts/image_generic_inner_chroot_script_after.sh
+%env inner_chroot_script_after: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/image_generic_inner_chroot_script_after.sh
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and AFTER inner_chroot_script)
-outer_chroot_script_after: /sabayon/scripts/image_remaster_post.sh
+%env outer_chroot_script_after: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/image_remaster_post.sh
 
 # Pre-image building script. Hook called before image file creation
 # Variables exported:
 # TMP_IMAGE_PATH = path pointing to the temporary destination image file
 # LOOP_DEVICE = loop device (/dev/loopN) currently in use
-# pre_image_script: /sabayon/scripts/pre_image_script.sh
+# %env pre_image_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/pre_image_script.sh
 
 # Post-image building script. Hook called after image file creation and move
 # into destination directory.
 # Variables exported:
 # IMAGE_PATH = path pointing to the destination image file
 # IMAGE_CHECKSUM_PATH = path pointing to the destination image file checksum (md5)
-# post_image_script: /sabayon/scripts/post_image_script.sh
+# %env post_image_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/post_image_script.sh
 
 # Destination directory for the image path (MANDATORY)
-destination_image_directory: /sabayon/images
+%env destination_image_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/images
 
 # Specify an alternative image file name (image file name will be automatically
 # produced otherwise)

@@ -1,5 +1,5 @@
-%import /sabayon/molecules/arm-base.common
-%import /sabayon/molecules/beaglebone.common
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/arm-base.common
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/beaglebone.common
 
 # Release desc (the actual release description)
 release_desc: armv7a BeagleBone
@@ -17,8 +17,8 @@ image_name: Sabayon_Linux_9_armv7a_BeagleBone_Base_4GB.img
 image_mb: 3800
 
 # Path to boot partition data (MLO, u-boot.img etc)
-source_boot_directory: /sabayon/boot/arm/beaglebone
+%env source_boot_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/boot/arm/beaglebone
 
 # External script that will generate the image file.
 # The same can be copied onto a MMC by using dd
-image_generator_script: /sabayon/scripts/beaglebone_image_generator_script.sh
+%env image_generator_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/beaglebone_image_generator_script.sh

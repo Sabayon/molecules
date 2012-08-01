@@ -15,11 +15,11 @@ execution_strategy: iso_to_tar
 
 # Inner chroot script command, to be executed inside destination chroot before packing it
 # - kmerge.sh - setup kernel bins
-# inner_chroot_script: /sabayon/scripts/openvz_inner_chroot_script.sh
+# %env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/openvz_inner_chroot_script.sh
 
 # Inner chroot script command, to be executed inside destination chroot after
 # packages installation and removal
-inner_chroot_script_after: /sabayon/scripts/tar_generic_inner_chroot_script_after.sh
+%env inner_chroot_script_after: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/tar_generic_inner_chroot_script_after.sh
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and AFTER inner_chroot_script)
@@ -30,10 +30,10 @@ inner_chroot_script_after: /sabayon/scripts/tar_generic_inner_chroot_script_afte
 # CHROOT_DIR = path pointing to the working chroot (the one that gets modified)
 # TAR_PATH = path pointing to the destination tar file
 # TAR_CHECKSUM_PATH = path pointing to the destination tar file checksum (md5)
-pre_tar_script: /sabayon/scripts/spinbase_openvz_pre_tar_script.sh
+%env pre_tar_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/spinbase_openvz_pre_tar_script.sh
 
 # Destination directory for the ISO image path (MANDATORY)
-destination_tar_directory: /sabayon/iso
+%env destination_tar_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso
 
 # Compression method (default is: gz). Supported compression methods: gz, bz2
 # compression_method: gz

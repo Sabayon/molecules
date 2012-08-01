@@ -20,26 +20,26 @@ iso_title: Sabayon GNOME
 
 # Inner chroot script command, to be executed inside destination chroot after
 # packages installation and removal
-inner_chroot_script_after: /sabayon/scripts/amd64_x86_inner_chroot_script_after.sh
+%env inner_chroot_script_after: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/amd64_x86_inner_chroot_script_after.sh
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and AFTER inner_chroot_script)
 # outer_chroot_script_after:
 
 # Used to umount /proc and unbind packages dir
-error_script: /sabayon/scripts/remaster_error_script.sh
+%env error_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_error_script.sh
 
 # Extra mkisofs parameters, perhaps something to include/use your bootloader
 extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat
 
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
-pre_iso_script: /sabayon/scripts/amd64_x86_pre_iso_script.sh GNOME 64 32 /sabayon/iso/Sabayon_Linux_9_x86_G.iso
+%env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/amd64_x86_pre_iso_script.sh GNOME 64 32 ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_9_x86_G.iso
 
 # Post-ISO building script, called after ISO image generation.    
-post_iso_script: /sabayon/scripts/generic_post_iso_script.sh
+%env post_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_post_iso_script.sh
 
 # Destination directory for the ISO image path (MANDATORY)
-destination_iso_directory: /sabayon/iso
+%env destination_iso_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso
 
 # List of packages that would be removed from chrooted system (comma separated)
 # packages_to_remove:
@@ -70,7 +70,7 @@ release_version: 9
 release_desc: amd64+x86 GNOME
 
 # Path to source ISO file (MANDATORY)
-source_iso: /sabayon/iso/Sabayon_Linux_9_amd64_G.iso
+%env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_9_amd64_G.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
 destination_iso_image_name: Sabayon_Linux_9_amd64+x86_G.iso

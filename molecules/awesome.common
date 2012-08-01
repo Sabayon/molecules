@@ -13,33 +13,33 @@ iso_title: Sabayon Awesome
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and before inner_chroot_script)
-outer_chroot_script: /sabayon/scripts/remaster_pre.sh
+%env outer_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_pre.sh
 
 # Execute repositories update here, in a more fault-tolerant flavor
-inner_chroot_script: /sabayon/scripts/remaster_generic_inner_chroot_script.sh
+%env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_generic_inner_chroot_script.sh
 
 # Inner chroot script command, to be executed inside destination chroot after
 # packages installation and removal
-inner_chroot_script_after: /sabayon/scripts/remaster_generic_inner_chroot_script_after.sh awesome
+%env inner_chroot_script_after: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_generic_inner_chroot_script_after.sh awesome
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and AFTER inner_chroot_script)
-outer_chroot_script_after: /sabayon/scripts/remaster_post.sh
+%env outer_chroot_script_after: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_post.sh
 
 # Used to umount /proc and unbind packages dir
-error_script: /sabayon/scripts/remaster_error_script.sh
+%env error_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_error_script.sh
 
 # Extra mkisofs parameters, perhaps something to include/use your bootloader
 extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat
 
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
-pre_iso_script: /sabayon/scripts/generic_pre_iso_script.sh Awesome
+%env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_pre_iso_script.sh Awesome
 
 # Post-ISO building script, called after ISO image generation.
-post_iso_script: /sabayon/scripts/generic_post_iso_script.sh
+%env post_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_post_iso_script.sh
 
 # Destination directory for the ISO image path (MANDATORY)
-destination_iso_directory: /sabayon/iso
+%env destination_iso_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso
 
 # List of packages that would be removed from chrooted system (comma separated)
 # packages_to_remove:
