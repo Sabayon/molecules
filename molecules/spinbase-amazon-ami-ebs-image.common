@@ -73,11 +73,6 @@ packages_to_add:
 	sys-kernel/linux-ec2,
 	sys-process/atop
 
-# NOTE:
-# once dev-java/oracle-jre-bin is in Entropy, please
-# migrate to it (from oracle-jdk-bin), forcing dev-java/oracle-jre-bin
-# in the dependencies and unmasking icedtea and icedtea-bin
-
 # Custom shell call to packages add (default is: equo install)
 # custom_packages_add_cmd:
 

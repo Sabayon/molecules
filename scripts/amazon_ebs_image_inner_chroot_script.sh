@@ -22,9 +22,6 @@ for repo_conf in /etc/entropy/repositories.conf /etc/entropy/repositories.conf.d
 		-i "${repo_conf}"
 done
 
-# mask icedtea and icedtea-bin, waiting to have virtual/jre-1.7.0 and
-# dev-java/oracle-jre-bin in Entropy
-# Once there, remove this script and use "remaster_generic_inner_chroot_script.sh"
-# instead.
-equo mask "dev-java/icedtea-bin"
+# mask icedtea, since it pulls it a shitload of deps
+# prefer icedtea-bin or others
 equo mask "dev-java/icedtea"
