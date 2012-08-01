@@ -36,7 +36,7 @@ def spawn_ssh(args, chroot):
     bash_exec = os.path.join(chroot, "bin/bash") # must exists
     elf_class = read_elf_class(bash_exec)
     pre_chroot = []
-    if elf_class != 2: # 32 bit
+    if elf_class != 2 and (os.path.basename(chroot).find("arm") == -1): # 32 bit
         pre_chroot = ["linux32"]
     rc_pid, rc = exec_chroot_cmd(args, chroot, pre_chroot = pre_chroot)
     return rc_pid, rc
