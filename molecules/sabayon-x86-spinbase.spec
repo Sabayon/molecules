@@ -1,5 +1,5 @@
 # Use abs path, otherwise daily builds automagic won't work
-%import /sabayon/molecules/spinbase.common
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/spinbase.common
 
 # 32bit build
 prechroot: linux32
@@ -12,7 +12,7 @@ release_version: 9
 release_desc: x86 SpinBase
 
 # Source chroot directory, where files are pulled from
-source_chroot: /sabayon/sources/x86_core-2010
+%env source_chroot: ${SABAYON_MOLECULE_HOME:-/sabayon}/sources/x86_core-2010
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
 # Keep this here and set, otherwise daily builds automagic won't work

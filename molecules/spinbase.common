@@ -9,7 +9,7 @@ release_file: /etc/sabayon-edition
 
 # Destination chroot directory, where files are pushed to before creating the squashfs image
 # NOTE: data will be stored inside an auto-generated subdir
-destination_chroot: /sabayon
+%env destination_chroot: ${SABAYON_MOLECULE_HOME:-/sabayon}
 
 # Extra mirror (r)sync parameters
 extra_rsync_parameters: --one-file-system --exclude /proc --exclude /dev/pts
@@ -17,26 +17,26 @@ extra_rsync_parameters: --one-file-system --exclude /proc --exclude /dev/pts
 # Inner chroot script command, to be executed inside destination chroot before packing it
 # - kmerge.sh - setup kernel bins
 # inner_chroot_script: /sabayon/scripts/inner_chroot_script.sh
-inner_chroot_script: /sabayon/scripts/inner_chroot_script.sh spinbase
+%env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/inner_chroot_script.sh spinbase
 
 # Destination LiveCD root directory, where files are placed before getting mkisofs'ed
 # NOTE: data will be stored inside an auto-generated subdir
-destination_livecd_root: /sabayon
+%env destination_livecd_root: ${SABAYON_MOLECULE_HOME:-/sabayon}
 
 # Merge directory with destination LiveCD root
-merge_livecd_root: /sabayon/boot/core
+%env merge_livecd_root: ${SABAYON_MOLECULE_HOME:-/sabayon}/boot/core
 
 # Extra mkisofs parameters, perhaps something to include/use your bootloader
 extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat
 
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
-pre_iso_script: /sabayon/scripts/cdroot.py
+%env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/cdroot.py
 
 # Post-ISO building script, called after ISO image generation.    
-post_iso_script: /sabayon/scripts/generic_post_iso_script.sh
+%env post_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_post_iso_script.sh
 
 # Destination directory for the ISO image path
-destination_iso_directory: /sabayon/iso
+%env destination_iso_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso
 
 # Directories to remove completely (comma separated)
 paths_to_remove:
