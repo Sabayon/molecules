@@ -1,5 +1,5 @@
 # Use abs path, otherwise daily builds automagic won't work
-%import /sabayon/molecules/spinbase.common
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/spinbase.common
 
 # Release Version
 # Keep this here, otherwise daily builds automagic won't work
