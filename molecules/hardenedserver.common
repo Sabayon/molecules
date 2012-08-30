@@ -1,0 +1,53 @@
+# Define an alternative execution strategy, in this case, the value must be
+# "iso_remaster"
+execution_strategy: iso_remaster
+
+# ISO Image title
+iso_title: Sabayon Hardened Server
+
+# Release string
+release_string: Sabayon Linux
+
+# File to write release string
+release_file: /etc/sabayon-edition
+
+# Outer chroot script command, to be executed outside destination chroot before
+# before entering it (and before inner_chroot_script)
+%env outer_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_pre.sh
+
+# Execute repositories update here, in a more fault-tolerant flavor
+%env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_generic_inner_chroot_script.sh
+
+# Inner chroot script command, to be executed inside destination chroot after
+# packages installation and removal
+%env inner_chroot_script_after: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_hardenedserver_inner_chroot_script_after.sh
+
+# Outer chroot script command, to be executed outside destination chroot before
+# before entering it (and AFTER inner_chroot_script)
+%env outer_chroot_script_after: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_post.sh
+
+# Used to umount /proc and unbind packages dir
+%env error_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_error_script.sh
+
+# Extra mkisofs parameters, perhaps something to include/use your bootloader
+extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat
+
+# Pre-ISO building script. Hook to be able to copy kernel images in place, for example
+%env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_pre_iso_script.sh HardenedServer
+
+# Post-ISO building script, called after ISO image generation.    
+%env post_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_post_iso_script.sh
+
+# Destination directory for the ISO image path (MANDATORY)
+%env destination_iso_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso
+
+packages_to_add:
+	sys-kernel/linux-hardened,
+	sys-apps/paxctl
+
+packages_to_remove:
+	sys-kernel/linux-sabayon
+
+# Determine whether repositories update should be run (if packages_to_add is set)
+# (default is: no), values are: yes, no.
+execute_repositories_update: no
