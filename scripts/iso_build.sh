@@ -110,6 +110,8 @@ elif [ "${ACTION}" = "daily" ]; then
 		"sabayon-x86-corecdx.spec"
 		"sabayon-amd64-serverbase.spec"
 		"sabayon-x86-serverbase.spec"
+		"sabayon-amd64-hardenedserver.spec"
+		"sabayon-x86-hardenedserver.spec"
 	)
 	REMASTER_SPECS_ISO=(
 		"Sabayon_Linux_DAILY_amd64_G.iso"
@@ -128,6 +130,8 @@ elif [ "${ACTION}" = "daily" ]; then
 		"Sabayon_Linux_CoreCDX_DAILY_x86.iso"
 		"Sabayon_Linux_ServerBase_DAILY_amd64.iso"
 		"Sabayon_Linux_ServerBase_DAILY_x86.iso"
+		"Sabayon_Linux_HardenedServer_DAILY_amd64.iso"
+		"Sabayon_Linux_HardenedServer_DAILY_x86.iso"
 	)
 	REMASTER_TAR_SPECS=()
 	REMASTER_TAR_SPECS_TAR=()
