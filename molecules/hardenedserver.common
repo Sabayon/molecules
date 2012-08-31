@@ -20,7 +20,7 @@ release_file: /etc/sabayon-edition
 
 # Inner chroot script command, to be executed inside destination chroot after
 # packages installation and removal
-%env inner_chroot_script_after: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_hardenedserver_inner_chroot_script_after.sh
+%env inner_chroot_script_after: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_generic_inner_chroot_script_after.sh xfce
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and AFTER inner_chroot_script)
@@ -42,8 +42,37 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat
 %env destination_iso_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso
 
 packages_to_add:
+	@X,
+	@fluxbox,
+	@xfce,
+	app-admin/rigo,
+	app-misc/sabayon-skel,
+	app-misc/anaconda-runtime-gui,
+	app-text/pastebunz,
+	dev-python/libgnomecanvas-python,
+	lxde-base/lxdm,
+        media-fonts/ttf-bitstream-vera,
+        media-fonts/dejavu,
+        media-fonts/corefonts,
+	media-gfx/feh,
+	net-dialup/ppp,
+	net-dialup/rp-pppoe,
+	net-misc/tightvnc,
+	sys-apps/gpu-detector,
+	sys-block/parted,
+	sys-power/cpufrequtils,
+	x11-apps/xhost,
+	x11-apps/setxkbmap,
+	x11-themes/equinox-themes,
+	x11-themes/gtk-engines:2,
+	x11-libs/libXxf86misc,
+	x11-themes/hicolor-icon-theme,
+	x11-themes/equinox-themes,
+	x11-terms/terminal,
+	x11-terms/xterm,
 	sys-kernel/linux-hardened,
-	sys-apps/paxctl
+	sys-apps/paxctl,
+	www-client/midori
 
 packages_to_remove:
 	sys-kernel/linux-sabayon
