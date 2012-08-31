@@ -107,6 +107,10 @@ setup_oss_gfx_drivers() {
 	# This file is polled by the txt.cfg
 	# (isolinux config file) setup script
 	touch /.enable_kms
+
+	# Remove nouveau from blacklist
+	sed -i ":^blacklist: s:blacklist nouveau:# blacklist nouveau:g" \
+		/etc/modprobe.d/blacklist.conf
 }
 
 has_proprietary_drivers() {
@@ -297,7 +301,7 @@ prepare_mate() {
         setup_displaymanager
         remove_mozilla_skel_cruft
         setup_cpufrequtils
-        has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers	
+        has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 }
 
 prepare_e17() {
