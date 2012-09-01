@@ -4,7 +4,6 @@
 
 # Path to molecules.git dir
 SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
-export SABAYON_MOLECULE_HOME
 
 DIR="${SABAYON_MOLECULE_HOME}/pkgcache"
 find "${DIR}" -atime +30 -type f -delete
