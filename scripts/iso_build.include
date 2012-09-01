@@ -1,3 +1,11 @@
 #!/bin/sh
 
 ISO_BUILD_LOCK=/tmp/.daily_iso_build.sh.lock
+LOCK_TIMEOUT=$((3600 * 2)) # 2 hours
+
+kill_stale_process() {
+    echo "[kill] NOT killing stale process automatically for NOW" >&2
+    #local inode=$(stat -L --format '%i' "${ISO_BUILD_LOCK}") # ignore device...
+    #local pids=$(cat /proc/locks | grep ":${inode}" | awk '{ print $5 }')
+    return 1
+}
