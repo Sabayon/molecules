@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ISO_BUILD_LOCK=/tmp/.daily_iso_build.sh.lock
