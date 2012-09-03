@@ -62,6 +62,6 @@ isolinux_img = os.path.join(chroot_dir, "usr/share/backgrounds/isolinux/back.jpg
 if os.path.isfile(isolinux_img):
     shutil.copy2(isolinux_img, os.path.join(cdroot_dir, "isolinux/back.jpg"))
 
-iso_md5_script = os.path.join(sabayon_molecule_home, "scripts/pre_iso_script_livecd_md5.sh")
+iso_md5_script = os.path.join(sabayon_molecule_home, "scripts/pre_iso_script_livecd_hash.sh")
 exit_st = subprocess.call([iso_md5_script])
 raise SystemExit(exit_st)

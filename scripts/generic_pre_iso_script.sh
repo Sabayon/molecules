@@ -64,4 +64,4 @@ if [ -f "${isolinux_img}" ]; then
 fi
 
 # Generate livecd.squashfs.md5
-"${SABAYON_MOLECULE_HOME}"/scripts/pre_iso_script_livecd_md5.sh
+"${SABAYON_MOLECULE_HOME}"/scripts/pre_iso_script_livecd_hash.sh

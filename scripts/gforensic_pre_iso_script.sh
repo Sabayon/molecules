@@ -10,4 +10,4 @@ cp "${GFORENSIC_DIR}"/isolinux/back.jpg "${CDROOT_DIR}/isolinux/back.jpg"
 cp "${GFORENSIC_DIR}"/isolinux/isolinux.txt "${CDROOT_DIR}/isolinux/isolinux.txt"
 
 # Generate livecd.squashfs.md5
-"${SABAYON_MOLECULE_HOME}"/scripts/pre_iso_script_livecd_md5.sh
+"${SABAYON_MOLECULE_HOME}"/scripts/pre_iso_script_livecd_hash.sh
