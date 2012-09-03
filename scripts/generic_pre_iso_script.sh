@@ -62,3 +62,6 @@ isolinux_img="${CHROOT_DIR}/usr/share/backgrounds/isolinux/back.jpg"
 if [ -f "${isolinux_img}" ]; then
 	cp "${isolinux_img}" "${CDROOT_DIR}/isolinux/" || exit 1
 fi
+
+# Generate livecd.squashfs.md5
+"${SABAYON_MOLECULE_HOME}"/scripts/pre_iso_script_livecd_md5.sh

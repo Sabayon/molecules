@@ -2,6 +2,7 @@
 import os, shutil, time
 from datetime import datetime
 
+sabayon_molecule_home = os.getenv("SABAYON_MOLECULE_HOME", "/sabayon")
 source_chroot_dir = os.getenv('SOURCE_CHROOT_DIR')
 chroot_dir = os.getenv('CHROOT_DIR')
 cdroot_dir = os.getenv('CDROOT_DIR')
@@ -60,3 +61,7 @@ if os.path.isfile(sabayon_pkgs_file):
 isolinux_img = os.path.join(chroot_dir, "usr/share/backgrounds/isolinux/back.jpg")
 if os.path.isfile(isolinux_img):
     shutil.copy2(isolinux_img, os.path.join(cdroot_dir, "isolinux/back.jpg"))
+
+iso_md5_script = os.path.join(sabayon_molecule_home, "scripts/pre_iso_script_livecd_md5.sh")
+exit_st = subprocess.call([iso_md5_script])
+raise SystemExit(exit_st)

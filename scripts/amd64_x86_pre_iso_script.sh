@@ -111,3 +111,6 @@ mkdir "${arm_card_dir}" -p || exit 1
 cp "${arm_images_dir}/${beaglebone_image}" "${arm_card_dir}"/ || exit 1
 cp "${arm_images_dir}/${beaglebone_image}.md5" "${arm_card_dir}"/ || exit 1
 cp "${arm_card_boot_dir}/README.txt" "${arm_card_dir}"/ || exit 1
+
+# Generate livecd.squashfs.md5
+"${SABAYON_MOLECULE_HOME}"/scripts/pre_iso_script_livecd_md5.sh
