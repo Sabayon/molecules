@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os, shutil, time
+import subprocess
 from datetime import datetime
 
 sabayon_molecule_home = os.getenv("SABAYON_MOLECULE_HOME", "/sabayon")
