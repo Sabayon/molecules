@@ -275,6 +275,17 @@ build_sabayon() {
 	return 0
 }
 
+mail_failure() {
+	local out=${1}
+	local log_file=${2}
+	echo "Hello there,
+iso_build.sh execution failed (miserably) with exit status: ${out}.
+Log file is at ${log_file}.
+
+Thanks,
+Sun" | /bin/mail -s "ISO build script failure" root
+}
+
 out="0"
 if [ -n "${DO_STDOUT}" ]; then
 	build_sabayon
@@ -290,6 +301,10 @@ else
 	if [ "${out}" = "0" ]; then
 		move_to_pkg_sabayon_org &>> "${log_file}"
 		out=${?}
+	fi
+	if [ "${out}" != "0" ]; then
+		# mail root
+		mail_failure "${out}" "${log_file}"
 	fi
 fi
 echo "EXIT_STATUS: ${out}"
