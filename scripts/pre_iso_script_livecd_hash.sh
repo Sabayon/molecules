@@ -23,6 +23,11 @@ fi
 # files inside /boot now
 if [ -d "${CDROOT_DIR}/boot" ]; then
 	for bootfile in "${CDROOT_DIR}"/boot/* ; do
+		endswith_sha256=$(echo "${bootfile}" | grep "\.sha256$")
+		if [ -n "${endswith_sha256}" ]; then
+			# skip .sha256 file
+			continue
+		fi
 		if [ -f "${bootfile}" ]; then
 			echo "Doing ${bootfile}..."
 			boot_dir=$(dirname "${bootfile}")
