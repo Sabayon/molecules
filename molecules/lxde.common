@@ -86,6 +86,7 @@ packages_to_add:
 	x11-drivers/ati-drivers,
 	x11-drivers/nvidia-drivers,
 	x11-drivers/xf86-video-virtualbox,
+	x11-themes/gnome-themes-standard,
 	x11-themes/equinox-themes,
 	x11-themes/gtk-engines:2,
 	xfce-extra/xfce4-notifyd
