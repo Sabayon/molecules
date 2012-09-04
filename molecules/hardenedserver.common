@@ -66,6 +66,7 @@ packages_to_add:
 	x11-themes/equinox-themes,
 	x11-themes/gtk-engines:2,
 	x11-libs/libXxf86misc,
+	x11-themes/gnome-themes-standard,
 	x11-themes/hicolor-icon-theme,
 	x11-themes/equinox-themes,
 	x11-terms/terminal,
