@@ -116,7 +116,8 @@ paths_to_empty:
     /var/cache/genkernel
 
 packages_to_add:
-	sys-fs/zfs
+	sys-apps/smartmontools,
+	sys-fs/zfs,
 
 # Make sure they don't end up into the ISO
 packages_to_remove:
