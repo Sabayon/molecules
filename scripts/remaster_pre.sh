@@ -17,6 +17,7 @@ mount --bind "${PKGS_DIR}" "${CHROOT_PKGS_DIR}" || exit 1
 
 content=$(ls -1 "${CHROOT_DIR}/proc" | wc -l)
 if [ "${content}" -le 3 ]; then
+	echo "Mounting /proc ..."
 	mount -t proc proc "${CHROOT_DIR}/proc"
 fi
 
