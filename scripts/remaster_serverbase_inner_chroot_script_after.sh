@@ -13,7 +13,6 @@ rc-update del avahi-daemon default
 # install-data dir is really not needed
 rm -rf /install-data
 
-mount -t proc proc /proc
 /lib/rc/bin/rc-depend -u
 
 # Generate openrc cache
@@ -23,7 +22,6 @@ touch /lib/rc/init.d/softlevel
 
 ldconfig
 ldconfig
-umount /proc
 
 emaint --fix world
 

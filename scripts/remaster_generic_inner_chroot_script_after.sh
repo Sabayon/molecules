@@ -267,7 +267,6 @@ setup_portage() {
 }
 
 setup_startup_caches() {
-	mount -t proc proc /proc
 	/lib/rc/bin/rc-depend -u
 	# Generate openrc cache
 	touch /lib/rc/init.d/softlevel
@@ -275,7 +274,6 @@ setup_startup_caches() {
 	/etc/init.d/savecache zap
 	ldconfig
 	ldconfig
-	umount /proc
 }
 
 prepare_lxde() {
