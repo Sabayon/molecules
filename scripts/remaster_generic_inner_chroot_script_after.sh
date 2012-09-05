@@ -27,7 +27,7 @@ basic_environment_setup() {
 	rc-update del sabayon-mce default
 	rc-update add nfsmount default
 
-	if [ -f /etc/init.d/zfs ]; then
+	if [ -f /etc/init.d/zfs ] && [ "$(uname -m)" = "x86_64" ]; then
 		rc-update add zfs boot
 	fi
 
