@@ -16,7 +16,7 @@ rm -rf /install-data
 /lib/rc/bin/rc-depend -u
 
 # Generate openrc cache
-touch /lib/rc/init.d/softlevel
+[[ -d "/lib/rc/init.d" ]] && touch /lib/rc/init.d/softlevel
 [[ -d "/run/openrc" ]] && touch /run/openrc/softlevel
 /etc/init.d/savecache start
 /etc/init.d/savecache zap
