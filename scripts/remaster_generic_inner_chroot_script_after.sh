@@ -33,6 +33,12 @@ basic_environment_setup() {
 
 	# Always startup this
 	rc-update add virtualbox-guest-additions boot
+
+	# Create a default "games" group so that
+	# the default user will be added to it during
+	# live boot, and thus, after install.
+	# See bug 3134
+	groupadd -f games
 }
 
 remove_desktop_files() {
