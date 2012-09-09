@@ -1,5 +1,6 @@
 # List of packages to add
 packages_to_add:
+	app-admin/eselect-uimage,
 	app-admin/syslog-ng,
 	app-admin/sudo,
 	app-arch/xarchiver,
