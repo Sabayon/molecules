@@ -48,6 +48,7 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat
 packages_to_add:
 	@fluxbox,
 	@gst-plugins,
+	@gst-plugins-extra,
 	@X,
 	@wireless,
 	app-admin/packagekit-base,

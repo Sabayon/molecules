@@ -49,6 +49,7 @@ packages_to_add:
 	@X,
 	@gnome,
 	@gst-plugins,
+	@gst-plugins-extra,
 	@fluxbox,
 	@wireless,
 	app-admin/gnome-system-tools,

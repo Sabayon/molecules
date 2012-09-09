@@ -51,6 +51,7 @@ packages_to_add:
 	@X,
 	@fluxbox,
 	@gst-plugins,
+	@gst-plugins-extra,
 	@xfce,
 	app-admin/rigo,
 	app-arch/file-roller,
