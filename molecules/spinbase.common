@@ -117,7 +117,7 @@ paths_to_empty:
 
 packages_to_add:
 	sys-apps/smartmontools,
-	sys-fs/zfs,
+	sys-boot/grub
 
 # Make sure they don't end up into the ISO
 packages_to_remove:
