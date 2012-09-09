@@ -10,5 +10,5 @@ kill_stale_process() {
     #for pid in ${pids}; do
     #    kill -TERM ${pid}
     #done
-    return 0
+    return 1
 }
