@@ -228,10 +228,6 @@ setup_misc_stuff() {
 		rm $file
 	done
 
-	# Setup basic GTK theme for root user
-	if [ ! -f "/root/.gtkrc-2.0" ]; then
-		echo "include \"/usr/share/themes/Clearlooks/gtk-2.0/gtkrc\"" > /root/.gtkrc-2.0
-	fi
 	# Regenerate Fluxbox menu
 	if [ -x "/usr/bin/fluxbox-generate_menu" ]; then
 		fluxbox-generate_menu -o /etc/skel/.fluxbox/menu
