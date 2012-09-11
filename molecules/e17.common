@@ -11,6 +11,9 @@ release_file: /etc/sabayon-edition
 # ISO Image title
 iso_title: Sabayon E17
 
+# Enable XZ compression in mksquashfs
+extra_mksquashfs_parameters: -comp xz -Xbcj x86
+
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and before inner_chroot_script)
 %env outer_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_pre.sh

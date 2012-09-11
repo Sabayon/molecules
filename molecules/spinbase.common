@@ -14,6 +14,9 @@ release_file: /etc/sabayon-edition
 # Extra mirror (r)sync parameters
 extra_rsync_parameters: --one-file-system
 
+# Enable XZ compression in mksquashfs
+extra_mksquashfs_parameters: -comp xz -Xbcj x86
+
 # Inner chroot script command, to be executed inside destination chroot before packing it
 # - kmerge.sh - setup kernel bins
 # %env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/inner_chroot_script.sh
