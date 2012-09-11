@@ -138,6 +138,21 @@ elif [ "${ACTION}" = "daily" ]; then
 	)
 	REMASTER_TAR_SPECS=()
 	REMASTER_TAR_SPECS_TAR=()
+elif [ "${ACTION}" = "dailybase" ]; then
+	ARM_SOURCE_SPECS=()
+	ARM_SOURCE_SPECS_IMG=()
+	SOURCE_SPECS=(
+		"sabayon-x86-spinbase.spec"
+		"sabayon-amd64-spinbase.spec"
+	)
+	SOURCE_SPECS_ISO=(
+		"Sabayon_Linux_SpinBase_DAILY_x86.iso"
+		"Sabayon_Linux_SpinBase_DAILY_amd64.iso"
+	)
+	REMASTER_SPECS=()
+	REMASTER_SPECS_ISO=()
+	REMASTER_TAR_SPECS=()
+	REMASTER_TAR_SPECS_TAR=()
 fi
 
 [[ -d "/var/log/molecule" ]] || mkdir -p /var/log/molecule
