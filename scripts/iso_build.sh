@@ -5,7 +5,7 @@ SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
 export SABAYON_MOLECULE_HOME
 
 ACTION="${1}"
-if [ "${ACTION}" != "daily" ] && [ "${ACTION}" != "weekly" ]; then
+if [ "${ACTION}" != "daily" ] && [ "${ACTION}" != "weekly" ] && [ "${ACTION}" != "dailybase" ]; then
 	echo "invalid action: ${ACTION}" >&2
 	exit 1
 fi
