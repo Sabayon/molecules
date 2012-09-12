@@ -32,8 +32,8 @@ export CUR_DATE
 export ETP_NONINTERACTIVE=1
 export BUILDING_DAILY
 # Temporarily added to debug Equo in case of deadlock
-export ETP_DEBUG_WATCHDOG=1
-export ETP_DEBUG_WATCHDOG_INTERVAL=60
+# export ETP_DEBUG_WATCHDOG=1
+# export ETP_DEBUG_WATCHDOG_INTERVAL=60
 
 echo "DO_PUSH=${DO_PUSH}"
 echo "DRY_RUN=${DRY_RUN}"
