@@ -9,13 +9,20 @@ if [ -d "/usr/portage/licenses" ]; then
 	export ACCEPT_LICENSE="$(ls /usr/portage/licenses -1 | xargs)"
 fi
 
-export ETP_NOINTERACTIVE=1
 export FORCE_EAPI=2
-equo update
-if [ "${?}" != "0" ]; then
+updated=0
+for ((i=0; i < 6; i++)); do
+	equo update && {
+		updated=1;
+		break;
+	}
 	sleep 1200 || exit 1
-	equo update || exit 1
+done
+if [ "${updated}" = "0" ]; then
+	exit 1
 fi
+
+export ETP_NOINTERACTIVE=1
 equo upgrade || exit 1
 echo "-5" | equo conf update
 rm -rf /var/lib/entropy/client/packages
