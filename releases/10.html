@@ -6,7 +6,7 @@ There you have it, shining at full brightness, for your home computer, your lapt
 
 <h1>Features</h1>
 <h2>GNOME 2, no wait, MATE</h2>
-<p>The Sabayon/Gentoo MATE overlay, available on <a href="https://github.com/Sabayon/mate-overlay">GitHub</a>, rapidly gained a lot of interest among Sabayon, Gentoo developers and final users. Many people wanted GNOME 2 back and there you have it! We are more than happy to serve MATE to all our users and officially support it starting from now. Hence, Sabayon 10 MATE is now available on mirrors! A special thank goes to Joost Ruis (joost_op), Steev Klimaszewski (steev) and others.<br/>
+<p>The Sabayon/Gentoo MATE overlay, available on <a href="https://github.com/Sabayon/mate-overlay">GitHub</a>, rapidly gained a lot of interest among Sabayon, Gentoo developers and final users. Many people wanted GNOME 2 back and there you have it! We are more than happy to serve MATE to all our users and officially support it starting from now. Hence, Sabayon 10 MATE is now available on mirrors! Special thanks go to Joost Ruis (joost_op), Steev Klimaszewski (steev) and others.<br/>
 <center><a href="https://static.sabayon.org/site/content/sabayon.org/press/mate-s10-screenshot.png"><img src="https://static.sabayon.org/site/content/sabayon.org/press/mate-s10-screenshot_small.png"/></a></center>
 </p>
 
@@ -23,7 +23,7 @@ There you have it, shining at full brightness, for your home computer, your lapt
 <p>Mesa 9 is not out yet, but you can get a taste of it in Sabayon 10 already, which is shipping with a 2012-08-31 snapshot of Mesa 9 and updated libdrm and drivers stack. Out of the box Kernel-Mode-Setting experience has been improved for Intel and Matrox video cards as well, while due to conflicts with fglrx, radeon KMS still requires some scripty help (but this will be addressed once Linux 3.6 is out). Please have a look at our footnotes if you have problems booting your system on AMD hardware.</p>
 
 <h2>ZFS, Grub 2.00</h2>
-<p>Starting from Sabayon 10 kernels (and 3.5 kernels available in repositories), ZFS is loaded earlier during the boot process, making users able to boot their system directly from a ZFS filesystem. Grub 2.00 introduced libzfs support as well. However, our installer does not support ZFS out of the box yet. Special thanks go to Richard Yao for having followed the integration process closely enough with upstream for us.</p>
+<p>Starting from Sabayon 10 kernels (and 3.5 kernels available in repositories), ZFS is loaded earlier during the boot process, enabling users to boot their system directly from a ZFS filesystem (and use swap through ZFS as well). Grub 2.00 introduced libzfs support as well. However, our installer does not support ZFS out of the box yet. Special thanks go to Richard Yao for having followed the integration process closely enough with upstream for us.</p>
 
 <h2>New udev, kmod stack</h2>
 <p>As many other distributions, we were tempted by systemd to the point that we made it easier to migrate to it through Portage (and you can do that as well, with some trickery). This required a new udev-systemd snapshot and the migration to kmod, from module-init-tools. Our team, more precisely Joost Ruis, decided to benchmark OpenRC (our current init system) against Systemd and the results were a bit disappointing. While Systemd has proved to be faster, our real world scenarios simulation showed that the difference is well below 8 seconds for the boot process. Does this justify the move towards a less-tested and for many controversial technology? Not yet, our boot is fast enough. Do the average people restart their system more than 5 times a day? We don't think so.</p>
@@ -60,7 +60,7 @@ There you have it, shining at full brightness, for your home computer, your lapt
   <b>A: </b>You may have hit a drm/driver conflict with vesafb. Try to remove the following boot parameters (press F5 to edit the boot arguments): <b>vga=791</b> or <b>splash=...</b> or <b>video=vesafb:ywrap,mtrr:3</b>. Or try passing <b>splash=off</b> replacing the previous value.</p>
 </div>
 
-<h1>Features</h1>
+<h1>Download links</h1>
 <ul>
 <li><a href="http://www.sabayon.org/download">Sabayon Mirrors Page</a></li>
 <li><a href="http://tracker.sabayon.org">Sabayon BitTorrent Tracker</a></li>
