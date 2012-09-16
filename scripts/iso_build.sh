@@ -44,59 +44,29 @@ export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
 
-if [ "${ACTION}" = "weekly" ]; then
-	ARM_SOURCE_SPECS=(
-		"sabayon-arm-beaglebone-base-2G.spec"
-		"sabayon-arm-beaglebone-base-4G.spec"
-		"sabayon-arm-beagleboard-xm-4G.spec"
-		"sabayon-arm-beagleboard-xm-8G.spec"
-		"sabayon-arm-pandaboard-4G.spec"
-		"sabayon-arm-pandaboard-8G.spec"
-		"sabayon-arm-efikamx-base-4G.spec"
-	)
-	ARM_SOURCE_SPECS_IMG=(
-		"Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_2GB.img"
-		"Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_4GB.img"
-		"Sabayon_Linux_DAILY_armv7a_BeagleBoard_xM_4GB.img"
-		"Sabayon_Linux_DAILY_armv7a_BeagleBoard_xM_8GB.img"
-		"Sabayon_Linux_DAILY_armv7a_PandaBoard_4GB.img"
-		"Sabayon_Linux_DAILY_armv7a_PandaBoard_8GB.img"
-		"Sabayon_Linux_DAILY_armv7a_EfikaMX_Base_4GB.img"
-	)
-	SOURCE_SPECS=()
-	SOURCE_SPECS_ISO=()
-	REMASTER_SPECS=(
-                "sabayon-amd64-xfceforensic.spec"
-                "sabayon-x86-xfceforensic.spec"
-	)
-	REMASTER_SPECS_ISO=(
-                "Sabayon_Linux_DAILY_amd64_ForensicsXfce.iso"
-                "Sabayon_Linux_DAILY_x86_ForensicsXfce.iso"
-	)
-	REMASTER_TAR_SPECS=(
-		"sabayon-x86-spinbase-openvz-template.spec"
-		"sabayon-amd64-spinbase-openvz-template.spec"
-		"sabayon-x86-spinbase-amazon-ebs-image.spec"
-		"sabayon-amd64-spinbase-amazon-ebs-image.spec"
-	)
-	REMASTER_TAR_SPECS_TAR=(
-		"Sabayon_Linux_SpinBase_DAILY_x86_openvz.tar.gz"
-		"Sabayon_Linux_SpinBase_DAILY_amd64_openvz.tar.gz"
-		"Sabayon_Linux_SpinBase_DAILY_x86_Amazon_EBS_ext4_filesystem_image.tar.gz"
-		"Sabayon_Linux_SpinBase_DAILY_amd64_Amazon_EBS_ext4_filesystem_image.tar.gz"
-	)
-elif [ "${ACTION}" = "daily" ]; then
-	ARM_SOURCE_SPECS=()
-	ARM_SOURCE_SPECS_IMG=()
-	SOURCE_SPECS=(
+ARM_SOURCE_SPECS=()
+ARM_SOURCE_SPECS_IMG=()
+
+SOURCE_SPECS=()
+SOURCE_SPECS_ISO=()
+
+REMASTER_SPECS=()
+REMASTER_SPECS_ISO=()
+REMASTER_TAR_SPECS=()
+REMASTER_TAR_SPECS_TAR=()
+
+if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
+
+	# Daily molecules
+	SOURCE_SPECS+=(
 		"sabayon-x86-spinbase.spec"
 		"sabayon-amd64-spinbase.spec"
 	)
-	SOURCE_SPECS_ISO=(
+	SOURCE_SPECS_ISO+=(
 		"Sabayon_Linux_SpinBase_DAILY_x86.iso"
 		"Sabayon_Linux_SpinBase_DAILY_amd64.iso"
 	)
-	REMASTER_SPECS=(
+	REMASTER_SPECS+=(
 		"sabayon-amd64-gnome.spec"
 		"sabayon-x86-gnome.spec"
 		"sabayon-amd64-kde.spec"
@@ -116,7 +86,7 @@ elif [ "${ACTION}" = "daily" ]; then
 		"sabayon-amd64-hardenedserver.spec"
 		"sabayon-x86-hardenedserver.spec"
 	)
-	REMASTER_SPECS_ISO=(
+	REMASTER_SPECS_ISO+=(
 		"Sabayon_Linux_DAILY_amd64_G.iso"
 		"Sabayon_Linux_DAILY_x86_G.iso"
 		"Sabayon_Linux_DAILY_amd64_K.iso"
@@ -136,11 +106,51 @@ elif [ "${ACTION}" = "daily" ]; then
 		"Sabayon_Linux_HardenedServer_DAILY_amd64.iso"
 		"Sabayon_Linux_HardenedServer_DAILY_x86.iso"
 	)
-	REMASTER_TAR_SPECS=()
-	REMASTER_TAR_SPECS_TAR=()
+
+
+	# Weekly molecules
+	if [ "${ACTION}" = "weekly" ]; then
+		ARM_SOURCE_SPECS+=(
+			"sabayon-arm-beaglebone-base-2G.spec"
+			"sabayon-arm-beaglebone-base-4G.spec"
+			"sabayon-arm-beagleboard-xm-4G.spec"
+			"sabayon-arm-beagleboard-xm-8G.spec"
+			"sabayon-arm-pandaboard-4G.spec"
+			"sabayon-arm-pandaboard-8G.spec"
+			"sabayon-arm-efikamx-base-4G.spec"
+		)
+		ARM_SOURCE_SPECS_IMG+=(
+			"Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_2GB.img"
+			"Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_4GB.img"
+			"Sabayon_Linux_DAILY_armv7a_BeagleBoard_xM_4GB.img"
+			"Sabayon_Linux_DAILY_armv7a_BeagleBoard_xM_8GB.img"
+			"Sabayon_Linux_DAILY_armv7a_PandaBoard_4GB.img"
+			"Sabayon_Linux_DAILY_armv7a_PandaBoard_8GB.img"
+			"Sabayon_Linux_DAILY_armv7a_EfikaMX_Base_4GB.img"
+		)
+		REMASTER_SPECS+=(
+			"sabayon-amd64-xfceforensic.spec"
+			"sabayon-x86-xfceforensic.spec"
+		)
+		REMASTER_SPECS_ISO+=(
+			"Sabayon_Linux_DAILY_amd64_ForensicsXfce.iso"
+			"Sabayon_Linux_DAILY_x86_ForensicsXfce.iso"
+		)
+		REMASTER_TAR_SPECS+=(
+			"sabayon-x86-spinbase-openvz-template.spec"
+			"sabayon-amd64-spinbase-openvz-template.spec"
+			"sabayon-x86-spinbase-amazon-ebs-image.spec"
+			"sabayon-amd64-spinbase-amazon-ebs-image.spec"
+		)
+		REMASTER_TAR_SPECS_TAR+=(
+			"Sabayon_Linux_SpinBase_DAILY_x86_openvz.tar.gz"
+			"Sabayon_Linux_SpinBase_DAILY_amd64_openvz.tar.gz"
+			"Sabayon_Linux_SpinBase_DAILY_x86_Amazon_EBS_ext4_filesystem_image.tar.gz"
+			"Sabayon_Linux_SpinBase_DAILY_amd64_Amazon_EBS_ext4_filesystem_image.tar.gz"
+		)
+	fi
+
 elif [ "${ACTION}" = "dailybase" ]; then
-	ARM_SOURCE_SPECS=()
-	ARM_SOURCE_SPECS_IMG=()
 	SOURCE_SPECS=(
 		"sabayon-x86-spinbase.spec"
 		"sabayon-amd64-spinbase.spec"
@@ -149,10 +159,6 @@ elif [ "${ACTION}" = "dailybase" ]; then
 		"Sabayon_Linux_SpinBase_DAILY_x86.iso"
 		"Sabayon_Linux_SpinBase_DAILY_amd64.iso"
 	)
-	REMASTER_SPECS=()
-	REMASTER_SPECS_ISO=()
-	REMASTER_TAR_SPECS=()
-	REMASTER_TAR_SPECS_TAR=()
 fi
 
 [[ -d "/var/log/molecule" ]] || mkdir -p /var/log/molecule
