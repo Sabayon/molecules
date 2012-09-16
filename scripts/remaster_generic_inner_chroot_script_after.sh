@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# do not remove these
 /usr/sbin/env-update
 . /etc/profile
 

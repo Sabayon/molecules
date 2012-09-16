@@ -1,5 +1,8 @@
 #!/bin/sh
 
+/usr/sbin/env-update
+. /etc/profile
+
 rc-update del installer-gui boot
 rc-update del x-setup boot
 rc-update del hald boot

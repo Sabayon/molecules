@@ -1,5 +1,8 @@
 #!/bin/sh
 
+/usr/sbin/env-update
+. /etc/profile
+
 # FUTURE NOTE:
 # this might get merged into remaster_generic_inner_chroot_script_after.sh
 # once the Gaming Edition will be rebased on top of SpinBase, now it's based

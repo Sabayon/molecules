@@ -1,11 +1,11 @@
 #!/bin/sh
 
+/usr/sbin/env-update
+. /etc/profile
+
 echo
 echo "Configuring AMI chroot"
 echo
-
-/usr/sbin/env-update
-. /etc/profile
 
 # setup networking, make sure networkmanager is gone
 rc-update del networkmanager default &> /dev/null

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+/usr/sbin/env-update
+. /etc/profile
+
 # Setup Desktop links
 # ARM Images links
 ln -s "/mnt/cdrom/ARM" "/etc/skel/Desktop/ARM_Images"

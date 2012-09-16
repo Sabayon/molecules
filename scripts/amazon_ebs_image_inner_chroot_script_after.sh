@@ -1,14 +1,14 @@
 #!/bin/sh
 
+/usr/sbin/env-update
+. /etc/profile
+
 echo
 echo "Configuring AMI root filesystem"
 echo "Ext4 is the expected filesystem type"
 echo "/dev/sda1 is the expected root filesystem partition"
 echo "ec2-user is the expected user"
 echo
-
-/usr/sbin/env-update
-. /etc/profile
 
 # setup networking, make sure networkmanager is gone
 rc-update del NetworkManager boot

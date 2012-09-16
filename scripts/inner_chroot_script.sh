@@ -1,5 +1,8 @@
 #!/bin/bash
 
+/usr/sbin/env-update
+. /etc/profile
+
 # create /proc if it doesn't exist
 # rsync doesn't copy it
 if [ ! -d "/proc" ]; then
@@ -18,9 +21,6 @@ perl-cleaner --ph-clean
 rm -rf /root
 cp /etc/skel /root -Rap
 chown root:root /root -R
-
-/usr/sbin/env-update
-. /etc/profile
 
 # Setup locale to en_US
 echo LANG=\"en_US.UTF-8\" > /etc/env.d/02locale

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+/usr/sbin/env-update
+. /etc/profile
+
 # make sure there is no stale pid file around that prevents entropy from running
 rm -f /var/run/entropy/entropy.lock
 
