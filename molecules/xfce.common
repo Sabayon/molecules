@@ -55,6 +55,7 @@ packages_to_add:
 	@fluxbox,
 	@gst-plugins,
 	@gst-plugins-extra,
+	@wireless,
 	@xfce,
 	app-admin/rigo,
 	app-arch/file-roller,
