@@ -53,6 +53,7 @@ packages_to_add:
 	@X,
 	@lxde,
 	@fluxbox,
+	@wireless,
 	app-admin/rigo,
 	app-arch/xarchiver,
 	app-crypt/gnupg,
