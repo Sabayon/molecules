@@ -52,6 +52,7 @@ packages_to_remove:
 packages_to_add:
 	@X,
 	@fluxbox,
+	@wireless,
 	app-admin/rigo,
 	app-misc/sabayon-skel,
 	app-crypt/gnupg,
