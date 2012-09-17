@@ -15,6 +15,7 @@ for arg in "$@"
 do
 	[[ "${arg}" = "--push" ]] && DO_PUSH="1"
 	[[ "${arg}" = "--stdout" ]] && DO_STDOUT="1"
+	[[ "${arg}" = "--sleepnight" ]] && DO_SLEEPNIGHT="1"
 	if [ "${arg}" = "--pushonly" ]; then
 		DO_PUSH="1"
 		DRY_RUN="1"
@@ -37,12 +38,35 @@ export BUILDING_DAILY
 
 echo "DO_PUSH=${DO_PUSH}"
 echo "DRY_RUN=${DRY_RUN}"
+echo "DO_SLEEPNIGHT=${DO_SLEEPNIGHT}"
 echo "LOG_FILE=${LOG_FILE}"
 
 # setup default language, cron might not do that
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
+
+# Sleep until 22pm?
+if [ "${DO_SLEEPNIGHT}" = "1" ] && [ "${DO_PUSH}" = "1" ]; then
+	target_h=22 # 22pm
+	current_h=$(date +%H)
+	current_h=${current_h/0} # remove leading 0
+	delta_h=$(( target_h - current_h ))
+	if [ ${current_h} -ge 0 ] && [ ${current_h} -le 6 ]; then
+		# If it's past midnight and no later than 7am
+		# just push
+		echo "Just pusing out now"
+	elif [ ${delta_h} -gt 0 ]; then
+		delta_s=$(( delta_h * 3600 ))
+		echo "Sleeping for ${delta_h} hours..."
+		sleep ${delta_s} || exit 1
+	elif [ ${delta_h} -lt 0 ]; then
+		# between 22 and 24, run!
+		echo "I'm after 22pm, running"
+	else
+		echo "No need to sleep"
+	fi
+fi
 
 ARM_SOURCE_SPECS=()
 ARM_SOURCE_SPECS_IMG=()
