@@ -6,6 +6,7 @@ if [ -z "${1}" ]; then
 fi
 
 BUILD_SCRIPT_NAME="${1}"
+shift
 
 SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
 . "${SABAYON_MOLECULE_HOME}/scripts/iso_build.include"
@@ -28,7 +29,7 @@ SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
         kill_stale_process || exit 1
     fi
 
-    "${SABAYON_MOLECULE_HOME}/scripts/${BUILD_SCRIPT_NAME}"
+    "${SABAYON_MOLECULE_HOME}/scripts/${BUILD_SCRIPT_NAME}" "${@}"
 
 ) 9> "${ISO_BUILD_LOCK}"
 
