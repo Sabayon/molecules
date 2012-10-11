@@ -8,7 +8,7 @@ rm -f /var/run/entropy/entropy.lock
 
 export FORCE_EAPI=2
 updated=0
-for ((i=0; i < 12; i++)); do
+for ((i=0; i < 42; i++)); do
 	equo update && {
 		updated=1;
 		break;
