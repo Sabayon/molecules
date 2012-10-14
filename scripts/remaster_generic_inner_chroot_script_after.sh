@@ -188,6 +188,7 @@ setup_fonts() {
 		20-unhint-small-dejavu-sans-mono.conf
 		20-unhint-small-dejavu-serif.conf
 		31-cantarell.conf
+		52-infinality.conf
 		57-dejavu-sans.conf
 		57-dejavu-sans-mono.conf
 		57-dejavu-serif.conf"
