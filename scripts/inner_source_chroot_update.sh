@@ -27,6 +27,21 @@ if [ "${updated}" = "0" ]; then
 fi
 
 export ETP_NOINTERACTIVE=1
+updated=0
+for ((i=0; i < 42; i++)); do
+	equo upgrade --fetch && {
+		updated=1;
+		break;
+	}
+	if [ ${i} -gt 6 ]; then
+		sleep 3600 || exit 1
+	else
+		sleep 1200 || exit 1
+	fi
+done
+if [ "${updated}" = "0" ]; then
+	exit 1
+fi
 equo upgrade || exit 1
 echo "-5" | equo conf update
 rm -rf /var/lib/entropy/client/packages
