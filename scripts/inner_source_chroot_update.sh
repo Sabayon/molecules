@@ -35,6 +35,39 @@ export ETP_NOINTERACTIVE=1
 safe_run equo upgrade --fetch || exit 1
 equo upgrade || exit 1
 echo "-5" | equo conf update
+
+# check if a kernel update is needed
+kernel_target_pkg="sys-kernel/linux-sabayon"
+current_kernel=$(equo match --installed "${kernel_target_pkg}" -qv)
+available_kernel=$(equo match "${kernel_target_pkg}" -qv)
+if [ "${current_kernel}" != "${available_kernel}" ] && \
+	[ -n "${available_kernel}" ] && [ -n "${current_kernel}" ]; then
+	echo
+	echo "@@ Upgrading kernel to ${available_kernel}"
+	echo
+	safe_run kernel-switcher switch "${available_kernel}" || exit 1
+	equo remove "${current_kernel}" || exit 1
+	# now delete stale files in /lib/modules
+	for slink in $(find /lib/modules/ -type l); do
+		if [ ! -e "${slink}" ]; then
+			echo "Removing broken symlink: ${slink}"
+			rm "${slink}" # ignore failure, best effort
+			# check if parent dir is empty, in case, remove
+			paren_slink=$(dirname "${slink}")
+			paren_children=$(find "${paren_slink}")
+			if [ -z "${paren_children}" ]; then
+				echo "${paren_slink} is empty, removing"
+			fi
+			rmdir "${paren_slink}" # ignore failure, best effort
+		fi
+	done
+else
+	echo "@@ Not upgrading kernels:"
+	echo "Current: ${current_kernel}"
+	echo "Avail:   ${available_kernel}"
+	echo
+fi
+
 rm -rf /var/lib/entropy/client/packages
 
 # copy Portage config from sabayonlinux.org entropy repo to system
