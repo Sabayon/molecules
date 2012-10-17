@@ -57,8 +57,8 @@ if [ "${current_kernel}" != "${available_kernel}" ] && \
 			paren_children=$(find "${paren_slink}")
 			if [ -z "${paren_children}" ]; then
 				echo "${paren_slink} is empty, removing"
+				rmdir "${paren_slink}" # ignore failure, best effort
 			fi
-			rmdir "${paren_slink}" # ignore failure, best effort
 		fi
 	done
 else
