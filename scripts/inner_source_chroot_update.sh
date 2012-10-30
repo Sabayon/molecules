@@ -37,7 +37,7 @@ equo upgrade || exit 1
 echo "-5" | equo conf update
 
 # check if a kernel update is needed
-kernel_target_pkg="sys-kernel/linux-sabayon"
+kernel_target_pkg="$(equo match -q --installed virtual/linux-binary)"
 current_kernel=$(equo match --installed "${kernel_target_pkg}" -qv)
 available_kernel=$(equo match "${kernel_target_pkg}" -qv)
 if [ "${current_kernel}" != "${available_kernel}" ] && \
