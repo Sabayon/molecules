@@ -28,7 +28,6 @@ basic_environment_setup() {
 
 	if [ -f /etc/init.d/zfs ] && [ "$(uname -m)" = "x86_64" ]; then
 		rc-update add zfs boot
-		rc-update add zfs-shutdown shutdown
 	fi
 
 	# Always startup this
