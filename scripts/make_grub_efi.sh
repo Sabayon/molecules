@@ -5,6 +5,10 @@
 
 # This scripts generates an EFI-enabled boot structure
 
+# Path to molecules.git dir
+SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
+export SABAYON_MOLECULE_HOME
+
 MOUNT_DIRS=()
 EFI_BOOT_DIR="${CDROOT_DIR}/efi/boot"
 GRUB_BOOT_DIR_PREFIX="/boot/grub"
@@ -54,9 +58,40 @@ if [ -d "${i386_EFI_DIR}" ]; then
 	cp -Rp "${i386_EFI_DIR}" "${GRUB_BOOT_DIR}/" || exit 1
 fi
 
+# now setup SecureBoot for x86_64 using shim:
+# See: http://mjg59.dreamwidth.org/20303.html
+efi_x86_64_file="${EFI_BOOT_DIR}"/bootx86.efi
+if [ -f "${efi_x86_64_file}" ]; then
+	shim_dir="${SABAYON_MOLECULE_HOME}"/boot/shim-uefi-secure-boot
+	grub_efi_file="${EFI_BOOT_DIR}"/grubx64.efi
+	# This is on the ISO build server, not on the repos
+	sbsign_private_key="${shim_dir}"/private.key
+	# actually, UEFI SecureBoot needs the cert in DER
+	# format (sabayon.cer), while sbsign requires a
+	# plain old text-based x509 certificate (sabayon.crt)
+	sabayon_der="${shim_dir}"/sabayon.cer
+	sabayon_cert="${shim_dir}"/sabayon.crt
+
+	mv "${efi_x86_64_file}" "${grub_efi_file}" || exit 1
+	cp "${shim_dir}"/shim.efi "${efi_x86_64_file}" || exit 1
+	cp "${shim_dir}"/MokManager.efi "${EFI_BOOT_DIR}"/ || exit 1
+
+	# Copy the Sabayon SecureBoot certificate to a nice dir
+	mkdir "${CDROOT_DIR}"/SecureBoot || exit 1
+	cp "${sabayon_der}" "${CDROOT_DIR}"/SecureBoot/ || exit 1
+	cp "${sabayon_cert}" "${CDROOT_DIR}"/SecureBoot/ || exit 1
+
+	# Sign
+	sbsign --key "${sbsign_private_key}" --cert "${sabayon_cert}" \
+		--output "${grub_efi_file}.signed" \
+		"${grub_efi_file}" || exit 1
+	mv "${grub_efi_file}.signed" "${grub_efi_file}" || exit 1
+fi
+
 # now the tricky part, create an eltorito alternative image
 _efi_img="${GRUB_BOOT_DIR}"/efi.img
-dd bs=512 count=2880 if=/dev/zero of="${_efi_img}" || exit 1
+# 3 floppies = 2880 x 3, we need more space for SecureBoot stuff
+dd bs=512 count=$((2880 * 3)) if=/dev/zero of="${_efi_img}" || exit 1
 mkfs.msdos "${_efi_img}" || exit 1
 
 tmp_dir=$(mktemp -d --suffix="make_grub_efi")
@@ -68,6 +103,7 @@ mkdir -p "${tmp_dir}/efi/boot" || exit 1
 _efi_boot="${EFI_BOOT_DIR}"/bootx64.efi
 cp "${_efi_boot}" "${tmp_dir}/efi/boot"/ || exit 1
 umount "${tmp_dir}" || exit 1
+rmdir "${tmp_dir}" # best effort
 
 # These must exist.
 cp "${CHROOT_DIR}/usr/share/grub/unicode.pf2" "${GRUB_BOOT_DIR}"/ || exit 1
