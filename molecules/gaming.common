@@ -37,7 +37,7 @@ extra_mksquashfs_parameters: -comp xz -Xbcj x86
 # Please use cdrkit to make this molecule working !!! Or drop some games and remove the switch.
 # The aim is supporting >4GB files without enabling ISO LEVEL 2/3 (that would make the ISO
 # unbootable with syslinux -- no fragmented files support, for good).
-extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -allow-limited-size
+extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorito-alt-boot -eltorito-boot boot/grub/efi.img -allow-limited-size
 
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
 %env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_pre_iso_script.sh "Gaming Edition"

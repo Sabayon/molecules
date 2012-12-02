@@ -4,10 +4,8 @@
 SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
 export SABAYON_MOLECULE_HOME
 
-GFORENSIC_DIR="${SABAYON_MOLECULE_HOME}/remaster/gforensic"
-cp "${GFORENSIC_DIR}"/isolinux/isolinux.cfg "${CDROOT_DIR}/isolinux/txt.cfg"
-cp "${GFORENSIC_DIR}"/isolinux/back.jpg "${CDROOT_DIR}/isolinux/back.jpg"
-cp "${GFORENSIC_DIR}"/isolinux/isolinux.txt "${CDROOT_DIR}/isolinux/isolinux.txt"
+# Call parent script, generates ISOLINUX and other stuff
+"${SABAYON_MOLECULE_HOME}"/scripts/generic_pre_iso_script.sh "Forensic"
 
-# Generate livecd.squashfs.md5
-"${SABAYON_MOLECULE_HOME}"/scripts/pre_iso_script_livecd_hash.sh
+GFORENSIC_DIR="${SABAYON_MOLECULE_HOME}/remaster/gforensic"
+cp "${GFORENSIC_DIR}"/isolinux/back.jpg "${CDROOT_DIR}/isolinux/back.jpg"

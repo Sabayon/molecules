@@ -10,6 +10,12 @@ cdroot_dir = os.getenv('CDROOT_DIR')
 boot_dir = os.path.join(chroot_dir, "boot")
 cdroot_boot_dir = os.path.join(cdroot_dir, "boot")
 
+# generate EFI GRUB
+make_grub_efi = os.path.join(sabayon_molecule_home, "scripts/make_grub_efi.sh")
+exit_st = subprocess.call([make_grub_efi])
+if exit_st != 0:
+    raise SystemExit(exit_st)
+
 boot_kernel = [x for x in os.listdir(boot_dir) if x.startswith("kernel-")]
 if boot_kernel:
     boot_kernel = os.path.join(boot_dir, sorted(boot_kernel)[0])
@@ -46,9 +52,19 @@ def replace_version(path):
 
 # Change txt.cfg and isolinux.txt to match version
 isolinux_cfg = os.path.join(cdroot_dir, "isolinux/txt.cfg")
+grub_cfg = os.path.join(cdroot_dir, "boot/grub/grub.cfg")
 isolinux_txt = os.path.join(cdroot_dir, "isolinux/isolinux.txt")
 replace_version(isolinux_cfg)
+replace_version(grub_cfg)
 replace_version(isolinux_txt)
+
+# Generate Language and Keyboard menus for GRUB-2
+make_grub_langs = os.path.join(
+    sabayon_molecule_home,
+    "scripts/make_grub_langs.sh")
+exit_st = subprocess.call([make_grub_langs, grub_cfg])
+if exit_st != 0:
+    raise SystemExit(exit_st)
 
 # Copy pkglist over, if exists
 sabayon_pkgs_file = os.path.join(chroot_dir, "etc/sabayon-pkglist")

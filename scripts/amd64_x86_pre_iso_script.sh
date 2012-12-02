@@ -14,6 +14,9 @@ other_iso_path="${4}"
 SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
 export SABAYON_MOLECULE_HOME
 
+# generate EFI GRUB
+"${SABAYON_MOLECULE_HOME}"/scripts/make_grub_efi.sh
+
 pre_iso_signal_handler() {
 	if [ -d "${tmp_dir}" ] && [ -n "${tmp_dir}" ]; then
 		umount -f "${tmp_dir}"
@@ -29,15 +32,24 @@ if [ ! -f "${other_iso_path}" ]; then
 fi
 
 isolinux_destination="${CDROOT_DIR}/isolinux/txt.cfg"
+grub_destination="${CDROOT_DIR}/boot/grub/grub.cfg"
 isolinux_source="${SABAYON_MOLECULE_HOME}/remaster/minimal_amd64_x86_isolinux.cfg"
+grub_source="${SABAYON_MOLECULE_HOME}/remaster/minimal_amd64_x86_grub.cfg"
 cp "${isolinux_source}" "${isolinux_destination}" || exit 1
+cp "${grub_source}" "${grub_destination}" || exit 1
+
+# Generate Language and Keyboard menus for GRUB-2
+"${SABAYON_MOLECULE_HOME}"/scripts/make_grub_langs.sh "${grub_destination}" \
+	|| exit 1
 
 ver=${RELEASE_VERSION}
 [[ -z "${ver}" ]] && ver=${CUR_DATE}
 [[ -z "${ver}" ]] && ver="6"
 
-sed -i "s/__VERSION__/${ver}/g" "${isolinux_destination}"
-sed -i "s/__FLAVOUR__/${remaster_type}/g" "${isolinux_destination}"
+sed -i "s/__VERSION__/${ver}/g" "${isolinux_destination}" || exit 1
+sed -i "s/__FLAVOUR__/${remaster_type}/g" "${isolinux_destination}" || exit 1
+sed -i "s/__VERSION__/${ver}/g" "${grub_destination}" || exit 1
+sed -i "s/__FLAVOUR__/${remaster_type}/g" "${grub_destination}" || exit 1
 
 kms_string=""
 # should KMS be enabled?
@@ -48,7 +60,8 @@ else
 	# enable vesafb-tng then
 	kms_string="video=vesafb:ywrap,mtrr:3"
 fi
-sed -i "s/__KMS__/${kms_string}/g" "${isolinux_destination}"
+sed -i "s/__KMS__/${kms_string}/g" "${isolinux_destination}" || exit 1
+sed -i "s/__KMS__/${kms_string}/g" "${grub_destination}" || exit 1
 
 # setup squashfs loop files
 mv "${CDROOT_DIR}/livecd.squashfs" "${CDROOT_DIR}/livecd${current_arch}.squashfs" || exit 1
