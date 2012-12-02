@@ -28,7 +28,7 @@ cp "${kernel}" "${cdroot_boot_dir}"/sabayon || exit 1
 cp "${initramfs}" "${cdroot_boot_dir}"/sabayon.igz || exit 1
 
 # generate EFI GRUB
-"${SABAYON_MOLECULE_HOME}"/scripts/make_grub_efi.sh
+"${SABAYON_MOLECULE_HOME}"/scripts/make_grub_efi.sh || exit 1
 
 # Write build info
 build_date=$(date)

@@ -61,9 +61,9 @@ fi
 # now setup SecureBoot for x86_64 using shim:
 # See: http://mjg59.dreamwidth.org/20303.html
 efi_x86_64_file="${EFI_BOOT_DIR}"/bootx64.efi
+grub_efi_file="${EFI_BOOT_DIR}"/grubx64.efi
 if [ -f "${efi_x86_64_file}" ]; then
 	shim_dir="${SABAYON_MOLECULE_HOME}"/boot/shim-uefi-secure-boot
-	grub_efi_file="${EFI_BOOT_DIR}"/grubx64.efi
 	# This is on the ISO build server, not on the repos
 	sbsign_private_key="${shim_dir}"/private.key
 	# actually, UEFI SecureBoot needs the cert in DER
@@ -99,8 +99,9 @@ MOUNT_DIRS+=( "${tmp_dir}" )
 mount -o loop "${_efi_img}" "${tmp_dir}" || exit 1
 mkdir -p "${tmp_dir}/efi/boot" || exit 1
 
-_efi_boot="${EFI_BOOT_DIR}"/bootx64.efi
-cp "${_efi_boot}" "${tmp_dir}/efi/boot"/ || exit 1
+if [ -f "${efi_x86_64_file}" ]; then
+	cp -Rp "${EFI_BOOT_DIR}"/* "${tmp_dir}/efi/boot"/ || exit 1
+fi
 umount "${tmp_dir}" || exit 1
 rmdir "${tmp_dir}" # best effort
 

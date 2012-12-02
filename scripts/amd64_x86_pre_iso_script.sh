@@ -15,7 +15,7 @@ SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
 export SABAYON_MOLECULE_HOME
 
 # generate EFI GRUB
-"${SABAYON_MOLECULE_HOME}"/scripts/make_grub_efi.sh
+"${SABAYON_MOLECULE_HOME}"/scripts/make_grub_efi.sh || exit 1
 
 pre_iso_signal_handler() {
 	if [ -d "${tmp_dir}" ] && [ -n "${tmp_dir}" ]; then
