@@ -60,7 +60,7 @@ fi
 
 # now setup SecureBoot for x86_64 using shim:
 # See: http://mjg59.dreamwidth.org/20303.html
-efi_x86_64_file="${EFI_BOOT_DIR}"/bootx86.efi
+efi_x86_64_file="${EFI_BOOT_DIR}"/bootx64.efi
 if [ -f "${efi_x86_64_file}" ]; then
 	shim_dir="${SABAYON_MOLECULE_HOME}"/boot/shim-uefi-secure-boot
 	grub_efi_file="${EFI_BOOT_DIR}"/grubx64.efi
@@ -79,7 +79,6 @@ if [ -f "${efi_x86_64_file}" ]; then
 	# Copy the Sabayon SecureBoot certificate to a nice dir
 	mkdir "${CDROOT_DIR}"/SecureBoot || exit 1
 	cp "${sabayon_der}" "${CDROOT_DIR}"/SecureBoot/ || exit 1
-	cp "${sabayon_cert}" "${CDROOT_DIR}"/SecureBoot/ || exit 1
 
 	# Sign
 	sbsign --key "${sbsign_private_key}" --cert "${sabayon_cert}" \
