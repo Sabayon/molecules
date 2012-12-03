@@ -59,6 +59,7 @@ if [ -d "${x86_64_EFI_DIR}" ]; then
 		-O x86_64-efi ext2 fat lvm part_msdos \
 			part_gpt search_fs_uuid normal \
 			chain iso9660 configfile loadenv \
+			reboot cat \
 		|| exit 1
 	mv "${CHROOT_DIR}"/bootx64.efi "${EFI_BOOT_DIR}/" || exit 1
 	cp -Rp "${x86_64_EFI_DIR}" "${GRUB_BOOT_DIR}/" || exit 1
@@ -72,6 +73,7 @@ if [ -d "${i386_EFI_DIR}" ]; then
 		-O i386-efi ext2 fat lvm part_msdos \
 			part_gpt search_fs_uuid normal \
 			chain iso9660 configfile loadenv \
+			reboot cat \
 		|| exit 1
 	mv "${CHROOT_DIR}"/boota32.efi "${EFI_BOOT_DIR}/" || exit 1
 	cp -Rp "${i386_EFI_DIR}" "${GRUB_BOOT_DIR}/" || exit 1
