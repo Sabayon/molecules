@@ -11,7 +11,22 @@ export SABAYON_MOLECULE_HOME
 
 MOUNT_DIRS=()
 EFI_BOOT_DIR="${CDROOT_DIR}/efi/boot"
-GRUB_BOOT_DIR_PREFIX="/boot/grub"
+# This is not /boot/grub for a very good reason:
+# Our Live media uses /boot/sabayon instead of /boot/grub
+# and this has also the side effect that we can put
+# /boot/sabayon into the EFI Boot Partition avoiding
+# name clashing. Our /boot/sabayon inside that partition
+# will contain a simple grub.cfg doing two things:
+#
+# 1. set the correct prefix to the real grub boot partition
+#    (via set prefix=(hdX,X)/boot/grub
+# 2. load the real grub.cfg file (via configfile (hdX,X)/...)
+#
+# In this way, we can ship a SecureBoot signed grubx64.efi
+# file and have it working with all the partition layouts.
+# The "bootstrap" grub.cfg file is created by our scripts
+# that are sourced by grub-mkconfig.
+GRUB_BOOT_DIR_PREFIX="/boot/sabayon"
 GRUB_LOCALE_DIR_PREFIX="${GRUB_BOOT_DIR_PREFIX}/locale"
 GRUB_BOOT_DIR="${CDROOT_DIR}${GRUB_BOOT_DIR_PREFIX}"
 GRUB_LOCALE_DIR="${CDROOT_DIR}${GRUB_LOCALE_DIR_PREFIX}"
@@ -41,7 +56,9 @@ if [ -d "${x86_64_EFI_DIR}" ]; then
 		-p "${GRUB_BOOT_DIR_PREFIX}" \
 		-d "${x86_64_EFI_DIR_PREFIX}" \
 		-o /bootx64.efi \
-		-O x86_64-efi ext2 fat lvm part_msdos part_gpt search_fs_uuid normal chain iso9660 \
+		-O x86_64-efi ext2 fat lvm part_msdos \
+			part_gpt search_fs_uuid normal \
+			chain iso9660 configfile loadenv \
 		|| exit 1
 	mv "${CHROOT_DIR}"/bootx64.efi "${EFI_BOOT_DIR}/" || exit 1
 	cp -Rp "${x86_64_EFI_DIR}" "${GRUB_BOOT_DIR}/" || exit 1
@@ -52,7 +69,9 @@ if [ -d "${i386_EFI_DIR}" ]; then
 		-p "${GRUB_BOOT_DIR_PREFIX}" \
 		-d "${i386_EFI_DIR_PREFIX}" \
 		-o /boota32.efi \
-		-O i386-efi ext2 fat lvm part_msdos part_gpt search_fs_uuid normal chain iso9660 \
+		-O i386-efi ext2 fat lvm part_msdos \
+			part_gpt search_fs_uuid normal \
+			chain iso9660 configfile loadenv \
 		|| exit 1
 	mv "${CHROOT_DIR}"/boota32.efi "${EFI_BOOT_DIR}/" || exit 1
 	cp -Rp "${i386_EFI_DIR}" "${GRUB_BOOT_DIR}/" || exit 1

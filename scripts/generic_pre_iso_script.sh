@@ -14,7 +14,7 @@ remaster_type="${1}"
 isolinux_source="${SABAYON_MOLECULE_HOME}/remaster/minimal_isolinux.cfg"
 grub_source="${SABAYON_MOLECULE_HOME}/remaster/minimal_grub.cfg"
 isolinux_destination="${CDROOT_DIR}/isolinux/txt.cfg"
-grub_destination="${CDROOT_DIR}/boot/grub/grub.cfg"
+grub_destination="${CDROOT_DIR}/boot/sabayon/grub.cfg"
 
 if [ "${remaster_type}" = "KDE" ] || [ "${remaster_type}" = "GNOME" ]; then
 	isolinux_source="${SABAYON_MOLECULE_HOME}/remaster/standard_isolinux.cfg"
