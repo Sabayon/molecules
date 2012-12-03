@@ -1,5 +1,8 @@
 #!/bin/bash
 
+/usr/sbin/env-update
+. /etc/profile
+
 # Path to molecules.git dir
 SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
 export SABAYON_MOLECULE_HOME
