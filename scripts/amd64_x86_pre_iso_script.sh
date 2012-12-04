@@ -32,7 +32,7 @@ if [ ! -f "${other_iso_path}" ]; then
 fi
 
 isolinux_destination="${CDROOT_DIR}/isolinux/txt.cfg"
-grub_destination="${CDROOT_DIR}/boot/sabayon/grub.cfg"
+grub_destination="${CDROOT_DIR}/boot/grub/grub.cfg"
 isolinux_source="${SABAYON_MOLECULE_HOME}/remaster/minimal_amd64_x86_isolinux.cfg"
 grub_source="${SABAYON_MOLECULE_HOME}/remaster/minimal_amd64_x86_grub.cfg"
 cp "${isolinux_source}" "${isolinux_destination}" || exit 1

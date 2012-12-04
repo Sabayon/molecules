@@ -84,7 +84,7 @@ for keymap, lang, name in langs:
       set bootlang=%(lang)s
       export bootlang
       export lang
-      configfile /boot/sabayon/grub.cfg
+      configfile /boot/grub/grub.cfg
    }
 """ % {'name': name, 'lang': lang,})
 
@@ -102,7 +102,7 @@ for keymap, lang, name in langs:
       echo "Switching to: $chosen"
       set bootkeymap=%(keymap)s
       export bootkeymap
-      configfile /boot/sabayon/grub.cfg
+      configfile /boot/grub/grub.cfg
    }
 """ % {'name': name, 'keymap': keymap,})
 

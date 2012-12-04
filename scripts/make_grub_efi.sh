@@ -11,22 +11,7 @@ export SABAYON_MOLECULE_HOME
 
 MOUNT_DIRS=()
 EFI_BOOT_DIR="${CDROOT_DIR}/efi/boot"
-# This is not /boot/grub for a very good reason:
-# Our Live media uses /boot/sabayon instead of /boot/grub
-# and this has also the side effect that we can put
-# /boot/sabayon into the EFI Boot Partition avoiding
-# name clashing. Our /boot/sabayon inside that partition
-# will contain a simple grub.cfg doing two things:
-#
-# 1. set the correct prefix to the real grub boot partition
-#    (via set prefix=(hdX,X)/boot/grub
-# 2. load the real grub.cfg file (via configfile (hdX,X)/...)
-#
-# In this way, we can ship a SecureBoot signed grubx64.efi
-# file and have it working with all the partition layouts.
-# The "bootstrap" grub.cfg file is created by our scripts
-# that are sourced by grub-mkconfig.
-GRUB_BOOT_DIR_PREFIX="/boot/sabayon"
+GRUB_BOOT_DIR_PREFIX="/boot/grub"
 GRUB_LOCALE_DIR_PREFIX="${GRUB_BOOT_DIR_PREFIX}/locale"
 GRUB_BOOT_DIR="${CDROOT_DIR}${GRUB_BOOT_DIR_PREFIX}"
 GRUB_LOCALE_DIR="${CDROOT_DIR}${GRUB_LOCALE_DIR_PREFIX}"

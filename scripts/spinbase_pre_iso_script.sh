@@ -45,7 +45,7 @@ ver=${RELEASE_VERSION}
 
 isolinux_dest="${CDROOT_DIR}/isolinux/txt.cfg"
 isolinux_dest_txt="${CDROOT_DIR}/isolinux/isolinux.txt"
-grub_dest="${CDROOT_DIR}/boot/sabayon/grub.cfg"
+grub_dest="${CDROOT_DIR}/boot/grub/grub.cfg"
 
 for path in "${isolinux_dest}" "${isolinux_dest_txt}" "${grub_dest}"; do
 	sed -i "s/__VERSION__/${ver}/g" "${path}" || exit 1
