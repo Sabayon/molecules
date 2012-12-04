@@ -8,7 +8,7 @@ SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
 export SABAYON_MOLECULE_HOME
 
 boot_dir="${CHROOT_DIR}/boot"
-cdroot_boot_dir="${CDROOT_DIR}/kernel"
+cdroot_boot_dir="${CDROOT_DIR}/boot"
 
 kernels=( "${boot_dir}"/kernel-* )
 # get the first one and see if it exists
@@ -25,8 +25,6 @@ if [ ! -f "${initramfs}" ]; then
 	echo "No initramfs in ${boot_dir}" >&2
 	exit 1
 fi
-
-mkdir -p "${cdroot_boot_dir}" || exit 1
 
 # copy kernel and initramfs
 cp "${kernel}" "${cdroot_boot_dir}"/sabayon || exit 1
