@@ -119,6 +119,7 @@ paths_to_empty:
     /var/cache/genkernel
 
 packages_to_add:
+	app-crypt/shim-signed,
 	sys-apps/smartmontools,
 	sys-boot/grub
 
