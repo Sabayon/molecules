@@ -258,7 +258,6 @@ packages_to_add:
 	kde-base/systemsettings,
 	kde-base/thumbnailers,
 	kde-misc/kcm-gtk-config,
-	kde-misc/kcm-grub2,
 	kde-misc/kcm_touchpad,
 	kde-misc/kcm-ufw,
 	kde-misc/kio-sysinfo,
