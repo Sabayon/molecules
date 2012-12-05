@@ -83,7 +83,7 @@ if [ -f "${efi_x86_64_file}" ]; then
 	cp "${shim_dir}"/MokManager.efi "${EFI_BOOT_DIR}"/ || exit 1
 
 	# Copy the Sabayon SecureBoot certificate to a nice dir
-	mkdir "${CDROOT_DIR}"/SecureBoot || exit 1
+	mkdir -p "${CDROOT_DIR}"/SecureBoot || exit 1
 	cp "${sabayon_der}" "${CDROOT_DIR}"/SecureBoot/ || exit 1
 
 	# Sign
