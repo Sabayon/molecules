@@ -56,6 +56,7 @@ packages_to_add:
 	@fluxbox,
 	@wireless,
 	app-admin/gnome-system-tools,
+	app-admin/openrc-settingsd,
 	app-admin/packagekit-base,
 	app-admin/packagekit-gtk,
 	app-admin/rigo,
