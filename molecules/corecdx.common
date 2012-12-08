@@ -52,6 +52,7 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorit
 packages_to_add:
 	@X,
 	@fluxbox,
+	@wireless,
         app-emulation/virtualbox-guest-additions,
 	app-misc/sabayon-skel,
 	app-misc/anaconda-runtime-gui,
