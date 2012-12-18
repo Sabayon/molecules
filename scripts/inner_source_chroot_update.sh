@@ -38,12 +38,8 @@ echo "-5" | equo conf update
 
 # check if a kernel update is needed
 kernel_target_pkg="$(equo match -q --installed virtual/linux-binary)"
-current_kernel=$(equo match --installed "${kernel_target_pkg}" -qv)
-available_kernel=$(equo match "${kernel_target_pkg}" -qv)
-# drop revision (-r**)
-# hack while waiting for --showslot
-current_kernel="${current_kernel%-r*}"
-available_kernel="${available_kernel%-r*}"
+current_kernel=$(equo match --installed "${kernel_target_pkg}" -q --showslot)
+available_kernel=$(equo match "${kernel_target_pkg}" -q --showslot)
 if [ "${current_kernel}" != "${available_kernel}" ] && \
 	[ -n "${available_kernel}" ] && [ -n "${current_kernel}" ]; then
 	echo
