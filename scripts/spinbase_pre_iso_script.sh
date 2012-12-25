@@ -30,9 +30,6 @@ fi
 cp "${kernel}" "${cdroot_boot_dir}"/sabayon || exit 1
 cp "${initramfs}" "${cdroot_boot_dir}"/sabayon.igz || exit 1
 
-# generate EFI GRUB
-"${SABAYON_MOLECULE_HOME}"/scripts/make_grub_efi.sh || exit 1
-
 # Write build info
 build_date=$(date)
 build_file="${CDROOT_DIR}"/BUILD_INFO
@@ -55,6 +52,9 @@ done
 # Generate Language and Keyboard menus for GRUB-2
 "${SABAYON_MOLECULE_HOME}"/scripts/make_grub_langs.sh "${grub_dest}" \
 	|| exit 1
+
+# generate EFI GRUB
+"${SABAYON_MOLECULE_HOME}"/scripts/make_grub_efi.sh || exit 1
 
 sabayon_pkgs_file="${CHROOT_DIR}/etc/sabayon-pkglist"
 if [ -f "${sabayon_pkgs_file}" ]; then

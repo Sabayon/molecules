@@ -14,9 +14,6 @@ other_iso_path="${4}"
 SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
 export SABAYON_MOLECULE_HOME
 
-# generate EFI GRUB
-"${SABAYON_MOLECULE_HOME}"/scripts/make_grub_efi.sh || exit 1
-
 pre_iso_signal_handler() {
 	if [ -d "${tmp_dir}" ] && [ -n "${tmp_dir}" ]; then
 		umount -f "${tmp_dir}"
@@ -41,6 +38,9 @@ cp "${grub_source}" "${grub_destination}" || exit 1
 # Generate Language and Keyboard menus for GRUB-2
 "${SABAYON_MOLECULE_HOME}"/scripts/make_grub_langs.sh "${grub_destination}" \
 	|| exit 1
+
+# generate EFI GRUB
+"${SABAYON_MOLECULE_HOME}"/scripts/make_grub_efi.sh || exit 1
 
 ver=${RELEASE_VERSION}
 [[ -z "${ver}" ]] && ver=${CUR_DATE}
