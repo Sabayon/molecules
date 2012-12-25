@@ -141,12 +141,7 @@ cp "${SABAYON_MOLECULE_HOME}/boot/core/grub/grub-uefi-isohybrid.cfg" \
 sed -i "s:%id_file%:${id_file}:g" "${tmp_grub_dir}/grub.cfg" || exit 1
 
 # copy modules, actually, we would just need search
-# Note: just copy search over
-for efi_dir in "${GRUB_BOOT_DIR}/"*-efi; do
-	efi_name=$(basename "${efi_dir}")
-	mkdir -p "${tmp_grub_dir}/${efi_name}" || exit 1
-	cp -Rp "${efi_dir}"/search* "${tmp_grub_dir}/${efi_name}/" || exit 1
-done
+cp "${GRUB_BOOT_DIR}/"*-efi "${tmp_grub_dir}/" || exit 1
 
 umount "${tmp_dir}" || exit 1
 rmdir "${tmp_dir}" # best effort
