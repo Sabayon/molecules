@@ -128,11 +128,25 @@ cp -Rp "${EFI_BOOT_DIR}"/* "${tmp_dir}/efi/boot/" || exit 1
 # stuff inside the EFI boot image
 tmp_grub_dir="${tmp_dir}/boot/grub"
 mkdir -p "${tmp_grub_dir}" || exit 1
-cp "${GRUB_BOOT_DIR}/grub.cfg" "${tmp_grub_dir}/" || exit 1
-cp "${GRUB_BOOT_DIR}/unicode.pf2" "${tmp_grub_dir}/" || exit 1
-cp "${GRUB_BOOT_DIR}/default-splash.png" "${tmp_grub_dir}/" || exit 1
-cp -Rp "${GRUB_BOOT_DIR}/locale" "${tmp_grub_dir}/" || exit 1
-cp -Rp "${GRUB_BOOT_DIR}/"*-efi "${tmp_grub_dir}/" || exit 1
+
+# This file is used by grub to determine where's the cdroot
+ts=$(date +%Y%m%d%H%M%S)
+img_id="${ts}${RANDOM}"
+id_file="id.${img_id}.uefi"
+touch "${CDROOT_DIR}/${id_file}" || exit 1
+
+# copy the chainload grub.cfg version
+cp "${SABAYON_MOLECULE_HOME}/boot/core/grub/grub-uefi-isohybrid.cfg" \
+	"${tmp_grub_dir}/grub.cfg" || exit 1
+sed -i "s:%id_file%:${id_file}:g" "${tmp_grub_dir}/grub.cfg" || exit 1
+
+# copy modules, actually, we would just need search
+# Note: just copy search over
+for efi_dir in "${GRUB_BOOT_DIR}/"*-efi; do
+	efi_name=$(basename "${efi_dir}")
+	mkdir -p "${tmp_grub_dir}/${efi_name}" || exit 1
+	cp -Rp "${efi_dir}"/search* "${tmp_grub_dir}/${efi_name}/" || exit 1
+done
 
 umount "${tmp_dir}" || exit 1
 rmdir "${tmp_dir}" # best effort
