@@ -326,9 +326,21 @@ build_sabayon() {
 mail_failure() {
 	local out=${1}
 	local log_file=${2}
+	local log_cont=
+
+	# get the last 64 lines of the file
+	if [ -f "${log_file}" ]; then
+		log_cont=$(tail -n 64 "${log_file}" 2> /dev/null)
+	fi
+
 	echo "Hello there,
 iso_build.sh execution failed (miserably) with exit status: ${out}.
-Log file is at ${log_file}.
+Log file is at: ${log_file}
+
+Last log lines:
+[... snip ...]
+${log_cont}
+[... snip ...]
 
 Thanks,
 Sun" | /bin/mail -s "ISO build script failure" root
