@@ -95,9 +95,7 @@ for conf in 00-sabayon.package.use; do
 		if [ -f "${target_dir}" ]; then # remove old file
 			rm "${target_dir}" # ignore failure
 		fi
-		if [ ! -d "${target_path}" ]; then
-			mkdir -p "${target_path}" # ignore failure
-		fi
+		mkdir -p "${target_dir}" # ignore failure
 		cp "${repo_conf}" "${target_path}" # ignore
 
 	fi
