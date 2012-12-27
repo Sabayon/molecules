@@ -82,8 +82,11 @@ cp "${CHROOT_DIR}/usr/share/grub/default-splash.png" "${GRUB_BOOT_DIR}"/ \
 # now setup SecureBoot for x86_64 using shim:
 # See: http://mjg59.dreamwidth.org/20303.html
 efi_x86_64_file="${EFI_BOOT_DIR}"/bootx64.efi
+efi_i386_file="${EFI_BOOT_DIR}"/boota32.efi
 grub_efi_file="${EFI_BOOT_DIR}"/grubx64.efi
-if [ -f "${efi_x86_64_file}" ]; then
+efi_img="${GRUB_BOOT_DIR}"/efi.img
+if [ -f "${efi_x86_64_file}" ] || [ -f "${efi_i386_file}" ]; then
+
 	shim_dir="${SABAYON_MOLECULE_HOME}"/boot/shim-uefi-secure-boot
 	# This is on the ISO build server, not on the repos
 	sbsign_private_key="${shim_dir}"/private.key
@@ -93,34 +96,35 @@ if [ -f "${efi_x86_64_file}" ]; then
 	sabayon_der="${shim_dir}"/sabayon.cer
 	sabayon_cert="${shim_dir}"/sabayon.crt
 
-	mv "${efi_x86_64_file}" "${grub_efi_file}" || exit 1
-	cp "${shim_dir}"/shim.efi "${efi_x86_64_file}" || exit 1
-	cp "${shim_dir}"/MokManager.efi "${EFI_BOOT_DIR}"/ || exit 1
+	if [ -f "${efi_x86_64_file}" ]; then
+		mv "${efi_x86_64_file}" "${grub_efi_file}" || exit 1
+		cp "${shim_dir}"/shim.efi "${efi_x86_64_file}" || exit 1
+		cp "${shim_dir}"/MokManager.efi "${EFI_BOOT_DIR}"/ || exit 1
 
-	# Copy the Sabayon SecureBoot certificate to a nice dir
-	mkdir -p "${CDROOT_DIR}"/SecureBoot || exit 1
-	cp "${sabayon_der}" "${CDROOT_DIR}"/SecureBoot/ || exit 1
+		# Copy the Sabayon SecureBoot certificate to a nice dir
+		mkdir -p "${CDROOT_DIR}"/SecureBoot || exit 1
+		cp "${sabayon_der}" "${CDROOT_DIR}"/SecureBoot/ || exit 1
 
-	# Sign
-	sbsign --key "${sbsign_private_key}" --cert "${sabayon_cert}" \
-		--output "${grub_efi_file}.signed" \
-		"${grub_efi_file}" || exit 1
-	mv "${grub_efi_file}.signed" "${grub_efi_file}" || exit 1
+		# Sign
+		sbsign --key "${sbsign_private_key}" --cert "${sabayon_cert}" \
+			--output "${grub_efi_file}.signed" \
+			"${grub_efi_file}" || exit 1
+		mv "${grub_efi_file}.signed" "${grub_efi_file}" || exit 1
+	fi
 
 	# -- end of SecureBoot --
-	# UEFI is currently only supported in x86_64, anyways
+	# UEFI is currently only supported in x86_64
 
 	# now the tricky part, create an eltorito alternative image
-	_efi_img="${GRUB_BOOT_DIR}"/efi.img
 	# 12 floppies = 2880 x 12, we need more space for SecureBoot and GRUB2
 	# stuff to make isohybrid work as expected.
-	dd bs=512 count=$((2880 * 12)) if=/dev/zero of="${_efi_img}" || exit 1
-	mkfs.msdos "${_efi_img}" || exit 1
+	dd bs=512 count=$((2880 * 12)) if=/dev/zero of="${efi_img}" || exit 1
+	mkfs.msdos "${efi_img}" || exit 1
 
 	tmp_dir=$(mktemp -d --suffix="make_grub_efi")
 	[[ -z "${tmp_dir}" ]] && exit 1
 	MOUNT_DIRS+=( "${tmp_dir}" )
-	mount -o loop "${_efi_img}" "${tmp_dir}" || exit 1
+	mount -o loop "${efi_img}" "${tmp_dir}" || exit 1
 	mkdir -p "${tmp_dir}/efi/boot" || exit 1
 
 	# copy our .efi executables in place
@@ -148,4 +152,9 @@ if [ -f "${efi_x86_64_file}" ]; then
 	umount "${tmp_dir}" || exit 1
 	rmdir "${tmp_dir}" # best effort
 	exit 0
+else
+	# images not supporting UEFI must get a fake file as efi.img
+	# because our mkisofs parameters are static.
+	dd bs=512 count=$((2880 * 1)) if=/dev/zero of="${efi_img}" || exit 1
+	mkfs.msdos "${efi_img}" || exit 1
 fi
