@@ -85,16 +85,16 @@ efi_x86_64_file="${EFI_BOOT_DIR}"/bootx64.efi
 efi_i386_file="${EFI_BOOT_DIR}"/boota32.efi
 grub_efi_file="${EFI_BOOT_DIR}"/grubx64.efi
 efi_img="${GRUB_BOOT_DIR}"/efi.img
-if [ -f "${efi_x86_64_file}" ] || [ -f "${efi_i386_file}" ]; then
+shim_dir="${SABAYON_MOLECULE_HOME}"/boot/shim-uefi-secure-boot
+# This is on the ISO build server, not on the repos
+sbsign_private_key="${shim_dir}"/private.key
+# actually, UEFI SecureBoot needs the cert in DER
+# format (sabayon.cer), while sbsign requires a
+# plain old text-based x509 certificate (sabayon.crt)
+sabayon_der="${shim_dir}"/sabayon.cer
+sabayon_cert="${shim_dir}"/sabayon.crt
 
-	shim_dir="${SABAYON_MOLECULE_HOME}"/boot/shim-uefi-secure-boot
-	# This is on the ISO build server, not on the repos
-	sbsign_private_key="${shim_dir}"/private.key
-	# actually, UEFI SecureBoot needs the cert in DER
-	# format (sabayon.cer), while sbsign requires a
-	# plain old text-based x509 certificate (sabayon.crt)
-	sabayon_der="${shim_dir}"/sabayon.cer
-	sabayon_cert="${shim_dir}"/sabayon.crt
+if [ -f "${efi_x86_64_file}" ] || [ -f "${efi_i386_file}" ]; then
 
 	if [ -f "${efi_x86_64_file}" ]; then
 		mv "${efi_x86_64_file}" "${grub_efi_file}" || exit 1
@@ -148,6 +148,8 @@ if [ -f "${efi_x86_64_file}" ] || [ -f "${efi_i386_file}" ]; then
 
 	# copy modules, actually, we would just need search
 	cp -R "${GRUB_BOOT_DIR}/"*-efi "${tmp_grub_dir}/" || exit 1
+	mkdir -p "${tmp_grub_dir}/SecureBoot" || exit 1
+	cp "${sabayon_der}" "${tmp_grub_dir}/SecureBoot/" || exit 1
 
 	umount "${tmp_dir}" || exit 1
 	rmdir "${tmp_dir}" # best effort
