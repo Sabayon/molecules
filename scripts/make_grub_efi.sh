@@ -147,7 +147,7 @@ if [ -f "${efi_x86_64_file}" ] || [ -f "${efi_i386_file}" ]; then
 	sed -i "s:%id_file%:${id_file}:g" "${tmp_grub_dir}/grub.cfg" || exit 1
 
 	# copy modules, actually, we would just need search
-	cp "${GRUB_BOOT_DIR}/"*-efi "${tmp_grub_dir}/" || exit 1
+	cp -R "${GRUB_BOOT_DIR}/"*-efi "${tmp_grub_dir}/" || exit 1
 
 	umount "${tmp_dir}" || exit 1
 	rmdir "${tmp_dir}" # best effort
