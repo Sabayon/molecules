@@ -9,6 +9,18 @@ if [ -d "/usr/portage/licenses" ]; then
 	export ACCEPT_LICENSE="$(ls /usr/portage/licenses -1 | xargs)"
 fi
 
+PACKAGES_TO_REMOVE=(
+	"app-i18n/man-pages-da"
+	"app-i18n/man-pages-de"
+	"app-i18n/man-pages-fr"
+	"app-i18n/man-pages-it"
+	"app-i18n/man-pages-nl"
+	"app-i18n/man-pages-pl"
+	"app-i18n/man-pages-ro"
+	"app-i18n/man-pages-ru"
+	"app-i18n/man-pages-zh_CN"
+)
+
 safe_run() {
 	local updated=0
 	for ((i=0; i < 42; i++)); do
@@ -34,6 +46,7 @@ safe_run equo update || exit 1
 export ETP_NOINTERACTIVE=1
 safe_run equo upgrade --fetch || exit 1
 equo upgrade || exit 1
+equo remove "${PACKAGES_TO_REMOVE[@]}" || exit 1
 echo "-5" | equo conf update
 
 # check if a kernel update is needed
