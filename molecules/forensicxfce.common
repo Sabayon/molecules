@@ -114,7 +114,6 @@ packages_to_add:
 	sys-apps/gnome-disk-utility,
         sys-block/gparted, 
 	sys-fs/extundelete,
-	sys-fs/zfs,
         www-client/chromium,
         x11-libs/xcb-util-image,
         x11-libs/xcb-util-keysyms,
