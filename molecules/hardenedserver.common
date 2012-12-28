@@ -72,7 +72,7 @@ packages_to_add:
 	x11-themes/gnome-themes-standard,
 	x11-themes/hicolor-icon-theme,
 	x11-themes/equinox-themes,
-	x11-terms/terminal,
+	x11-terms/xfce4-terminal,
 	x11-terms/xterm,
 	sys-kernel/linux-hardened,
 	sys-apps/paxctl,
