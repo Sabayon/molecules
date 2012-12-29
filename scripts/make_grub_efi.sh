@@ -86,6 +86,7 @@ efi_i386_file="${EFI_BOOT_DIR}"/boota32.efi
 grub_efi_file="${EFI_BOOT_DIR}"/grubx64.efi
 efi_img="${GRUB_BOOT_DIR}"/efi.img
 shim_dir="${SABAYON_MOLECULE_HOME}"/boot/shim-uefi-secure-boot
+shim_data_dir="${CHROOT_DIR}/usr/share/shim-signed-0.2"
 # This is on the ISO build server, not on the repos
 sbsign_private_key="${shim_dir}"/private.key
 # actually, UEFI SecureBoot needs the cert in DER
@@ -98,8 +99,8 @@ if [ -f "${efi_x86_64_file}" ] || [ -f "${efi_i386_file}" ]; then
 
 	if [ -f "${efi_x86_64_file}" ]; then
 		mv "${efi_x86_64_file}" "${grub_efi_file}" || exit 1
-		cp "${shim_dir}"/shim.efi "${efi_x86_64_file}" || exit 1
-		cp "${shim_dir}"/MokManager.efi "${EFI_BOOT_DIR}"/ || exit 1
+		cp "${shim_data_dir}"/shim.efi "${efi_x86_64_file}" || exit 1
+		cp "${shim_data_dir}"/MokManager.efi "${EFI_BOOT_DIR}"/ || exit 1
 
 		# Copy the Sabayon SecureBoot certificate to a nice dir
 		mkdir -p "${CDROOT_DIR}"/SecureBoot || exit 1
