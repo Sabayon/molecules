@@ -368,6 +368,7 @@ prepare_gnome() {
 	rc-update add system-tools-backends default
 	setup_displaymanager
 	setup_sabayon_mce
+	setup_cpufrequtils
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 }
 
