@@ -204,6 +204,9 @@ setup_fonts() {
 			echo "ouch, /etc/fonts/conf.avail/${fc_en} is not available" >&2
 		fi
 	done
+	# Complete infinality setup
+	eselect infinality set infinality
+	eselect lcdfilter set infinality
 }
 
 setup_misc_stuff() {
