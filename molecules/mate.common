@@ -80,6 +80,7 @@ packages_to_add:
 	sys-fs/ntfs3g,
 	sys-power/cpufrequtils,
 	www-client/midori,
+	x11-misc/bumblebee,
 	x11-misc/magneto-gtk,
 	x11-drivers/nvidia-drivers,
 	x11-drivers/xf86-video-virtualbox,

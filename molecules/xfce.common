@@ -131,6 +131,7 @@ packages_to_add:
 	x11-libs/gksu,
 	x11-libs/libva-vdpau-driver,
 	x11-libs/xvba-video,
+	x11-misc/bumblebee,
 	x11-misc/magneto-gtk,
 	x11-misc/xvkbd,
 	x11-terms/xfce4-terminal,
