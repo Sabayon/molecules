@@ -38,42 +38,29 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorit
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
 %env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_pre_iso_script.sh HardenedServer
 
-# Post-ISO building script, called after ISO image generation.    
+# Post-ISO building script, called after ISO image generation.
 %env post_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_post_iso_script.sh
 
 # Destination directory for the ISO image path (MANDATORY)
 %env destination_iso_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso
 
+# Import the Graphic Environment module.
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/graphic-environment.common
+
 packages_to_add:
-	@X,
-	@fluxbox,
 	@xfce,
 	app-admin/rigo,
 	app-misc/sabayon-skel,
-	app-misc/anaconda-runtime-gui,
 	app-text/pastebunz,
-	dev-python/libgnomecanvas-python,
 	lxde-base/lxdm,
-        media-fonts/ttf-bitstream-vera,
-        media-fonts/dejavu,
-        media-fonts/corefonts,
 	media-gfx/feh,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
 	net-misc/tightvnc,
-	sys-apps/gpu-detector,
 	sys-block/parted,
 	sys-power/cpufrequtils,
-	x11-apps/xhost,
-	x11-apps/setxkbmap,
-	x11-themes/equinox-themes,
-	x11-themes/gtk-engines:2,
-	x11-libs/libXxf86misc,
 	x11-themes/gnome-themes-standard,
-	x11-themes/hicolor-icon-theme,
-	x11-themes/equinox-themes,
 	x11-terms/xfce4-terminal,
-	x11-terms/xterm,
 	sys-kernel/linux-hardened,
 	sys-apps/paxctl,
 	www-client/midori

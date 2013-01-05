@@ -38,7 +38,7 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorit
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
 %env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_pre_iso_script.sh KDE
 
-# Post-ISO building script, called after ISO image generation.    
+# Post-ISO building script, called after ISO image generation.
 %env post_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_post_iso_script.sh
 
 # Destination directory for the ISO image path (MANDATORY)
@@ -47,10 +47,11 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorit
 # List of packages that would be removed from chrooted system (comma separated)
 # packages_to_remove:
 
+# Import the Graphic Environment module.
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/graphic-environment.common
+
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
-	@X,
-	@fluxbox,
 	@gst-plugins,
 	@gst-plugins-extra,
 	@wireless,
@@ -74,8 +75,6 @@ packages_to_add:
 	app-dicts/myspell-nl,
 	app-emulation/virtualbox-guest-additions,
 	app-emulation/wine,
-	app-laptop/nvidiabl,
-	app-misc/anaconda-runtime-gui,
 	app-misc/sabayon-mce,
 	app-misc/sabayon-music,
 	app-misc/sabayon-skel,
@@ -266,9 +265,6 @@ packages_to_add:
 	kde-misc/networkmanagement,
 	kde-misc/synaptiks,
 	kde-misc/yakuake,
-	media-fonts/corefonts,
-	media-fonts/dejavu,
-	media-fonts/ttf-bitstream-vera,
 	media-libs/libdvdcss,
 	media-libs/libdvdnav,
 	media-libs/libdvdplay,
@@ -297,7 +293,6 @@ packages_to_add:
 	net-wireless/bluez,
 	net-wireless/bluez-firmware,
 	net-wireless/bluez-hcidump,
-	sys-apps/gpu-detector,
 	sys-apps/hdparm,
 	sys-apps/sdparm,
 	sys-apps/tuxonice-userui,
@@ -320,14 +315,10 @@ packages_to_add:
 	x11-drivers/xf86-video-virtualbox,
 	x11-libs/libva-vdpau-driver,
 	x11-libs/xvba-video,
-	x11-misc/bumblebee,
 	x11-misc/desktop-acceleration-helpers,
 	x11-misc/xvkbd,
-	x11-terms/xterm,
 	x11-themes/gnome-themes-standard,
 	x11-themes/gtk-engines-qtcurve,
-	x11-themes/gtk-engines:2,
-	x11-themes/iottinka-artwork,
 	x11-themes/oxygen-gtk:2,
 	x11-themes/oxygen-gtk:3,
 	x11-themes/sabayon-artwork-extra,

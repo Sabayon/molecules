@@ -38,7 +38,7 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorit
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
 %env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_pre_iso_script.sh LXDE
 
-# Post-ISO building script, called after ISO image generation.    
+# Post-ISO building script, called after ISO image generation.
 %env post_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_post_iso_script.sh
 
 # Destination directory for the ISO image path (MANDATORY)
@@ -48,11 +48,12 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorit
 packages_to_remove:
 	www-client/lynx
 
+# Import the Graphic Environment module.
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/graphic-environment.common
+
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
-	@X,
 	@lxde,
-	@fluxbox,
 	@wireless,
 	app-admin/rigo,
 	app-arch/xarchiver,
@@ -60,39 +61,29 @@ packages_to_add:
 	app-crypt/pinentry-gtk2,
 	app-editors/leafpad,
 	app-emulation/virtualbox-guest-additions,
-	app-misc/anaconda-runtime-gui,
 	app-office/abiword,
 	app-office/gnumeric,
-	app-text/epdfview,
 	app-text/pastebunz,
 	games-misc/cowsay,
 	gnome-extra/nm-applet-gtk2,
 	lxde-base/lxpolkit,
-	media-fonts/ttf-bitstream-vera,
-	media-fonts/dejavu,
-	media-fonts/corefonts,
 	media-plugins/alsa-plugins,
 	media-sound/audacious,
 	net-dialup/rp-pppoe,
 	net-irc/xchat,
 	net-p2p/transmission-gtk,
 	x11-libs/gksu,
-	x11-terms/xterm,
 	sys-apps/gnome-disk-utility,
-	sys-apps/gpu-detector,
 	sys-auth/consolekit,
 	sys-block/parted,
 	sys-fs/ntfs3g,
 	sys-power/cpufrequtils,
 	www-client/midori,
-	x11-misc/bumblebee,
 	x11-misc/magneto-gtk,
 	x11-drivers/ati-drivers,
 	x11-drivers/nvidia-drivers,
 	x11-drivers/xf86-video-virtualbox,
 	x11-themes/gnome-themes-standard,
-	x11-themes/equinox-themes,
-	x11-themes/gtk-engines:2,
 	xfce-extra/xfce4-notifyd
 
 # x11-themes/sabayon-artwork-gnome:

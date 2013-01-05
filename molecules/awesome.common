@@ -47,36 +47,24 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorit
 # List of packages that would be removed from chrooted system (comma separated)
 # packages_to_remove:
 
+# Import the Graphic Environment module.
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/graphic-environment.common
+
 packages_to_add:
-	@X,
 	app-editors/gedit,
 	app-emulation/virtualbox-guest-additions,
-	app-misc/anaconda-runtime-gui,
-	app-misc/sabayon-skel,
-	app-text/epdfview,
 	app-text/pastebunz,
-	dev-python/libgnomecanvas-python,
 	gnome-extra/nm-applet-gtk2,
 	lxde-base/lxdm,
-	media-fonts/corefonts,
-	media-fonts/dejavu,
 	media-gfx/feh,
-	media-fonts/ttf-bitstream-vera,
 	media-plugins/alsa-plugins,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
 	net-irc/xchat,
 	sys-power/cpufrequtils,
-	sys-apps/gpu-detector,
 	sys-block/parted,
 	www-client/chromium,
-	x11-apps/setxkbmap,
-	x11-apps/xhost,
 	x11-drivers/xf86-video-virtualbox,
-	x11-terms/xterm,
-	x11-themes/equinox-themes,
-	x11-themes/gtk-engines:2,
-	x11-themes/hicolor-icon-theme,
 	x11-wm/awesome
 
 # Determine whether repositories update should be run (if packages_to_add is set)

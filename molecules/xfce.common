@@ -38,7 +38,7 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorit
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
 %env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_pre_iso_script.sh Xfce
 
-# Post-ISO building script, called after ISO image generation.    
+# Post-ISO building script, called after ISO image generation.
 %env post_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_post_iso_script.sh
 
 # Destination directory for the ISO image path (MANDATORY)
@@ -49,10 +49,11 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorit
 #	www-client/lynx,
 #	app-text/poppler-qt4
 
+# Import the Graphic Environment module.
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/graphic-environment.common
+
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
-	@X,
-	@fluxbox,
 	@gst-plugins,
 	@gst-plugins-extra,
 	@wireless,
@@ -76,8 +77,6 @@ packages_to_add:
 	app-dicts/myspell-nl,
 	app-emulation/virtualbox-guest-additions,
 	app-emulation/wine,
-	app-laptop/nvidiabl,
-	app-misc/anaconda-runtime-gui,
 	app-misc/gnote,
 	app-misc/sabayon-music,
 	app-office/libreoffice,
@@ -87,15 +86,11 @@ packages_to_add:
 	app-office/libreoffice-l10n-it,
 	app-office/libreoffice-l10n-nl,
 	app-office/libreoffice-l10n-pt,
-	app-text/epdfview,
 	app-text/pastebunz,
 	dev-java/icedtea-bin,
 	games-misc/cowsay,
 	gnome-extra/nm-applet-gtk2,
 	gnome-extra/polkit-gnome,
-	media-fonts/corefonts,
-	media-fonts/dejavu,
-	media-fonts/ttf-bitstream-vera,
 	media-gfx/gimp,
 	media-gfx/ristretto,
 	media-gfx/shotwell,
@@ -117,7 +112,6 @@ packages_to_add:
 	net-wireless/bluez,
 	net-wireless/bluez-firmware,
 	net-wireless/bluez-hcidump,
-	sys-apps/gpu-detector,
 	sys-auth/consolekit,
 	sys-block/gparted,
 	sys-block/parted,
@@ -131,14 +125,11 @@ packages_to_add:
 	x11-libs/gksu,
 	x11-libs/libva-vdpau-driver,
 	x11-libs/xvba-video,
-	x11-misc/bumblebee,
 	x11-misc/magneto-gtk,
 	x11-misc/xvkbd,
 	x11-terms/xfce4-terminal,
 	x11-terms/xterm,
-	x11-themes/equinox-themes,
 	x11-themes/gnome-themes-standard,
-	x11-themes/gtk-engines:2,
 	x11-themes/iottinka-artwork,
 	x11-themes/tango-icon-theme,
 	xfce-base/xfce4-panel,

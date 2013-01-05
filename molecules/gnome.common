@@ -38,7 +38,7 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorit
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
 %env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_pre_iso_script.sh GNOME
 
-# Post-ISO building script, called after ISO image generation.    
+# Post-ISO building script, called after ISO image generation.
 %env post_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_post_iso_script.sh
 
 # Destination directory for the ISO image path (MANDATORY)
@@ -47,10 +47,11 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorit
 # List of packages that would be removed from chrooted system (comma separated)
 # packages_to_remove:
 
+# Import the Graphic Environment module.
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/graphic-environment.common
+
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
-	@X,
-	@fluxbox,
 	@gnome,
 	@gst-plugins,
 	@gst-plugins-extra,
@@ -79,12 +80,9 @@ packages_to_add:
 	app-editors/gedit,
 	app-emulation/virtualbox-guest-additions,
 	app-emulation/wine,
-	app-laptop/nvidiabl,
-	app-misc/anaconda-runtime-gui,
 	app-misc/gnote,
 	app-misc/sabayon-mce,
 	app-misc/sabayon-music,
-	app-misc/sabayon-skel,
 	app-misc/sabayon-version,
 	app-office/libreoffice,
 	app-office/libreoffice-l10n-de,
@@ -112,9 +110,6 @@ packages_to_add:
 	gnome-extra/nautilus-sendto,
 	gnome-extra/nm-applet,
 	gnome-extra/polkit-gnome,
-	media-fonts/corefonts,
-	media-fonts/dejavu,
-	media-fonts/ttf-bitstream-vera,
 	media-gfx/gimp,
 	media-gfx/shotwell,
 	media-libs/libdvdcss,
@@ -151,7 +146,6 @@ packages_to_add:
 	net-wireless/bluez-hcidump,
 	net-wireless/gnome-bluetooth,
 	sys-apps/gnome-disk-utility,
-	sys-apps/gpu-detector,
 	sys-apps/hdparm,
 	sys-apps/sdparm,
 	sys-apps/tuxonice-userui,
@@ -175,12 +169,8 @@ packages_to_add:
 	x11-misc/xvkbd,
 	x11-terms/gnome-terminal,
 	x11-terms/guake,
-	x11-terms/xterm,
 	x11-themes/gnome-icon-theme,
 	x11-themes/gnome-themes,
-	x11-themes/gtk-engines,
-	x11-themes/hicolor-icon-theme,
-	x11-themes/iottinka-artwork,
 	x11-themes/sabayon-artwork-extra,
 	x11-themes/sabayon-artwork-gnome,
 	x11-themes/sabayon-artwork-loo,
@@ -189,7 +179,7 @@ packages_to_add:
 	x11-wm/twm
 
 # Custom shell call to packages add (default is: equo install)
-# custom_packages_add_cmd: 
+# custom_packages_add_cmd:
 
 # Custom command for updating repositories (default is: equo update)
 # repositories_update_cmd:
