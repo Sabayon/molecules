@@ -4,8 +4,22 @@
 SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
 export SABAYON_MOLECULE_HOME
 
+VALID_ACTIONS=(
+    "daily"
+    "weekly"
+    "monthly"
+    "dailybase"
+)
+
 ACTION="${1}"
-if [ "${ACTION}" != "daily" ] && [ "${ACTION}" != "weekly" ] && [ "${ACTION}" != "dailybase" ]; then
+ACTION_VALID=
+for act in "${VALID_ACTIONS[@]}"; do
+	if [ "${act}" = "${ACTION}" ]; then
+		ACTION_VALID=1
+		break
+	fi
+done
+if [ -z "${ACTION_VALID}" ]; then
 	echo "invalid action: ${ACTION}" >&2
 	exit 1
 fi
@@ -115,8 +129,8 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		"Sabayon_Linux_DAILY_x86_G.iso"
 		"Sabayon_Linux_DAILY_amd64_K.iso"
 		"Sabayon_Linux_DAILY_x86_K.iso"
-                "Sabayon_Linux_DAILY_amd64_MATE.iso"
-                "Sabayon_Linux_DAILY_x86_MATE.iso"
+		"Sabayon_Linux_DAILY_amd64_MATE.iso"
+		"Sabayon_Linux_DAILY_x86_MATE.iso"
 		"Sabayon_Linux_DAILY_amd64_LXDE.iso"
 		"Sabayon_Linux_DAILY_x86_LXDE.iso"
 		"Sabayon_Linux_DAILY_amd64_Xfce.iso"
@@ -175,14 +189,63 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 	fi
 
 elif [ "${ACTION}" = "dailybase" ]; then
-	SOURCE_SPECS=(
+	SOURCE_SPECS+=(
 		"sabayon-x86-spinbase.spec"
 		"sabayon-amd64-spinbase.spec"
 	)
-	SOURCE_SPECS_ISO=(
+	SOURCE_SPECS_ISO+=(
 		"Sabayon_Linux_SpinBase_DAILY_x86.iso"
 		"Sabayon_Linux_SpinBase_DAILY_amd64.iso"
 	)
+elif [ "${ACTION}" = "monthly" ]; then
+
+	MONTHLY_RELEASE=$(date +%g.%m)
+	if [ -z "${MONTHLY_RELEASE}" ]; then
+		echo "Cannot set MONTHLY_RELEASE, wtf?" >&2
+		exit 1
+	fi
+	# Monthly, automatic releases.
+	SOURCE_SPECS+=(
+		"sabayon-x86-spinbase.spec"
+		"sabayon-amd64-spinbase.spec"
+	)
+	SOURCE_SPECS_ISO+=(
+		"Sabayon_Linux_SpinBase_${MONTHLY_RELEASE}_x86.iso"
+		"Sabayon_Linux_SpinBase_${MONTHLY_RELEASE}_amd64.iso"
+	)
+	REMASTER_SPECS+=(
+		"sabayon-amd64-gnome.spec"
+		"sabayon-x86-gnome.spec"
+		"sabayon-amd64-kde.spec"
+		"sabayon-x86-kde.spec"
+		"sabayon-amd64-mate.spec"
+		"sabayon-x86-mate.spec"
+		"sabayon-amd64-xfce.spec"
+		"sabayon-x86-xfce.spec"
+		"sabayon-amd64-corecdx.spec"
+		"sabayon-x86-corecdx.spec"
+		"sabayon-amd64-serverbase.spec"
+		"sabayon-x86-serverbase.spec"
+		"sabayon-amd64-hardenedserver.spec"
+		"sabayon-x86-hardenedserver.spec"
+	)
+	REMASTER_SPECS_ISO+=(
+		"Sabayon_Linux_${MONTHLY_RELEASE}_amd64_G.iso"
+		"Sabayon_Linux_${MONTHLY_RELEASE}_x86_G.iso"
+		"Sabayon_Linux_${MONTHLY_RELEASE}_amd64_K.iso"
+		"Sabayon_Linux_${MONTHLY_RELEASE}_x86_K.iso"
+		"Sabayon_Linux_${MONTHLY_RELEASE}_amd64_MATE.iso"
+		"Sabayon_Linux_${MONTHLY_RELEASE}_x86_MATE.iso"
+		"Sabayon_Linux_${MONTHLY_RELEASE}_amd64_Xfce.iso"
+		"Sabayon_Linux_${MONTHLY_RELEASE}_x86_Xfce.iso"
+		"Sabayon_Linux_CoreCDX_${MONTHLY_RELEASE}_amd64.iso"
+		"Sabayon_Linux_CoreCDX_${MONTHLY_RELEASE}_x86.iso"
+		"Sabayon_Linux_ServerBase_${MONTHLY_RELEASE}_amd64.iso"
+		"Sabayon_Linux_ServerBase_${MONTHLY_RELEASE}_x86.iso"
+		"Sabayon_Linux_HardenedServer_${MONTHLY_RELEASE}_amd64.iso"
+		"Sabayon_Linux_HardenedServer_${MONTHLY_RELEASE}_x86.iso"
+	)
+
 fi
 
 [[ -d "/var/log/molecule" ]] || mkdir -p /var/log/molecule
