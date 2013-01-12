@@ -4,6 +4,11 @@
 SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
 export SABAYON_MOLECULE_HOME
 
+# setup default language, cron might not do that
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+export LANGUAGE="en_US.UTF-8"
+
 VALID_ACTIONS=(
     "daily"
     "weekly"
@@ -25,8 +30,7 @@ if [ -z "${ACTION_VALID}" ]; then
 fi
 shift
 
-for arg in "$@"
-do
+for arg in "$@"; do
 	[[ "${arg}" = "--push" ]] && DO_PUSH="1"
 	[[ "${arg}" = "--stdout" ]] && DO_STDOUT="1"
 	[[ "${arg}" = "--sleepnight" ]] && DO_SLEEPNIGHT="1"
@@ -36,29 +40,200 @@ do
 	fi
 done
 
+# Initialize script variables
+ARM_SOURCE_SPECS=()
+ARM_SOURCE_SPECS_IMG=()
+SOURCE_SPECS=()
+SOURCE_SPECS_ISO=()
+REMASTER_SPECS=()
+REMASTER_SPECS_ISO=()
+REMASTER_TAR_SPECS=()
+REMASTER_TAR_SPECS_TAR=()
+
+# Default Sabayon release version to current date
+# composed by YYYYMMDD. This is overridden by the
+# monthly if branch below.
 CUR_DATE=$(date -u +%Y%m%d)
-LOG_FILE="/var/log/molecule/autobuild-${CUR_DATE}-${$}.log"
+# ISO TAG is instead used as part of the images push
+# to our mirror. It is always "DAILY" but it gets a special
+# meaning for monthly releases.
+ISO_TAG="DAILY"
+OLD_ISO_TAG=""  # used to remove OLD ISO images the local dir
+DISTRO_NAME="Sabayon_Linux"
+
+if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
+	# Daily molecules
+	SOURCE_SPECS+=(
+		"sabayon-x86-spinbase.spec"
+		"sabayon-amd64-spinbase.spec"
+	)
+	SOURCE_SPECS_ISO+=(
+		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_x86.iso"
+		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_amd64.iso"
+	)
+	REMASTER_SPECS+=(
+		"sabayon-amd64-gnome.spec"
+		"sabayon-x86-gnome.spec"
+		"sabayon-amd64-kde.spec"
+		"sabayon-x86-kde.spec"
+		"sabayon-amd64-mate.spec"
+		"sabayon-x86-mate.spec"
+		"sabayon-amd64-lxde.spec"
+		"sabayon-x86-lxde.spec"
+		"sabayon-amd64-xfce.spec"
+		"sabayon-x86-xfce.spec"
+		"sabayon-amd64-e17.spec"
+		"sabayon-x86-e17.spec"
+		"sabayon-amd64-corecdx.spec"
+		"sabayon-x86-corecdx.spec"
+		"sabayon-amd64-serverbase.spec"
+		"sabayon-x86-serverbase.spec"
+		"sabayon-amd64-hardenedserver.spec"
+		"sabayon-x86-hardenedserver.spec"
+	)
+	REMASTER_SPECS_ISO+=(
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_G.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_G.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_K.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_K.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_MATE.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_MATE.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_LXDE.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_LXDE.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_Xfce.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_Xfce.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_E17.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_E17.iso"
+		"${DISTRO_NAME}_CoreCDX_${ISO_TAG}_amd64.iso"
+		"${DISTRO_NAME}_CoreCDX_${ISO_TAG}_x86.iso"
+		"${DISTRO_NAME}_ServerBase_${ISO_TAG}_amd64.iso"
+		"${DISTRO_NAME}_ServerBase_${ISO_TAG}_x86.iso"
+		"${DISTRO_NAME}_HardenedServer_${ISO_TAG}_amd64.iso"
+		"${DISTRO_NAME}_HardenedServer_${ISO_TAG}_x86.iso"
+	)
+
+	# Weekly molecules
+	if [ "${ACTION}" = "weekly" ]; then
+		ARM_SOURCE_SPECS+=(
+			"sabayon-arm-beaglebone-base-2G.spec"
+			"sabayon-arm-beaglebone-base-4G.spec"
+			"sabayon-arm-beagleboard-xm-4G.spec"
+			"sabayon-arm-beagleboard-xm-8G.spec"
+			"sabayon-arm-pandaboard-4G.spec"
+			"sabayon-arm-pandaboard-8G.spec"
+			"sabayon-arm-efikamx-base-4G.spec"
+		)
+		ARM_SOURCE_SPECS_IMG+=(
+			"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBone_Base_2GB.img"
+			"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBone_Base_4GB.img"
+			"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBoard_xM_4GB.img"
+			"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBoard_xM_8GB.img"
+			"${DISTRO_NAME}_${ISO_TAG}_armv7a_PandaBoard_4GB.img"
+			"${DISTRO_NAME}_${ISO_TAG}_armv7a_PandaBoard_8GB.img"
+			"${DISTRO_NAME}_${ISO_TAG}_armv7a_EfikaMX_Base_4GB.img"
+		)
+		REMASTER_SPECS+=(
+			"sabayon-amd64-xfceforensic.spec"
+			"sabayon-x86-xfceforensic.spec"
+		)
+		REMASTER_SPECS_ISO+=(
+			"${DISTRO_NAME}_${ISO_TAG}_amd64_ForensicsXfce.iso"
+			"${DISTRO_NAME}_${ISO_TAG}_x86_ForensicsXfce.iso"
+		)
+		REMASTER_TAR_SPECS+=(
+			"sabayon-x86-spinbase-openvz-template.spec"
+			"sabayon-amd64-spinbase-openvz-template.spec"
+			"sabayon-x86-spinbase-amazon-ebs-image.spec"
+			"sabayon-amd64-spinbase-amazon-ebs-image.spec"
+		)
+		REMASTER_TAR_SPECS_TAR+=(
+			"${DISTRO_NAME}_SpinBase_${ISO_TAG}_x86_openvz.tar.gz"
+			"${DISTRO_NAME}_SpinBase_${ISO_TAG}_amd64_openvz.tar.gz"
+			"${DISTRO_NAME}_SpinBase_${ISO_TAG}_x86_Amazon_EBS_ext4_filesystem_image.tar.gz"
+			"${DISTRO_NAME}_SpinBase_${ISO_TAG}_amd64_Amazon_EBS_ext4_filesystem_image.tar.gz"
+		)
+	fi
+elif [ "${ACTION}" = "dailybase" ]; then
+	SOURCE_SPECS+=(
+		"sabayon-x86-spinbase.spec"
+		"sabayon-amd64-spinbase.spec"
+	)
+	SOURCE_SPECS_ISO+=(
+		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_x86.iso"
+		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_amd64.iso"
+	)
+elif [ "${ACTION}" = "monthly" ]; then
+	CUR_DATE=$(date -u +%g.%m)
+	if [ -z "${CUR_DATE}" ]; then
+		echo "Cannot set CUR_DATE, wtf?" >&2
+		exit 1
+	fi
+	# Rewrite ISO_TAG to CUR_DATE
+	ISO_TAG="${CUR_DATE}"
+	OLD_ISO_TAG=$(date -u --date="last month" +%g.%m)
+	if [ -z "${OLD_ISO_TAG}" ]; then
+		echo "Cannot set OLD_ISO_TAG, wtf?" >&2
+		exit 1
+	fi
+
+	# Monthly, automatic molecules
+	SOURCE_SPECS+=(
+		"sabayon-x86-spinbase.spec"
+		"sabayon-amd64-spinbase.spec"
+	)
+	SOURCE_SPECS_ISO+=(
+		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_x86.iso"
+		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_amd64.iso"
+	)
+	REMASTER_SPECS+=(
+		"sabayon-amd64-gnome.spec"
+		"sabayon-x86-gnome.spec"
+		"sabayon-amd64-kde.spec"
+		"sabayon-x86-kde.spec"
+		"sabayon-amd64-mate.spec"
+		"sabayon-x86-mate.spec"
+		"sabayon-amd64-xfce.spec"
+		"sabayon-x86-xfce.spec"
+		"sabayon-amd64-corecdx.spec"
+		"sabayon-x86-corecdx.spec"
+		"sabayon-amd64-serverbase.spec"
+		"sabayon-x86-serverbase.spec"
+		"sabayon-amd64-hardenedserver.spec"
+		"sabayon-x86-hardenedserver.spec"
+	)
+	REMASTER_SPECS_ISO+=(
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_G.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_G.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_K.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_K.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_MATE.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_MATE.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_Xfce.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_Xfce.iso"
+		"${DISTRO_NAME}_CoreCDX_${ISO_TAG}_amd64.iso"
+		"${DISTRO_NAME}_CoreCDX_${ISO_TAG}_x86.iso"
+		"${DISTRO_NAME}_ServerBase_${ISO_TAG}_amd64.iso"
+		"${DISTRO_NAME}_ServerBase_${ISO_TAG}_x86.iso"
+		"${DISTRO_NAME}_HardenedServer_${ISO_TAG}_amd64.iso"
+		"${DISTRO_NAME}_HardenedServer_${ISO_TAG}_x86.iso"
+	)
+fi
+
 BUILDING_DAILY=1
 MAKE_TORRENTS="${MAKE_TORRENTS:-0}"
 DAILY_TMPDIR=
 
-# to make ISO remaster spec files working (pre_iso_script)
-export CUR_DATE
 export ETP_NONINTERACTIVE=1
 export BUILDING_DAILY
-# Temporarily added to debug Equo in case of deadlock
-# export ETP_DEBUG_WATCHDOG=1
-# export ETP_DEBUG_WATCHDOG_INTERVAL=60
+
+LOG_FILE="/var/log/molecule/autobuild-${CUR_DATE}-${$}.log"
+# to make ISO remaster spec files working (pre_iso_script)
+export CUR_DATE
 
 echo "DO_PUSH=${DO_PUSH}"
 echo "DRY_RUN=${DRY_RUN}"
 echo "DO_SLEEPNIGHT=${DO_SLEEPNIGHT}"
 echo "LOG_FILE=${LOG_FILE}"
-
-# setup default language, cron might not do that
-export LC_ALL="en_US.UTF-8"
-export LANG="en_US.UTF-8"
-export LANGUAGE="en_US.UTF-8"
 
 # Sleep until 22pm?
 if [ "${DO_SLEEPNIGHT}" = "1" ] && [ "${DO_PUSH}" = "1" ]; then
@@ -82,173 +257,8 @@ if [ "${DO_SLEEPNIGHT}" = "1" ] && [ "${DO_PUSH}" = "1" ]; then
 	fi
 fi
 
-ARM_SOURCE_SPECS=()
-ARM_SOURCE_SPECS_IMG=()
-
-SOURCE_SPECS=()
-SOURCE_SPECS_ISO=()
-
-REMASTER_SPECS=()
-REMASTER_SPECS_ISO=()
-REMASTER_TAR_SPECS=()
-REMASTER_TAR_SPECS_TAR=()
-
-if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
-
-	# Daily molecules
-	SOURCE_SPECS+=(
-		"sabayon-x86-spinbase.spec"
-		"sabayon-amd64-spinbase.spec"
-	)
-	SOURCE_SPECS_ISO+=(
-		"Sabayon_Linux_SpinBase_DAILY_x86.iso"
-		"Sabayon_Linux_SpinBase_DAILY_amd64.iso"
-	)
-	REMASTER_SPECS+=(
-		"sabayon-amd64-gnome.spec"
-		"sabayon-x86-gnome.spec"
-		"sabayon-amd64-kde.spec"
-		"sabayon-x86-kde.spec"
-		"sabayon-amd64-mate.spec"
-		"sabayon-x86-mate.spec"
-		"sabayon-amd64-lxde.spec"
-		"sabayon-x86-lxde.spec"
-		"sabayon-amd64-xfce.spec"
-		"sabayon-x86-xfce.spec"
-		"sabayon-amd64-e17.spec"
-		"sabayon-x86-e17.spec"
-		"sabayon-amd64-corecdx.spec"
-		"sabayon-x86-corecdx.spec"
-		"sabayon-amd64-serverbase.spec"
-		"sabayon-x86-serverbase.spec"
-		"sabayon-amd64-hardenedserver.spec"
-		"sabayon-x86-hardenedserver.spec"
-	)
-	REMASTER_SPECS_ISO+=(
-		"Sabayon_Linux_DAILY_amd64_G.iso"
-		"Sabayon_Linux_DAILY_x86_G.iso"
-		"Sabayon_Linux_DAILY_amd64_K.iso"
-		"Sabayon_Linux_DAILY_x86_K.iso"
-		"Sabayon_Linux_DAILY_amd64_MATE.iso"
-		"Sabayon_Linux_DAILY_x86_MATE.iso"
-		"Sabayon_Linux_DAILY_amd64_LXDE.iso"
-		"Sabayon_Linux_DAILY_x86_LXDE.iso"
-		"Sabayon_Linux_DAILY_amd64_Xfce.iso"
-		"Sabayon_Linux_DAILY_x86_Xfce.iso"
-		"Sabayon_Linux_DAILY_amd64_E17.iso"
-		"Sabayon_Linux_DAILY_x86_E17.iso"
-		"Sabayon_Linux_CoreCDX_DAILY_amd64.iso"
-		"Sabayon_Linux_CoreCDX_DAILY_x86.iso"
-		"Sabayon_Linux_ServerBase_DAILY_amd64.iso"
-		"Sabayon_Linux_ServerBase_DAILY_x86.iso"
-		"Sabayon_Linux_HardenedServer_DAILY_amd64.iso"
-		"Sabayon_Linux_HardenedServer_DAILY_x86.iso"
-	)
-
-
-	# Weekly molecules
-	if [ "${ACTION}" = "weekly" ]; then
-		ARM_SOURCE_SPECS+=(
-			"sabayon-arm-beaglebone-base-2G.spec"
-			"sabayon-arm-beaglebone-base-4G.spec"
-			"sabayon-arm-beagleboard-xm-4G.spec"
-			"sabayon-arm-beagleboard-xm-8G.spec"
-			"sabayon-arm-pandaboard-4G.spec"
-			"sabayon-arm-pandaboard-8G.spec"
-			"sabayon-arm-efikamx-base-4G.spec"
-		)
-		ARM_SOURCE_SPECS_IMG+=(
-			"Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_2GB.img"
-			"Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_4GB.img"
-			"Sabayon_Linux_DAILY_armv7a_BeagleBoard_xM_4GB.img"
-			"Sabayon_Linux_DAILY_armv7a_BeagleBoard_xM_8GB.img"
-			"Sabayon_Linux_DAILY_armv7a_PandaBoard_4GB.img"
-			"Sabayon_Linux_DAILY_armv7a_PandaBoard_8GB.img"
-			"Sabayon_Linux_DAILY_armv7a_EfikaMX_Base_4GB.img"
-		)
-		REMASTER_SPECS+=(
-			"sabayon-amd64-xfceforensic.spec"
-			"sabayon-x86-xfceforensic.spec"
-		)
-		REMASTER_SPECS_ISO+=(
-			"Sabayon_Linux_DAILY_amd64_ForensicsXfce.iso"
-			"Sabayon_Linux_DAILY_x86_ForensicsXfce.iso"
-		)
-		REMASTER_TAR_SPECS+=(
-			"sabayon-x86-spinbase-openvz-template.spec"
-			"sabayon-amd64-spinbase-openvz-template.spec"
-			"sabayon-x86-spinbase-amazon-ebs-image.spec"
-			"sabayon-amd64-spinbase-amazon-ebs-image.spec"
-		)
-		REMASTER_TAR_SPECS_TAR+=(
-			"Sabayon_Linux_SpinBase_DAILY_x86_openvz.tar.gz"
-			"Sabayon_Linux_SpinBase_DAILY_amd64_openvz.tar.gz"
-			"Sabayon_Linux_SpinBase_DAILY_x86_Amazon_EBS_ext4_filesystem_image.tar.gz"
-			"Sabayon_Linux_SpinBase_DAILY_amd64_Amazon_EBS_ext4_filesystem_image.tar.gz"
-		)
-	fi
-
-elif [ "${ACTION}" = "dailybase" ]; then
-	SOURCE_SPECS+=(
-		"sabayon-x86-spinbase.spec"
-		"sabayon-amd64-spinbase.spec"
-	)
-	SOURCE_SPECS_ISO+=(
-		"Sabayon_Linux_SpinBase_DAILY_x86.iso"
-		"Sabayon_Linux_SpinBase_DAILY_amd64.iso"
-	)
-elif [ "${ACTION}" = "monthly" ]; then
-
-	MONTHLY_RELEASE=$(date +%g.%m)
-	if [ -z "${MONTHLY_RELEASE}" ]; then
-		echo "Cannot set MONTHLY_RELEASE, wtf?" >&2
-		exit 1
-	fi
-	# Monthly, automatic releases.
-	SOURCE_SPECS+=(
-		"sabayon-x86-spinbase.spec"
-		"sabayon-amd64-spinbase.spec"
-	)
-	SOURCE_SPECS_ISO+=(
-		"Sabayon_Linux_SpinBase_${MONTHLY_RELEASE}_x86.iso"
-		"Sabayon_Linux_SpinBase_${MONTHLY_RELEASE}_amd64.iso"
-	)
-	REMASTER_SPECS+=(
-		"sabayon-amd64-gnome.spec"
-		"sabayon-x86-gnome.spec"
-		"sabayon-amd64-kde.spec"
-		"sabayon-x86-kde.spec"
-		"sabayon-amd64-mate.spec"
-		"sabayon-x86-mate.spec"
-		"sabayon-amd64-xfce.spec"
-		"sabayon-x86-xfce.spec"
-		"sabayon-amd64-corecdx.spec"
-		"sabayon-x86-corecdx.spec"
-		"sabayon-amd64-serverbase.spec"
-		"sabayon-x86-serverbase.spec"
-		"sabayon-amd64-hardenedserver.spec"
-		"sabayon-x86-hardenedserver.spec"
-	)
-	REMASTER_SPECS_ISO+=(
-		"Sabayon_Linux_${MONTHLY_RELEASE}_amd64_G.iso"
-		"Sabayon_Linux_${MONTHLY_RELEASE}_x86_G.iso"
-		"Sabayon_Linux_${MONTHLY_RELEASE}_amd64_K.iso"
-		"Sabayon_Linux_${MONTHLY_RELEASE}_x86_K.iso"
-		"Sabayon_Linux_${MONTHLY_RELEASE}_amd64_MATE.iso"
-		"Sabayon_Linux_${MONTHLY_RELEASE}_x86_MATE.iso"
-		"Sabayon_Linux_${MONTHLY_RELEASE}_amd64_Xfce.iso"
-		"Sabayon_Linux_${MONTHLY_RELEASE}_x86_Xfce.iso"
-		"Sabayon_Linux_CoreCDX_${MONTHLY_RELEASE}_amd64.iso"
-		"Sabayon_Linux_CoreCDX_${MONTHLY_RELEASE}_x86.iso"
-		"Sabayon_Linux_ServerBase_${MONTHLY_RELEASE}_amd64.iso"
-		"Sabayon_Linux_ServerBase_${MONTHLY_RELEASE}_x86.iso"
-		"Sabayon_Linux_HardenedServer_${MONTHLY_RELEASE}_amd64.iso"
-		"Sabayon_Linux_HardenedServer_${MONTHLY_RELEASE}_x86.iso"
-	)
-
-fi
-
-[[ -d "/var/log/molecule" ]] || mkdir -p /var/log/molecule
+# Create log dir if it does not exist
+mkdir -p /var/log/molecule || exit 1
 
 cleanup_on_exit() {
 	if [ -n "${DAILY_TMPDIR}" ] && [ -d "${DAILY_TMPDIR}" ]; then
@@ -259,130 +269,188 @@ cleanup_on_exit() {
 }
 trap "cleanup_on_exit" EXIT INT TERM
 
-move_to_pkg_sabayon_org() {
-	if [ -n "${DO_PUSH}" ] || [ -f "${SABAYON_MOLECULE_HOME}"/DO_PUSH ]; then
-		rm -f "${SABAYON_MOLECULE_HOME}"/DO_PUSH
-		local executed=
-		for ((i=0; i < 5; i++)); do
-			rsync -av --partial --delete-excluded "${SABAYON_MOLECULE_HOME}"/iso_rsync/*DAILY* \
-				entropy@pkg.sabayon.org:/sabayon/rsync/rsync.sabayon.org/iso/daily \
-				|| { sleep 10; continue; }
-			rsync -av --partial --delete-excluded "${SABAYON_MOLECULE_HOME}"/scripts/gen_html \
-			entropy@pkg.sabayon.org:/sabayon/rsync/iso_html_generator \
-				|| { sleep 10; continue; }
-			ssh entropy@pkg.sabayon.org \
-				/sabayon/rsync/iso_html_generator/gen_html/gen.sh \
-				|| { sleep 10; continue; }
-			executed=1
-			break
-		done
-		[[ -n "${executed}" ]] && return 0
+safe_run() {
+	local done=0
+	local count="${1}"
+	shift
+
+	for ((i=0; i < ${count}; i++)); do
+		"${@}" && {
+			done=1;
+			break;
+		}
+		sleep 10 || return 1
+	done
+	if [ "${done}" = "0" ]; then
 		return 1
 	fi
 	return 0
 }
 
-build_sabayon() {
-	if [ -z "${DRY_RUN}" ]; then
+move_to_pkg_sabayon_org() {
+	local do_push="${SABAYON_MOLECULE_HOME}"/DO_PUSH
+	local server="entropy@pkg.sabayon.org"
+	local ssh_dir="/sabayon/rsync"
+	local ssh_path="${server}:${ssh_dir}"
 
-		DAILY_TMPDIR=$(mktemp -d --suffix=.iso_build.sh --tmpdir=/tmp)
-		[[ -z "${DAILY_TMPDIR}" ]] && return 1
-		DAILY_TMPDIR_REMASTER="${DAILY_TMPDIR}/remaster"
-		mkdir "${DAILY_TMPDIR_REMASTER}" || return 1
+	if [ -n "${DO_PUSH}" ] || [ -f "${do_push}" ]; then
+		rm -f "${do_push}"
 
-		local source_specs=""
-		for i in ${!SOURCE_SPECS[@]}
-		do
-			src="${SABAYON_MOLECULE_HOME}/molecules/${SOURCE_SPECS[i]}"
-			dst="${DAILY_TMPDIR}/${SOURCE_SPECS[i]}"
-			cp "${src}" "${dst}" -p || return 1
-			echo >> "${dst}"
-			echo "inner_source_chroot_script: ${SABAYON_MOLECULE_HOME}/scripts/inner_source_chroot_update.sh" >> "${dst}"
-			# tweak iso image name
-			sed -i "s/^#.*destination_iso_image_name/destination_iso_image_name:/" "${dst}" || return 1
-			sed -i "s/destination_iso_image_name.*/destination_iso_image_name: ${SOURCE_SPECS_ISO[i]}/" "${dst}" || return 1
-			# tweak release version
-			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || return 1
-			echo "${dst}: iso: ${SOURCE_SPECS_ISO[i]} date: ${CUR_DATE}"
-			source_specs+="${dst} "
-		done
+		safe_run 5 rsync -av --partial --delete-excluded \
+			"${SABAYON_MOLECULE_HOME}"/iso_rsync/*"${ISO_TAG}"* \
+			"${ssh_path}"/rsync.sabayon.org/iso/daily \
+			|| return 1
 
-		local arm_source_specs=""
-		for i in ${!ARM_SOURCE_SPECS[@]}
-		do
-			src="${SABAYON_MOLECULE_HOME}/molecules/${ARM_SOURCE_SPECS[i]}"
-			dst="${DAILY_TMPDIR}/${ARM_SOURCE_SPECS[i]}"
-			cp "${src}" "${dst}" -p || return 1
-			echo >> "${dst}"
-			echo "inner_source_chroot_script: ${SABAYON_MOLECULE_HOME}/scripts/inner_source_chroot_update.sh" >> "${dst}"
-			# tweak iso image name
-			sed -i "s/^#.*image_name/image_name:/" "${dst}" || return 1
-			sed -i "s/image_name.*/image_name: ${ARM_SOURCE_SPECS_IMG[i]}/" "${dst}" || return 1
-			# tweak release version
-			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || return 1
-			echo "${dst}: image: ${ARM_SOURCE_SPECS_IMG[i]} date: ${CUR_DATE}"
-			arm_source_specs+="${dst} "
-		done
+		safe_run 5 rsync -av --partial --delete-excluded \
+			"${SABAYON_MOLECULE_HOME}"/scripts/gen_html \
+			"${ssh_path}"/iso_html_generator \
+			|| return 1
 
-		local remaster_specs=""
-		for i in ${!REMASTER_SPECS[@]}
-		do
-			src="${SABAYON_MOLECULE_HOME}/molecules/${REMASTER_SPECS[i]}"
-			dst="${DAILY_TMPDIR_REMASTER}/${REMASTER_SPECS[i]}"
-			cp "${src}" "${dst}" -p || return 1
-			# tweak iso image name
-			sed -i "s/^#.*destination_iso_image_name/destination_iso_image_name:/" "${dst}" || return 1
-			sed -i "s/destination_iso_image_name.*/destination_iso_image_name: ${REMASTER_SPECS_ISO[i]}/" "${dst}" || return 1
-			# tweak release version
-			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || return 1
-			echo "${dst}: iso: ${REMASTER_SPECS_ISO[i]} date: ${CUR_DATE}"
-			remaster_specs+="${dst} "
-		done
-
-		for i in ${!REMASTER_TAR_SPECS[@]}
-		do
-			src="${SABAYON_MOLECULE_HOME}/molecules/${REMASTER_TAR_SPECS[i]}"
-			dst="${DAILY_TMPDIR_REMASTER}/${REMASTER_TAR_SPECS[i]}"
-			cp "${src}" "${dst}" -p || return 1
-			# tweak tar name
-			sed -i "s/^#.*tar_name/tar_name:/" "${dst}" || return 1
-			sed -i "s/tar_name.*/tar_name: ${REMASTER_TAR_SPECS_TAR[i]}/" "${dst}" || return 1
-			# tweak release version
-			sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || return 1
-			echo "${dst}: tar: ${REMASTER_TAR_SPECS_TAR[i]} date: ${CUR_DATE}"
-			remaster_specs+="${dst} "
-		done
-
-		local done_images=0
-		local done_something=0
-		if [ -n "${arm_source_specs}" ]; then
-			molecule --nocolor ${arm_source_specs} || return 1
-			done_something=1
-			done_images=1
-		fi
-		if [ -n "${source_specs}" ]; then
-			molecule --nocolor ${source_specs} || return 1
-			done_something=1
-		fi
-		if [ -n "${remaster_specs}" ]; then
-			molecule --nocolor ${remaster_specs} || return 1
-			done_something=1
-		fi
-
-		# package phases keep loading dbus, let's kill pids back
-		ps ax | grep -- "/usr/bin/dbus-daemon --fork .* --session" | awk '{ print $1 }' | xargs kill 2> /dev/null
-
-		if [ "${done_something}" = "1" ]; then
-			if [ "${done_images}" = "1" ]; then
-				cp -p "${SABAYON_MOLECULE_HOME}"/images/*DAILY* "${SABAYON_MOLECULE_HOME}"/iso_rsync/ || return 1
-			fi
-			cp -p "${SABAYON_MOLECULE_HOME}"/iso/*DAILY* "${SABAYON_MOLECULE_HOME}"/iso_rsync/ || return 1
-			date > "${SABAYON_MOLECULE_HOME}"/iso_rsync/RELEASE_DATE_DAILY
-			if [ "${MAKE_TORRENTS}" != "0" ]; then
-				"${SABAYON_MOLECULE_HOME}"/scripts/make_torrents.sh || return 1
-			fi
-		fi
+		safe_run 5 ssh "${server}" \
+			"${ssh_dir}"/iso_html_generator/gen_html/gen.sh \
+			|| return 1
 	fi
+	return 0
+}
+
+build_sabayon() {
+	if [ -n "${DRY_RUN}" ]; then
+		return 0
+	fi
+
+	DAILY_TMPDIR=$(mktemp -d --suffix=.iso_build.sh --tmpdir=/tmp)
+	[[ -z "${DAILY_TMPDIR}" ]] && return 1
+	DAILY_TMPDIR_REMASTER="${DAILY_TMPDIR}/remaster"
+	mkdir "${DAILY_TMPDIR_REMASTER}" || return 1
+
+	local scripts_dir="${SABAYON_MOLECULE_HOME}/scripts"
+	local inner_chroot="${scripts_dir}/inner_source_chroot_update.sh"
+
+	local source_specs=()
+	for i in ${!SOURCE_SPECS[@]}; do
+		src="${SABAYON_MOLECULE_HOME}/molecules/${SOURCE_SPECS[i]}"
+		dst="${DAILY_TMPDIR}/${SOURCE_SPECS[i]}"
+		cp "${src}" "${dst}" -p || return 1
+		echo >> "${dst}"
+		echo "inner_source_chroot_script: ${inner_chroot}" >> "${dst}"
+
+		# tweak iso image name
+		sed -i "s/^#.*destination_iso_image_name/destination_iso_image_name:/" \
+			"${dst}" || return 1
+		sed -i "s/destination_iso_image_name.*/destination_iso_image_name: ${SOURCE_SPECS_ISO[i]}/" \
+			"${dst}" || return 1
+
+		# tweak release version
+		sed -i "s/release_version.*/release_version: ${CUR_DATE}/" \
+			"${dst}" || return 1
+
+		echo -n "${dst}: iso: ${SOURCE_SPECS_ISO[i]} "
+		echo "date: ${CUR_DATE}"
+		source_specs+=( "${dst}" )
+	done
+
+	local arm_source_specs=()
+	for i in ${!ARM_SOURCE_SPECS[@]}; do
+		src="${SABAYON_MOLECULE_HOME}/molecules/${ARM_SOURCE_SPECS[i]}"
+		dst="${DAILY_TMPDIR}/${ARM_SOURCE_SPECS[i]}"
+		cp "${src}" "${dst}" -p || return 1
+		echo >> "${dst}"
+		echo "inner_source_chroot_script: ${inner_chroot}" >> "${dst}"
+
+		# tweak iso image name
+		sed -i "s/^#.*image_name/image_name:/" "${dst}" || return 1
+		sed -i "s/image_name.*/image_name: ${ARM_SOURCE_SPECS_IMG[i]}/" \
+			"${dst}" || return 1
+
+		# tweak release version
+		sed -i "s/release_version.*/release_version: ${CUR_DATE}/" \
+			"${dst}" || return 1
+
+		echo -n "${dst}: image: ${ARM_SOURCE_SPECS_IMG[i]} "
+                echo "date: ${CUR_DATE}"
+		arm_source_specs+=( "${dst}" )
+	done
+
+	local remaster_specs=()
+	for i in ${!REMASTER_SPECS[@]}; do
+		src="${SABAYON_MOLECULE_HOME}/molecules/${REMASTER_SPECS[i]}"
+		dst="${DAILY_TMPDIR_REMASTER}/${REMASTER_SPECS[i]}"
+		cp "${src}" "${dst}" -p || return 1
+
+		# tweak iso image name
+		sed -i "s/^#.*destination_iso_image_name/destination_iso_image_name:/" "${dst}" \
+			|| return 1
+		sed -i "s/destination_iso_image_name.*/destination_iso_image_name: ${REMASTER_SPECS_ISO[i]}/" \
+			"${dst}" || return 1
+
+		# tweak release version
+		sed -i "s/release_version.*/release_version: ${CUR_DATE}/" \
+			"${dst}" || return 1
+
+		echo -n "${dst}: iso: ${REMASTER_SPECS_ISO[i]} "
+		echo "date: ${CUR_DATE}"
+		remaster_specs+=( "${dst}" )
+	done
+
+	for i in ${!REMASTER_TAR_SPECS[@]}; do
+		src="${SABAYON_MOLECULE_HOME}/molecules/${REMASTER_TAR_SPECS[i]}"
+		dst="${DAILY_TMPDIR_REMASTER}/${REMASTER_TAR_SPECS[i]}"
+		cp "${src}" "${dst}" -p || return 1
+
+		# tweak tar name
+		sed -i "s/^#.*tar_name/tar_name:/" "${dst}" || return 1
+		sed -i "s/tar_name.*/tar_name: ${REMASTER_TAR_SPECS_TAR[i]}/" "${dst}" || return 1
+
+		# tweak release version
+		sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || return 1
+
+		echo -n "${dst}: tar: ${REMASTER_TAR_SPECS_TAR[i]} "
+		echo "date: ${CUR_DATE}"
+		remaster_specs+=( "${dst}" )
+	done
+
+	local done_images=0
+	local done_something=0
+
+	if [ ${#arm_source_specs[@]} != 0 ]; then
+		molecule --nocolor "${arm_source_specs[@]}" || return 1
+		done_something=1
+		done_images=1
+	fi
+	if [ ${#source_specs[@]} != 0 ]; then
+		molecule --nocolor "${source_specs[@]}" || return 1
+		done_something=1
+	fi
+	if [ ${#remaster_specs[@]} != 0 ]; then
+		molecule --nocolor "${remaster_specs[@]}" || return 1
+		done_something=1
+	fi
+
+	# package phases keep loading dbus, let's kill pids back
+	ps ax | grep -- "/usr/bin/dbus-daemon --fork .* --session" | awk '{ print $1 }' | xargs kill 2> /dev/null
+
+	if [ "${done_something}" = "1" ]; then
+		if [ "${done_images}" = "1" ]; then
+			cp -p "${SABAYON_MOLECULE_HOME}"/images/*"${ISO_TAG}"* \
+				"${SABAYON_MOLECULE_HOME}"/iso_rsync/ \
+				|| return 1
+		fi
+		cp -p "${SABAYON_MOLECULE_HOME}"/iso/*"${ISO_TAG}"* \
+			"${SABAYON_MOLECULE_HOME}"/iso_rsync/ || return 1
+		date > "${SABAYON_MOLECULE_HOME}"/iso_rsync/RELEASE_DATE_"${ISO_TAG}"
+		if [ "${MAKE_TORRENTS}" != "0" ]; then
+			"${SABAYON_MOLECULE_HOME}"/scripts/make_torrents.sh \
+			|| return 1
+		fi
+
+		# remove old ISO images?
+		if [ -n "${OLD_ISO_TAG}" ]; then
+			echo "Removing old ISO images tagged ${OLD_ISO_TAG}"
+			rm -rf "${SABAYON_MOLECULE_HOME}"/{images,iso,iso_rsync}/"${DISTRO_NAME}"*"${OLD_ISO_TAG}"*
+		fi
+
+	fi
+
 	return 0
 }
 
