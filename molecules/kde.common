@@ -318,7 +318,6 @@ packages_to_add:
 	x11-misc/desktop-acceleration-helpers,
 	x11-misc/xvkbd,
 	x11-themes/caledonia-plasma-theme,
-	x11-themes/gnome-themes-standard,
 	x11-themes/oxygen-gtk:2,
 	x11-themes/oxygen-gtk:3,
 	x11-themes/sabayon-artwork-extra,
@@ -327,12 +326,6 @@ packages_to_add:
 	x11-themes/sound-theme-freedesktop,
 	x11-themes/xcursor-themes,
 	x11-wm/twm
-
-# x11-themes/gnome-themes-standard:
-# oxygen-gtk contains a bug that screws Rigo's GTK3 nice
-# InfoBar backgrounds. So currently, GTK3 default theme
-# is set to Adwaita, which is contained inside
-# x11-themes/gnome-themes-standard
 
 # Custom shell call to packages add (default is: equo install)
 # custom_packages_add_cmd: 
