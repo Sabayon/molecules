@@ -140,6 +140,8 @@ if [ -f "${efi_x86_64_file}" ] || [ -f "${efi_i386_file}" ]; then
 	ts=$(date +%Y%m%d%H%M%S)
 	img_id="${ts}${RANDOM}"
 	id_file="id.${img_id}.uefi"
+	# Remove any previous id file
+	rm -f "${CDROOT_DIR}"/id.*.uefi
 	touch "${CDROOT_DIR}/${id_file}" || exit 1
 
 	# copy the chainload grub.cfg version
