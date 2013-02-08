@@ -5,11 +5,11 @@
 release_desc: armv7a BeagleBoard xM
 
 # Release Version (used to generate release_file)
-release_version: 10
+%env release_version: ${SABAYON_RELEASE:-11}
 
 # Specify image file name (image file name will be automatically
 # produced otherwise)
-image_name: Sabayon_Linux_11_armv7a_BeagleBoard_xM_4GB.img
+%env image_name: Sabayon_Linux_${SABAYON_RELEASE:-11}_armv7a_BeagleBoard_xM_4GB.img
 
 # Specify the image file size in Megabytes. This is mandatory.
 # To avoid runtime failure, make sure the image is large enough to fit your

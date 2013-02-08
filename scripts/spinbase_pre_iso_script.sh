@@ -37,7 +37,7 @@ echo "Sabayon ISO image build information" > "${build_file}" || exit 1
 echo "Built on: ${build_date}" >> "${build_file}" || exit 1
 
 ver=${RELEASE_VERSION}
-[[ -z "${ver}" ]] && ver=${CUR_DATE}
+[[ -z "${ver}" ]] && ver=${SABAYON_RELEASE}
 [[ -z "${ver}" ]] && ver="6"
 
 isolinux_dest="${CDROOT_DIR}/isolinux/txt.cfg"

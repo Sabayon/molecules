@@ -6,7 +6,7 @@ prechroot: linux32
 
 # Release Version
 # Keep this here, otherwise daily builds automagic won't work
-release_version: 10
+%env release_version: ${SABAYON_RELEASE:-11}
 
 # Release Version string description
 release_desc: x86 SpinBase
@@ -16,4 +16,4 @@ release_desc: x86 SpinBase
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
 # Keep this here and set, otherwise daily builds automagic won't work
-destination_iso_image_name: Sabayon_Linux_SpinBase_11_x86.iso
+%env destination_iso_image_name: Sabayon_Linux_SpinBase_${SABAYON_RELEASE:-11}_x86.iso

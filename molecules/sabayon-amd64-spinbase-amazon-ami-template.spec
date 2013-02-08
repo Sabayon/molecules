@@ -9,5 +9,5 @@
 # Path to source ISO file (MANDATORY)
 %env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_SpinBase_DAILY_amd64.iso
 
-release_version: 10
-image_name: Sabayon_Linux_SpinBase_11_amd64_ami.img
+%env release_version: ${SABAYON_RELEASE:-11}
+%env image_name: Sabayon_Linux_SpinBase_${SABAYON_RELEASE:-11}_amd64_ami.img

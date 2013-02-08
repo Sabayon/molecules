@@ -2,7 +2,7 @@
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/forensicxfce.common
 
 # Release Version
-release_version: 10
+%env release_version: ${SABAYON_RELEASE:-11}
 
 # Release Version string description
 release_desc: amd64 ForensicsXfce

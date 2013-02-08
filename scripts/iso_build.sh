@@ -53,7 +53,9 @@ REMASTER_TAR_SPECS_TAR=()
 # Default Sabayon release version to current date
 # composed by YYYYMMDD. This is overridden by the
 # monthly if branch below.
-CUR_DATE=$(date -u +%Y%m%d)
+if [ -z "${SABAYON_RELEASE}" ]; then  # make possible to override it
+    SABAYON_RELEASE=$(date -u +%Y%m%d)
+fi
 # ISO TAG is instead used as part of the images push
 # to our mirror. It is always "DAILY" but it gets a special
 # meaning for monthly releases.
@@ -163,13 +165,13 @@ elif [ "${ACTION}" = "dailybase" ]; then
 		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_amd64.iso"
 	)
 elif [ "${ACTION}" = "monthly" ]; then
-	CUR_DATE=$(date -u +%g.%m)
-	if [ -z "${CUR_DATE}" ]; then
-		echo "Cannot set CUR_DATE, wtf?" >&2
+	SABAYON_RELEASE=$(date -u +%g.%m)
+	if [ -z "${SABAYON_RELEASE}" ]; then
+		echo "Cannot set SABAYON_RELEASE, wtf?" >&2
 		exit 1
 	fi
-	# Rewrite ISO_TAG to CUR_DATE
-	ISO_TAG="${CUR_DATE}"
+	# Rewrite ISO_TAG to SABAYON_RELEASE
+	ISO_TAG="${SABAYON_RELEASE}"
 	OLD_ISO_TAG=$(date -u --date="last month" +%g.%m)
 	if [ -z "${OLD_ISO_TAG}" ]; then
 		echo "Cannot set OLD_ISO_TAG, wtf?" >&2
@@ -226,9 +228,10 @@ DAILY_TMPDIR=
 export ETP_NONINTERACTIVE=1
 export BUILDING_DAILY
 
-LOG_FILE="/var/log/molecule/autobuild-${CUR_DATE}-${$}.log"
-# to make ISO remaster spec files working (pre_iso_script)
-export CUR_DATE
+LOG_FILE="/var/log/molecule/autobuild-${SABAYON_RELEASE}-${$}.log"
+# to make ISO remaster spec files working (pre_iso_script) and
+# make molecules grab a proper release version
+export SABAYON_RELEASE
 
 echo "DO_PUSH=${DO_PUSH}"
 echo "DRY_RUN=${DRY_RUN}"
@@ -335,17 +338,11 @@ build_sabayon() {
 		echo "inner_source_chroot_script: ${inner_chroot}" >> "${dst}"
 
 		# tweak iso image name
-		sed -i "s/^#.*destination_iso_image_name/destination_iso_image_name:/" \
-			"${dst}" || return 1
-		sed -i "s/destination_iso_image_name.*/destination_iso_image_name: ${SOURCE_SPECS_ISO[i]}/" \
-			"${dst}" || return 1
-
-		# tweak release version
-		sed -i "s/release_version.*/release_version: ${CUR_DATE}/" \
+		sed -i "s/destination_iso_image_name:.*/destination_iso_image_name: ${SOURCE_SPECS_ISO[i]}/" \
 			"${dst}" || return 1
 
 		echo -n "${dst}: iso: ${SOURCE_SPECS_ISO[i]} "
-		echo "date: ${CUR_DATE}"
+		echo "date: ${SABAYON_RELEASE}"
 		source_specs+=( "${dst}" )
 	done
 
@@ -358,16 +355,11 @@ build_sabayon() {
 		echo "inner_source_chroot_script: ${inner_chroot}" >> "${dst}"
 
 		# tweak iso image name
-		sed -i "s/^#.*image_name/image_name:/" "${dst}" || return 1
-		sed -i "s/image_name.*/image_name: ${ARM_SOURCE_SPECS_IMG[i]}/" \
-			"${dst}" || return 1
-
-		# tweak release version
-		sed -i "s/release_version.*/release_version: ${CUR_DATE}/" \
+		sed -i "s/image_name:.*/image_name: ${ARM_SOURCE_SPECS_IMG[i]}/" \
 			"${dst}" || return 1
 
 		echo -n "${dst}: image: ${ARM_SOURCE_SPECS_IMG[i]} "
-                echo "date: ${CUR_DATE}"
+                echo "date: ${SABAYON_RELEASE}"
 		arm_source_specs+=( "${dst}" )
 	done
 
@@ -378,17 +370,11 @@ build_sabayon() {
 		cp "${src}" "${dst}" -p || return 1
 
 		# tweak iso image name
-		sed -i "s/^#.*destination_iso_image_name/destination_iso_image_name:/" "${dst}" \
-			|| return 1
-		sed -i "s/destination_iso_image_name.*/destination_iso_image_name: ${REMASTER_SPECS_ISO[i]}/" \
-			"${dst}" || return 1
-
-		# tweak release version
-		sed -i "s/release_version.*/release_version: ${CUR_DATE}/" \
+		sed -i "s/destination_iso_image_name:.*/destination_iso_image_name: ${REMASTER_SPECS_ISO[i]}/" \
 			"${dst}" || return 1
 
 		echo -n "${dst}: iso: ${REMASTER_SPECS_ISO[i]} "
-		echo "date: ${CUR_DATE}"
+		echo "date: ${SABAYON_RELEASE}"
 		remaster_specs+=( "${dst}" )
 	done
 
@@ -398,14 +384,10 @@ build_sabayon() {
 		cp "${src}" "${dst}" -p || return 1
 
 		# tweak tar name
-		sed -i "s/^#.*tar_name/tar_name:/" "${dst}" || return 1
-		sed -i "s/tar_name.*/tar_name: ${REMASTER_TAR_SPECS_TAR[i]}/" "${dst}" || return 1
-
-		# tweak release version
-		sed -i "s/release_version.*/release_version: ${CUR_DATE}/" "${dst}" || return 1
+		sed -i "s/tar_name:.*/tar_name: ${REMASTER_TAR_SPECS_TAR[i]}/" "${dst}" || return 1
 
 		echo -n "${dst}: tar: ${REMASTER_TAR_SPECS_TAR[i]} "
-		echo "date: ${CUR_DATE}"
+		echo "date: ${SABAYON_RELEASE}"
 		remaster_specs+=( "${dst}" )
 	done
 
@@ -486,7 +468,7 @@ if [ -n "${DO_STDOUT}" ]; then
 		out=${?}
 	fi
 else
-	log_file="/var/log/molecule/autobuild-${CUR_DATE}-${$}.log"
+	log_file="/var/log/molecule/autobuild-${SABAYON_RELEASE}-${$}.log"
 	build_sabayon &> "${log_file}"
 	out=${?}
 	if [ "${out}" = "0" ]; then

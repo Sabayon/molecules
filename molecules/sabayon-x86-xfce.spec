@@ -2,7 +2,7 @@
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/xfce.common
 
 # Release Version
-release_version: 10
+%env release_version: ${SABAYON_RELEASE:-11}
 
 # Release Version string description
 release_desc: x86 Xfce
@@ -14,4 +14,4 @@ prechroot: linux32
 %env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_SpinBase_DAILY_x86.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-destination_iso_image_name: Sabayon_Linux_11_x86_Xfce.iso
+%env destination_iso_image_name: Sabayon_Linux_${SABAYON_RELEASE:-11}_x86_Xfce.iso
