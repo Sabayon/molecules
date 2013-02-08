@@ -10,4 +10,4 @@ prechroot: linux32
 %env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_SpinBase_DAILY_x86.iso
 
 release_version: 10
-image_name: Sabayon_Linux_SpinBase_10_x86_ami.img
+image_name: Sabayon_Linux_SpinBase_11_x86_ami.img

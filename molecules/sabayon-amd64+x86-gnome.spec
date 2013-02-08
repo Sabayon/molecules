@@ -33,7 +33,7 @@ iso_title: Sabayon GNOME
 extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorito-alt-boot -no-emul-boot -eltorito-platform efi -eltorito-boot boot/grub/efi.img
 
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
-%env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/amd64_x86_pre_iso_script.sh GNOME 64 32 ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_10_x86_G.iso
+%env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/amd64_x86_pre_iso_script.sh GNOME 64 32 ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_11_x86_G.iso
 
 # Post-ISO building script, called after ISO image generation.    
 %env post_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_post_iso_script.sh
@@ -70,7 +70,7 @@ release_version: 10
 release_desc: amd64+x86 GNOME
 
 # Path to source ISO file (MANDATORY)
-%env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_10_amd64_G.iso
+%env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_11_amd64_G.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-destination_iso_image_name: Sabayon_Linux_10_amd64+x86_G.iso
+destination_iso_image_name: Sabayon_Linux_11_amd64+x86_G.iso

@@ -14,4 +14,4 @@ release_desc: x86 Gaming Edition
 %env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_DAILY_x86_G.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-destination_iso_image_name: Sabayon_Linux_10_x86_Gaming.iso
+destination_iso_image_name: Sabayon_Linux_11_x86_Gaming.iso

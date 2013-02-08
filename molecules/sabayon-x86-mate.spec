@@ -13,4 +13,4 @@ release_desc: amd64 MATE
 %env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_SpinBase_DAILY_x86.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-destination_iso_image_name: Sabayon_Linux_10_x86_MATE.iso
+destination_iso_image_name: Sabayon_Linux_11_x86_MATE.iso

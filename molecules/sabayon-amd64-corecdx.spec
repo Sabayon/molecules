@@ -8,4 +8,4 @@ release_desc: amd64 CoreCDX
 %env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_SpinBase_DAILY_amd64.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-destination_iso_image_name: Sabayon_Linux_CoreCDX_10_amd64.iso
+destination_iso_image_name: Sabayon_Linux_CoreCDX_11_amd64.iso

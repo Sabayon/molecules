@@ -9,4 +9,4 @@
 %env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_SpinBase_DAILY_amd64.iso
 
 release_version: 10
-tar_name: Sabayon_Linux_SpinBase_10_amd64_openvz.tar.gz
+tar_name: Sabayon_Linux_SpinBase_11_amd64_openvz.tar.gz

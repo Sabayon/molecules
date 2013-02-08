@@ -13,4 +13,4 @@ release_desc: amd64 SpinBase
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
 # Keep this here and set, otherwise daily builds automagic won't work
-destination_iso_image_name: Sabayon_Linux_SpinBase_10_amd64.iso
+destination_iso_image_name: Sabayon_Linux_SpinBase_11_amd64.iso
