@@ -367,7 +367,7 @@ build_sabayon() {
 			"${dst}" || return 1
 
 		echo -n "${dst}: image: ${ARM_SOURCE_SPECS_IMG[i]} "
-                echo "date: ${SABAYON_RELEASE}"
+		echo "date: ${SABAYON_RELEASE}"
 		arm_source_specs+=( "${dst}" )
 	done
 
