@@ -14,6 +14,7 @@ VALID_ACTIONS=(
     "weekly"
     "monthly"
     "dailybase"
+    "release"
 )
 
 ACTION="${1}"
@@ -54,7 +55,11 @@ REMASTER_TAR_SPECS_TAR=()
 # composed by YYYYMMDD. This is overridden by the
 # monthly if branch below.
 if [ -z "${SABAYON_RELEASE}" ]; then  # make possible to override it
-    SABAYON_RELEASE=$(date -u +%Y%m%d)
+	if [ "${ACTION}" = "release" ]; then
+		echo "Missing SABAYON_RELEASE env var" >&2
+		exit 1
+	fi
+	SABAYON_RELEASE=$(date -u +%Y%m%d)
 fi
 # ISO TAG is instead used as part of the images push
 # to our mirror. It is always "DAILY" but it gets a special
@@ -164,21 +169,24 @@ elif [ "${ACTION}" = "dailybase" ]; then
 		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_x86.iso"
 		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_amd64.iso"
 	)
-elif [ "${ACTION}" = "monthly" ]; then
-	SABAYON_RELEASE=$(date -u +%g.%m)
-	if [ -z "${SABAYON_RELEASE}" ]; then
+elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
+	if [ "${ACTION}" = "monthly" ]; then
+		SABAYON_RELEASE=$(date -u +%g.%m)
+	fi
+	if [ -z "${SABAYON_RELEASE}" ]; then  # release action must set this
 		echo "Cannot set SABAYON_RELEASE, wtf?" >&2
 		exit 1
 	fi
 	# Rewrite ISO_TAG to SABAYON_RELEASE
 	ISO_TAG="${SABAYON_RELEASE}"
-	OLD_ISO_TAG=$(date -u --date="last month" +%g.%m)
-	if [ -z "${OLD_ISO_TAG}" ]; then
-		echo "Cannot set OLD_ISO_TAG, wtf?" >&2
-		exit 1
+	if [ "${ACTION}" = "monthly" ]; then
+		OLD_ISO_TAG=$(date -u --date="last month" +%g.%m)
+		if [ -z "${OLD_ISO_TAG}" ]; then
+			echo "Cannot set OLD_ISO_TAG, wtf?" >&2
+			exit 1
+		fi
 	fi
 
-	# Monthly, automatic molecules
 	SOURCE_SPECS+=(
 		"sabayon-x86-spinbase.spec"
 		"sabayon-amd64-spinbase.spec"
