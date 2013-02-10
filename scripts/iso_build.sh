@@ -350,7 +350,7 @@ build_sabayon() {
 			"${dst}" || return 1
 
 		echo -n "${dst}: iso: ${SOURCE_SPECS_ISO[i]} "
-		echo "date: ${SABAYON_RELEASE}"
+		echo "release: ${SABAYON_RELEASE}"
 		source_specs+=( "${dst}" )
 	done
 
@@ -367,7 +367,7 @@ build_sabayon() {
 			"${dst}" || return 1
 
 		echo -n "${dst}: image: ${ARM_SOURCE_SPECS_IMG[i]} "
-		echo "date: ${SABAYON_RELEASE}"
+		echo "release: ${SABAYON_RELEASE}"
 		arm_source_specs+=( "${dst}" )
 	done
 
@@ -382,7 +382,7 @@ build_sabayon() {
 			"${dst}" || return 1
 
 		echo -n "${dst}: iso: ${REMASTER_SPECS_ISO[i]} "
-		echo "date: ${SABAYON_RELEASE}"
+		echo "release: ${SABAYON_RELEASE}"
 		remaster_specs+=( "${dst}" )
 	done
 
@@ -395,7 +395,7 @@ build_sabayon() {
 		sed -i "s/tar_name:.*/tar_name: ${REMASTER_TAR_SPECS_TAR[i]}/" "${dst}" || return 1
 
 		echo -n "${dst}: tar: ${REMASTER_TAR_SPECS_TAR[i]} "
-		echo "date: ${SABAYON_RELEASE}"
+		echo "release: ${SABAYON_RELEASE}"
 		remaster_specs+=( "${dst}" )
 	done
 
