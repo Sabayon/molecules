@@ -132,12 +132,6 @@ for conf in 00-sabayon.package.use; do
 	fi
 done
 
-# Update sabayon overlay
-layman -d sabayon
-rm -rf /var/lib/layman/sabayon
-layman -d sabayon-distro
-rm -rf /var/lib/layman/sabayon-distro
-
 # Reset users' password
 # chpasswd doesn't work anymore
 root_zeropass="root::$(cat /etc/shadow | grep "root:" | cut -d":" -f3-)"

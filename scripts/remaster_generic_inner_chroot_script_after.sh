@@ -270,10 +270,6 @@ setup_installed_packages() {
 }
 
 setup_portage() {
-	layman -d sabayon
-	rm -rf /var/lib/layman/sabayon
-	layman -d sabayon-distro
-	rm -rf /var/lib/layman/sabayon-distro
 	emaint --fix world
 }
 
