@@ -36,10 +36,7 @@ build_file="${CDROOT_DIR}"/BUILD_INFO
 echo "Sabayon ISO image build information" > "${build_file}" || exit 1
 echo "Built on: ${build_date}" >> "${build_file}" || exit 1
 
-ver=${RELEASE_VERSION}
-[[ -z "${ver}" ]] && ver=${SABAYON_RELEASE}
-[[ -z "${ver}" ]] && ver="6"
-
+ver="${RELEASE_VERSION}"
 isolinux_dest="${CDROOT_DIR}/isolinux/txt.cfg"
 isolinux_dest_txt="${CDROOT_DIR}/isolinux/isolinux.txt"
 grub_dest="${CDROOT_DIR}/boot/grub/grub.cfg"

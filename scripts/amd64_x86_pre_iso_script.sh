@@ -42,10 +42,7 @@ cp "${grub_source}" "${grub_destination}" || exit 1
 # generate EFI GRUB
 "${SABAYON_MOLECULE_HOME}"/scripts/make_grub_efi.sh || exit 1
 
-ver=${RELEASE_VERSION}
-[[ -z "${ver}" ]] && ver=${SABAYON_RELEASE}
-[[ -z "${ver}" ]] && ver="6"
-
+ver="${RELEASE_VERSION}"
 sed -i "s/__VERSION__/${ver}/g" "${isolinux_destination}" || exit 1
 sed -i "s/__FLAVOUR__/${remaster_type}/g" "${isolinux_destination}" || exit 1
 sed -i "s/__VERSION__/${ver}/g" "${grub_destination}" || exit 1
