@@ -66,7 +66,8 @@ packages_to_add:
 	www-client/midori
 
 packages_to_remove:
-	sys-kernel/linux-sabayon
+	sys-kernel/linux-sabayon,
+	sys-fs/zfs-userspace
 
 # Determine whether repositories update should be run (if packages_to_add is set)
 # (default is: no), values are: yes, no.
