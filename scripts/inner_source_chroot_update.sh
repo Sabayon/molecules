@@ -114,4 +114,14 @@ for conf in 00-sabayon.package.use; do
 	fi
 done
 
+# Update /usr/portage/profiles
+# This is actually not strictly needed but several
+# gentoo tools expect to find valid /etc/make.profile symlink
+# This part is best effort, if it will be able to complete
+# correctly, fine.
+# For a list of mirrors, see: http://www.gentoo.org/main/en/mirrors-rsync.xml
+RSYNC_URI="rsync://rsync.at.gentoo.org/gentoo-portage/profiles"
+PROFILES_DIR="/usr/portage/profiles"
+safe_run rsync -av -H -A -X --delete-during "${RSYNC_URI}/" "${PROFILES_DIR}/"
+
 equo query list installed -qv > /etc/sabayon-pkglist
