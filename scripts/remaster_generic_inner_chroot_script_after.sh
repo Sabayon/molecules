@@ -49,10 +49,6 @@ basic_environment_setup() {
 	groupadd -f games
 }
 
-remove_desktop_files() {
-	rm /etc/skel/Desktop/WorldOfGooDemo-world-of-goo-demo.desktop
-}
-
 setup_cpufrequtils() {
 	rc-update add cpufrequtils default
 }
@@ -298,7 +294,6 @@ prepare_lxde() {
 	# Fix ~/.dmrc to have it load LXDE
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=LXDE" >> /etc/skel/.dmrc
-	remove_desktop_files
 	setup_displaymanager
 	# properly tweak lxde autostart tweak, adding --desktop option
 	sed -i 's/pcmanfm -d/pcmanfm -d --desktop/g' /etc/xdg/lxsession/LXDE/autostart
@@ -312,7 +307,6 @@ prepare_mate() {
 	# Fix ~/.dmrc to have it load MATE
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=mate" >> /etc/skel/.dmrc
-        remove_desktop_files
         setup_displaymanager
         remove_mozilla_skel_cruft
         setup_cpufrequtils
@@ -324,7 +318,6 @@ prepare_e17() {
 	# Fix ~/.dmrc to have it load E17
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=enlightenment" >> /etc/skel/.dmrc
-	remove_desktop_files
 	# E17 spin has chromium installed
 	setup_displaymanager
 	# Not using lxdm for now
@@ -343,7 +336,6 @@ prepare_xfce() {
 	# Fix ~/.dmrc to have it load Xfce
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=xfce" >> /etc/skel/.dmrc
-	remove_desktop_files
 	remove_mozilla_skel_cruft
 	setup_cpufrequtils
 	setup_displaymanager
@@ -355,7 +347,6 @@ prepare_fluxbox() {
 	# Fix ~/.dmrc to have it load Fluxbox
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=fluxbox" >> /etc/skel/.dmrc
-	remove_desktop_files
 	setup_displaymanager
 	remove_mozilla_skel_cruft
 	setup_cpufrequtils
@@ -385,7 +376,6 @@ prepare_xfceforensic() {
 	# Fix ~/.dmrc to have it load Xfce
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=xfce" >> /etc/skel/.dmrc
-	remove_desktop_files
 	setup_cpufrequtils
 	setup_displaymanager
 	remove_mozilla_skel_cruft
@@ -413,7 +403,6 @@ prepare_awesome() {
 	# Fix ~/.dmrc to have it load Awesome
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=awesome" >> /etc/skel/.dmrc
-	remove_desktop_files
 	setup_displaymanager
 	remove_mozilla_skel_cruft
 	setup_cpufrequtils
