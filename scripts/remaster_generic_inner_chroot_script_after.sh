@@ -26,7 +26,16 @@ basic_environment_setup() {
 	rc-update del sabayon-mce default
 	rc-update add nfsmount default
 
-	if [ -f /etc/init.d/zfs ] && [ "$(uname -m)" = "x86_64" ]; then
+	local kern_type="$(equo match --installed -q virtual/linux-binary)"
+	local do_zfs=1
+	if [ ! -f /etc/init.d/zfs ]; then
+		do_zfs=0
+	elif [ "$(uname -m)" != "x86_64" ]; then
+		do_zfs=0
+	elif [ "${kern_type}" = "sys-kernel/linux-hardened" ]; then
+		do_zfs=0  # currently not in the hardened kernel
+	fi
+	if [ "${do_zfs}" = "1" ]; then
 		rc-update add zfs boot
 	fi
 
