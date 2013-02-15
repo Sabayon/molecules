@@ -101,8 +101,8 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 	REMASTER_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_x86_GNOME.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_amd64_K.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_K.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_KDE.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_KDE.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_MATE.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_x86_MATE.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_LXDE.iso"
@@ -214,8 +214,8 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 	REMASTER_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_x86_GNOME.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_amd64_K.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_K.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_KDE.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_KDE.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_MATE.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_x86_MATE.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Xfce.iso"
