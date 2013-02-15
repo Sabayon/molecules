@@ -99,8 +99,8 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		"sabayon-x86-hardenedserver.spec"
 	)
 	REMASTER_SPECS_ISO+=(
-		"${DISTRO_NAME}_${ISO_TAG}_amd64_G.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_G.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_GNOME.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_K.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_x86_K.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_MATE.iso"
@@ -212,8 +212,8 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 		"sabayon-x86-hardenedserver.spec"
 	)
 	REMASTER_SPECS_ISO+=(
-		"${DISTRO_NAME}_${ISO_TAG}_amd64_G.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_G.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_GNOME.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_K.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_x86_K.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_MATE.iso"
