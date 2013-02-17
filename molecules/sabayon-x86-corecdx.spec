@@ -12,4 +12,4 @@ prechroot: linux32
 %env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_SpinBase_DAILY_x86.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-%env destination_iso_image_name: Sabayon_Linux_CoreCDX_${SABAYON_RELEASE:-11}_x86.iso
+%env destination_iso_image_name: Sabayon_Linux_${SABAYON_RELEASE:-11}_x86_CoreCDX.iso
