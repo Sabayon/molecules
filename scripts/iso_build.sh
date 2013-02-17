@@ -69,6 +69,8 @@ OLD_ISO_TAG=""  # used to remove OLD ISO images the local dir
 DISTRO_NAME="Sabayon_Linux"
 
 if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
+	export BUILDING_DAILY=1
+
 	# Daily molecules
 	SOURCE_SPECS+=(
 		"sabayon-x86-spinbase.spec"
@@ -161,6 +163,8 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		)
 	fi
 elif [ "${ACTION}" = "dailybase" ]; then
+	export BUILDING_DAILY=1
+
 	SOURCE_SPECS+=(
 		"sabayon-x86-spinbase.spec"
 		"sabayon-amd64-spinbase.spec"
@@ -229,12 +233,10 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 	)
 fi
 
-BUILDING_DAILY=1
 MAKE_TORRENTS="${MAKE_TORRENTS:-0}"
 DAILY_TMPDIR=
 
 export ETP_NONINTERACTIVE=1
-export BUILDING_DAILY
 
 LOG_FILE="/var/log/molecule/autobuild-${SABAYON_RELEASE}-${$}.log"
 # to make ISO remaster spec files working (pre_iso_script) and
