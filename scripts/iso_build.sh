@@ -75,8 +75,8 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		"sabayon-amd64-spinbase.spec"
 	)
 	SOURCE_SPECS_ISO+=(
-		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_x86.iso"
-		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_amd64.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_SpinBase.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase.iso"
 	)
 	REMASTER_SPECS+=(
 		"sabayon-amd64-gnome.spec"
@@ -154,10 +154,10 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 			"sabayon-amd64-spinbase-amazon-ebs-image.spec"
 		)
 		REMASTER_TAR_SPECS_TAR+=(
-			"${DISTRO_NAME}_SpinBase_${ISO_TAG}_x86_openvz.tar.gz"
-			"${DISTRO_NAME}_SpinBase_${ISO_TAG}_amd64_openvz.tar.gz"
-			"${DISTRO_NAME}_SpinBase_${ISO_TAG}_x86_Amazon_EBS_ext4_filesystem_image.tar.gz"
-			"${DISTRO_NAME}_SpinBase_${ISO_TAG}_amd64_Amazon_EBS_ext4_filesystem_image.tar.gz"
+			"${DISTRO_NAME}_${ISO_TAG}_x86_SpinBase_openvz.tar.gz"
+			"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase_openvz.tar.gz"
+			"${DISTRO_NAME}_${ISO_TAG}_x86_SpinBase_Amazon_EBS_ext4_filesystem_image.tar.gz"
+			"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase_Amazon_EBS_ext4_filesystem_image.tar.gz"
 		)
 	fi
 elif [ "${ACTION}" = "dailybase" ]; then
@@ -166,8 +166,8 @@ elif [ "${ACTION}" = "dailybase" ]; then
 		"sabayon-amd64-spinbase.spec"
 	)
 	SOURCE_SPECS_ISO+=(
-		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_x86.iso"
-		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_amd64.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_SpinBase.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase.iso"
 	)
 elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 	if [ "${ACTION}" = "monthly" ]; then
@@ -192,8 +192,8 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 		"sabayon-amd64-spinbase.spec"
 	)
 	SOURCE_SPECS_ISO+=(
-		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_x86.iso"
-		"${DISTRO_NAME}_SpinBase_${ISO_TAG}_amd64.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_SpinBase.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase.iso"
 	)
 	REMASTER_SPECS+=(
 		"sabayon-amd64-gnome.spec"
