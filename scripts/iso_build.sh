@@ -121,24 +121,24 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 
 	# Weekly molecules
 	if [ "${ACTION}" = "weekly" ]; then
-		ARM_SOURCE_SPECS+=(
-			"sabayon-arm-beaglebone-base-2G.spec"
-			"sabayon-arm-beaglebone-base-4G.spec"
-			"sabayon-arm-beagleboard-xm-4G.spec"
-			"sabayon-arm-beagleboard-xm-8G.spec"
-			"sabayon-arm-pandaboard-4G.spec"
-			"sabayon-arm-pandaboard-8G.spec"
-			"sabayon-arm-efikamx-base-4G.spec"
-		)
-		ARM_SOURCE_SPECS_IMG+=(
-			"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBone_Base_2GB.img"
-			"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBone_Base_4GB.img"
-			"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBoard_xM_4GB.img"
-			"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBoard_xM_8GB.img"
-			"${DISTRO_NAME}_${ISO_TAG}_armv7a_PandaBoard_4GB.img"
-			"${DISTRO_NAME}_${ISO_TAG}_armv7a_PandaBoard_8GB.img"
-			"${DISTRO_NAME}_${ISO_TAG}_armv7a_EfikaMX_Base_4GB.img"
-		)
+		#ARM_SOURCE_SPECS+=(
+		#	"sabayon-arm-beaglebone-base-2G.spec"
+		#	"sabayon-arm-beaglebone-base-4G.spec"
+		#	"sabayon-arm-beagleboard-xm-4G.spec"
+		#	"sabayon-arm-beagleboard-xm-8G.spec"
+		#	"sabayon-arm-pandaboard-4G.spec"
+		#	"sabayon-arm-pandaboard-8G.spec"
+		#	"sabayon-arm-efikamx-base-4G.spec"
+		#)
+		#ARM_SOURCE_SPECS_IMG+=(
+		#	"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBone_Base_2GB.img"
+		#	"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBone_Base_4GB.img"
+		#	"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBoard_xM_4GB.img"
+		#	"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBoard_xM_8GB.img"
+		#	"${DISTRO_NAME}_${ISO_TAG}_armv7a_PandaBoard_4GB.img"
+		#	"${DISTRO_NAME}_${ISO_TAG}_armv7a_PandaBoard_8GB.img"
+		#	"${DISTRO_NAME}_${ISO_TAG}_armv7a_EfikaMX_Base_4GB.img"
+		#)
 		REMASTER_SPECS+=(
 			"sabayon-amd64-xfceforensic.spec"
 			"sabayon-x86-xfceforensic.spec"
