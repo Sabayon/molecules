@@ -10,6 +10,7 @@ SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
 export SABAYON_MOLECULE_HOME
 
 MOUNT_DIRS=()
+TEMP_FILES=()
 EFI_BOOT_DIR="${CDROOT_DIR}/efi/boot"
 GRUB_BOOT_DIR_PREFIX="/boot/grub"
 GRUB_LOCALE_DIR_PREFIX="${GRUB_BOOT_DIR_PREFIX}/locale"
@@ -24,6 +25,12 @@ i386_EFI_DIR_PREFIX="/usr/lib/grub/i386-efi"
 x86_64_EFI_DIR="${CHROOT_DIR}${x86_64_EFI_DIR_PREFIX}"
 i386_EFI_DIR="${CHROOT_DIR}${i386_EFI_DIR_PREFIX}"
 
+# This file is used by grub to determine where's the cdroot
+ts=$(date +%Y%m%d%H%M%S)
+img_id="${ts}${RANDOM}"
+ID_FILE_PREFIX="id."
+ID_FILE="${ID_FILE_PREFIX}${img_id}.uefi"
+
 pre_iso_signal_handler() {
 	for mount_dir in "${MOUNT_DIRS[@]}"; do
 		if [ -d "${mount_dir}" ]; then
@@ -32,36 +39,88 @@ pre_iso_signal_handler() {
 			rmdir "${mount_dir}"
 		fi
 	done
+	for temp_dir in "${TEMP_FILES[@]}"; do
+		rm -rf "${temp_dir}"
+	done
 }
 trap "pre_iso_signal_handler" EXIT SIGINT SIGQUIT SIGILL SIGTERM SIGHUP
 
+create_embedded_grub_cfg() {
+	local embedded_cfg="${1}"
+
+	echo "" >| "${embedded_cfg}" || return 1
+	echo "echo Booting Sabayon" >> "${embedded_cfg}" || return 1
+	echo "search --file --no-floppy --set=root /${ID_FILE}" >> "${embedded_cfg}" || return 1
+	echo "set prefix=${GRUB_BOOT_DIR_PREFIX}" >> "${embedded_cfg}" || return 1
+	echo "export root" >> "${embedded_cfg}" || return 1
+	echo "export prefix" >> "${embedded_cfg}" || return 1
+
+	# Debug messages, useful for bug reports
+	echo "echo grub root = \$root" >> "${embedded_cfg}" || return 1
+	echo "echo grub prefix = \$prefix" >> "${embedded_cfg}" || return 1
+	echo "sleep 1" >> "${embedded_cfg}" || return 1
+
+	echo "normal" >> "${embedded_cfg}" || return 1
+	echo "" >> "${embedded_cfg}" || return 1
+}
+
+create_efi_grub_image() {
+	local dir_prefix="${1}"
+	local image_name="${2}"
+	local image_format="${3}"
+	local grub_efi_dir="${4}"
+
+	local memdisk_dir=$(TMPDIR="${CHROOT_DIR}" mktemp -d --suffix="create_efi_grub_image")
+	local memdisk_file=$(TMPDIR="${CHROOT_DIR}" mktemp --suffix="memdisk_image")
+	TEMP_FILES+=( "${memdisk_dir}" )
+	TEMP_FILES+=( "${memdisk_file}" )
+
+	local memdisk_boot_dir="${memdisk_dir}/${GRUB_BOOT_DIR_PREFIX}"
+	local memdisk_boot_dir_prefix_name="$(basename $(dirname ${GRUB_BOOT_DIR_PREFIX}))"
+	local embedded_cfg="${memdisk_boot_dir}/grub.cfg"
+	local memdisk_file_chroot_path="${memdisk_file/${CHROOT_DIR}/}"
+
+	echo "Memdisk relative path: ${memdisk_file_chroot_path}"
+	mkdir -p "${memdisk_boot_dir}" || return 1
+
+	create_embedded_grub_cfg "${embedded_cfg}"
+
+	( cd "${memdisk_dir}" && tar -cf - "${memdisk_boot_dir_prefix_name}" ) > "${memdisk_file}" || return 1
+
+	chroot "${CHROOT_DIR}" grub2-mkimage \
+		-m "${memdisk_file_chroot_path}" \
+		-p "(memdisk)${GRUB_BOOT_DIR_PREFIX}" \
+		-d "${dir_prefix}" \
+		-o /"${image_name}" \
+		-O "${image_format}" \
+		-C xz \
+		ext2 fat udf btrfs ntfs reiserfs xfs hfsplus \
+		lvm ata part_msdos part_gpt part_apple \
+		bsd search_fs_uuid normal chain iso9660 \
+		configfile help loadenv reboot cat search \
+		memdisk tar boot linux chain echo sleep || return 1
+
+	mv "${CHROOT_DIR}"/"${image_name}" "${EFI_BOOT_DIR}/" || return 1
+	cp -Rp "${grub_efi_dir}" "${GRUB_BOOT_DIR}/" || return 1
+
+	# cleanup
+	rm -rf "${memdisk_dir}" "${memdisk_file}"
+
+	return 0
+}
+
 if [ -d "${x86_64_EFI_DIR}" ]; then
-	# create the EFI image
-	chroot "${CHROOT_DIR}" grub2-mkimage \
-		-p "${GRUB_BOOT_DIR_PREFIX}" \
-		-d "${x86_64_EFI_DIR_PREFIX}" \
-		-o /bootx64.efi \
-		-O x86_64-efi ext2 fat lvm part_msdos \
-			part_gpt hfsplus bsd search_fs_uuid normal \
-			chain iso9660 configfile loadenv \
-			reboot cat \
-		|| exit 1
-	mv "${CHROOT_DIR}"/bootx64.efi "${EFI_BOOT_DIR}/" || exit 1
-	cp -Rp "${x86_64_EFI_DIR}" "${GRUB_BOOT_DIR}/" || exit 1
-fi
-if [ -d "${i386_EFI_DIR}" ]; then
-	# create the EFI image
-	chroot "${CHROOT_DIR}" grub2-mkimage \
-		-p "${GRUB_BOOT_DIR_PREFIX}" \
-		-d "${i386_EFI_DIR_PREFIX}" \
-		-o /boota32.efi \
-		-O i386-efi ext2 fat lvm part_msdos \
-			part_gpt hfsplus bsd search_fs_uuid normal \
-			chain iso9660 configfile loadenv \
-			reboot cat \
-		|| exit 1
-	mv "${CHROOT_DIR}"/boota32.efi "${EFI_BOOT_DIR}/" || exit 1
-	cp -Rp "${i386_EFI_DIR}" "${GRUB_BOOT_DIR}/" || exit 1
+	create_efi_grub_image "${x86_64_EFI_DIR_PREFIX}" \
+				"bootx64.efi" \
+				"x86_64-efi" \
+				"${x86_64_EFI_DIR}" \
+				|| exit 1
+elif [ -d "${i386_EFI_DIR}" ]; then
+	create_efi_grub_image "${i386_EFI_DIR_PREFIX}" \
+				"boota32.efi" \
+				"i386-efi" \
+				"${i386_EFI_DIR}" \
+				|| exit 1
 fi
 
 # These must exist.
@@ -119,12 +178,12 @@ if [ -f "${efi_x86_64_file}" ] || [ -f "${efi_i386_file}" ]; then
 	# UEFI is currently only supported in x86_64
 
 	# now the tricky part, create an eltorito alternative image
-	# 12 floppies = 2880 x 12, we need more space for SecureBoot and GRUB2
+	# 12 floppies = 2880 x 14, we need more space for SecureBoot and GRUB2
 	# stuff to make isohybrid work as expected.
 	dd bs=512 count=$((2880 * 12)) if=/dev/zero of="${efi_img}" || exit 1
 	mkfs.msdos "${efi_img}" || exit 1
 
-	tmp_dir=$(mktemp -d --suffix="make_grub_efi")
+	tmp_dir=$(TMPDIR="/var/tmp" mktemp -d --suffix="make_grub_efi")
 	[[ -z "${tmp_dir}" ]] && exit 1
 	MOUNT_DIRS+=( "${tmp_dir}" )
 	mount -o loop "${efi_img}" "${tmp_dir}" || exit 1
@@ -138,21 +197,18 @@ if [ -f "${efi_x86_64_file}" ] || [ -f "${efi_i386_file}" ]; then
 	tmp_grub_dir="${tmp_dir}/boot/grub"
 	mkdir -p "${tmp_grub_dir}" || exit 1
 
-	# This file is used by grub to determine where's the cdroot
-	ts=$(date +%Y%m%d%H%M%S)
-	img_id="${ts}${RANDOM}"
-	id_file="id.${img_id}.uefi"
 	# Remove any previous id file
-	rm -f "${CDROOT_DIR}"/id.*.uefi
-	touch "${CDROOT_DIR}/${id_file}" || exit 1
+	rm -f "${CDROOT_DIR}"/"${ID_FILE_PREFIX}"*.uefi
+	touch "${CDROOT_DIR}/${ID_FILE}" || exit 1
 
-	# copy the chainload grub.cfg version
-	cp "${SABAYON_MOLECULE_HOME}/boot/core/grub/grub-uefi-isohybrid.cfg" \
-		"${tmp_grub_dir}/grub.cfg" || exit 1
-	sed -i "s:%id_file%:${id_file}:g" "${tmp_grub_dir}/grub.cfg" || exit 1
-
+	## TODO: is this still needed? We actually embed grub.cfg
+	## into the EFI image now. Test by removing the 3 lines below
+	## and dding the ISO to a USB storage and try to boot it.
+	## copy the chainload grub.cfg version
+	create_embedded_grub_cfg "${tmp_grub_dir}/grub.cfg"
 	# copy modules, actually, we would just need search
 	cp -R "${GRUB_BOOT_DIR}/"*-efi "${tmp_grub_dir}/" || exit 1
+
 	mkdir -p "${tmp_grub_dir}/SecureBoot" || exit 1
 	cp "${sabayon_der}" "${tmp_grub_dir}/SecureBoot/" || exit 1
 
