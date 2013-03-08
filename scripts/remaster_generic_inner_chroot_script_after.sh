@@ -164,10 +164,13 @@ setup_proprietary_gfx_drivers() {
 		=x11-drivers/nvidia-drivers-304*$kernel_tag
 	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-userspace-173* \
 		=x11-drivers/nvidia-drivers-173*$kernel_tag
-	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-userspace-96* \
-		=x11-drivers/nvidia-drivers-96*$kernel_tag
+
+	## not working with >=xorg-server-1.13
+	##ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-userspace-96* \
+	##	=x11-drivers/nvidia-drivers-96*$kernel_tag
 	## not working with >=xorg-server-1.5
 	## ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps ~x11-drivers/nvidia-drivers-71.86.*$kernel_tag
+
 	mv /var/lib/entropy/client/packages/packages-nonfree/${mydir}/*/x11-drivers\:nvidia-{drivers,userspace}*.tbz2 \
 		/install-data/drivers/
 
