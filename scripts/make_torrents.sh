@@ -24,5 +24,5 @@ for iso_file in "${iso_dir}"/*.{iso,tar.gz,tar.xz}; do
 	[[ -f "${torrent_file}" ]] && rm "${torrent_file}"
 	iso_file_name="$(basename ${iso_file})"
 	echo "Cooking ${iso_file_name}"
-	mktorrent-borg -nd -a "${announce_url}" -n "${iso_name}" -o "${torrent_file}" "${iso_file_name}" || exit 1
+	mktorrent-borg -pub -nd -a "${announce_url}" -n "${iso_name}" -o "${torrent_file}" "${iso_file_name}" || exit 1
 done
