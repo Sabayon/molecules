@@ -7,7 +7,7 @@
 SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
 export SABAYON_MOLECULE_HOME
 
-announce_url="http://tracker.sabayon.org/tracker.php/announce"
+announce_url="http://torrents.sabayon.org:8082/announce"
 iso_dir="${SABAYON_MOLECULE_HOME}/iso"
 cd "${iso_dir}"
 
