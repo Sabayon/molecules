@@ -216,7 +216,7 @@ sub parse_entry {
 	}
 
 	# Sabayon_Linux_DAILY_x86_SpinBase_openvz.tar.gz
-	elsif ($href =~ /^${re_pref}_(?<ed>[^_]+)_${re_ver}_${re_arch}_(?<ed_misc>.+)\.tar\.gz$/) {
+	elsif ($href =~ /^${re_pref}_${re_ver}_${re_arch}_(?<ed>[^_]+)_(?<ed_misc>.+)\.tar\.gz$/) {
 		# there's no such non-daily rel., but just in case; same for a few others
 		my $ed = $fmt->($+{ver}, $+{ed});
 		add_item ("$ed ($+{ed_misc}; .tar.gz)", $+{arch},
@@ -237,12 +237,12 @@ sub parse_entry {
 			$type_ext, $href_link, @extra_args);
 	}
 
-	# Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_16GB.img
-	elsif ($href =~ /^${re_pref}_${re_ver}_${re_arch}_(?<ed>.+)\.img$/) {
-		my $ed = $fmt->($+{ver}, $+{ed});
-		add_item ("$ed (.img)", $+{arch},
-			$type_ext, $href_link, @extra_args);
-	}
+	## Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_16GB.img
+	#elsif ($href =~ /^${re_pref}_${re_ver}_${re_arch}_(?<ed>.+)\.img$/) {
+	#	my $ed = $fmt->($+{ver}, $+{ed});
+	#	add_item ("$ed (.img)", $+{arch},
+	#		$type_ext, $href_link, @extra_args);
+	#}
 
 	else {
 		push @oth, [ $href_link, $href_full ]
