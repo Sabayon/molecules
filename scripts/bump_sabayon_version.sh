@@ -66,9 +66,11 @@ bump_package() {
 }
 
 
+bumped=()
 for info in "${PACKAGES[@]}"; do
     data=( ${info} )
     package="${data[0]}"
+    bumped+=( "${package}" )
     overlay="${data[1]}"
     overlays_dir="${OVERLAY_BASE_DIR}/automatic-overlays"
     overlay_dir="${overlays_dir}/${overlay}"
@@ -78,3 +80,9 @@ for info in "${PACKAGES[@]}"; do
     bump_package "${overlay_dir}" "${overlay}" "${package}" \
         "${VERSION}" || exit 1
 done
+
+echo "The following packages have been updated to version: ${VERSION}" >&2
+echo "${bumped[@]}" >&2
+echo >&2
+echo "Make sure to have these packages bumped in Entropy as soon as possible." >&2
+exit 0
