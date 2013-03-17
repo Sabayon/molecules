@@ -42,7 +42,7 @@ bump_package() {
     (
         cd "${overlay_dir}/${package}" || exit 1
         cp "${skel_file}" "${package_file}" || exit 1
-        ebuild "${package_file}" mainfest || exit 1
+        ebuild "${package_file}" manifest || exit 1
         git add "${package_file}" || exit 1
         git add -u . || exit 1
         git commit -m "[${package}] automatic version bump to ${version}" \
