@@ -5,8 +5,8 @@
 
 . /etc/profile
 
-if [ ${#} -lt 2 ]; then
-    echo "${0} <version>\n" >&2
+if [ ${#} -lt 1 ]; then
+    echo "${0} <version>" >&2
     exit 1
 fi
 
