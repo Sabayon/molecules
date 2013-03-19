@@ -13,23 +13,22 @@ grub_source="${SABAYON_MOLECULE_HOME}/remaster/minimal_grub.cfg"
 isolinux_destination="${CDROOT_DIR}/isolinux/txt.cfg"
 grub_destination="${CDROOT_DIR}/boot/grub/grub.cfg"
 
+boot_kernel=$(find "${CHROOT_DIR}/boot" -name "kernel-*" | sort | head -n 1)
+boot_ramfs=$(find "${CHROOT_DIR}/boot" -name "initramfs-*" | sort | head -n 1)
+if [ -n "${boot_kernel}" ] && [ -f "${boot_kernel}" ]; then
+	cp "${boot_kernel}" "${CDROOT_DIR}/boot/sabayon" || exit 1
+	cp "${boot_ramfs}" "${CDROOT_DIR}/boot/sabayon.igz" || exit 1
+fi
+
 if [ "${remaster_type}" = "KDE" ] || [ "${remaster_type}" = "GNOME" ]; then
 	isolinux_source="${SABAYON_MOLECULE_HOME}/remaster/standard_isolinux.cfg"
 	grub_source="${SABAYON_MOLECULE_HOME}/remaster/standard_grub.cfg"
 elif [ "${remaster_type}" = "ServerBase" ]; then
 	echo "ServerBase trigger, copying server kernel over"
-	boot_kernel=$(find "${CHROOT_DIR}/boot" -name "kernel-*" | sort | head -n 1)
-	boot_ramfs=$(find "${CHROOT_DIR}/boot" -name "initramfs-*" | sort | head -n 1)
-	cp "${boot_kernel}" "${CDROOT_DIR}/boot/sabayon" || exit 1
-	cp "${boot_ramfs}" "${CDROOT_DIR}/boot/sabayon.igz" || exit 1
 	isolinux_source="${SABAYON_MOLECULE_HOME}/remaster/serverbase_isolinux.cfg"
 	grub_source="${SABAYON_MOLECULE_HOME}/remaster/serverbase_grub.cfg"
 elif [ "${remaster_type}" = "HardenedServer" ]; then
 	echo "HardenedServer trigger, copying server kernel over"
-	boot_kernel=$(find "${CHROOT_DIR}/boot" -name "kernel-*" | sort | head -n 1)
-	boot_ramfs=$(find "${CHROOT_DIR}/boot" -name "initramfs-*" | sort | head -n 1)
-	cp "${boot_kernel}" "${CDROOT_DIR}/boot/sabayon" || exit 1
-	cp "${boot_ramfs}" "${CDROOT_DIR}/boot/sabayon.igz" || exit 1
 	isolinux_source="${SABAYON_MOLECULE_HOME}/remaster/hardenedserver_isolinux.cfg"
 	grub_source="${SABAYON_MOLECULE_HOME}/remaster/hardenedserver_grub.cfg"
 fi
