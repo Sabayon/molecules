@@ -24,15 +24,14 @@ if [ "${updated}" = "0" ]; then
 fi
 
 # disable all mirrors but GARR
-for repo_conf in /etc/entropy/repositories.conf /etc/entropy/repositories.conf.d/entropy_*; do
+for repo_conf in /etc/entropy/repositories.conf.d/entropy_*; do
 	# skip .example files
 	if [[ "${repo_conf}" =~ .*\.example$ ]]; then
 		echo "skipping ${repo_conf}"
 		continue
 	fi
-	sed -n -e "/pkg.sabayon.org/p" -e "/garr.it/p" -e "/^branch/p" \
-		-e "/^product/p" -e "/^official-repository-id/p" -e "/^differential-update/p" \
-		-i "${repo_conf}"
+	sed -n -e "/^pkg = .*pkg.sabayon.org/p" -e "/^repo = .*pkg.sabayon.org/p" \
+		-e "/garr.it/p" -e "/^\[.*\]$/p" -i "${repo_conf}"
 done
 
 # mask icedtea, since it pulls it a shitload of deps
