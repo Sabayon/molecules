@@ -10,11 +10,11 @@ export LANG="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
 
 VALID_ACTIONS=(
-    "daily"
-    "weekly"
-    "monthly"
-    "dailybase"
-    "release"
+	"daily"
+	"weekly"
+	"monthly"
+	"dailybase"
+	"release"
 )
 
 ACTION="${1}"
@@ -35,10 +35,6 @@ for arg in "$@"; do
 	[[ "${arg}" = "--push" ]] && DO_PUSH="1"
 	[[ "${arg}" = "--stdout" ]] && DO_STDOUT="1"
 	[[ "${arg}" = "--sleepnight" ]] && DO_SLEEPNIGHT="1"
-	if [ "${arg}" = "--pushonly" ]; then
-		DO_PUSH="1"
-		DRY_RUN="1"
-	fi
 done
 
 # Initialize script variables
@@ -244,31 +240,31 @@ LOG_FILE="/var/log/molecule/autobuild-${SABAYON_RELEASE}-${$}.log"
 export SABAYON_RELEASE
 
 echo "DO_PUSH=${DO_PUSH}"
-echo "DRY_RUN=${DRY_RUN}"
 echo "DO_SLEEPNIGHT=${DO_SLEEPNIGHT}"
 echo "LOG_FILE=${LOG_FILE}"
 
-# Sleep until 22pm?
-if [ "${DO_SLEEPNIGHT}" = "1" ] && [ "${DO_PUSH}" = "1" ]; then
-	target_h=22 # 22pm
-	current_h=$(date +%H)
-	current_h=${current_h/0} # remove leading 0
-	delta_h=$(( target_h - current_h ))
-	if [ ${current_h} -ge 0 ] && [ ${current_h} -le 6 ]; then
-		# If it's past midnight and no later than 7am
-		# just push
-		echo "Just pusing out now"
-	elif [ ${delta_h} -gt 0 ]; then
-		delta_s=$(( delta_h * 3600 ))
-		echo "Sleeping for ${delta_h} hours..."
-		sleep ${delta_s} || exit 1
-	elif [ ${delta_h} -lt 0 ]; then
-		# between 22 and 24, run!
-		echo "I'm after 22pm, running"
-	else
-		echo "No need to sleep"
+sleepnight() {
+	if [ "${DO_SLEEPNIGHT}" = "1" ]; then
+		target_h=22 # 22pm
+		current_h=$(date +%H)
+		current_h=${current_h/0} # remove leading 0
+		delta_h=$(( target_h - current_h ))
+		if [ ${current_h} -ge 0 ] && [ ${current_h} -le 6 ]; then
+			# If it's past midnight and no later than 7am
+			# just push
+			echo "Just pusing out now"
+		elif [ ${delta_h} -gt 0 ]; then
+			delta_s=$(( delta_h * 3600 ))
+			echo "Sleeping for ${delta_h} hours..."
+			sleep ${delta_s} || exit 1
+		elif [ ${delta_h} -lt 0 ]; then
+			# between 22 and 24, run!
+			echo "I'm after 22pm, running"
+		else
+			echo "No need to sleep"
+		fi
 	fi
-fi
+}
 
 # Create log dir if it does not exist
 mkdir -p /var/log/molecule || exit 1
@@ -300,13 +296,15 @@ safe_run() {
 	return 0
 }
 
-move_to_pkg_sabayon_org() {
+move_to_mirrors() {
 	local do_push="${SABAYON_MOLECULE_HOME}"/DO_PUSH
 	local server="entropy@pkg.sabayon.org"
 	local ssh_dir="/sabayon/rsync"
 	local ssh_path="${server}:${ssh_dir}"
 
 	if [ -n "${DO_PUSH}" ] || [ -f "${do_push}" ]; then
+
+		sleepnight
 		rm -f "${do_push}"
 
 		safe_run 5 rsync -av --partial --delete-excluded \
@@ -327,10 +325,6 @@ move_to_pkg_sabayon_org() {
 }
 
 build_sabayon() {
-	if [ -n "${DRY_RUN}" ]; then
-		return 0
-	fi
-
 	DAILY_TMPDIR=$(mktemp -d --suffix=.iso_build.sh --tmpdir=/tmp)
 	[[ -z "${DAILY_TMPDIR}" ]] && return 1
 	DAILY_TMPDIR_REMASTER="${DAILY_TMPDIR}/remaster"
@@ -474,7 +468,7 @@ if [ -n "${DO_STDOUT}" ]; then
 	build_sabayon
 	out=${?}
 	if [ "${out}" = "0" ]; then
-		move_to_pkg_sabayon_org
+		move_to_mirrors
 		out=${?}
 	fi
 else
@@ -482,7 +476,7 @@ else
 	build_sabayon &> "${log_file}"
 	out=${?}
 	if [ "${out}" = "0" ]; then
-		move_to_pkg_sabayon_org &>> "${log_file}"
+		move_to_mirrors &>> "${log_file}"
 		out=${?}
 	fi
 	if [ "${out}" != "0" ]; then
