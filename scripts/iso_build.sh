@@ -35,6 +35,7 @@ for arg in "$@"; do
 	[[ "${arg}" = "--push" ]] && DO_PUSH="1"
 	[[ "${arg}" = "--stdout" ]] && DO_STDOUT="1"
 	[[ "${arg}" = "--sleepnight" ]] && DO_SLEEPNIGHT="1"
+	[[ "${arg}" = "--pushonly" ]] && DO_PUSHONLY="1"
 done
 
 # Initialize script variables
@@ -240,6 +241,7 @@ LOG_FILE="/var/log/molecule/autobuild-${SABAYON_RELEASE}-${$}.log"
 export SABAYON_RELEASE
 
 echo "DO_PUSH=${DO_PUSH}"
+echo "DO_PUSHONLY=${DO_PUSHONLY}"
 echo "DO_SLEEPNIGHT=${DO_SLEEPNIGHT}"
 echo "LOG_FILE=${LOG_FILE}"
 
@@ -465,7 +467,7 @@ Sun" | /bin/mail -s "ISO build script failure" root
 
 out="0"
 if [ -n "${DO_STDOUT}" ]; then
-	build_sabayon
+	[[ -n "${DO_PUSHONLY}" ]] || build_sabayon
 	out=${?}
 	if [ "${out}" = "0" ]; then
 		move_to_mirrors
@@ -473,7 +475,7 @@ if [ -n "${DO_STDOUT}" ]; then
 	fi
 else
 	log_file="/var/log/molecule/autobuild-${SABAYON_RELEASE}-${$}.log"
-	build_sabayon &> "${log_file}"
+	[[ -n "${DO_PUSHONLY}" ]] || build_sabayon &> "${log_file}"
 	out=${?}
 	if [ "${out}" = "0" ]; then
 		move_to_mirrors &>> "${log_file}"
