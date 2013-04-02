@@ -65,6 +65,8 @@ ISO_TAG="DAILY"
 OLD_ISO_TAG=""  # used to remove OLD ISO images the local dir
 DISTRO_NAME="Sabayon_Linux"
 ISO_DIR="daily"
+CHANGELOG_DATES=""
+CHANGELOG_DIR="${SABAYON_MOLECULE_HOME}/${ACTION}-git-logs"
 
 if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 	export BUILDING_DAILY=1
@@ -189,6 +191,10 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 		fi
 	fi
 	ISO_DIR="monthly"
+	_previous_month=$(date -d "- 1 month" "+%Y-%m-%d")
+	_current_month=$(date +%Y-%m-%d)
+	CHANGELOG_DATES="${_previous_month} ${_current_month}"
+	mkdir "${CHANGELOG_DIR}" || exit 1
 
 	SOURCE_SPECS+=(
 		"sabayon-x86-spinbase.spec"
@@ -316,6 +322,12 @@ move_to_mirrors() {
 			"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}" \
 			|| return 1
 
+		if [ -n "${CHANGELOG_DATES}" ]; then
+			safe_run 5 rsync -av --partial --delete-excluded \
+			"${CHANGELOG_DIR}"/ \
+			"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}/ChangeLogs/"
+		fi
+
 		safe_run 5 rsync -av --partial --delete-excluded \
 			"${SABAYON_MOLECULE_HOME}"/scripts/gen_html \
 			"${ssh_path}"/iso_html_generator \
@@ -439,6 +451,11 @@ build_sabayon() {
 			rm -rf "${SABAYON_MOLECULE_HOME}"/{images,iso,iso_rsync}/"${DISTRO_NAME}"*"${OLD_ISO_TAG}"*
 		fi
 
+	fi
+
+	if [ -n "${CHANGELOG_DATES}" ]; then
+		"${SABAYON_MOLECULE_HOME}"/scripts/make_git_logs.sh \
+			"${CHANGELOG_DIR}" ${CHANGELOG_DATES}
 	fi
 
 	return 0
