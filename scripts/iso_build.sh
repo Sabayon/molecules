@@ -64,6 +64,7 @@ fi
 ISO_TAG="DAILY"
 OLD_ISO_TAG=""  # used to remove OLD ISO images the local dir
 DISTRO_NAME="Sabayon_Linux"
+ISO_DIR="daily"
 
 if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 	export BUILDING_DAILY=1
@@ -187,6 +188,7 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 			exit 1
 		fi
 	fi
+	ISO_DIR="monthly"
 
 	SOURCE_SPECS+=(
 		"sabayon-x86-spinbase.spec"
@@ -311,7 +313,7 @@ move_to_mirrors() {
 
 		safe_run 5 rsync -av --partial --delete-excluded \
 			"${SABAYON_MOLECULE_HOME}"/iso_rsync/*"${ISO_TAG}"* \
-			"${ssh_path}"/rsync.sabayon.org/iso/daily \
+			"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}" \
 			|| return 1
 
 		safe_run 5 rsync -av --partial --delete-excluded \
