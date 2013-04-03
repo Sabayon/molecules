@@ -36,6 +36,7 @@ for arg in "$@"; do
 	[[ "${arg}" = "--stdout" ]] && DO_STDOUT="1"
 	[[ "${arg}" = "--sleepnight" ]] && DO_SLEEPNIGHT="1"
 	[[ "${arg}" = "--pushonly" ]] && DO_PUSHONLY="1"
+	[[ "${arg}" = "--torrents" ]] && MAKE_TORRENTS="1"
 done
 
 # Initialize script variables
@@ -238,7 +239,6 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 	)
 fi
 
-MAKE_TORRENTS="${MAKE_TORRENTS:-0}"
 DAILY_TMPDIR=
 
 export ETP_NONINTERACTIVE=1
@@ -440,7 +440,7 @@ build_sabayon() {
 		cp -p "${SABAYON_MOLECULE_HOME}"/iso/*"${ISO_TAG}"* \
 			"${SABAYON_MOLECULE_HOME}"/iso_rsync/ || return 1
 		date > "${SABAYON_MOLECULE_HOME}"/iso_rsync/RELEASE_DATE_"${ISO_TAG}"
-		if [ "${MAKE_TORRENTS}" != "0" ]; then
+		if [ -n "${MAKE_TORRENTS}" ]; then
 			"${SABAYON_MOLECULE_HOME}"/scripts/make_torrents.sh \
 			|| return 1
 		fi
