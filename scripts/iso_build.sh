@@ -230,12 +230,12 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 		"${DISTRO_NAME}_${ISO_TAG}_x86_MATE.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Xfce.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_x86_Xfce.iso"
-		"${DISTRO_NAME}_CoreCDX_${ISO_TAG}_amd64.iso"
-		"${DISTRO_NAME}_CoreCDX_${ISO_TAG}_x86.iso"
-		"${DISTRO_NAME}_ServerBase_${ISO_TAG}_amd64.iso"
-		"${DISTRO_NAME}_ServerBase_${ISO_TAG}_x86.iso"
-		"${DISTRO_NAME}_HardenedServer_${ISO_TAG}_amd64.iso"
-		"${DISTRO_NAME}_HardenedServer_${ISO_TAG}_x86.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_CoreCDX.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_CoreCDX.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_ServerBase.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_ServerBase.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_HardenedServer.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_x86_HardenedServer.iso"
 	)
 fi
 
