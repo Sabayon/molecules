@@ -17,16 +17,17 @@ fi
 iso_dir_prefix="/sabayon/rsync/rsync.sabayon.org/iso"
 main_dir=$iso_dir_prefix
 dailies_dir=$iso_dir_prefix/daily
+monthly_dir=$iso_dir_prefix/monthly
 unset iso_dir_prefix
 
-for dir in "$main_dir" "$dailies_dir"; do
+for dir in "$main_dir" "$dailies_dir" "$monthly_dir"; do
 	if [ ! -d "$dir" ]; then
 		warn "'$dir' doesn't exist or is not a directory"
 		exit 2
 	fi
 done
 
-common_args="--skip .. --skip main.html --skip daily.html --skip style.css"
+common_args="--skip .. --skip main.html --skip daily.html --skip monthly.html --skip style.css"
 
 tmpfile="$script_dir/tmp.html"
 
@@ -38,6 +39,7 @@ fi
 # main
 if ! "$script" $common_args \
 		main --template "$script_dir/main.tmpl" --dir "$main_dir" \
+		--skip daily --skip monthly \
 		> "$tmpfile"; then
 	warn "script for main releases failed"
 	rm -f "$tmpfile"
@@ -61,6 +63,21 @@ fi
 
 if ! mv "$tmpfile" "$dailies_dir/daily.html"; then
 	warn "mv $tmpfile $dailies_dir/daily.html failed"
+	rm -f "$tmpfile"
+	exit 2
+fi
+
+# monthly
+if ! "$script" $common_args \
+		main --template "$script_dir/monthly.tmpl" --dir "$monthly_dir" \
+		> "$tmpfile"; then
+	warn "script for monthly releases failed"
+	rm -f "$tmpfile"
+	exit 2
+fi
+
+if ! mv "$tmpfile" "$monthly_dir/monthly.html"; then
+	warn "mv $tmpfile $monthly_dir/monthly failed"
 	rm -f "$tmpfile"
 	exit 2
 fi

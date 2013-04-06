@@ -16,7 +16,8 @@
 <div style="float:right;">
 	<ul style="margin:0px">
 		<li><a href="../main.html">go to main editions</a></li>
-		<li><a href="../monthly/monthly.html">go to monthly editions</a></li>
+		<li><a href="../daily/daily.html">go to "daily" editions</a></li>
+		<li><a href="http://torrents.sabayon.org/">go to torrent tracker</a></li>
 	</ul>
 </div>
 
@@ -29,16 +30,8 @@ Sabayon comes in different flavours to choose.<br>
 To distinguish between them, a suffix is appended to file names.<br>
 Here's a short description. <strong>More details</strong> can be found <a href="http://forum.sabayon.org/viewtopic.php?f=86&amp;t=20887">in this thread on Sabayon forum</a>.
 </p>
-<p>
-This directory contains "daily" images, which are generated automatically every few days (as the name suggests), and features even more editions to choose from.<br>
-</p>
-<p style="text-align:center; font-size:120%">
-<strong>Note:</strong> "daily" snapshots are generated automatically.<br>
-They are not as much tested as the "normal" releases.<br>
-Even though they should usually work, consider downloading<br>
-<a href="../main.html">one of the official releases</a> if you are new to Sabayon.
-</p>
-<p><strong>hilights:</strong></p>
+
+<p><strong>main releases:</strong></p>
 <dl>
 	<dt>G</dt>
 	<dd>This version contains the well known GNOME 3.</dd>
@@ -46,15 +39,21 @@ Even though they should usually work, consider downloading<br>
 	<dd>This version comes with KDE SC, another popular desktop environment.</dd>
 	<dt>Xfce</dt>
 	<dd>Contains Xfce - lightweight yet very functional and friendly desktop.</dd>
-	<dt>LXDE</dt>
-	<dd>With LXDE. Small, pretty and usable.</dd>
-	<dt>E17</dt>
-	<dd>With Enlightenment DR17.</dd>
 	<dt>MATE</dt>
 	<dd>With the GNOME 2 fork.</dd>
 </dl>
 
-<p><strong>Core releases:</strong></p>
+<!--
+<p><strong>experimental or secondary releases:</strong></p>
+<dl>
+	<dt>LXDE</dt>
+	<dd>With LXDE. Small, pretty and usable. In this category it's the best solution for newbies.</dd>
+	<dt>E17</dt>
+	<dd>With Enlightenment DR17.</dd>
+</dl>
+-->
+
+<p><strong>additionally, these Core releases are available:</strong></p>
 <!-- borrowed from Sabayon 7 release announcement for Core rel. and modified a bit :) -->
 <dl>
 	<dt>SpinBase</dt>
@@ -63,22 +62,16 @@ Even though they should usually work, consider downloading<br>
 	<dd>It's geared towards very minimal graphical environment setup, no fancy tools, browsers, whatever, just Fluxbox and command line.</dd>
 	<dt>ServerBase</dt>
 	<dd>It's very similar to SpinBase, but powered by a server-optimized Linux kernel (package: sys-kernel/linux-server).</dd>
+	<!--
 	<dt>OpenVZ</dt>
 	<dd>It's our official OpenVZ template.</dd>
+	-->
 </dl>
 
 <p>
 All of them have a smaller footprint making them fit into a single CD, or USB memory sticks.<br>
 SpinBase and ServerBase are provided with a very minimal Anaconda Installer and CoreCDX <strong>should be preferred</strong> for non-standard filesystem/partition layouts.
 </p>
-
-<p><strong>the rest:</strong></p>
-<dl>
-	<dt>ForensicsXfce</dt>
-	<dd>Editions for forensics related tasks. <a href="http://wolf911.us/wgo/info/doku.php?id=sabayon_forensics">More</a>.</dd>
-	<dt>ARM images</dt>
-	<dd>Images for ARM7. Those without "rootfs" in their name are for BeagleBone/BeagleBoard devices and the other ones should work on any ARM7 device.</dd>
-</dl>
 
 <p>
 	<a name="download_links"></a>
@@ -89,6 +82,7 @@ SpinBase and ServerBase are provided with a very minimal Anaconda Installer and 
 	<th>Name</th>
 	<th>Architecture</th>
 	<th>Download link</th>
+	<th>Torrent</th>
 	<th>md5sum</th>
 	<th>Package list</th>
 	<th>Size</th>
@@ -103,13 +97,20 @@ SpinBase and ServerBase are provided with a very minimal Anaconda Installer and 
 				</td>
 			</TMPL_IF>
 			<td>
-				 <TMPL_VAR NAME="arch" ESCAPE=html>
+				<TMPL_VAR name="arch" ESCAPE=html>
 			</td>
 			<td>
 				<TMPL_IF NAME="mainfile_url">
 					<a href="<TMPL_VAR NAME="mainfile_url" ESCAPE=html>">download</a>
 				<TMPL_ELSE>
 					???
+				</TMPL_IF>
+			</td>
+			<td>
+				<TMPL_IF NAME="torrent_url">
+					<a href="<TMPL_VAR NAME="torrent_url" ESCAPE=html>">torrent</a>
+				<TMPL_ELSE>
+					N/A
 				</TMPL_IF>
 			</td>
 			<td>
@@ -122,56 +123,6 @@ SpinBase and ServerBase are provided with a very minimal Anaconda Installer and 
 			<td>
 				<TMPL_IF NAME="pkglist_url">
 					<a href="<TMPL_VAR NAME="pkglist_url" ESCAPE=html>">package list</a>
-				<TMPL_ELSE>
-					N/A
-				</TMPL_IF>
-			</td>
-			<td>
-				<TMPL_IF NAME="mainfile_size">
-					<TMPL_VAR NAME="mainfile_size" ESCAPE=html>
-				<TMPL_ELSE>
-					N/A
-				</TMPL_IF>
-			</td>
-			<td>
-				<TMPL_IF NAME="mainfile_date">
-					<TMPL_VAR NAME="mainfile_date" ESCAPE=html>
-				<TMPL_ELSE>
-					N/A
-				</TMPL_IF>
-			</td>
-		</tr>
-	</TMPL_LOOP>
-</TMPL_LOOP>
-</table>
-<p style="font-size:75%; margin-top:0px">All dates are in day-month-year format.</p>
-
-<table style="margin-top:1.4em;">
-<tr>
-	<th>Name</th>
-	<th>Download link</th>
-	<th>md5sum</th>
-	<th>Size</th>
-	<th>Date</th>
-</tr>
-<TMPL_LOOP NAME="nonintel_editions_loop">
-	<TMPL_LOOP NAME="arches_loop">
-		<tr>
-			<TMPL_IF NAME="__first__">
-				<td rowspan="<TMPL_VAR name="arches_per_edition">">
-					<strong><TMPL_VAR NAME="name" ESCAPE=html></strong>
-				</td>
-			</TMPL_IF>
-			<td>
-				<TMPL_IF NAME="mainfile_url">
-					<a href="<TMPL_VAR NAME="mainfile_url" ESCAPE=html>">download (<TMPL_VAR NAME="arch" ESCAPE=html>)</a>
-				<TMPL_ELSE>
-					???
-				</TMPL_IF>
-			</td>
-			<td>
-				<TMPL_IF NAME="md5_url">
-					<a href="<TMPL_VAR NAME="md5_url" ESCAPE=html>">md5sum</a>
 				<TMPL_ELSE>
 					N/A
 				</TMPL_IF>
