@@ -114,8 +114,9 @@ for conf in package.mask package.unmask package.keywords make.conf package.use; 
 		fi
 	fi
 done
-# split config file
-for conf in 00-sabayon.package.use; do
+# split config files
+for conf in 00-sabayon.package.use 00-sabayon.package.mask \
+	00-sabayon.package.unmask 00-sabayon.package.keywords; do
 	repo_path=/var/lib/entropy/client/database/*/sabayonlinux.org/standard
 	repo_conf=$(ls -1 ${repo_path}/*/*/${conf} | sort | tail -n 1 2>/dev/null)
 	if [ -n "${repo_conf}" ]; then
