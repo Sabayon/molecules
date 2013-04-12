@@ -73,7 +73,7 @@ packages_to_add:
 	sys-block/parted,
 	sys-fs/ntfs3g,
 	sys-power/cpufrequtils,
-	www-client/midori,
+	www-client/chromium,
 	x11-misc/magneto-gtk,
 	x11-drivers/nvidia-drivers,
 	x11-drivers/xf86-video-virtualbox,
