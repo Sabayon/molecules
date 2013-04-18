@@ -77,7 +77,6 @@ packages_to_add:
 	app-dicts/myspell-nl,
 	app-emulation/wine,
 	app-misc/gnote,
-	app-misc/sabayon-music,
 	app-office/libreoffice,
 	app-office/libreoffice-l10n-de,
 	app-office/libreoffice-l10n-es,

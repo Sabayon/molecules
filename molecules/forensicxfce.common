@@ -56,7 +56,6 @@ packages_to_remove:
 	app-dicts/myspell-fr,
 	app-dicts/myspell-it,
 	app-dicts/myspell-nl,
-	app-misc/sabayon-music,
 	mail-client/mailx,
 	mail-client/mailx-support,
 	net-p2p/transmission-base,

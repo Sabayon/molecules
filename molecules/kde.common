@@ -75,7 +75,6 @@ packages_to_add:
 	app-dicts/myspell-nl,
 	app-emulation/wine,
 	app-misc/sabayon-mce,
-	app-misc/sabayon-music,
 	app-misc/sabayon-skel,
 	app-misc/sabayon-version,
 	app-office/libreoffice,
