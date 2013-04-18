@@ -52,7 +52,6 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorit
 
 packages_to_add:
 	app-editors/gedit,
-	app-emulation/virtualbox-guest-additions,
 	app-text/pastebunz,
 	gnome-extra/nm-applet-gtk2,
 	lxde-base/lxdm,
@@ -64,7 +63,6 @@ packages_to_add:
 	sys-power/cpufrequtils,
 	sys-block/parted,
 	www-client/chromium,
-	x11-drivers/xf86-video-virtualbox,
 	x11-wm/awesome
 
 # Determine whether repositories update should be run (if packages_to_add is set)

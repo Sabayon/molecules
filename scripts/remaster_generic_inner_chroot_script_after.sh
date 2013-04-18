@@ -3,6 +3,18 @@
 /usr/sbin/env-update
 . /etc/profile
 
+_get_kernel_tag() {
+	local kernel_ver="$(equo match --installed -qv virtual/linux-binary | cut -d/ -f 2)"
+	# strip -r** if exists, hopefully we don't have PN ending with -r
+	local kernel_ver="${kernel_ver%-r*}"
+	local kernel_tag_file="/etc/kernels/${kernel_ver}/RELEASE_LEVEL"
+	if [ ! -f "${kernel_tag_file}" ]; then
+		echo "cannot find ${kernel_tag_file}, wtf" >&2
+	else
+		echo "#$(cat "${kernel_tag_file}")"
+	fi
+}
+
 basic_environment_setup() {
 	eselect opengl set xorg-x11 &> /dev/null
 
@@ -38,9 +50,6 @@ basic_environment_setup() {
 	if [ "${do_zfs}" = "1" ]; then
 		rc-update add zfs boot
 	fi
-
-	# Always startup this
-	rc-update add virtualbox-guest-additions boot
 
 	# Create a default "games" group so that
 	# the default user will be added to it during
@@ -135,27 +144,28 @@ has_proprietary_drivers() {
 	return 1
 }
 
+setup_virtualbox() {
+	local kernel_tag=$(_get_kernel_tag)
+	equo install \
+		"virtualbox-guest-additions${kernel_tag}" \
+		"xf86-video-virtualbox$(kernel_tag}"
+
+	rc-update add virtualbox-guest-additions boot
+}
+
 setup_proprietary_gfx_drivers() {
 	# Prepare NVIDIA legacy drivers infrastructure
 
 	if [ ! -d "/install-data/drivers" ]; then
 		mkdir -p /install-data/drivers
 	fi
-	myuname=$(uname -m)
-	mydir="x86"
+
+	local myuname=$(uname -m)
+	local mydir="x86"
 	if [ "$myuname" == "x86_64" ]; then
 		mydir="amd64"
 	fi
-	kernel_ver="$(equo match --installed -qv virtual/linux-binary | cut -d/ -f 2)"
-	# strip -r** if exists, hopefully we don't have PN ending with -r
-	kernel_ver="${kernel_ver%-r*}"
-	kernel_tag_file="/etc/kernels/${kernel_ver}/RELEASE_LEVEL"
-	if [ ! -f "${kernel_tag_file}" ]; then
-		echo "cannot find ${kernel_tag_file}, wtf" >&2
-		# do not return 1 !!!
-		return 0
-	fi
-	kernel_tag="#$(cat "${kernel_tag_file}")"
+	local kernel_tag=$(_get_kernel_tag)
 
 	rm -rf /var/lib/entropy/client/packages/packages*/${mydir}/*/x11-drivers*
 	# TODO: move to equo match x11-drivers/nvidia-drivers$kernel_tag --quiet --verbose --injected --multimatch
@@ -293,6 +303,7 @@ setup_startup_caches() {
 }
 
 prepare_lxde() {
+	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load LXDE
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -306,6 +317,7 @@ prepare_lxde() {
 }
 
 prepare_mate() {
+	setup_virtualbox
         setup_networkmanager
 	# Fix ~/.dmrc to have it load MATE
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -317,6 +329,7 @@ prepare_mate() {
 }
 
 prepare_e17() {
+	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load E17
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -335,6 +348,7 @@ prepare_e17() {
 }
 
 prepare_xfce() {
+	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Xfce
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -346,6 +360,7 @@ prepare_xfce() {
 }
 
 prepare_fluxbox() {
+	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Fluxbox
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -357,6 +372,7 @@ prepare_fluxbox() {
 }
 
 prepare_gnome() {
+	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load GNOME or Cinnamon
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -387,6 +403,7 @@ prepare_xfceforensic() {
 }
 
 prepare_kde() {
+	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load KDE
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -402,6 +419,7 @@ prepare_kde() {
 }
 
 prepare_awesome() {
+	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Awesome
 	echo "[Desktop]" > /etc/skel/.dmrc
