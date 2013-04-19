@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This script is executed inside the image chroot before packing up.
 # Architecture/platform specific code goes here, like kernel install
 # and configuration
@@ -6,14 +6,30 @@
 env-update
 . /etc/profile
 
+sd_enable() {
+	[[ -x /usr/bin/systemctl ]] && \
+		systemctl --no-reload enable "${1}.service"
+}
+
+sd_disable() {
+	[[ -x /usr/bin/systemctl ]] && \
+		systemctl --no-reload disable "${1}.service"
+}
+
 setup_boot() {
-	# enable sshd by default
 	rc-update add sshd default
+	sd_enable sshd
+
 	rc-update add syslog-ng boot
+	sd_enable syslog-ng
+
 	rc-update add vixie-cron boot
+	sd_enable vixie-cron
+
 	rc-update add dbus boot
 	rc-update add NetworkManager default
 	rc-update add NetworkManager-setup default
+	sd_enable NetworkManager
 
 	# select the first available kernel
 	eselect uimage set 1

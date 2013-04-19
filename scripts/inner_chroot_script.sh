@@ -3,6 +3,16 @@
 /usr/sbin/env-update
 . /etc/profile
 
+sd_enable() {
+	[[ -x /usr/bin/systemctl ]] && \
+		systemctl --no-reload enable "${1}.service"
+}
+
+sd_disable() {
+	[[ -x /usr/bin/systemctl ]] && \
+		systemctl --no-reload disable "${1}.service"
+}
+
 # create /proc if it doesn't exist
 # rsync doesn't copy it
 if [ ! -d "/proc" ]; then
@@ -59,6 +69,7 @@ sed -i "/^#rc_interactive=/ s/#//" /etc/rc.conf
 
 # enable cd eject on shutdown/reboot
 rc-update add cdeject shutdown
+sd_enable cdeject
 
 # setup sudoers
 [ -e /etc/sudoers ] && sed -i '/NOPASSWD: ALL/ s/^# //' /etc/sudoers

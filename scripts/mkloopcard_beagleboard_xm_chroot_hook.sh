@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This script is executed inside the image chroot before packing up.
 # Architecture/platform specific code goes here, like kernel install
 # and configuration
@@ -6,16 +6,30 @@
 env-update
 . /etc/profile
 
+sd_enable() {
+	[[ -x /usr/bin/systemctl ]] && \
+		systemctl --no-reload enable "${1}.service"
+}
+
+sd_disable() {
+	[[ -x /usr/bin/systemctl ]] && \
+		systemctl --no-reload disable "${1}.service"
+}
+
 setup_displaymanager() {
 	# determine what is the login manager
 	if [ -n "$(equo match --installed gnome-base/gdm -qv)" ]; then
 		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="gdm"/g' /etc/conf.d/xdm
+		sd_enable gdm
 	elif [ -n "$(equo match --installed lxde-base/lxdm -qv)" ]; then
 		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="lxdm"/g' /etc/conf.d/xdm
+		sd_enable lxdm
 	elif [ -n "$(equo match --installed kde-base/kdm -qv)" ]; then
 		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="kdm"/g' /etc/conf.d/xdm
+		sd_enable kdm
 	else
 		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="xdm"/g' /etc/conf.d/xdm
+		sd_enable xdm
 	fi
 }
 
@@ -35,24 +49,25 @@ setup_desktop_environment() {
 }
 
 setup_boot() {
-	# enable sshd by default
 	rc-update add sshd default
-	# enable logger by default
+	sd_enable sshd
+
 	rc-update add syslog-ng boot
+	sd_enable syslog-ng
+
 	rc-update add vixie-cron boot
+	sd_enable vixie-cron
+
 	# enable dbus, of course, and also NetworkManager
 	rc-update add dbus boot
 	rc-update add NetworkManager default
 	rc-update add NetworkManager-setup default
-	rc-update del net.eth0 default
+	sd_enable NetworkManager
 
-	# start X.Org by default
+	rc-update del net.eth0 default
 	rc-update add xdm default
 
-	# select the first available kernel
 	eselect uimage set 1
-
-	# cleaning up deps
 	rc-update --update
 }
 

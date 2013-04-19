@@ -1,12 +1,25 @@
-#!/bin/sh
+#!/bin/bash
 
 /usr/sbin/env-update
 . /etc/profile
 
+sd_enable() {
+	[[ -x /usr/bin/systemctl ]] && \
+		systemctl --no-reload enable "${1}.service"
+}
+
+sd_disable() {
+	[[ -x /usr/bin/systemctl ]] && \
+		systemctl --no-reload disable "${1}.service"
+}
+
 rc-update del installer-gui boot
 rc-update del x-setup boot
-rc-update del hald boot
 rc-update del avahi-daemon default
+
+sd_disable installer-gui
+sd_disable x-setup
+sd_disable avahi-daemon
 
 # A RUNNING NetworkManager is required by Anaconda !!
 # re-enable rc_hotplug

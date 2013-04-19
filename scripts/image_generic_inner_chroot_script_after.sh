@@ -3,21 +3,35 @@
 /usr/sbin/env-update
 . /etc/profile
 
+sd_enable() {
+	[[ -x /usr/bin/systemctl ]] && \
+		systemctl --no-reload enable "${1}.service"
+}
+
+sd_disable() {
+	[[ -x /usr/bin/systemctl ]] && \
+		systemctl --no-reload disable "${1}.service"
+}
+
 echo
 echo "Configuring AMI chroot"
 echo
 
 # setup networking, make sure networkmanager is gone
 rc-update del networkmanager default &> /dev/null
+sd_disable NetworkManager
 # add eth0, should get dhcp by default already
 rc-update add net.eth0 default
 
 # drop other useless services
 rc-update del sabayonlive boot
 rc-update del x-setup boot
+sd_disable sabayonlive
+sd_disable x-setup
 
 # Enable ssh
 rc-update add sshd default
+sd_enable sshd
 
 # delete root password, only ssh allowed
 passwd -d root

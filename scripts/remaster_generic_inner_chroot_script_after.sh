@@ -15,6 +15,16 @@ _get_kernel_tag() {
 	fi
 }
 
+sd_enable() {
+	[[ -x /usr/bin/systemctl ]] && \
+		systemctl --no-reload enable "${1}.service"
+}
+
+sd_disable() {
+	[[ -x /usr/bin/systemctl ]] && \
+		systemctl --no-reload disable "${1}.service"
+}
+
 basic_environment_setup() {
 	eselect opengl set xorg-x11 &> /dev/null
 
@@ -22,20 +32,14 @@ basic_environment_setup() {
 	rc-update del xdm default
 	rc-update del xdm boot
 	rc-update add xdm boot
+	# systemd has specific targets depending on the DM
 
 	# consolekit must be run at boot level
 	rc-update add consolekit boot
+	# systemd uses logind
 
-	# if it exists
-	if [ -f "/etc/init.d/hald" ]; then
-		rc-update del hald boot
-		rc-update del hald
-		rc-update add hald boot
-	fi
-
-	rc-update del music boot
-	rc-update add music default
 	rc-update del sabayon-mce default
+	sd_disable sabayon-mce
 	rc-update add nfsmount default
 
 	local kern_type="$(equo match --installed -q virtual/linux-binary)"
@@ -49,6 +53,7 @@ basic_environment_setup() {
 	fi
 	if [ "${do_zfs}" = "1" ]; then
 		rc-update add zfs boot
+		sd_enable zfs
 	fi
 
 	# Create a default "games" group so that
@@ -60,14 +65,12 @@ basic_environment_setup() {
 
 setup_cpufrequtils() {
 	rc-update add cpufrequtils default
+	sd_enable cpufrequtils
 }
 
 setup_sabayon_mce() {
 	rc-update add sabayon-mce boot
-	# not needed, done by app-misc/sabayon-mce pkg
-	# Sabayon Media Center user setup
-	# source /sbin/sabayon-functions.sh
-	# sabayon_setup_live_user "sabayonmce"
+	sd_enable sabayon-mce
 }
 
 switch_kernel() {
@@ -89,14 +92,19 @@ setup_displaymanager() {
 	# determine what is the login manager
 	if [ -n "$(equo match --installed gnome-base/gdm -qv)" ]; then
 		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="gdm"/g' /etc/conf.d/xdm
+		sd_enable gdm
 	elif [ -n "$(equo match --installed lxde-base/lxdm -qv)" ]; then
 		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="lxdm"/g' /etc/conf.d/xdm
-        elif [ -n "$(equo match --installed x11-misc/lightdm -qv)" ]; then
-                sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="lightdm"/g' /etc/conf.d/xdm
+		sd_enable lxdm
+	elif [ -n "$(equo match --installed x11-misc/lightdm -qv)" ]; then
+		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="lightdm"/g' /etc/conf.d/xdm
+		sd_enable lightdm
 	elif [ -n "$(equo match --installed kde-base/kdm -qv)" ]; then
 		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="kdm"/g' /etc/conf.d/xdm
+		sd_enable kdm
 	else
 		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="xdm"/g' /etc/conf.d/xdm
+		sd_enable xdm
 	fi
 }
 
@@ -105,6 +113,7 @@ setup_networkmanager() {
 	rc-update del NetworkManager
 	rc-update add NetworkManager default
 	rc-update add NetworkManager-setup default
+	sd_enable NetworkManager
 }
 
 xfceforensic_remove_skel_stuff() {
@@ -151,6 +160,7 @@ setup_virtualbox() {
 		"xf86-video-virtualbox${kernel_tag}"
 
 	rc-update add virtualbox-guest-additions boot
+	sd_enable virtualbox-guest-additions
 }
 
 setup_proprietary_gfx_drivers() {
@@ -384,6 +394,8 @@ prepare_gnome() {
 	fi
 	rc-update del system-tools-backends boot
 	rc-update add system-tools-backends default
+	# no systemd counterpart
+
 	setup_displaymanager
 	setup_sabayon_mce
 	setup_cpufrequtils

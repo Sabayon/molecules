@@ -28,6 +28,18 @@ DROP_SERVICES="
 	termencoding
 	x-setup
 "
+SYSTEMD_DROP_SERVICES="
+	alsa-store
+	alsa-restore
+	avahi-daemon
+	installer-gui
+	installer-text
+	lvm
+	mdadm
+	NetworkManager
+	sabayonlive
+	x-setup
+"
 
 for serv in ${DROP_SERVICES}; do
 	rc-update del ${serv} default
@@ -36,6 +48,11 @@ done
 rc-update add vixie-cron default
 rc-update del udev sysinit
 rc-update del dmesg sysinit
+
+for serv in ${SYSTEMD_DROP_SERVICES}; do
+	systemctl --no-reload disable "${serv}.service"
+done
+systemctl --no-reloab enable vixie-cron.service
 
 # Generate list of installed packages
 equo query list installed -qv > /etc/sabayon-pkglist

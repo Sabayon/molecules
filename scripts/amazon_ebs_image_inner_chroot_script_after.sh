@@ -3,6 +3,16 @@
 /usr/sbin/env-update
 . /etc/profile
 
+sd_enable() {
+	[[ -x /usr/bin/systemctl ]] && \
+		systemctl --no-reload enable "${1}.service"
+}
+
+sd_disable() {
+	[[ -x /usr/bin/systemctl ]] && \
+		systemctl --no-reload disable "${1}.service"
+}
+
 echo
 echo "Configuring AMI root filesystem"
 echo "Ext4 is the expected filesystem type"
@@ -11,28 +21,32 @@ echo "ec2-user is the expected user"
 echo
 
 # setup networking, make sure networkmanager is gone
-rc-update del NetworkManager boot
-rc-update del NetworkManager default
-# add eth0, should get dhcp by default already
-rc-update add net.eth0 default
+rc-update add NetworkManager default || rc-update add net.eth0 default
+sd_enable NetworkManager
 
 # drop other useless services
 rc-update del sabayonlive boot
+sd_disable sabayonlive
 rc-update del x-setup boot
+sd_disable x-setup
 
 # Enable ssh
 rc-update add sshd default
+sd_enable sshd
 # Enable cron
 rc-update add vixie-cron default
+sd_enable vixie-cron
 
 # delete root password, only ssh allowed
 passwd -d root
 
 # create ec2-user
-useradd -d /home/ec2-user -k /etc/skel -g users -G wheel,disk,crontab -m ec2-user || exit 1
+useradd -d /home/ec2-user -k /etc/skel -g users -G wheel,disk,crontab \
+	-m ec2-user || exit 1
 
 # enable passwordless sudo for ec2-user
-echo -e "\n# molecule generated rule\nec2-user ALL=NOPASSWD: ALL" >> /etc/sudoers
+echo -e "\n# molecule generated rule\nec2-user ALL=NOPASSWD: ALL" \
+	>> /etc/sudoers
 
 # setup UTC clock
 sed -i 's:clock=".*":clock="UTC":' /etc/conf.d/hwclock || exit 1
