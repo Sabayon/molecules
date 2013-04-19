@@ -148,7 +148,7 @@ setup_virtualbox() {
 	local kernel_tag=$(_get_kernel_tag)
 	equo install \
 		"virtualbox-guest-additions${kernel_tag}" \
-		"xf86-video-virtualbox$(kernel_tag}"
+		"xf86-video-virtualbox${kernel_tag}"
 
 	rc-update add virtualbox-guest-additions boot
 }
