@@ -30,6 +30,6 @@ for repo_conf in /etc/entropy/repositories.conf.d/entropy_*; do
 		echo "skipping ${repo_conf}"
 		continue
 	fi
-	sed -n -e "/^pkg = .*pkg.sabayon.org/p" -e "/^repo = .*pkg.sabayon.org/p" \
+	sed -n -e "/^pkg = .*pkg.repo.sabayon.org/p" -e "/^repo = .*pkg.repo.sabayon.org/p" \
 		-e "/garr.it/p" -e "/^\[.*\]$/p" -i "${repo_conf}"
 done
