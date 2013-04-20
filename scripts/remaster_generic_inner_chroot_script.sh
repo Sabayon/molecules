@@ -6,6 +6,21 @@
 # make sure there is no stale pid file around that prevents entropy from running
 rm -f /var/run/entropy/entropy.lock
 
+# disable all mirrors but GARR
+for repo_conf in /etc/entropy/repositories.conf.d/entropy_*; do
+	# skip .example files
+	if [[ "${repo_conf}" =~ .*\.example$ ]]; then
+		echo "skipping ${repo_conf}"
+		continue
+	fi
+	sed -n -e "/^pkg = .*pkg.sabayon.org/p" -e "/^repo = .*pkg.sabayon.org/p" \
+		-e "/garr.it/p" -e "/^\[.*\]$/p" -i "${repo_conf}"
+
+	# replace pkg.sabayon.org with pkg.repo.sabayon.org to improve
+	# build server locality
+	sed -i "s;http://pkg.sabayon.org;http://pkg.repo.sabayon.org;g" "${repo_conf}"
+done
+
 export FORCE_EAPI=2
 updated=0
 for ((i=0; i < 42; i++)); do
@@ -22,14 +37,3 @@ done
 if [ "${updated}" = "0" ]; then
 	exit 1
 fi
-
-# disable all mirrors but GARR
-for repo_conf in /etc/entropy/repositories.conf.d/entropy_*; do
-	# skip .example files
-	if [[ "${repo_conf}" =~ .*\.example$ ]]; then
-		echo "skipping ${repo_conf}"
-		continue
-	fi
-	sed -n -e "/^pkg = .*pkg.repo.sabayon.org/p" -e "/^repo = .*pkg.repo.sabayon.org/p" \
-		-e "/garr.it/p" -e "/^\[.*\]$/p" -i "${repo_conf}"
-done
