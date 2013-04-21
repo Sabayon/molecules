@@ -71,6 +71,17 @@ sed -i "/^#rc_interactive=/ s/#//" /etc/rc.conf
 rc-update add cdeject shutdown
 sd_enable cdeject
 
+# Activate services for systemd
+SYSTEMD_SERVICES=(
+	"NetworkManager"
+	"sabayonlive"
+	"installer-text"
+	"installer-gui"
+)
+for srv in "${SYSTEMD_SERVICES[@]}"; do
+	sd_enable "${srv}"
+done
+
 # setup sudoers
 [ -e /etc/sudoers ] && sed -i '/NOPASSWD: ALL/ s/^# //' /etc/sudoers
 
