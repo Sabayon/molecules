@@ -28,7 +28,6 @@ sd_enable NetworkManager
 rc-update del sabayonlive boot
 sd_disable sabayonlive
 rc-update del x-setup boot
-sd_disable x-setup
 
 # Enable ssh
 rc-update add sshd default

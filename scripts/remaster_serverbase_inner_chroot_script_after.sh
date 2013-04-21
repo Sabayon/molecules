@@ -18,7 +18,6 @@ rc-update del x-setup boot
 rc-update del avahi-daemon default
 
 sd_disable installer-gui
-sd_disable x-setup
 sd_disable avahi-daemon
 
 # A RUNNING NetworkManager is required by Anaconda !!

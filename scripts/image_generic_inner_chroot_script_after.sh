@@ -27,7 +27,6 @@ rc-update add net.eth0 default
 rc-update del sabayonlive boot
 rc-update del x-setup boot
 sd_disable sabayonlive
-sd_disable x-setup
 
 # Enable ssh
 rc-update add sshd default
