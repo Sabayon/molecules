@@ -33,9 +33,18 @@ cp /etc/skel /root -Rap
 chown root:root /root -R
 
 # Setup locale to en_US
-echo LANG=\"en_US.UTF-8\" > /etc/env.d/02locale
-echo LANGUAGE=\"en_US.UTF-8\" >> /etc/env.d/02locale
-echo LC_ALL=\"en_US.UTF-8\" >> /etc/env.d/02locale
+for f in /etc/env.d/02locale /etc/locale.conf; do
+	echo LANG=en_US.UTF-8 > "${f}"
+	echo LANGUAGE=en_US.UTF-8 >> "${f}"
+	echo LC_ALL=en_US.UTF-8 >> "${f}"
+done
+# Needed by systemd, because it doesn't properly set a good
+# encoding in ttys. Test it with (on tty1, VT1):
+# echo -e "\xE2\x98\xA0"
+# TODO: check if the issue persists with systemd 202.
+echo FONT=latarcyrheb-sun16 > /etc/vconsole.conf
+echo FONT_MAP=8859-1_to_uni >> /etc/vconsole.conf
+echo FONT_UNIMAP=iso01 >> /etc/vconsole.conf
 
 # remove SSH keys
 rm -rf /etc/ssh/*_key*
