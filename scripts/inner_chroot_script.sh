@@ -90,6 +90,8 @@ SYSTEMD_SERVICES=(
 for srv in "${SYSTEMD_SERVICES[@]}"; do
 	sd_enable "${srv}"
 done
+# Disable syslog in systemd, we use journald
+sd_disable syslog-ng
 
 # setup sudoers
 [ -e /etc/sudoers ] && sed -i '/NOPASSWD: ALL/ s/^# //' /etc/sudoers
