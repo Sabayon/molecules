@@ -195,7 +195,7 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 	_previous_month=$(date -d "- 1 month" "+%Y-%m-%d")
 	_current_month=$(date +%Y-%m-%d)
 	CHANGELOG_DATES="${_previous_month} ${_current_month}"
-	mkdir "${CHANGELOG_DIR}" || exit 1
+	mkdir -p "${CHANGELOG_DIR}" || exit 1
 
 	SOURCE_SPECS+=(
 		"sabayon-x86-spinbase.spec"
