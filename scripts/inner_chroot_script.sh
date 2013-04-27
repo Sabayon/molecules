@@ -15,14 +15,12 @@ sd_disable() {
 
 # create /proc if it doesn't exist
 # rsync doesn't copy it
-if [ ! -d "/proc" ]; then
-	mkdir /proc
-	touch /proc/.keep
-fi
-if [ ! -d "/dev/pts" ]; then
-	mkdir /dev/pts
-	touch /dev/pts/.keep
-fi
+mkdir -p /proc
+touch /proc/.keep
+mkdir -p /dev/shm
+touch /dev/shm/.keep
+mkdir -p /dev/pts
+touch /dev/pts/.keep
 
 # Cleanup Perl cruft
 perl-cleaner --ph-clean
