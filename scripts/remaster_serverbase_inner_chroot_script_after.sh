@@ -5,12 +5,12 @@
 
 sd_enable() {
 	[[ -x /usr/bin/systemctl ]] && \
-		systemctl --no-reload enable "${1}.service"
+		systemctl --no-reload -f enable "${1}.service"
 }
 
 sd_disable() {
 	[[ -x /usr/bin/systemctl ]] && \
-		systemctl --no-reload disable "${1}.service"
+		systemctl --no-reload -f disable "${1}.service"
 }
 
 rc-update del installer-gui boot

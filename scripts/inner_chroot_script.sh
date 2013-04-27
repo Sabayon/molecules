@@ -5,12 +5,12 @@
 
 sd_enable() {
 	[[ -x /usr/bin/systemctl ]] && \
-		systemctl --no-reload enable "${1}.service"
+		systemctl --no-reload enable -f "${1}.service"
 }
 
 sd_disable() {
 	[[ -x /usr/bin/systemctl ]] && \
-		systemctl --no-reload disable "${1}.service"
+		systemctl --no-reload disable -f "${1}.service"
 }
 
 # create /proc if it doesn't exist

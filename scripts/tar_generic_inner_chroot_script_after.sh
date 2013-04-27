@@ -50,7 +50,7 @@ rc-update del udev sysinit
 rc-update del dmesg sysinit
 
 for serv in ${SYSTEMD_DROP_SERVICES}; do
-	systemctl --no-reload disable "${serv}.service"
+	systemctl --no-reload -f disable "${serv}.service"
 done
 systemctl --no-reloab enable vixie-cron.service
 
