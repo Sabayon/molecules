@@ -46,6 +46,10 @@ echo FONT=latarcyrheb-sun16 > /etc/vconsole.conf
 echo FONT_MAP=8859-1_to_uni >> /etc/vconsole.conf
 echo FONT_UNIMAP=iso01 >> /etc/vconsole.conf
 
+# since this comes without X, set the default target to multi-user.target
+# instead of graphical.target
+sd_enable multi-user
+
 # remove SSH keys
 rm -rf /etc/ssh/*_key*
 

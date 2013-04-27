@@ -61,6 +61,9 @@ basic_environment_setup() {
 	# live boot, and thus, after install.
 	# See bug 3134
 	groupadd -f games
+
+	# all these images come with X.Org
+	sd_enable graphical
 }
 
 setup_cpufrequtils() {
