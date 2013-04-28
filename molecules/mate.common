@@ -59,7 +59,6 @@ packages_to_add:
 	app-crypt/pinentry-gtk2,
 	app-text/pastebunz,
 	gnome-extra/nm-applet-gtk2,
-	lxde-base/lxdm,
 	mate-base/mate,
 	media-plugins/alsa-plugins,
 	media-sound/audacious,
@@ -74,6 +73,8 @@ packages_to_add:
 	sys-power/cpufrequtils,
 	www-client/chromium,
 	x11-misc/magneto-gtk,
+	x11-misc/lightdm-base,
+	x11-misc/lightdm-gtk-greeter,
 	x11-drivers/nvidia-drivers,
 	x11-themes/gnome-themes-standard
 
