@@ -111,6 +111,11 @@ setup_displaymanager() {
 	fi
 }
 
+setup_default_xsession() {
+	local sess="${1}"
+	ln -sf "${sess}.desktop" /usr/share/xsessions/default.desktop
+}
+
 setup_networkmanager() {
 	rc-update del NetworkManager default
 	rc-update del NetworkManager
@@ -321,6 +326,7 @@ prepare_lxde() {
 	# Fix ~/.dmrc to have it load LXDE
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=LXDE" >> /etc/skel/.dmrc
+	setup_default_xsession "LXDE"
 	setup_displaymanager
 	# properly tweak lxde autostart tweak, adding --desktop option
 	sed -i 's/pcmanfm -d/pcmanfm -d --desktop/g' /etc/xdg/lxsession/LXDE/autostart
@@ -331,14 +337,15 @@ prepare_lxde() {
 
 prepare_mate() {
 	setup_virtualbox
-        setup_networkmanager
+	setup_networkmanager
 	# Fix ~/.dmrc to have it load MATE
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=mate" >> /etc/skel/.dmrc
-        setup_displaymanager
-        remove_mozilla_skel_cruft
-        setup_cpufrequtils
-        has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
+	setup_default_xsession "mate"
+	setup_displaymanager
+	remove_mozilla_skel_cruft
+	setup_cpufrequtils
+	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 }
 
 prepare_e17() {
@@ -347,6 +354,7 @@ prepare_e17() {
 	# Fix ~/.dmrc to have it load E17
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=enlightenment" >> /etc/skel/.dmrc
+	setup_default_xsession "enlightenment"
 	# E17 spin has chromium installed
 	setup_displaymanager
 	# Not using lxdm for now
@@ -366,6 +374,7 @@ prepare_xfce() {
 	# Fix ~/.dmrc to have it load Xfce
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=xfce" >> /etc/skel/.dmrc
+	setup_default_xsession "xfce"
 	remove_mozilla_skel_cruft
 	setup_cpufrequtils
 	setup_displaymanager
@@ -378,6 +387,7 @@ prepare_fluxbox() {
 	# Fix ~/.dmrc to have it load Fluxbox
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=fluxbox" >> /etc/skel/.dmrc
+	setup_default_xsession "fluxbox"
 	setup_displaymanager
 	remove_mozilla_skel_cruft
 	setup_cpufrequtils
@@ -391,9 +401,11 @@ prepare_gnome() {
 	echo "[Desktop]" > /etc/skel/.dmrc
 	if [ -f "/usr/share/xsessions/cinnamon.desktop" ]; then
 		echo "Session=cinnamon" >> /etc/skel/.dmrc
+	setup_default_xsession "cinnamon"
 	else
 		echo "Session=gnome" >> /etc/skel/.dmrc
 		setup_gnome_shell_extensions
+	setup_default_xsession "gnome"
 	fi
 	rc-update del system-tools-backends boot
 	rc-update add system-tools-backends default
@@ -410,6 +422,7 @@ prepare_xfceforensic() {
 	# Fix ~/.dmrc to have it load Xfce
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=xfce" >> /etc/skel/.dmrc
+	setup_default_xsession "xfce"
 	setup_cpufrequtils
 	setup_displaymanager
 	remove_mozilla_skel_cruft
@@ -423,6 +436,7 @@ prepare_kde() {
 	# Fix ~/.dmrc to have it load KDE
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=KDE-4" >> /etc/skel/.dmrc
+	setup_default_xsession "KDE-4"
 	# Configure proper GTK3 theme
 	# TODO: find a better solution?
 	mv /etc/skel/.config/gtk-3.0/settings.ini._kde_molecule \
@@ -439,6 +453,7 @@ prepare_awesome() {
 	# Fix ~/.dmrc to have it load Awesome
 	echo "[Desktop]" > /etc/skel/.dmrc
 	echo "Session=awesome" >> /etc/skel/.dmrc
+	setup_default_xsession "awesome"
 	setup_displaymanager
 	remove_mozilla_skel_cruft
 	setup_cpufrequtils
