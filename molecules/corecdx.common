@@ -50,7 +50,6 @@ extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorit
 packages_to_add:
 	@wireless,
 	app-text/pastebunz,
-	lxde-base/lxdm,
 	media-gfx/feh,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
@@ -59,6 +58,8 @@ packages_to_add:
 	sys-power/cpufrequtils,
 	x11-drivers/ati-drivers,
 	x11-drivers/nvidia-drivers,
+	x11-misc/lightdm-base,
+	x11-misc/lightdm-gtk-greeter,
 
 # Determine whether repositories update should be run (if packages_to_add is set)
 # (default is: no), values are: yes, no.
