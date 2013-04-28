@@ -10,7 +10,7 @@ prechroot: linux32
 release_desc: x86 KDE
 
 # Path to source ISO file (MANDATORY)
-%env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_DAILY_x86_SpinBase.iso
+%env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_${ISO_TAG:-DAILY}_x86_SpinBase.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
 %env destination_iso_image_name: Sabayon_Linux_${SABAYON_RELEASE:-11}_x86_KDE.iso

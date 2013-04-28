@@ -241,6 +241,9 @@ fi
 
 DAILY_TMPDIR=
 
+# molecules are referencing ISO_TAG in their source_iso parameter
+export ISO_TAG
+
 export ETP_NONINTERACTIVE=1
 
 LOG_FILE="/var/log/molecule/autobuild-${SABAYON_RELEASE}-${$}.log"
