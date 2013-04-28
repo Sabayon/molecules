@@ -54,7 +54,6 @@ packages_to_add:
 	app-editors/gedit,
 	app-text/pastebunz,
 	gnome-extra/nm-applet-gtk2,
-	lxde-base/lxdm,
 	media-gfx/feh,
 	media-plugins/alsa-plugins,
 	net-dialup/ppp,
@@ -63,6 +62,8 @@ packages_to_add:
 	sys-power/cpufrequtils,
 	sys-block/parted,
 	www-client/chromium,
+	x11-misc/lightdm-base,
+	x11-misc/lightdm-gtk-greeter,
 	x11-wm/awesome
 
 # Determine whether repositories update should be run (if packages_to_add is set)
