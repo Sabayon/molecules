@@ -123,6 +123,8 @@ packages_to_add:
 	x11-libs/libva-vdpau-driver,
 	x11-libs/xvba-video,
 	x11-misc/magneto-gtk,
+	x11-misc/lightdm-base,
+	x11-misc/lightdm-gtk-greeter,
 	x11-misc/xvkbd,
 	x11-terms/xfce4-terminal,
 	x11-terms/xterm,
@@ -137,8 +139,6 @@ packages_to_add:
 	xfce-extra/xfce4-places-plugin,
 	xfce-extra/xfce4-screenshooter
 
-# x11-themes/sabayon-artwork-gnome:
-#   provides the gtk theme for lxdm
 # gnome-extra/polkit-gnome:
 #   required to make nm-applet work
 
