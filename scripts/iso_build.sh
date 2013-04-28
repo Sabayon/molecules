@@ -317,7 +317,7 @@ move_to_mirrors() {
 		sleepnight
 		rm -f "${do_push}"
 
-		safe_run 5 rsync -av --partial --delete-excluded \
+		safe_run 5 rsync -av --partial --bwlimit=2048 --delete-excluded \
 			"${SABAYON_MOLECULE_HOME}"/iso_rsync/*"${ISO_TAG}"* \
 			"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}" \
 			|| return 1
