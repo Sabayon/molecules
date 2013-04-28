@@ -41,8 +41,6 @@ done
 # echo -e "\xE2\x98\xA0"
 # TODO: check if the issue persists with systemd 202.
 echo FONT=LatArCyrHeb-16 > /etc/vconsole.conf
-echo FONT_MAP=8859-1_to_uni >> /etc/vconsole.conf
-echo FONT_UNIMAP=iso01 >> /etc/vconsole.conf
 
 # since this comes without X, set the default target to multi-user.target
 # instead of graphical.target
