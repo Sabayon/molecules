@@ -78,9 +78,6 @@ packages_to_add:
 	x11-drivers/nvidia-drivers,
 	x11-themes/gnome-themes-standard
 
-# x11-themes/sabayon-artwork-gnome:
-# provides the gtk theme for lxdm
-
 # Custom shell call to packages add (default is: equo install)
 # custom_packages_add_cmd: 
 
