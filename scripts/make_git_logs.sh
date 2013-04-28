@@ -24,6 +24,13 @@ GIT_REPOSITORIES=(
     "git://git.sabayon.org/projects/anaconda.git master installer"
 )
 
+safe_run() {
+    for x in $(seq 10); do
+        "${@}" && return 0
+        sleep 30
+    done
+    return 1
+}
 
 pull_repo() {
     local repo_uri="${1}"
@@ -31,9 +38,12 @@ pull_repo() {
     local repo_dir="${3}"
     local repo_name="${4}"
     if [ ! -d "${repo_dir}" ]; then
-        git clone "${repo_uri}" "${repo_dir}" || return 1
+        safe_run git clone "${repo_uri}" "${repo_dir}" || return 1
     else
-        ( cd "${repo_dir}" && git pull --rebase ) || return 1
+        (
+            cd "${repo_dir}" || exit 1
+            safe_run git pull --rebase || exit 1
+        ) || return 1
     fi
 }
 
