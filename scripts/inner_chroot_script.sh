@@ -16,7 +16,9 @@ sd_disable() {
 # create /proc if it doesn't exist
 # rsync doesn't copy it
 mkdir -p /proc
-touch /proc/.keep
+# do not create /proc/.keep or older anaconda will raise an exception
+# touch /proc/.keep
+rm -f /proc/.keep
 mkdir -p /dev/shm
 touch /dev/shm/.keep
 mkdir -p /dev/pts
