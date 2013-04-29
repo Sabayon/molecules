@@ -19,7 +19,7 @@ GIT_REPOSITORIES=(
     "git://git.sabayon.org/projects/overlays/for-gentoo.git master upstream-overlay"
     "git://git.sabayon.org/projects/overlays/sabayon.git master sabayon-overlay"
     "git://git.sabayon.org/projects/molecules.git master sabayon-images"
-    "git://git.sabayon.org/projects/entropy.git master entropy"
+    "git://github.com/Sabayon/entropy.git master entropy"
     "git://git.sabayon.org/projects/build.git master source-package-builds"
     "git://git.sabayon.org/projects/anaconda.git master installer"
 )
