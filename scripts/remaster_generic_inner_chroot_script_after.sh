@@ -99,7 +99,7 @@ setup_displaymanager() {
 	elif [ -n "$(equo match --installed lxde-base/lxdm -qv)" ]; then
 		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="lxdm"/g' /etc/conf.d/xdm
 		sd_enable lxdm
-	elif [ -n "$(equo match --installed x11-misc/lightdm -qv)" ]; then
+	elif [ -n "$(equo match --installed x11-misc/lightdm-base -qv)" ]; then
 		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="lightdm"/g' /etc/conf.d/xdm
 		sd_enable lightdm
 	elif [ -n "$(equo match --installed kde-base/kdm -qv)" ]; then
