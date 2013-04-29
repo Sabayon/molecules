@@ -16,8 +16,8 @@ TO_DATE="${3}"
 BASE_DIR="${SABAYON_MOLECULE_HOME:-${HOME}}"
 
 GIT_REPOSITORIES=(
-    "git://git.sabayon.org/projects/overlays/for-gentoo.git master upstream-overlay"
-    "git://git.sabayon.org/projects/overlays/sabayon.git master sabayon-overlay"
+    "git://github.com/Sabayon/for-gentoo.git master upstream-overlay"
+    "git://github.com/Sabayon/sabayon-distro.git master sabayon-overlay"
     "git://github.com/Sabayon/molecules.git master sabayon-images"
     "git://github.com/Sabayon/entropy.git master entropy"
     "git://github.com/Sabayon/build.git master source-package-builds"
