@@ -18,10 +18,10 @@ BASE_DIR="${SABAYON_MOLECULE_HOME:-${HOME}}"
 GIT_REPOSITORIES=(
     "git://git.sabayon.org/projects/overlays/for-gentoo.git master upstream-overlay"
     "git://git.sabayon.org/projects/overlays/sabayon.git master sabayon-overlay"
-    "git://git.sabayon.org/projects/molecules.git master sabayon-images"
+    "git://github.com/Sabayon/molecules.git master sabayon-images"
     "git://github.com/Sabayon/entropy.git master entropy"
-    "git://git.sabayon.org/projects/build.git master source-package-builds"
-    "git://git.sabayon.org/projects/anaconda.git master installer"
+    "git://github.com/Sabayon/build.git master source-package-builds"
+    "git://github.com/Sabayon/anaconda.git master installer"
 )
 
 safe_run() {
