@@ -45,7 +45,7 @@ safe_run equo update || exit 1
 
 export ETP_NOINTERACTIVE=1
 safe_run equo upgrade --fetch || exit 1
-equo upgrade || exit 1
+equo upgrade --purge || exit 1
 equo remove "${PACKAGES_TO_REMOVE[@]}" # ignore
 echo "-5" | equo conf update
 
