@@ -52,19 +52,18 @@ packages_to_add:
 	app-admin/rigo,
 	app-misc/sabayon-skel,
 	app-text/pastebunz,
+	lxde-base/lxdm,
 	media-gfx/feh,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
 	net-misc/tightvnc,
 	sys-block/parted,
 	sys-power/cpufrequtils,
-	x11-misc/lightdm-base,
-	x11-misc/lightdm-gtk-greeter,
 	x11-themes/gnome-themes-standard,
 	x11-terms/xfce4-terminal,
 	sys-kernel/linux-hardened,
 	sys-apps/paxctl,
-	www-client/midori,
+	www-client/midori
 
 packages_to_remove:
 	sys-kernel/linux-sabayon
