@@ -48,18 +48,6 @@ sed -i "s/__FLAVOUR__/${remaster_type}/g" "${isolinux_destination}" || exit 1
 sed -i "s/__VERSION__/${ver}/g" "${grub_destination}" || exit 1
 sed -i "s/__FLAVOUR__/${remaster_type}/g" "${grub_destination}" || exit 1
 
-kms_string=""
-# should KMS be enabled?
-if [ -f "${CHROOT_DIR}/.enable_kms" ]; then
-	rm "${CHROOT_DIR}/.enable_kms"
-	kms_string="radeon.modeset=1"
-else
-	# enable vesafb-tng then
-	kms_string="video=vesafb:ywrap,mtrr:3"
-fi
-sed -i "s/__KMS__/${kms_string}/g" "${isolinux_destination}" || exit 1
-sed -i "s/__KMS__/${kms_string}/g" "${grub_destination}" || exit 1
-
 sabayon_pkgs_file="${CHROOT_DIR}/etc/sabayon-pkglist"
 if [ -f "${sabayon_pkgs_file}" ]; then
 	cp "${sabayon_pkgs_file}" "${CDROOT_DIR}/pkglist"
