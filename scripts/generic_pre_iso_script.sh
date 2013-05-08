@@ -14,7 +14,7 @@ isolinux_destination="${CDROOT_DIR}/isolinux/txt.cfg"
 grub_destination="${CDROOT_DIR}/boot/grub/grub.cfg"
 
 boot_kernel=$(find "${CHROOT_DIR}/boot" -name "kernel-*" | sort | head -n 1)
-boot_ramfs=$(find "${CHROOT_DIR}/boot" -name "initramfs-*" | sort | head -n 1)
+boot_ramfs=$(find "${CHROOT_DIR}/boot" -name "initramfs-genkernel-*" | sort | head -n 1)
 if [ -n "${boot_kernel}" ] && [ -f "${boot_kernel}" ]; then
 	cp "${boot_kernel}" "${CDROOT_DIR}/boot/sabayon" || exit 1
 	cp "${boot_ramfs}" "${CDROOT_DIR}/boot/sabayon.igz" || exit 1

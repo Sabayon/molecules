@@ -18,7 +18,7 @@ if [ ! -f "${kernel}" ]; then
 	exit 1
 fi
 
-initramfss=( "${boot_dir}"/initramfs-* )
+initramfss=( "${boot_dir}"/initramfs-genkernel-* )
 # get the first one and see if it exists
 initramfs="${initramfss[0]}"
 if [ ! -f "${initramfs}" ]; then
