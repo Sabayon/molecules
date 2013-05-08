@@ -42,6 +42,10 @@ basic_environment_setup() {
 	sd_disable sabayon-mce
 	rc-update add nfsmount default
 
+	# setup avahi
+	rc-update add avahi-daemon default
+	sd_enable avahi-daemon
+
 	local kern_type="$(equo match --installed -q virtual/linux-binary)"
 	local do_zfs=1
 	if [ ! -f /etc/init.d/zfs ]; then
