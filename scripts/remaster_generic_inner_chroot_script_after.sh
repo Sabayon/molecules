@@ -15,6 +15,15 @@ _get_kernel_tag() {
 	fi
 }
 
+install_kernel_packages() {
+	local kernel_tag=$(_get_kernel_tag)
+	local pkgs=()
+	for pkg in "${@}"; do
+		pkgs+=( "${pkg}${kernel_tag}" )
+	done
+	equo install "${pkgs[@]}"
+}
+
 sd_enable() {
 	[[ -x /usr/bin/systemctl ]] && \
 		systemctl --no-reload enable -f "${1}.service"
@@ -166,13 +175,16 @@ has_proprietary_drivers() {
 }
 
 setup_virtualbox() {
-	local kernel_tag=$(_get_kernel_tag)
-	equo install \
-		"virtualbox-guest-additions${kernel_tag}" \
-		"xf86-video-virtualbox${kernel_tag}"
-
+	install_kernel_packages \
+		"app-emulation/virtualbox-guest-additions" \
+		"x11-drivers/xf86-video-virtualbox"
 	rc-update add virtualbox-guest-additions boot
 	sd_enable virtualbox-guest-additions
+}
+
+install_proprietary_gfx_drivers() {
+	install_kernel_packages "x11-drivers/ati-drivers" \
+		"x11-drivers/nvidia-drivers"
 }
 
 setup_proprietary_gfx_drivers() {
@@ -190,18 +202,11 @@ setup_proprietary_gfx_drivers() {
 	local kernel_tag=$(_get_kernel_tag)
 
 	rm -rf /var/lib/entropy/client/packages/packages*/${mydir}/*/x11-drivers*
-	# TODO: move to equo match x11-drivers/nvidia-drivers$kernel_tag --quiet --verbose --injected --multimatch
-	# but also the latest kernel is marked as injected, so you need to sort and filter out
-	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-userspace-304* \
-		=x11-drivers/nvidia-drivers-304*$kernel_tag
-	ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-userspace-173* \
-		=x11-drivers/nvidia-drivers-173*$kernel_tag
 
-	## not working with >=xorg-server-1.13
-	##ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps =x11-drivers/nvidia-userspace-96* \
-	##	=x11-drivers/nvidia-drivers-96*$kernel_tag
-	## not working with >=xorg-server-1.5
-	## ACCEPT_LICENSE="NVIDIA" equo install --fetch --nodeps ~x11-drivers/nvidia-drivers-71.86.*$kernel_tag
+	equo install --fetch --nodeps =x11-drivers/nvidia-userspace-304* \
+		=x11-drivers/nvidia-drivers-304*$kernel_tag
+	equo install --fetch --nodeps =x11-drivers/nvidia-userspace-173* \
+		=x11-drivers/nvidia-drivers-173*$kernel_tag
 
 	mv /var/lib/entropy/client/packages/packages-nonfree/${mydir}/*/x11-drivers\:nvidia-{drivers,userspace}*.tbz2 \
 		/install-data/drivers/
@@ -325,6 +330,7 @@ setup_startup_caches() {
 }
 
 prepare_lxde() {
+	install_proprietary_gfx_drivers
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load LXDE
@@ -340,6 +346,7 @@ prepare_lxde() {
 }
 
 prepare_mate() {
+	install_proprietary_gfx_drivers
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load MATE
@@ -353,6 +360,7 @@ prepare_mate() {
 }
 
 prepare_e17() {
+	install_proprietary_gfx_drivers
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load E17
@@ -373,6 +381,7 @@ prepare_e17() {
 }
 
 prepare_xfce() {
+	install_proprietary_gfx_drivers
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Xfce
@@ -386,6 +395,7 @@ prepare_xfce() {
 }
 
 prepare_fluxbox() {
+	install_proprietary_gfx_drivers
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Fluxbox
@@ -399,6 +409,7 @@ prepare_fluxbox() {
 }
 
 prepare_gnome() {
+	install_proprietary_gfx_drivers
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load GNOME or Cinnamon
@@ -422,6 +433,7 @@ prepare_gnome() {
 }
 
 prepare_xfceforensic() {
+	install_proprietary_gfx_drivers
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Xfce
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -435,6 +447,7 @@ prepare_xfceforensic() {
 }
 
 prepare_kde() {
+	install_proprietary_gfx_drivers
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load KDE
@@ -452,6 +465,7 @@ prepare_kde() {
 }
 
 prepare_awesome() {
+	install_proprietary_gfx_drivers
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Awesome

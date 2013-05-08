@@ -117,8 +117,6 @@ packages_to_add:
 	sys-power/cpufrequtils,
 	www-client/midori,
 	www-plugins/adobe-flash,
-	x11-drivers/ati-drivers,
-	x11-drivers/nvidia-drivers,
 	x11-libs/gksu,
 	x11-libs/libva-vdpau-driver,
 	x11-libs/xvba-video,

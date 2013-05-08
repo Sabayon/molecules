@@ -79,8 +79,6 @@ packages_to_add:
 	sys-power/cpufrequtils,
 	www-client/midori,
 	x11-misc/magneto-gtk,
-	x11-drivers/ati-drivers,
-	x11-drivers/nvidia-drivers,
 	x11-themes/gnome-themes-standard,
 	xfce-extra/xfce4-notifyd
 

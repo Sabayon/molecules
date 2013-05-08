@@ -57,8 +57,6 @@ packages_to_add:
 	net-misc/tightvnc,
 	sys-block/parted,
 	sys-power/cpufrequtils,
-	x11-drivers/ati-drivers,
-	x11-drivers/nvidia-drivers,
 
 # Determine whether repositories update should be run (if packages_to_add is set)
 # (default is: no), values are: yes, no.
