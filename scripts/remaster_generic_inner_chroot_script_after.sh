@@ -55,6 +55,12 @@ basic_environment_setup() {
 	rc-update add avahi-daemon default
 	sd_enable avahi-daemon
 
+	# setup printing
+	rc-update add cupsd default
+	rc-update add cups-browsed default
+	sd_enable cups
+	sd_enable cups-browsed
+
 	local kern_type="$(equo match --installed -q virtual/linux-binary)"
 	local do_zfs=1
 	if [ ! -f /etc/init.d/zfs ]; then
