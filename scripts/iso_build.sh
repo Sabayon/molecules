@@ -308,18 +308,18 @@ move_to_mirrors() {
 		sleepnight
 		rm -f "${do_push}"
 
-		safe_run 5 rsync -av --partial --bwlimit=2048 --delete-excluded \
+		safe_run 5 rsync -av --partial --bwlimit=2048 \
 			"${SABAYON_MOLECULE_HOME}"/iso_rsync/*"${ISO_TAG}"* \
 			"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}" \
 			|| return 1
 
 		if [ -n "${CHANGELOG_DATES}" ]; then
-			safe_run 5 rsync -av --partial --delete-excluded \
+			safe_run 5 rsync -av --partial \
 			"${CHANGELOG_DIR}"/ \
 			"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}/ChangeLogs/"
 		fi
 
-		safe_run 5 rsync -av --partial --delete-excluded \
+		safe_run 5 rsync -av --partial \
 			"${SABAYON_MOLECULE_HOME}"/scripts/gen_html \
 			"${ssh_path}"/iso_html_generator \
 			|| return 1
@@ -438,7 +438,7 @@ build_sabayon() {
 
 		# remove old ISO images?
 		if [ -n "${OLD_ISO_TAG}" ]; then
-			echo "Removing old ISO images tagged ${OLD_ISO_TAG}"
+			echo "Removing old ISO images tagged ${OLD_ISO_TAG} -- won't remove remote images"
 			rm -rf "${SABAYON_MOLECULE_HOME}"/{images,iso,iso_rsync}/"${DISTRO_NAME}"*"${OLD_ISO_TAG}"*
 		fi
 
