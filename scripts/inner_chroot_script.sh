@@ -80,6 +80,12 @@ newaliases
 # mode if it's not forced to NO. So, disable it completely
 # sed -i "/^#rc_interactive=/ s/#//" /etc/rc.conf
 
+# Set Plymouth default theme
+plymouth-set-default-theme solar
+# and make sure that fbcondecor is removed
+rc-update del fbcondecor boot
+rc-update del fbcondecor default
+
 # enable cd eject on shutdown/reboot
 rc-update add cdeject shutdown
 sd_enable cdeject
