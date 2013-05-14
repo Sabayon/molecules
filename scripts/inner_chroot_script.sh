@@ -75,8 +75,10 @@ sed -i "/^::1/ s/localhost/localhost sabayon/" /etc/hosts
 # setup postfix local mail aliases
 newaliases
 
-# enable interactive startup
-sed -i "/^#rc_interactive=/ s/#//" /etc/rc.conf
+# DO NOT ENABLE interactive startup !!!
+# At this time, plymouth will trigger openrc interactive
+# mode if it's not forced to NO. So, disable it completely
+# sed -i "/^#rc_interactive=/ s/#//" /etc/rc.conf
 
 # enable cd eject on shutdown/reboot
 rc-update add cdeject shutdown
