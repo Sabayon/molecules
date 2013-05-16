@@ -57,6 +57,7 @@ packages_to_add:
 	net-misc/tightvnc,
 	sys-block/parted,
 	sys-power/cpufrequtils,
+	www-client/midori,
 
 # Determine whether repositories update should be run (if packages_to_add is set)
 # (default is: no), values are: yes, no.
