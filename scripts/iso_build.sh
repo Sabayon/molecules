@@ -94,8 +94,6 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		"sabayon-x86-e17.spec"
 		"sabayon-amd64-corecdx.spec"
 		"sabayon-x86-corecdx.spec"
-		"sabayon-amd64-hardenedserver.spec"
-		"sabayon-x86-hardenedserver.spec"
 	)
 	REMASTER_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME.iso"
@@ -110,8 +108,6 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		"${DISTRO_NAME}_${ISO_TAG}_x86_E17.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_CoreCDX.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_x86_CoreCDX.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_amd64_HardenedServer.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_HardenedServer.iso"
 	)
 
 	# Weekly molecules
@@ -208,8 +204,6 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 		"sabayon-x86-xfce.spec"
 		"sabayon-amd64-corecdx.spec"
 		"sabayon-x86-corecdx.spec"
-		"sabayon-amd64-hardenedserver.spec"
-		"sabayon-x86-hardenedserver.spec"
 	)
 	REMASTER_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME.iso"
@@ -222,8 +216,6 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 		"${DISTRO_NAME}_${ISO_TAG}_x86_Xfce.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_CoreCDX.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_x86_CoreCDX.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_amd64_HardenedServer.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_HardenedServer.iso"
 	)
 fi
 
