@@ -194,32 +194,38 @@ install_proprietary_gfx_drivers() {
 }
 
 setup_proprietary_gfx_drivers() {
-	# Prepare NVIDIA legacy drivers infrastructure
-
-	if [ ! -d "/install-data/drivers" ]; then
-		mkdir -p /install-data/drivers
-	fi
-
 	local myuname=$(uname -m)
 	local mydir="x86"
-	if [ "$myuname" == "x86_64" ]; then
+	if [ "${myuname}" == "x86_64" ]; then
 		mydir="amd64"
 	fi
 	local kernel_tag=$(_get_kernel_tag)
+	local pkgs_dir=/var/lib/entropy/client/packages
+	local cd_dir=/install-data/drivers
+	local pkgs=(
+		"=x11-drivers/nvidia-userspace-304*"
+		"=x11-drivers/nvidia-drivers-304*${kernel_tag}"
+		"=x11-drivers/nvidia-userspace-173*"
+		"=x11-drivers/nvidia-drivers-173*${kernel_tag}"
+	)
+	local ts=
+	local tp=
+	local pkg_f=
 
-	rm -rf /var/lib/entropy/client/packages/packages*/${mydir}/*/x11-drivers*
+	mkdir -p "${cd_dir}" || return 1
+	equo download --nodeps "${pkgs[@]}" || return 1
 
-	equo install --fetch --nodeps =x11-drivers/nvidia-userspace-304* \
-		=x11-drivers/nvidia-drivers-304*$kernel_tag
-	equo install --fetch --nodeps =x11-drivers/nvidia-userspace-173* \
-		=x11-drivers/nvidia-drivers-173*$kernel_tag
-
-	mv /var/lib/entropy/client/packages/packages-nonfree/${mydir}/*/x11-drivers\:nvidia-{drivers,userspace}*.tbz2 \
-		/install-data/drivers/
-
-	# if we ship with ati-drivers, we have KMS disabled by default.
-	# and better set driver arch to classic
-	eselect mesa set r600 classic
+	OLDIFS=${IFS}
+	IFS='
+'
+	local data=( $(equo match --quiet --showdownload "${pkgs[@]}") )
+	IFS=${OLDIFS}
+	for ts in "${data[@]}"; do
+		tp=( ${ts} )
+		pkg_f="${pkgs_dir}/${tp[1]}"
+		echo "Copying ${pkg_f} to ${cd_dir}"
+		cp "${pkg_f}" "${cd_dir}"/
+	done
 }
 
 setup_gnome_shell_extensions() {
