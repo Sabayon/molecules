@@ -249,6 +249,7 @@ packages_to_add:
 	kde-base/plasma-workspace,
 	kde-base/policykit-kde,
 	kde-base/powerdevil,
+	kde-base/print-manager,
 	kde-base/pykde4,
 	kde-base/qguiplatformplugin_kde,
 	kde-base/solid,
