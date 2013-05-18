@@ -1,5 +1,5 @@
 # use abs path, otherwise daily iso build automagic won't work
-%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/corecdx.common
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/minimal.common
 
 %env release_version: ${SABAYON_RELEASE:-11}
 release_desc: x86 CoreCDX
@@ -12,4 +12,4 @@ prechroot: linux32
 %env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_${ISO_TAG:-DAILY}_x86_SpinBase.iso
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
-%env destination_iso_image_name: Sabayon_Linux_${SABAYON_RELEASE:-11}_x86_CoreCDX.iso
+%env destination_iso_image_name: Sabayon_Linux_${SABAYON_RELEASE:-11}_x86_Minimal.iso

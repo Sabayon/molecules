@@ -209,7 +209,7 @@ sub parse_entry {
 		add_item ($ed, $+{arch}, $type_ext, $href_link, @extra_args);
 	}
 
-	# Sabayon_Linux_CoreCDX_DAILY_amd64.iso
+	# Sabayon_Linux_Minimal_DAILY_amd64.iso
 	elsif ($href =~ /^${re_pref}_(?<ed>[^_]+)_${re_ver}_${re_arch}\.iso$/) {
 		my $ed = $fmt->($+{ver}, $+{ed});
 		add_item ($ed, $+{arch}, $type_ext, $href_link, @extra_args);
