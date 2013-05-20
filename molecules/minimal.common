@@ -58,6 +58,7 @@ packages_to_add:
 	sys-block/parted,
 	sys-power/cpufrequtils,
 	www-client/midori,
+	x11-themes/gnome-icon-theme,
 
 # Determine whether repositories update should be run (if packages_to_add is set)
 # (default is: no), values are: yes, no.
