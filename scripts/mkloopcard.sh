@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 # (c) Copyright 2012 Fabio Erculiani <lxnay@sabayon.org>
 # Licensed under terms of GPLv2
 
@@ -43,6 +43,7 @@ MAKE_TARBALL="${MAKE_TARBALL:-1}"
 BOOT_PART_TYPE="${BOOT_PART_TYPE:-vfat}"
 BOOT_PART_TYPE_MBR="${BOOT_PART_TYPE_MBR:-0x0C}"
 BOOT_PART_MKFS_ARGS="${BOOT_PART_MKFS_ARGS:--n boot -F 32}"
+FIRST_PARTITION_OFFSET="${FIRST_PARTITION_OFFSET:-0}"
 # Root partition type
 ROOT_PART_TYPE="${ROOT_PART_TYPE:-ext3}"
 ROOT_PART_MKFS_ARGS="${ROOT_PART_MKFS_ARGS:--L Sabayon}"
@@ -70,8 +71,7 @@ trap "cleanup_loopbacks" 1 2 3 6 9 14 15 EXIT
 
 # Erase the file
 echo "Generating the empty image file at ${FILE}"
-dd if=/dev/zero of="${FILE}" bs=1024000 count="${SIZE}"
-[[ "$?" != "0" ]] && exit 1
+dd if=/dev/zero of="${FILE}" bs=1024000 count="${SIZE}" || exit 1
 
 DRIVE=$(losetup -f "${FILE}" --show)
 if [ -z "${DRIVE}" ]; then
@@ -86,7 +86,7 @@ SIZE=$(fdisk -l "${DRIVE}" | grep Disk | grep bytes | awk '{print $5}')
 CYLINDERS=$((SIZE/255/63/512))
 # Magic first partition size, given 9 cylinders below
 MAGICSIZE="73995264"
-STARTOFFSET="32256"
+STARTOFFSET=$(( 32256 + FIRST_PARTITION_OFFSET ))
 
 echo "Disk size    : ${SIZE} bytes"
 echo "Disk cyls    : ${CYLINDERS}"
