@@ -39,6 +39,7 @@ BOOT_DIR="${4}"
 CHROOT_DIR="${5}"
 # Should we make a tarball of the rootfs and bootfs?
 MAKE_TARBALL="${MAKE_TARBALL:-1}"
+SD_FUSE="${SD_FUSE:-}"
 # Boot partition type
 BOOT_PART_TYPE="${BOOT_PART_TYPE:-vfat}"
 BOOT_PART_TYPE_MBR="${BOOT_PART_TYPE_MBR:-0x0C}"
@@ -273,6 +274,10 @@ if [ -n "${DESTINATION_IMAGE_DIR}" ] && [ "${MAKE_TARBALL}" = "1" ]; then
 fi
 
 umount "${tmp_dir}" || exit 1
+
+if [ -n "${SD_FUSE}" ] && [ -x "${SD_FUSE}" ]; then
+	"${SD_FUSE}" "${DRIVE}" || exit 1
+fi
 
 cleanup_loopbacks
 echo "Your MMC image \"${FILE}\" is ready"
