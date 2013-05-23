@@ -26,7 +26,7 @@ packages_to_add:
 	sys-auth/consolekit,
 	sys-block/parted,
 	sys-fs/ntfs3g,
-	sys-kernel/linux-beagle,
+	sys-kernel/linux-sabayon,
 	sys-process/vixie-cron,
 	x11-base/xorg-server,
 	x11-drivers/xf86-input-evdev,
