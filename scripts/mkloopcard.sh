@@ -166,16 +166,6 @@ rsync -a -H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ --exclude "/pro
 
 CHROOT_DIR="${tmp_dir}" "${SABAYON_MOLECULE_HOME}"/scripts/remaster_pre.sh || exit 1
 
-# Configure 00-board-setup.start
-source_board_setup="${SABAYON_MOLECULE_HOME}/boot/arm_startup/00-board-setup.start"
-dest_board_setup="${CHROOT_DIR}/etc/local.d/00-board-setup.start"
-if [ -f "${source_board_setup}" ]; then
-	echo "Setting up ${dest_board_setup}"
-	cp "${source_board_setup}" "${dest_board_setup}" || exit 1
-	chmod 755 "${dest_board_setup}" || exit 1
-	chown root:root "${dest_board_setup}" || exit 1
-fi
-
 # execute PACKAGES_TO_ADD and PACKAGES_TO_REMOVE
 export ETP_NONINTERACTIVE=1
 # Entropy doesn't like non-UTF locale encodings
