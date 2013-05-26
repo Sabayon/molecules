@@ -477,7 +477,7 @@ ${log_cont}
 [... snip ...]
 
 Thanks,
-Sun" | /bin/mail -s "ISO build script failure" root
+Sun" | /bin/mail -s "${ACTION} images build script failure" root
 }
 
 out="0"
