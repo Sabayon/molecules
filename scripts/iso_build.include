@@ -1,14 +1,3 @@
 #!/bin/sh
 
-ISO_BUILD_LOCK=/tmp/.daily_iso_build.sh.lock
 LOCK_TIMEOUT=$((3600 * 24)) # 24 hours
-
-kill_stale_process() {
-    echo "[kill] NOT killing stale processes automatically: " >&2
-    local pids=$(lsof "${ISO_BUILD_LOCK}" | tail -n +2 | awk '{ print $2 }')
-    echo ${pids} >&2
-    #for pid in ${pids}; do
-    #    kill -TERM ${pid}
-    #done
-    return 1
-}

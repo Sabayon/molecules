@@ -16,17 +16,15 @@ SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
     flock --timeout ${LOCK_TIMEOUT} -x 9
     if [ "${?}" != "0" ]; then
         echo "[git pull] cannot acquire lock, stale process holding it?" >&2
-        kill_stale_process || exit 1
     fi
     cd /sabayon && git pull --quiet
-) 9> "${ISO_BUILD_LOCK}"
+) 9> "/tmp/.iso_build_locked.sh.git-pull.lock"
 
 # Execute build
 (
     flock --timeout ${LOCK_TIMEOUT} -x 9
     if [ "${?}" != "0" ]; then
         echo "[build] cannot acquire lock, stale process holding it?" >&2
-        kill_stale_process || exit 1
     fi
 
     "${SABAYON_MOLECULE_HOME}/scripts/${BUILD_SCRIPT_NAME}" "${@}"
