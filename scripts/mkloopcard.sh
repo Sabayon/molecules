@@ -38,7 +38,7 @@ SIZE="${3}"
 BOOT_DIR="${4}"
 CHROOT_DIR="${5}"
 # Should we make a tarball of the rootfs and bootfs?
-MAKE_TARBALL="${MAKE_TARBALL:-1}"
+MAKE_TARBALL="${MAKE_TARBALL:-0}"
 SD_FUSE="${SD_FUSE:-}"
 DTB_FILES="${DTB_FILES:-}"
 # Boot partition type
