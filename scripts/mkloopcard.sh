@@ -52,6 +52,9 @@ ROOT_PART_MKFS_ARGS="${ROOT_PART_MKFS_ARGS:--L Sabayon}"
 # Copy /boot content from Root partition to Boot partition?
 BOOT_PART_TYPE_INSIDE_ROOT="${BOOT_PART_TYPE_INSIDE_ROOT:-}"
 
+# Using /tmp is bad and triggers monitoring notifications
+export TMPDIR=/var/tmp
+
 cleanup_loopbacks() {
 	cd /
 	sync
