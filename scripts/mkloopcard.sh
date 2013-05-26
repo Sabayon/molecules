@@ -40,6 +40,7 @@ CHROOT_DIR="${5}"
 # Should we make a tarball of the rootfs and bootfs?
 MAKE_TARBALL="${MAKE_TARBALL:-1}"
 SD_FUSE="${SD_FUSE:-}"
+DTB_FILES="${DTB_FILES:-}"
 # Boot partition type
 BOOT_PART_TYPE="${BOOT_PART_TYPE:-vfat}"
 BOOT_PART_TYPE_MBR="${BOOT_PART_TYPE_MBR:-0x0C}"
@@ -246,6 +247,17 @@ if [ -n "${BOOT_PART_TYPE_INSIDE_ROOT}" ]; then
 	echo "Copying data from ${tmp_dir}/boot to ${boot_tmp_dir} as requested..."
 	cp -Rp "${tmp_dir}/boot/"* "${boot_tmp_dir}/" || exit 1
 fi
+
+for dtb in ${DTB_FILES}; do
+	echo "Requested to copy dtb: ${dtb}"
+	# expect to have just one kernel installed
+	dtb_files=$(find /lib/dts -name "${dtb}" -print)
+	for dtb_file in ${dtb_files}; do
+		echo "Copying dtb: ${dtb_file} to ${boot_tmp_dir}/"
+		cp "${dtb_file}" "${boot_tmp_dir}/" || exit 1
+	done
+done
+
 umount "${boot_tmp_dir}" || exit 1
 
 
