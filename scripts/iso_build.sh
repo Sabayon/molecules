@@ -230,7 +230,7 @@ export ISO_TAG
 
 export ETP_NONINTERACTIVE=1
 
-LOG_FILE="/var/log/molecule/autobuild-${SABAYON_RELEASE}-${$}.log"
+LOG_FILE="/var/log/molecule/autobuild-${SABAYON_RELEASE}-pid-${$}-rnd-${RANDOM}.log"
 # to make ISO remaster spec files working (pre_iso_script) and
 # make molecules grab a proper release version
 export SABAYON_RELEASE
@@ -489,16 +489,15 @@ if [ -n "${DO_STDOUT}" ]; then
 		out=${?}
 	fi
 else
-	log_file="/var/log/molecule/autobuild-${SABAYON_RELEASE}-pid-${$}-rnd-${RANDOM}.log"
-	[[ -n "${DO_PUSHONLY}" ]] || build_sabayon &> "${log_file}"
+	[[ -n "${DO_PUSHONLY}" ]] || build_sabayon &> "${LOG_FILE}"
 	out=${?}
 	if [ "${out}" = "0" ]; then
-		move_to_mirrors &>> "${log_file}"
+		move_to_mirrors &>> "${LOG_FILE}"
 		out=${?}
 	fi
 	if [ "${out}" != "0" ]; then
 		# mail root
-		mail_failure "${out}" "${log_file}"
+		mail_failure "${out}" "${LOG_FILE}"
 	fi
 fi
 echo "EXIT_STATUS: ${out}"
