@@ -242,21 +242,21 @@ if [ -n "${RELEASE_FILE}" ]; then
 	echo "${RELEASE_STRING} ${RELEASE_VERSION} ${RELEASE_DESC}" > "${release_file}"
 fi
 
-# BOOT_PART_TYPE_INSIDE_ROOT
-if [ -n "${BOOT_PART_TYPE_INSIDE_ROOT}" ]; then
-	echo "Copying data from ${tmp_dir}/boot to ${boot_tmp_dir} as requested..."
-	cp -Rp "${tmp_dir}/boot/"* "${boot_tmp_dir}/" || exit 1
-fi
-
 for dtb in ${DTB_FILES}; do
 	echo "Requested to copy dtb: ${dtb}"
 	# expect to have just one kernel installed
 	dtb_files=$(find "${tmp_dir}/lib/dts" -name "${dtb}" -print)
 	for dtb_file in ${dtb_files}; do
-		echo "Copying dtb: ${dtb_file} to ${boot_tmp_dir}/"
-		cp "${dtb_file}" "${boot_tmp_dir}/" || exit 1
+		echo "Copying dtb: ${dtb_file} to ${tmp_dir}/boot/"
+		cp "${dtb_file}" "${tmp_dir}/boot/" || exit 1
 	done
 done
+
+# BOOT_PART_TYPE_INSIDE_ROOT
+if [ -n "${BOOT_PART_TYPE_INSIDE_ROOT}" ]; then
+	echo "Copying data from ${tmp_dir}/boot to ${boot_tmp_dir} as requested..."
+	cp -r "${tmp_dir}/boot/"* "${boot_tmp_dir}/" || exit 1
+fi
 
 umount "${boot_tmp_dir}" || exit 1
 
