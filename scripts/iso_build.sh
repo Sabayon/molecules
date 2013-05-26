@@ -143,12 +143,14 @@ elif [ "${ACTION}" = "arm" ]; then
 
 	ARM_SOURCE_SPECS+=(
 		"sabayon-arm-beaglebone-4G.spec"
+		"sabayon-arm-beaglebone-black-4G.spec"
 		"sabayon-arm-beagleboard-xm-4G.spec"
 		"sabayon-arm-pandaboard-4G.spec"
 		"sabayon-arm-efikamx-4G.spec"
 	)
 	ARM_SOURCE_SPECS_IMG+=(
 		"${DISTRO_NAME}_${ISO_TAG}v7l_BeagleBone_4GB.img"
+		"${DISTRO_NAME}_${ISO_TAG}v7l_BeagleBone_Black_4GB.img"
 		"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBoard_xM_4GB.img"
 		"${DISTRO_NAME}_${ISO_TAG}_armv7a_PandaBoard_4GB.img"
 		"${DISTRO_NAME}_${ISO_TAG}_armv7a_EfikaMX_4GB.img"
