@@ -48,7 +48,7 @@ execution_strategy: iso_to_image
 # %env post_image_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/post_image_script.sh
 
 # Destination directory for the image path (MANDATORY)
-%env destination_image_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/images
+%env destination_image_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso
 
 # Specify an alternative image file name (image file name will be automatically
 # produced otherwise)

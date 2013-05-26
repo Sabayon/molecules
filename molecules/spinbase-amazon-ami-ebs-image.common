@@ -31,7 +31,7 @@ execution_strategy: iso_to_tar
 %env pre_tar_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/amazon_ebs_image_pre_tar_script.sh
 
 # Destination directory for the image path (MANDATORY)
-%env destination_tar_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/images
+%env destination_tar_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso
 
 # Compression method (default is: gz). Supported compression methods: gz, bz2
 # compression_method: gz
