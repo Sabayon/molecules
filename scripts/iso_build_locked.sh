@@ -31,6 +31,6 @@ SABAYON_MOLECULE_HOME="${SABAYON_MOLECULE_HOME:-/sabayon}"
 
     "${SABAYON_MOLECULE_HOME}/scripts/${BUILD_SCRIPT_NAME}" "${@}"
 
-) 9> "${ISO_BUILD_LOCK}"
+) 9> "/tmp/.iso_build_locked.sh.${BUILD_SCRIPT_NAME}.lock"
 
 exit ${?}
