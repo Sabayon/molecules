@@ -15,6 +15,7 @@ VALID_ACTIONS=(
 	"monthly"
 	"dailybase"
 	"release"
+	"arm"
 )
 
 ACTION="${1}"
@@ -112,24 +113,6 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 
 	# Weekly molecules
 	if [ "${ACTION}" = "weekly" ]; then
-		#ARM_SOURCE_SPECS+=(
-		#	"sabayon-arm-beaglebone-base-2G.spec"
-		#	"sabayon-arm-beaglebone-base-4G.spec"
-		#	"sabayon-arm-beagleboard-xm-4G.spec"
-		#	"sabayon-arm-beagleboard-xm-8G.spec"
-		#	"sabayon-arm-pandaboard-4G.spec"
-		#	"sabayon-arm-pandaboard-8G.spec"
-		#	"sabayon-arm-efikamx-base-4G.spec"
-		#)
-		#ARM_SOURCE_SPECS_IMG+=(
-		#	"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBone_Base_2GB.img"
-		#	"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBone_Base_4GB.img"
-		#	"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBoard_xM_4GB.img"
-		#	"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBoard_xM_8GB.img"
-		#	"${DISTRO_NAME}_${ISO_TAG}_armv7a_PandaBoard_4GB.img"
-		#	"${DISTRO_NAME}_${ISO_TAG}_armv7a_PandaBoard_8GB.img"
-		#	"${DISTRO_NAME}_${ISO_TAG}_armv7a_EfikaMX_Base_4GB.img"
-		#)
 		REMASTER_SPECS+=(
 			"sabayon-amd64-xfceforensic.spec"
 			"sabayon-x86-xfceforensic.spec"
@@ -151,6 +134,26 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 			"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase_Amazon_EBS_ext4_filesystem_image.tar.gz"
 		)
 	fi
+
+elif [ "${ACTION}" = "arm" ]; then
+	export BUILDING_DAILY=1
+
+	# Make possible to run this concurrently with other targets
+	ISO_TAG="DAILY_arm"
+
+	ARM_SOURCE_SPECS+=(
+		"sabayon-arm-beaglebone-4G.spec"
+		"sabayon-arm-beagleboard-xm-4G.spec"
+		"sabayon-arm-pandaboard-4G.spec"
+		"sabayon-arm-efikamx-4G.spec"
+	)
+	ARM_SOURCE_SPECS_IMG+=(
+		"${DISTRO_NAME}_${ISO_TAG}v7l_BeagleBone_4GB.img"
+		"${DISTRO_NAME}_${ISO_TAG}_armv7a_BeagleBoard_xM_4GB.img"
+		"${DISTRO_NAME}_${ISO_TAG}_armv7a_PandaBoard_4GB.img"
+		"${DISTRO_NAME}_${ISO_TAG}_armv7a_EfikaMX_4GB.img"
+	)
+
 elif [ "${ACTION}" = "dailybase" ]; then
 	export BUILDING_DAILY=1
 
@@ -162,6 +165,7 @@ elif [ "${ACTION}" = "dailybase" ]; then
 		"${DISTRO_NAME}_${ISO_TAG}_x86_SpinBase.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase.iso"
 	)
+
 elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 	if [ "${ACTION}" = "monthly" ]; then
 		SABAYON_RELEASE=$(date -u +%g.%m)
@@ -300,27 +304,35 @@ move_to_mirrors() {
 		sleepnight
 		rm -f "${do_push}"
 
-		safe_run 5 rsync -av --partial --bwlimit=2048 \
-			"${SABAYON_MOLECULE_HOME}"/iso_rsync/*"${ISO_TAG}"* \
-			"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}" \
-			|| return 1
+		(
+			flock --timeout $((24 * 3600)) -x -9
+			if [ "${?}" != "0" ]; then
+				exit 1
+			fi
 
-		if [ -n "${CHANGELOG_DATES}" ]; then
+			safe_run 5 rsync -av --partial --bwlimit=2048 \
+				"${SABAYON_MOLECULE_HOME}"/iso_rsync/*"${ISO_TAG}"* \
+				"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}" \
+				|| exit 1
+
+			if [ -n "${CHANGELOG_DATES}" ]; then
+				safe_run 5 rsync -av --partial \
+				"${CHANGELOG_DIR}"/ \
+				"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}/ChangeLogs/"
+			fi
+
 			safe_run 5 rsync -av --partial \
-			"${CHANGELOG_DIR}"/ \
-			"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}/ChangeLogs/"
-		fi
+				"${SABAYON_MOLECULE_HOME}"/scripts/gen_html \
+				"${ssh_path}"/iso_html_generator \
+				|| exit 1
 
-		safe_run 5 rsync -av --partial \
-			"${SABAYON_MOLECULE_HOME}"/scripts/gen_html \
-			"${ssh_path}"/iso_html_generator \
-			|| return 1
+			safe_run 5 ssh "${server}" \
+				"${ssh_dir}"/iso_html_generator/gen_html/gen.sh \
+				|| exit 1
 
-		safe_run 5 ssh "${server}" \
-			"${ssh_dir}"/iso_html_generator/gen_html/gen.sh \
-			|| return 1
+		) 9> /tmp/.iso_build.sh.move_to_mirrors.lock || return 1
+		return 0
 	fi
-	return 0
 }
 
 build_sabayon() {
@@ -424,8 +436,8 @@ build_sabayon() {
 			"${SABAYON_MOLECULE_HOME}"/iso_rsync/ || return 1
 		date > "${SABAYON_MOLECULE_HOME}"/iso_rsync/RELEASE_DATE_"${ISO_TAG}"
 		if [ -n "${MAKE_TORRENTS}" ]; then
-			"${SABAYON_MOLECULE_HOME}"/scripts/make_torrents.sh \
-			|| return 1
+			flock -x /tmp/.iso_build.sh.make_torrents.lock \
+				"${SABAYON_MOLECULE_HOME}"/scripts/make_torrents.sh || return 1
 		fi
 
 		# remove old ISO images?
@@ -437,8 +449,9 @@ build_sabayon() {
 	fi
 
 	if [ -n "${CHANGELOG_DATES}" ]; then
-		"${SABAYON_MOLECULE_HOME}"/scripts/make_git_logs.sh \
-			"${CHANGELOG_DIR}" ${CHANGELOG_DATES}
+		flock -x /tmp/.iso_build.sh.make_git_logs.lock \
+			"${SABAYON_MOLECULE_HOME}"/scripts/make_git_logs.sh \
+				"${CHANGELOG_DIR}" ${CHANGELOG_DATES}
 	fi
 
 	return 0
@@ -476,7 +489,7 @@ if [ -n "${DO_STDOUT}" ]; then
 		out=${?}
 	fi
 else
-	log_file="/var/log/molecule/autobuild-${SABAYON_RELEASE}-${$}.log"
+	log_file="/var/log/molecule/autobuild-${SABAYON_RELEASE}-pid-${$}-rnd-${RANDOM}.log"
 	[[ -n "${DO_PUSHONLY}" ]] || build_sabayon &> "${log_file}"
 	out=${?}
 	if [ "${out}" = "0" ]; then
