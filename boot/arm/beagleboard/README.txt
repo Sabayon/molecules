@@ -1,4 +1,4 @@
-Hi, welcome to Sabayon for the BeagleBoard xM.
+Hi, welcome to Sabayon for the BeagleBoard.
 
 First of all, you may want to install the image into a new SDHC card.
 Make sure to have enough space for it, for example, if you downloaded
@@ -27,10 +27,10 @@ Make sure to see the same device name inside /dev directory.
 
 Once you got the name, just dump the image into that, in this
 example, we assume that the device is /dev/sdc and the image
-name is "Sabayon_Linux_8_armv7a_BeagleBoard_xM_4GB.img".
+name is "Sabayon_Linux_8_armv7a_BeagleBoard_4GB.img".
 Do this as root!
 
-  # xzcat Sabayon_Linux_8_armv7a_BeagleBoard_xM_4GB.img > /dev/sdd
+  # xzcat Sabayon_Linux_8_armv7a_BeagleBoard_4GB.img > /dev/sdd
 
 Once it is done, check for any error using:
 
@@ -42,7 +42,7 @@ And if it's all good, type:
 
 To make sure everything has been flushed to the device.
 
-At this point, extract your SDHC and place it into the BeagleBoard xM.
+At this point, extract your SDHC and place it into the BeagleBoard.
 You're set!
 
 
