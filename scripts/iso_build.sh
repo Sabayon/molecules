@@ -36,7 +36,7 @@ for arg in "$@"; do
 	[[ "${arg}" = "--push" ]] && DO_PUSH="1"
 	[[ "${arg}" = "--stdout" ]] && DO_STDOUT="1"
 	[[ "${arg}" = "--sleepnight" ]] && DO_SLEEPNIGHT="1"
-	[[ "${arg}" = "--pushonly" ]] && DO_PUSHONLY="1"
+	[[ "${arg}" = "--pushonly" ]] && DO_PUSHONLY="1" && DO_PUSH="1"
 	[[ "${arg}" = "--torrents" ]] && MAKE_TORRENTS="1"
 done
 
