@@ -307,7 +307,7 @@ move_to_mirrors() {
 		rm -f "${do_push}"
 
 		(
-			flock --timeout $((24 * 3600)) -x -9
+			flock --timeout $((24 * 3600)) -x 9
 			if [ "${?}" != "0" ]; then
 				exit 1
 			fi
