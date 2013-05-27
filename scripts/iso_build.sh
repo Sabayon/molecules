@@ -488,17 +488,21 @@ Thanks,
 Sun" | /bin/mail -s "${ACTION} images build script failure" root
 }
 
-out="0"
+out=0
 if [ -n "${DO_STDOUT}" ]; then
-	[[ -n "${DO_PUSHONLY}" ]] || build_sabayon
-	out=${?}
+	if [ -z "${DO_PUSHONLY}" ]; then
+		build_sabayon
+		out=${?}
+	fi
 	if [ "${out}" = "0" ]; then
 		move_to_mirrors
 		out=${?}
 	fi
 else
-	[[ -n "${DO_PUSHONLY}" ]] || build_sabayon &> "${LOG_FILE}"
-	out=${?}
+	if [ -z "${DO_PUSHONLY}" ]; then
+		build_sabayon &> "${LOG_FILE}"
+		out=${?}
+	fi
 	if [ "${out}" = "0" ]; then
 		move_to_mirrors &>> "${LOG_FILE}"
 		out=${?}
