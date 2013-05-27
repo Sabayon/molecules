@@ -21,4 +21,4 @@ image_mb: 3800
 
 # External script that will generate the image file.
 # The same can be copied onto a MMC by using dd
-%env image_generator_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/beagleboard_xm_image_generator_script.sh
+%env image_generator_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/beagleboard_xm_image_generator_script.sh omap3-beagle-xm.dtb
