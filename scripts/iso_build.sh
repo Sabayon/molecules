@@ -409,6 +409,7 @@ build_sabayon() {
 	done
 
 	local done_images=0
+	local done_iso=0
 	local done_something=0
 
 	if [ ${#arm_source_specs[@]} != 0 ]; then
@@ -419,10 +420,12 @@ build_sabayon() {
 	if [ ${#source_specs[@]} != 0 ]; then
 		molecule --nocolor "${source_specs[@]}" || return 1
 		done_something=1
+		done_iso=1
 	fi
 	if [ ${#remaster_specs[@]} != 0 ]; then
 		molecule --nocolor "${remaster_specs[@]}" || return 1
 		done_something=1
+		done_iso=1
 	fi
 
 	# package phases keep loading dbus, let's kill pids back
@@ -434,8 +437,11 @@ build_sabayon() {
 				"${SABAYON_MOLECULE_HOME}"/iso_rsync/ \
 				|| return 1
 		fi
-		cp -p "${SABAYON_MOLECULE_HOME}"/iso/*"${ISO_TAG}"* \
-			"${SABAYON_MOLECULE_HOME}"/iso_rsync/ || return 1
+		if [ "${done_iso}" = "1" ]; then
+			cp -p "${SABAYON_MOLECULE_HOME}"/iso/*"${ISO_TAG}"* \
+				"${SABAYON_MOLECULE_HOME}"/iso_rsync/ || return 1
+		fi
+
 		date > "${SABAYON_MOLECULE_HOME}"/iso_rsync/RELEASE_DATE_"${ISO_TAG}"
 		if [ -n "${MAKE_TORRENTS}" ]; then
 			flock -x /tmp/.iso_build.sh.make_torrents.lock \
