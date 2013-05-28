@@ -6,6 +6,7 @@ packages_to_add:
 	app-arch/xarchiver,
 	app-editors/leafpad,
 	app-misc/sabayonlive-tools,
+	app-misc/sabayon-live,
 	app-misc/sabayon-skel,
 	app-office/abiword,
 	app-office/gnumeric,

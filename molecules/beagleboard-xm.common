@@ -3,6 +3,7 @@ packages_to_add:
 	app-admin/eselect-uimage,
 	app-admin/sudo,
 	app-misc/sabayonlive-tools,
+	app-misc/sabayon-live,
 	app-misc/sabayon-skel,
 	net-misc/networkmanager,
 	net-misc/ntp,
