@@ -2,7 +2,7 @@
 # (c) Copyright 2012 Fabio Erculiani <lxnay@sabayon.org>
 # Licensed under terms of GPLv2
 
-env-update
+/usr/sbin/env-update
 . /etc/profile
 
 export LC_ALL=en_US.UTF-8
@@ -197,11 +197,16 @@ fi
 # execute CHROOT_SCRIPT hook inside chroot
 chroot_script_name=$(basename "${CHROOT_SCRIPT}")
 target_chroot_script="${tmp_dir}"/"${chroot_script_name}"
+chroot_hook_inc_name="mkloopcard_chroot.include"
+chroot_hook_include="${SABAYON_MOLECULE_HOME}/scripts/${chroot_hook_inc_name}"
+target_chroot_hook_inc="${tmp_dir}/${chroot_hook_inc_name}"
+cp -p "${chroot_hook_include}" "${target_chroot_hook_inc}" || exit 1
+chmod 0700 "${target_chroot_hook_inc}" || exit 1
 cp -p "${CHROOT_SCRIPT}" "${target_chroot_script}" || exit 1
-chmod 700 "${target_chroot_script}" || exit 1
+chmod 0700 "${target_chroot_script}" || exit 1
 chown root "${target_chroot_script}" || exit 1
 chroot "${tmp_dir}" "/${chroot_script_name}" || exit 1
-rm -f "${target_chroot_script}"
+rm -f "${target_chroot_script}" "${target_chroot_hook_inc}"
 
 CHROOT_DIR="${tmp_dir}" "${SABAYON_MOLECULE_HOME}"/scripts/mmc_remaster_post.sh
 
