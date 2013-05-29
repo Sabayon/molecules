@@ -126,7 +126,7 @@ packages_to_add:
 	net-dialup/rp-pppoe,
 	net-firewall/ufw-frontends,
 	net-fs/samba,
-	net-irc/xchat,
+	net-irc/hexchat,
 	net-misc/networkmanager,
 	net-misc/networkmanager-openvpn,
 	net-misc/networkmanager-pptp,
