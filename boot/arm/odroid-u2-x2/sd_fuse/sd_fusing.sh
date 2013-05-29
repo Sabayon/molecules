@@ -43,7 +43,7 @@ dd iflag=dsync oflag=dsync if="${DIR}/bl2.HardKernel" of="${1}" seek="${bl2_posi
 
 #<u-boot fusing>
 echo "u-boot fusing"
-dd iflag=dsync oflag=dsync if="${DIR}/../odroid-u2-x2/u-boot.bin" of="${1}" seek="${uboot_position}"
+dd iflag=dsync oflag=dsync if="${DIR}/../u-boot.bin" of="${1}" seek="${uboot_position}"
 
 #<TrustZone S/W fusing>
 echo "TrustZone S/W fusing"
