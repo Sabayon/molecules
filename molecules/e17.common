@@ -74,7 +74,7 @@ packages_to_add:
 	media-sound/xnoise,
 	net-dialup/rp-pppoe,
 	net-im/pidgin,
-	net-irc/xchat,
+	net-irc/hexchat,
 	net-p2p/transmission-gtk,
 	sys-apps/gnome-disk-utility,
 	sys-apps/gpu-detector,
