@@ -63,7 +63,7 @@ packages_to_add:
 	media-plugins/alsa-plugins,
 	media-sound/audacious,
 	net-dialup/rp-pppoe,
-	net-irc/xchat,
+	net-irc/hexchat,
 	net-p2p/transmission-gtk,
 	x11-libs/gksu,
 	sys-apps/gnome-disk-utility,
