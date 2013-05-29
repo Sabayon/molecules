@@ -142,14 +142,14 @@ echo "Formatting ${BOOT_PART_TYPE} ${boot_part}..."
 echo "Formatting ${ROOT_PART_TYPE} ${root_part}..."
 "mkfs.${ROOT_PART_TYPE}" ${ROOT_PART_MKFS_ARGS} "${root_part}" || exit 1
 
-boot_tmp_dir=$(mktemp -d)
+boot_tmp_dir=$(mktemp -d --suffix="boot_tmp_dir")
 if [[ -z "${boot_tmp_dir}" ]]; then
 	echo "Cannot create temporary dir (boot)"
 	exit 1
 fi
 chmod 755 "${boot_tmp_dir}" || exit 1
 
-tmp_dir=$(mktemp -d)
+tmp_dir=$(mktemp -d --suffix="root_tmp_dir")
 if [[ -z "${tmp_dir}" ]]; then
 	echo "Cannot create temporary dir"
 	exit 1
@@ -179,7 +179,7 @@ export LC_ALL=en_US.UTF-8
 # If we are running outside the DAILY scope, it's
 # better to do it here. If instead we're doing a
 # DAILY, this is already done by other scripts.
-if [ -z "$(basename ${IMAGE_NAME} | grep DAILY)" ]; then
+if [ -z "${BUILDING_DAILY}" ]; then
 	FORCE_EAPI=2 chroot "${tmp_dir}" equo update || \
 	FORCE_EAPI=2 chroot "${tmp_dir}" equo update || \
 		exit 1
@@ -283,6 +283,7 @@ if [ -n "${DESTINATION_IMAGE_DIR}" ] && [ "${MAKE_TARBALL}" = "1" ]; then
 	md5sum "$(basename "${ROOTFS_TARBALL}")" > "$(basename "${ROOTFS_TARBALL}")".md5
 fi
 
+umount -f "${tmp_dir}/"{proc,sys,dev/shm,dev/pts}
 umount "${tmp_dir}" || exit 1
 
 if [ -n "${SD_FUSE}" ] && [ -x "${SD_FUSE}" ]; then
