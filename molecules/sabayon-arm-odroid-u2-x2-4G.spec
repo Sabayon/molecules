@@ -21,4 +21,4 @@ image_mb: 3800
 
 # External script that will generate the image file.
 # The same can be copied onto a MMC by using dd
-%env image_generator_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/mkloopcard_odroid_u2_x2_chroot_hook.sh
+%env image_generator_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/odroid_u2_x2_image_generator_script.sh
