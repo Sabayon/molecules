@@ -104,7 +104,7 @@ packages_to_add:
 	net-dialup/rp-pppoe,
 	net-firewall/ufw-frontends,
 	net-im/pidgin,
-	net-irc/xchat,
+	net-irc/hexchat,
 	net-p2p/transmission-gtk,
 	net-print/cups,
 	net-wireless/bluez,
