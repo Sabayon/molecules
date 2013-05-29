@@ -35,19 +35,19 @@ tzsw_position=2111
 
 #<BL1 fusing>
 echo "BL1 fusing"
-dd iflag=dsync oflag=dsync if="${DIR}/bl1.HardKernel" of="${1}" seek="${signed_bl1_position}"
+dd iflag=dsync oflag=dsync if="${DIR}/bl1.HardKernel" of="${1}" seek="${signed_bl1_position}" || exit 1
 
 #<BL2 fusing>
 echo "BL2 fusing"
-dd iflag=dsync oflag=dsync if="${DIR}/bl2.HardKernel" of="${1}" seek="${bl2_position}"
+dd iflag=dsync oflag=dsync if="${DIR}/bl2.HardKernel" of="${1}" seek="${bl2_position}" || exit 1
 
 #<u-boot fusing>
 echo "u-boot fusing"
-dd iflag=dsync oflag=dsync if="${DIR}/../u-boot.bin" of="${1}" seek="${uboot_position}"
+dd iflag=dsync oflag=dsync if="${DIR}/../u-boot.bin" of="${1}" seek="${uboot_position}" || exit 1
 
 #<TrustZone S/W fusing>
 echo "TrustZone S/W fusing"
-dd iflag=dsync oflag=dsync if="${DIR}/tzsw.HardKernel" of="${1}" seek="${tzsw_position}"
+dd iflag=dsync oflag=dsync if="${DIR}/tzsw.HardKernel" of="${1}" seek="${tzsw_position}" || exit 1
 
 ####################################
 #<Message Display>
