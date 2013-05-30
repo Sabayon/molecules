@@ -23,10 +23,6 @@ fi
 if [ "${remaster_type}" = "KDE" ] || [ "${remaster_type}" = "GNOME" ]; then
 	isolinux_source="${SABAYON_MOLECULE_HOME}/remaster/standard_isolinux.cfg"
 	grub_source="${SABAYON_MOLECULE_HOME}/remaster/standard_grub.cfg"
-elif [ "${remaster_type}" = "ServerBase" ]; then
-	echo "ServerBase trigger, copying server kernel over"
-	isolinux_source="${SABAYON_MOLECULE_HOME}/remaster/serverbase_isolinux.cfg"
-	grub_source="${SABAYON_MOLECULE_HOME}/remaster/serverbase_grub.cfg"
 elif [ "${remaster_type}" = "HardenedServer" ]; then
 	echo "HardenedServer trigger, copying server kernel over"
 	isolinux_source="${SABAYON_MOLECULE_HOME}/remaster/hardenedserver_isolinux.cfg"
