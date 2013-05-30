@@ -20,4 +20,8 @@ setup_users
 setup_boot
 setup_fstab
 
+# We need OpenRC due to the old kernel
+eselect init set sysvinit
+eselect settingsd set openrc
+
 exit 0
