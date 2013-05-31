@@ -2,7 +2,7 @@
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/minimal.common
 
 %env release_version: ${SABAYON_RELEASE:-11}
-release_desc: x86 CoreCDX
+release_desc: x86 Minimal
 
 # pre chroot command, example, for 32bit chroots on 64bit system, you always
 # have to append "linux32" this is useful for inner_chroot_script

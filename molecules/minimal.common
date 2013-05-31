@@ -3,7 +3,7 @@
 execution_strategy: iso_remaster
 
 # ISO Image title
-iso_title: Sabayon CoreCDX
+iso_title: Sabayon Minimal
 
 # Release string
 release_string: Sabayon Linux
@@ -36,7 +36,7 @@ extra_mksquashfs_parameters: -comp xz -Xbcj x86
 extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat -eltorito-alt-boot -no-emul-boot -eltorito-platform efi -eltorito-boot boot/grub/efi.img
 
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
-%env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_pre_iso_script.sh CoreCDX
+%env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_pre_iso_script.sh Minimal
 
 # Post-ISO building script, called after ISO image generation.
 %env post_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_post_iso_script.sh

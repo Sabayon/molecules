@@ -2,7 +2,7 @@
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/minimal.common
 
 %env release_version: ${SABAYON_RELEASE:-11}
-release_desc: amd64 CoreCDX
+release_desc: amd64 Minimal
 
 # Path to source ISO file (MANDATORY)
 %env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_${ISO_TAG:-DAILY}_amd64_SpinBase.iso
