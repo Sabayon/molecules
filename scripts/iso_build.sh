@@ -417,12 +417,20 @@ build_sabayon() {
 	local done_something=0
 
 	if [ ${#arm_source_specs[@]} != 0 ]; then
-		molecule --nocolor "${arm_source_specs[@]}" || return 1
+		(
+			flock --timeout $((24 * 3600)) -x 9
+			[ "${?}" = "0" ] || exit 1
+			molecule --nocolor "${arm_source_specs[@]}" || exit 1
+		) 9> /tmp/.iso_build.sh.arm_source_specs.lock || return 1
 		done_something=1
 		done_images=1
 	fi
 	if [ ${#source_specs[@]} != 0 ]; then
-		molecule --nocolor "${source_specs[@]}" || return 1
+		(
+			flock --timeout $((24 * 3600)) -x 9
+			[ "${?}" = "0" ] || exit 1
+			molecule --nocolor "${source_specs[@]}" || exit 1
+		) 9> /tmp/.iso_build.sh.source_specs.lock || return 1
 		done_something=1
 		done_iso=1
 	fi
