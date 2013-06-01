@@ -445,6 +445,11 @@ build_sabayon() {
 	ps ax | grep -- "/usr/bin/dbus-daemon --fork .* --session" | awk '{ print $1 }' | xargs kill 2> /dev/null
 
 	if [ "${done_something}" = "1" ]; then
+		if [ -n "${MAKE_TORRENTS}" ]; then
+			flock -x /tmp/.iso_build.sh.make_torrents.lock \
+				"${SABAYON_MOLECULE_HOME}"/scripts/make_torrents.sh || return 1
+		fi
+
 		if [ "${done_images}" = "1" ]; then
 			cp -p "${SABAYON_MOLECULE_HOME}"/images/*"${ISO_TAG}"* \
 				"${SABAYON_MOLECULE_HOME}"/iso_rsync/ \
@@ -456,10 +461,6 @@ build_sabayon() {
 		fi
 
 		date > "${SABAYON_MOLECULE_HOME}"/iso_rsync/RELEASE_DATE_"${ISO_TAG}"
-		if [ -n "${MAKE_TORRENTS}" ]; then
-			flock -x /tmp/.iso_build.sh.make_torrents.lock \
-				"${SABAYON_MOLECULE_HOME}"/scripts/make_torrents.sh || return 1
-		fi
 
 		# remove old ISO images?
 		if [ -n "${OLD_ISO_TAG}" ]; then
