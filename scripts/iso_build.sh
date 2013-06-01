@@ -174,7 +174,8 @@ elif [ "${ACTION}" = "dailybase" ]; then
 
 elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 	if [ "${ACTION}" = "monthly" ]; then
-		SABAYON_RELEASE=$(date -u +%g.%m)
+		# always one month ahead
+		SABAYON_RELEASE=$(/bin/date -u --date="$(/bin/date -u +%g-%m-%d) +1 month" "+%g.%m")
 	fi
 	if [ -z "${SABAYON_RELEASE}" ]; then  # release action must set this
 		echo "Cannot set SABAYON_RELEASE, wtf?" >&2
