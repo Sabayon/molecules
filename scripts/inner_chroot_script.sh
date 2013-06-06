@@ -4,13 +4,17 @@
 . /etc/profile
 
 sd_enable() {
+	local srv="${1}"
+	local ext=".${2:-service}"
 	[[ -x /usr/bin/systemctl ]] && \
-		systemctl --no-reload enable -f "${1}.service"
+		systemctl --no-reload enable -f "${srv}${ext}"
 }
 
 sd_disable() {
+	local srv="${1}"
+	local ext=".${2:-service}"
 	[[ -x /usr/bin/systemctl ]] && \
-		systemctl --no-reload disable -f "${1}.service"
+		systemctl --no-reload disable -f "${srv}${ext}"
 }
 
 # create /proc if it doesn't exist
@@ -46,7 +50,7 @@ echo FONT=LatArCyrHeb-16 > /etc/vconsole.conf
 
 # since this comes without X, set the default target to multi-user.target
 # instead of graphical.target
-sd_enable multi-user
+sd_enable multi-user target
 
 # remove SSH keys
 rm -rf /etc/ssh/*_key*
