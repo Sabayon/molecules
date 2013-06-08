@@ -314,6 +314,7 @@ move_to_mirrors() {
 		(
 			flock --timeout $((24 * 3600)) -x 9
 			if [ "${?}" != "0" ]; then
+				echo "Timed out during move_to_mirrors lock contention" >&2
 				exit 1
 			fi
 
@@ -420,7 +421,10 @@ build_sabayon() {
 	if [ ${#arm_source_specs[@]} != 0 ]; then
 		(
 			flock --timeout $((24 * 3600)) -x 9
-			[ "${?}" = "0" ] || exit 1
+			if [ "${?}" = "0" ]; then
+				echo "Timed out during arm_source_specs lock contention" >&2
+				exit 1
+			fi
 			molecule --nocolor "${arm_source_specs[@]}" || exit 1
 		) 9> /tmp/.iso_build.sh.arm_source_specs.lock || return 1
 		done_something=1
@@ -429,7 +433,10 @@ build_sabayon() {
 	if [ ${#source_specs[@]} != 0 ]; then
 		(
 			flock --timeout $((24 * 3600)) -x 9
-			[ "${?}" = "0" ] || exit 1
+			if [ "${?}" = "0" ]; then
+				echo "Timed out during source_specs lock contention" >&2
+				exit 1
+			fi
 			molecule --nocolor "${source_specs[@]}" || exit 1
 		) 9> /tmp/.iso_build.sh.source_specs.lock || return 1
 		done_something=1
