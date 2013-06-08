@@ -268,6 +268,8 @@ fi
 
 umount "${boot_tmp_dir}" || exit 1
 
+echo "Umounting cruft..."
+umount -f "${tmp_dir}/"{proc,sys,dev/shm,dev/pts}
 
 if [ -n "${DESTINATION_IMAGE_DIR}" ] && [ "${MAKE_TARBALL}" = "1" ]; then
 	# Create the rootfs tarball
@@ -276,14 +278,13 @@ if [ -n "${DESTINATION_IMAGE_DIR}" ] && [ "${MAKE_TARBALL}" = "1" ]; then
 	tmp_file=$(mktemp --suffix=.tar.xz)
 	[[ -z "${tmp_file}" ]] && exit 1
 	cd "${tmp_dir}" || exit 1
-	tar --numeric-owner --preserve-permissions --same-owner -cJf "${tmp_file}" ./ || exit 1
+	tar --one-file-system --numeric-owner --preserve-permissions --same-owner -cJf "${tmp_file}" ./ || exit 1
 	mv "${tmp_file}" "${ROOTFS_TARBALL}" || exit 1
 	chmod 644 "${ROOTFS_TARBALL}" || exit 1
 	cd "$(dirname "${ROOTFS_TARBALL}")" || exit 1
 	md5sum "$(basename "${ROOTFS_TARBALL}")" > "$(basename "${ROOTFS_TARBALL}")".md5
 fi
 
-umount -f "${tmp_dir}/"{proc,sys,dev/shm,dev/pts}
 umount "${tmp_dir}" || exit 1
 
 if [ -n "${SD_FUSE}" ] && [ -x "${SD_FUSE}" ]; then
