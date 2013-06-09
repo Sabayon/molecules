@@ -421,7 +421,7 @@ build_sabayon() {
 	if [ ${#arm_source_specs[@]} != 0 ]; then
 		(
 			flock --timeout $((24 * 3600)) -x 9
-			if [ "${?}" = "0" ]; then
+			if [ "${?}" != "0" ]; then
 				echo "Timed out during arm_source_specs lock contention" >&2
 				exit 1
 			fi
@@ -433,7 +433,7 @@ build_sabayon() {
 	if [ ${#source_specs[@]} != 0 ]; then
 		(
 			flock --timeout $((24 * 3600)) -x 9
-			if [ "${?}" = "0" ]; then
+			if [ "${?}" != "0" ]; then
 				echo "Timed out during source_specs lock contention" >&2
 				exit 1
 			fi
