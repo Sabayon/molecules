@@ -288,7 +288,11 @@ done
 # BOOT_PART_TYPE_INSIDE_ROOT
 if [ -n "${BOOT_PART_TYPE_INSIDE_ROOT}" ]; then
 	echo "Copying data from ${tmp_dir}/boot to ${boot_tmp_dir} as requested..."
-	cp -r "${tmp_dir}/boot/"* "${boot_tmp_dir}/" || exit 1
+	if [ "${BOOT_PART_TYPE}" = "vfat" ]; then
+		cp -rL "${tmp_dir}/boot/"* "${boot_tmp_dir}/" || exit 1
+	else
+		cp -rp "${tmp_dir}/boot/"* "${boot_tmp_dir}/" || exit 1
+	fi
 fi
 
 umount "${boot_tmp_dir}" || exit 1
