@@ -149,6 +149,7 @@ elif [ "${ACTION}" = "arm" ]; then
 		"sabayon-arm-pandaboard-4G.spec"
 		"sabayon-arm-efikamx-4G.spec"
 		"sabayon-arm-odroid-u2-x2-4G.spec"
+		"sabayon-arm-raspberry-4G.spec"
 	)
 	ARM_SOURCE_SPECS_IMG+=(
 		"${DISTRO_NAME}_${ISO_TAG}v7l_BeagleBone_4GB.img"
@@ -158,6 +159,7 @@ elif [ "${ACTION}" = "arm" ]; then
 		"${DISTRO_NAME}_${ISO_TAG}v7l_PandaBoard_4GB.img"
 		"${DISTRO_NAME}_${ISO_TAG}v7l_EfikaMX_4GB.img"
 		"${DISTRO_NAME}_${ISO_TAG}v7l_Odroid_U2_X2_4GB.img"
+		"${DISTRO_NAME}_${ISO_TAG}v6l_Raspberry_Pi_4GB.img"
 	)
 
 elif [ "${ACTION}" = "dailybase" ]; then
