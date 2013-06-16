@@ -25,13 +25,17 @@ install_kernel_packages() {
 }
 
 sd_enable() {
+	local srv="${1}"
+	local ext=".${2:-service}"
 	[[ -x /usr/bin/systemctl ]] && \
-		systemctl --no-reload enable -f "${1}.service"
+		systemctl --no-reload enable -f "${srv}${ext}"
 }
 
 sd_disable() {
+	local srv="${1}"
+	local ext=".${2:-service}"
 	[[ -x /usr/bin/systemctl ]] && \
-		systemctl --no-reload disable -f "${1}.service"
+		systemctl --no-reload disable -f "${srv}${ext}"
 }
 
 basic_environment_setup() {
@@ -82,7 +86,7 @@ basic_environment_setup() {
 	groupadd -f games
 
 	# all these images come with X.Org
-	sd_enable graphical
+	sd_enable graphical target
 }
 
 setup_cpufrequtils() {
