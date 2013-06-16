@@ -7,7 +7,6 @@ packages_to_add:
 	net-misc/networkmanager,
 	net-misc/ntp,
 	sys-apps/keyboard-configuration-helpers,
-	sys-apps/language-configuration-helpers,
 	sys-block/parted,
 	sys-fs/ntfs3g,
 	sys-kernel/linux-sabayon,

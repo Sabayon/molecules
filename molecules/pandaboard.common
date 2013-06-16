@@ -21,7 +21,6 @@ packages_to_add:
 	net-misc/ntp,
 	sys-apps/gnome-disk-utility,
 	sys-apps/keyboard-configuration-helpers,
-	sys-apps/language-configuration-helpers,
 	sys-auth/consolekit,
 	sys-block/parted,
 	sys-fs/ntfs3g,
