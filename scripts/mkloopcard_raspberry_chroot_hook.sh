@@ -7,5 +7,6 @@
 
 setup_boot
 setup_users
+setup_bootfs_fstab "vfat"
 
 exit 0

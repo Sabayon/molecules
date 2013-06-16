@@ -8,17 +8,11 @@
 
 . /mkloopcard_chroot.include || exit 1
 
-setup_fstab() {
-    # add /dev/mmcblk0p1 to /etc/fstab
-    local boot_part_type="${BOOT_PART_TYPE:-ext3}"
-    echo "/dev/mmcblk0p1  /boot  ${boot_part_type}  defaults  0 1" >> /etc/fstab
-}
-
 setup_displaymanager
 setup_desktop_environment
 setup_users
 setup_boot
-setup_fstab
+setup_bootfs_fstab "ext3"
 
 # We need OpenRC due to the old kernel
 eselect init set sysvinit

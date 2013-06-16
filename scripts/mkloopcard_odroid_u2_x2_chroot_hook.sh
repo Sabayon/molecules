@@ -9,5 +9,6 @@ setup_displaymanager
 setup_desktop_environment
 setup_users
 setup_boot
+setup_bootfs_fstab "vfat"
 
 exit 0
