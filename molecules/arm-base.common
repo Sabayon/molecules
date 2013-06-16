@@ -49,9 +49,6 @@ execution_strategy: chroot_to_mmc
 # Destination directory for the image path (MANDATORY)
 %env destination_image_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/images
 
-# Path to source chroot (mandatory)
-%env source_chroot: ${SABAYON_MOLECULE_HOME:-/sabayon}/sources/armv7l_core-2012
-
 # Release file that will be created onto the root filesystem
 release_file: /etc/sabayon-edition
 

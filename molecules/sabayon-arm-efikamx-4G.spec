@@ -1,4 +1,4 @@
-%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/arm-base.common
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/armv7-base.common
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/efikamx-base.common
 
 # Release desc (the actual release description)
