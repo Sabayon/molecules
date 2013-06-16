@@ -42,10 +42,10 @@ MAKE_TARBALL="${MAKE_TARBALL:-0}"
 SD_FUSE="${SD_FUSE:-}"
 DTB_FILES="${DTB_FILES:-}"
 # Boot partition type
+FIRST_PARTITION_START_CYL="${FIRST_PARTITION_START_CYL:-0}"
 BOOT_PART_TYPE="${BOOT_PART_TYPE:-vfat}"
 BOOT_PART_TYPE_MBR="${BOOT_PART_TYPE_MBR:-0x0C}"
 BOOT_PART_MKFS_ARGS="${BOOT_PART_MKFS_ARGS:--n boot -F 32}"
-FIRST_PARTITION_OFFSET="${FIRST_PARTITION_OFFSET:-0}"
 # Root partition type
 ROOT_PART_TYPE="${ROOT_PART_TYPE:-ext3}"
 ROOT_PART_MKFS_ARGS="${ROOT_PART_MKFS_ARGS:--L Sabayon}"
@@ -89,43 +89,68 @@ echo "Configured the loopback partition at ${DRIVE}"
 # Calculate size using fdisk
 SIZE=$(fdisk -l "${DRIVE}" | grep Disk | grep bytes | awk '{print $5}')
 CYLINDERS=$((SIZE/255/63/512))
-# Magic first partition size, given 9 cylinders below
-MAGICSIZE="73995264"
-STARTOFFSET=$(( 32256 + FIRST_PARTITION_OFFSET ))
+BOOTPART_CYLS=9
+ENDSECT=$(( 144584 + (EMPTYSIZE/512) ))
 
-echo "Disk size    : ${SIZE} bytes"
-echo "Disk cyls    : ${CYLINDERS}"
-echo "Magic size   : ${MAGICSIZE} bytes (boot part size)"
-echo "Start offset : ${STARTOFFSET} bytes"
+echo "Disk size           : ${SIZE} bytes"
+echo "Disk cyls           : ${CYLINDERS}"
+echo "Boot p. cyls        : ${BOOTPART_CYLS}"
+echo "Boot p. start cyls  : ${FIRST_PARTITION_START_CYL}"
+echo "End block           : ${ENDSECT} block"
 
-# this will create a first partition that is 73995264 bytes long
-# Starts at sect 63, ends at sect 144584, each sector is 512bytes
-# In fact it creates 9 cyls
 {
-echo ,9,${BOOT_PART_TYPE_MBR},*
-echo ,,,-
+echo ${FIRST_PARTITION_START_CYL},${BOOTPART_CYLS},${BOOT_PART_TYPE_MBR},*
+echo $(( BOOTPART_CYLS + FIRST_PARTITION_START_CYL )),,,-
 } | sfdisk -D -H 255 -S 63 -C ${CYLINDERS} ${DRIVE}
 
 sleep 2
 
-# The second partiton will start at block 144585, get the end block
-ENDBLOCK=$(fdisk -l "${DRIVE}" | grep "${DRIVE}p2" | awk '{print $3}')
-EXTSIZE=$(((ENDBLOCK - 144585) * 512))
-# Get other two loopback devices first
-EXTOFFSET=$((STARTOFFSET + MAGICSIZE))
+BOOT_STARTBLOCK=$(fdisk -l "${DRIVE}" | grep "${DRIVE}p1" | awk '{print $3}')
+if [ -z "${BOOT_STARTBLOCK}" ]; then
+	echo "No BOOT_STARTBLOCK" >&2
+	exit 1
+fi
+BOOT_ENDBLOCK=$(fdisk -l "${DRIVE}" | grep "${DRIVE}p1" | awk '{print $4}')
+if [ -z "${BOOT_ENDBLOCK}" ]; then
+	echo "No BOOT_ENDBLOCK" >&2
+	exit 1
+fi
 
-echo "ExtFS size   : ${EXTSIZE} bytes"
-echo "ExtFS offset : ${EXTOFFSET} bytes"
+BOOT_STARTOFFSET=$(( BOOT_STARTBLOCK * 512 ))
+BOOT_ENDOFFSET=$(( BOOT_ENDBLOCK * 512 ))
+BOOT_MAGICSIZE=$(( BOOT_ENDOFFSET - BOOT_STARTOFFSET ))
+echo "Boot start offset : ${BOOT_STARTOFFSET} bytes"
+echo "Boot start block  : ${BOOT_STARTBLOCK} block"
+echo "Boot end block    : ${BOOT_ENDBLOCK} block"
+echo "Boot size         : ${BOOT_MAGICSIZE} bytes"
+
+ROOT_STARTBLOCK=$(fdisk -l "${DRIVE}" | grep "${DRIVE}p2" | awk '{print $2}')
+if [ -z "${ROOT_STARTBLOCK}" ]; then
+	echo "No ROOT_STARTBLOCK" >&2
+	exit 1
+fi
+ROOT_ENDBLOCK=$(fdisk -l "${DRIVE}" | grep "${DRIVE}p2" | awk '{print $3}')
+if [ -z "${ROOT_ENDBLOCK}" ]; then
+	echo "No ROOT_ENDBLOCK" >&2
+	exit 1
+fi
+
+ROOT_STARTOFFSET=$(( ROOT_STARTBLOCK * 512 ))
+ROOT_ENDOFFSET=$(( ROOT_ENDBLOCK * 512 ))
+ROOT_MAGICSIZE=$(( ROOT_ENDOFFSET - ROOT_STARTOFFSET ))
+echo "Root start offset : ${ROOT_STARTOFFSET} bytes"
+echo "Root start block  : ${ROOT_STARTBLOCK} block"
+echo "Root end block    : ${ROOT_ENDBLOCK} block"
+echo "Root size         : ${ROOT_MAGICSIZE} bytes"
 
 # Get other two loopback devices first
-boot_part=$(losetup -f --offset "${STARTOFFSET}" --sizelimit "${MAGICSIZE}" "${FILE}" --show)
+boot_part=$(losetup -f --offset "${BOOT_STARTOFFSET}" --sizelimit "${BOOT_MAGICSIZE}" "${FILE}" --show)
 if [ -z "${boot_part}" ]; then
 	echo "Cannot setup the boot partition loopback"
 	exit 1
 fi
 
-
-root_part=$(losetup -f --offset "${EXTOFFSET}" --sizelimit "${EXTSIZE}" "${FILE}" --show)
+root_part=$(losetup -f --offset "${ROOT_STARTOFFSET}" --sizelimit "${ROOT_MAGICSIZE}" "${FILE}" --show)
 if [ -z "${root_part}" ]; then
 	echo "Cannot setup the ${ROOT_PART_TYPE} partition loopback"
 	exit 1
@@ -138,9 +163,12 @@ echo "Root Partition at : ${root_part}"
 echo "Formatting ${BOOT_PART_TYPE} ${boot_part}..."
 "mkfs.${BOOT_PART_TYPE}" ${BOOT_PART_MKFS_ARGS} "${boot_part}" || exit 1
 
-# Format extfs
+# Format rootfs
 echo "Formatting ${ROOT_PART_TYPE} ${root_part}..."
 "mkfs.${ROOT_PART_TYPE}" ${ROOT_PART_MKFS_ARGS} "${root_part}" || exit 1
+
+sleep 2
+sync
 
 boot_tmp_dir=$(mktemp -d --suffix="boot_tmp_dir")
 if [[ -z "${boot_tmp_dir}" ]]; then
@@ -156,14 +184,11 @@ if [[ -z "${tmp_dir}" ]]; then
 fi
 chmod 755 "${tmp_dir}" || exit 1
 
-sleep 2
-sync
-
 echo "Setting up the boot directory content, mounting on ${boot_tmp_dir}"
 mount "${boot_part}" "${boot_tmp_dir}"
 cp -R "${BOOT_DIR}"/* "${boot_tmp_dir}"/ || exit 1
 
-echo "Setting up the extfs directory content, mounting on ${tmp_dir}"
+echo "Setting up the rootfs directory content, mounting on ${tmp_dir}"
 mount "${root_part}" "${tmp_dir}"
 rsync -a -H -A -X --delete-during "${CHROOT_DIR}"/ "${tmp_dir}"/ --exclude "/proc/*" --exclude "/sys/*" \
 	--exclude "/dev/pts/*" --exclude "/dev/shm/*" || exit 1
