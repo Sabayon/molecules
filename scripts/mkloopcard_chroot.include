@@ -1,13 +1,17 @@
 #!/bin/bash
 
 sd_enable() {
+    local srv="${1}"
+    local ext=".${2:-service}"
     [[ -x /usr/bin/systemctl ]] && \
-        systemctl --no-reload -f enable "${1}.service"
+        systemctl --no-reload enable -f "${srv}${ext}"
 }
 
 sd_disable() {
+    local srv="${1}"
+    local ext=".${2:-service}"
     [[ -x /usr/bin/systemctl ]] && \
-        systemctl --no-reload -f disable "${1}.service"
+        systemctl --no-reload disable -f "${srv}${ext}"
 }
 
 setup_displaymanager() {
