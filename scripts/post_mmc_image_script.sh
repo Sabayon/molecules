@@ -13,13 +13,13 @@ COMPRESSED_IMAGE_PATH="${IMAGE_PATH}.xz"
 COMPRESSED_IMAGE_CHECKSUM_PATH="${COMPRESSED_IMAGE_PATH}.md5"
 
 echo
-echo "Spawning xz --compress --force for:"
+echo "Spawning xz --compress --force -3 for:"
 echo "IMAGE_PATH = ${IMAGE_PATH}"
 echo "COMPRESSED_IMAGE_PATH = ${COMPRESSED_IMAGE_PATH}"
 echo "COMPRESSED_IMAGE_CHECKSUM_PATH = ${COMPRESSED_IMAGE_CHECKSUM_PATH}"
 echo
 
-xz --compress --force "${IMAGE_PATH}" || exit 1
+xz --compress --force -3 "${IMAGE_PATH}" || exit 1
 [[ ! -f "${COMPRESSED_IMAGE_PATH}" ]] && { echo "${COMPRESSED_IMAGE_PATH} not found"; exit 1; }
 
 chmod 644 "${COMPRESSED_IMAGE_PATH}" || exit 1
