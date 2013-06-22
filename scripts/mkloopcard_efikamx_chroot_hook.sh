@@ -16,6 +16,5 @@ setup_bootfs_fstab "ext3"
 
 # We need OpenRC due to the old kernel
 eselect init set sysvinit
-eselect settingsd set openrc
 
 exit 0
