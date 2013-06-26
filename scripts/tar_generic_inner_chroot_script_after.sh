@@ -46,7 +46,6 @@ for serv in ${DROP_SERVICES}; do
 	rc-update del ${serv} boot
 done
 rc-update add vixie-cron default
-rc-update del udev sysinit
 rc-update del dmesg sysinit
 
 for serv in ${SYSTEMD_DROP_SERVICES}; do
