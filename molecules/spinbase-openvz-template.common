@@ -65,6 +65,7 @@ packages_to_remove:
 	net-misc/networkmanager,
 	net-misc/fcoe-utils,
 	sys-boot/grub,
+	sys-boot/plymouth,
 	sys-fs/squashfs-tools,
 	sys-fs/ntfsprogs,
 	sys-fs/dosfstools,
