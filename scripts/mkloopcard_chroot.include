@@ -57,8 +57,10 @@ setup_bootfs_fstab() {
 
 setup_boot() {
     sd_enable sshd
+    rc-update add sshd default
     sd_enable vixie-cron
     sd_enable NetworkManager
+    rc-update add NetworkManager default
     eselect uimage set 1
 }
 
