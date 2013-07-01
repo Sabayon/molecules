@@ -175,7 +175,7 @@ elif [ "${ACTION}" = "dailybase" ]; then
 	)
 
 elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
-	if [ "${ACTION}" = "monthly" ]; then
+	if [ "${ACTION}" = "monthly" ] && [ -z "${SABAYON_RELEASE}" ]; then
 		# always one month ahead
 		SABAYON_RELEASE=$(/bin/date -u --date="$(/bin/date -u +%g-%m-%d) +1 month" "+%g.%m")
 	fi
