@@ -64,20 +64,6 @@ basic_environment_setup() {
 	sd_enable cups
 	sd_enable cups-browsed
 
-	local kern_type="$(equo match --installed -q virtual/linux-binary)"
-	local do_zfs=1
-	if [ ! -f /etc/init.d/zfs ]; then
-		do_zfs=0
-	elif [ "$(uname -m)" != "x86_64" ]; then
-		do_zfs=0
-	elif [ "${kern_type}" = "sys-kernel/linux-hardened" ]; then
-		do_zfs=0  # currently not in the hardened kernel
-	fi
-	if [ "${do_zfs}" = "1" ]; then
-		rc-update add zfs boot
-		sd_enable zfs
-	fi
-
 	# Create a default "games" group so that
 	# the default user will be added to it during
 	# live boot, and thus, after install.
