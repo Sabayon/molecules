@@ -180,7 +180,9 @@ setup_virtualbox() {
 install_external_kernel_modules() {
 	install_kernel_packages \
 		"app-laptop/nvidiabl" \
-		"net-wireless/ndiswrapper"
+		"net-wireless/ndiswrapper" \
+		"sys-power/bbswitch" \
+		"net-wireless/broadcom-sta"
 }
 
 install_proprietary_gfx_drivers() {

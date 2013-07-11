@@ -14,7 +14,6 @@ packages_to_add:
 	media-fonts/corefonts,
 	sys-apps/gpu-detector,
 	sys-apps/lsb-release,
-	sys-power/bbswitch,
 	x11-apps/xhost,
 	x11-apps/setxkbmap,
 	x11-themes/equinox-themes,
