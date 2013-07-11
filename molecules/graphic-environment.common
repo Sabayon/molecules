@@ -6,7 +6,6 @@
 packages_to_add:
 	@X,
 	@fluxbox,
-	app-laptop/nvidiabl,
 	app-misc/sabayon-skel,
 	app-misc/anaconda-runtime-gui,
 	dev-python/libgnomecanvas-python,

@@ -177,6 +177,12 @@ setup_virtualbox() {
 	sd_enable virtualbox-guest-additions
 }
 
+install_external_kernel_modules() {
+	install_kernel_packages \
+		"app-laptop/nvidiabl" \
+		"net-wireless/ndiswrapper"
+}
+
 install_proprietary_gfx_drivers() {
 	install_kernel_packages "x11-drivers/ati-drivers" \
 		"x11-drivers/nvidia-drivers"
@@ -332,6 +338,7 @@ setup_startup_caches() {
 
 prepare_lxde() {
 	install_proprietary_gfx_drivers
+	install_external_kernel_modules
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load LXDE
@@ -348,6 +355,7 @@ prepare_lxde() {
 
 prepare_mate() {
 	install_proprietary_gfx_drivers
+	install_external_kernel_modules
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load MATE
@@ -362,6 +370,7 @@ prepare_mate() {
 
 prepare_e17() {
 	install_proprietary_gfx_drivers
+	install_external_kernel_modules
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load E17
@@ -383,6 +392,7 @@ prepare_e17() {
 
 prepare_xfce() {
 	install_proprietary_gfx_drivers
+	install_external_kernel_modules
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Xfce
@@ -397,6 +407,7 @@ prepare_xfce() {
 
 prepare_fluxbox() {
 	install_proprietary_gfx_drivers
+	install_external_kernel_modules
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Fluxbox
@@ -411,6 +422,7 @@ prepare_fluxbox() {
 
 prepare_gnome() {
 	install_proprietary_gfx_drivers
+	install_external_kernel_modules
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load GNOME or Cinnamon
@@ -435,6 +447,7 @@ prepare_gnome() {
 
 prepare_xfceforensic() {
 	install_proprietary_gfx_drivers
+	install_external_kernel_modules
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Xfce
 	echo "[Desktop]" > /etc/skel/.dmrc
@@ -449,6 +462,7 @@ prepare_xfceforensic() {
 
 prepare_kde() {
 	install_proprietary_gfx_drivers
+	install_external_kernel_modules
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load KDE
@@ -467,6 +481,7 @@ prepare_kde() {
 
 prepare_awesome() {
 	install_proprietary_gfx_drivers
+	install_external_kernel_modules
 	setup_virtualbox
 	setup_networkmanager
 	# Fix ~/.dmrc to have it load Awesome
