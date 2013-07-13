@@ -12,7 +12,7 @@ execution_strategy: chroot_to_mmc
 # IMAGE_NAME = name of the final MMC image
 # DESTINATION_IMAGE_DIR = path to the destination image directory
 # CHROOT_DIR = path pointing to the chroot
-# outer_source_chroot_script: /some/path.sh
+outer_source_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/outer_source_chroot_script_arm.sh
 
 # Inner source chroot script. Called from inside the source_chroot.
 # Can be used to spawn package updates inside the chroot.

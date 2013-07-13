@@ -377,7 +377,7 @@ build_sabayon() {
 		dst="${DAILY_TMPDIR}/${ARM_SOURCE_SPECS[i]}"
 		cp "${src}" "${dst}" -p || return 1
 		echo >> "${dst}"
-		echo "inner_source_chroot_script: ${inner_chroot}" >> "${dst}"
+		echo "inner_source_chroot_script: ${inner_chroot} arm" >> "${dst}"
 
 		# tweak iso image name
 		sed -i "s/image_name:.*/image_name: ${ARM_SOURCE_SPECS_IMG[i]}/" \
