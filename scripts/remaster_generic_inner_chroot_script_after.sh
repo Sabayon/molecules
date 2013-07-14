@@ -15,13 +15,17 @@ _get_kernel_tag() {
 	fi
 }
 
+install_packages() {
+	equo install "${@}"
+}
+
 install_kernel_packages() {
 	local kernel_tag=$(_get_kernel_tag)
 	local pkgs=()
 	for pkg in "${@}"; do
 		pkgs+=( "${pkg}${kernel_tag}" )
 	done
-	equo install "${pkgs[@]}"
+	install_packages "${pkgs[@]}"
 }
 
 sd_enable() {
@@ -182,7 +186,9 @@ install_external_kernel_modules() {
 		"app-laptop/nvidiabl" \
 		"net-wireless/ndiswrapper" \
 		"sys-power/bbswitch" \
-		"net-wireless/broadcom-sta"
+		"net-wireless/broadcom-sta" || return 1
+	# otherwise bbswitch is useless
+	install_packages "x11-misc/bumblebee"
 }
 
 install_proprietary_gfx_drivers() {
