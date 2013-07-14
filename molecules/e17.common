@@ -84,7 +84,6 @@ packages_to_add:
 	sys-power/cpufrequtils,
 	www-client/midori,
 	x11-libs/gksu,
-	x11-misc/bumblebee,
 	x11-misc/magneto-gtk,
 	x11-terms/xterm,
 	x11-themes/equinox-themes,
