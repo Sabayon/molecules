@@ -43,7 +43,7 @@ sd_disable() {
 }
 
 basic_environment_setup() {
-	eselect opengl set xorg-x11 &> /dev/null
+	eselect opengl set xorg-x11
 	eselect mesa set --auto
 
 	# automatically start xdm
