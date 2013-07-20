@@ -84,8 +84,13 @@ newaliases
 # mode if it's not forced to NO. So, disable it completely
 # sed -i "/^#rc_interactive=/ s/#//" /etc/rc.conf
 
-# Set Plymouth default theme
-plymouth-set-default-theme solar
+# Set Plymouth default theme, newer artwork has the sabayon theme
+is_ply_sabayon=$(plymouth-set-default-theme --list | grep sabayon)
+if [ -n "${is_ply_sabayon}" ]; then
+	plymouth-set-default-theme sabayon
+else
+	plymouth-set-default-theme solar
+fi
 # and make sure that fbcondecor is removed
 rc-update del fbcondecor boot
 rc-update del fbcondecor default
