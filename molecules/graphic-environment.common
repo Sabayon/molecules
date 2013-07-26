@@ -12,6 +12,8 @@ packages_to_add:
 	media-fonts/ttf-bitstream-vera,
 	media-fonts/dejavu,
 	media-fonts/corefonts,
+	media-libs/libtxc_dxtn,
+	media-libs/mesa,
 	sys-apps/gpu-detector,
 	sys-apps/lsb-release,
 	x11-apps/xhost,
