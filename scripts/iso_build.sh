@@ -50,16 +50,6 @@ REMASTER_SPECS_ISO=()
 REMASTER_TAR_SPECS=()
 REMASTER_TAR_SPECS_TAR=()
 
-# Default Sabayon release version to current date
-# composed by YYYYMMDD. This is overridden by the
-# monthly if branch below.
-if [ -z "${SABAYON_RELEASE}" ]; then  # make possible to override it
-	if [ "${ACTION}" = "release" ]; then
-		echo "Missing SABAYON_RELEASE env var" >&2
-		exit 1
-	fi
-	SABAYON_RELEASE=$(date -u +%Y%m%d)
-fi
 # ISO TAG is instead used as part of the images push
 # to our mirror. It is always "DAILY" but it gets a special
 # meaning for monthly releases.
@@ -70,8 +60,13 @@ ISO_DIR="daily"
 CHANGELOG_DATES=""
 CHANGELOG_DIR="${SABAYON_MOLECULE_HOME}/${ACTION}-git-logs"
 
+get_default_sabayon_release() {
+	echo "$(date -u +%Y%m%d)"
+}
+
 if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 	export BUILDING_DAILY=1
+	SABAYON_RELEASE=$(get_default_sabayon_release)
 
 	# Daily molecules
 	SOURCE_SPECS+=(
@@ -137,6 +132,7 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 
 elif [ "${ACTION}" = "arm" ]; then
 	export BUILDING_DAILY=1
+	SABAYON_RELEASE=$(get_default_sabayon_release)
 
 	# Make possible to run this concurrently with other targets
 	ISO_TAG="DAILY_arm"
@@ -164,6 +160,7 @@ elif [ "${ACTION}" = "arm" ]; then
 
 elif [ "${ACTION}" = "dailybase" ]; then
 	export BUILDING_DAILY=1
+	SABAYON_RELEASE=$(get_default_sabayon_release)
 
 	SOURCE_SPECS+=(
 		"sabayon-x86-spinbase.spec"
@@ -180,7 +177,7 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 		SABAYON_RELEASE=$(/bin/date -u --date="$(/bin/date -u +%g-%m-%d) +1 month" "+%g.%m")
 	fi
 	if [ -z "${SABAYON_RELEASE}" ]; then  # release action must set this
-		echo "Cannot set SABAYON_RELEASE, wtf?" >&2
+		echo "SABAYON_RELEASE is not set, wtf?" >&2
 		exit 1
 	fi
 	# Rewrite ISO_TAG to SABAYON_RELEASE
