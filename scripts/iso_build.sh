@@ -299,6 +299,21 @@ safe_run() {
 	return 0
 }
 
+remove_from_mirrors() {
+	local path="${1}"
+	local server="entropy@pkg.sabayon.org"
+	local ssh_dir="/sabayon/rsync"
+	local ssh_path="${server}:${ssh_dir}"
+
+	if [ -z "${path}" ]; then
+		echo "remove_from_mirrors: no arguments passed" >&2
+		return 1
+	fi
+
+	safe_run 5 ssh "${server}" \
+		rm -f "${ssh_dir}/rsync.sabayon.org/iso/${ISO_DIR}/${path}"
+}
+
 move_to_mirrors() {
 	local do_push="${SABAYON_MOLECULE_HOME}"/DO_PUSH
 	local server="entropy@pkg.sabayon.org"
@@ -470,8 +485,10 @@ build_sabayon() {
 
 		# remove old ISO images?
 		if [ -n "${OLD_ISO_TAG}" ]; then
-			echo "Removing old ISO images tagged ${OLD_ISO_TAG} -- won't remove remote images"
+			echo "Removing old ISO images tagged ${OLD_ISO_TAG} locally"
 			rm -rf "${SABAYON_MOLECULE_HOME}"/{images,iso,iso_rsync}/"${DISTRO_NAME}"*"${OLD_ISO_TAG}"*
+			echo "Removing old ISO images tagged ${OLD_ISO_TAG} remotely"
+			remove_from_mirrors "${DISTRO_NAME}*${OLD_ISO_TAG}*"
 		fi
 
 	fi
