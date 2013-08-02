@@ -1,5 +1,6 @@
 # use abs path, otherwise daily iso build automagic won't work
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/minimal.common
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/x86.common
 
 %env release_version: ${SABAYON_RELEASE:-11}
 release_desc: x86 Minimal

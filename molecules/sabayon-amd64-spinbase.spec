@@ -1,5 +1,6 @@
 # Use abs path, otherwise daily builds automagic won't work
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/spinbase.common
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/amd64.common
 
 # Release Version
 # Keep this here, otherwise daily builds automagic won't work

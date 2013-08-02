@@ -1,5 +1,6 @@
 # Use abs path, otherwise daily builds automagic won't work
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/mate.common
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/x86.common
 
 prechroot: linux32
 

@@ -1,5 +1,6 @@
 # Use abs path, otherwise daily iso build won't work
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/awesome.common
+%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/amd64.common
 
 # Release Version
 %env release_version: ${SABAYON_RELEASE:-11}
