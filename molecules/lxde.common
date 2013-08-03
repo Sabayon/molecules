@@ -35,9 +35,6 @@ extra_mksquashfs_parameters: -comp xz -Xbcj x86
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
 %env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_pre_iso_script.sh LXDE
 
-# Post-ISO building script, called after ISO image generation.
-%env post_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_post_iso_script.sh
-
 # Destination directory for the ISO image path (MANDATORY)
 %env destination_iso_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso
 

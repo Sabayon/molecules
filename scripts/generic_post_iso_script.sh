@@ -11,13 +11,22 @@
 /usr/sbin/env-update
 . /etc/profile
 
+ISO_ARCH="${1}"
+shift
+
 echo
 echo "Spawning isohybrid for:"
 echo "ISO_PATH = ${ISO_PATH}"
 echo "ISO_CHECKSUM_PATH = ${ISO_CHECKSUM_PATH}"
+echo "ISO_ARCH = ${ISO_ARCH}"
 echo
 
-isohybrid --uefi "${ISO_PATH}" || exit 1
+ih_args=""
+if [ "${ISO_ARCH}" = "amd64" ]; then
+	ih_args+=" --uefi"
+fi
+isohybrid ${ih_args} "${ISO_PATH}" || exit 1
+
 cd "$(dirname "${ISO_PATH}")" || exit 1
 iso_name=$(basename "${ISO_PATH}")
 md5sum "${iso_name}" > "${ISO_CHECKSUM_PATH}"
