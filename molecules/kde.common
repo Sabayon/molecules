@@ -79,7 +79,6 @@ packages_to_add:
 	app-office/libreoffice-l10n-nl,
 	app-office/libreoffice-l10n-pt,
 	app-text/pastebunz,
-	dev-java/icedtea-bin,
 	games-misc/cowsay,
 	kde-base/akregator,
 	kde-base/ark,
