@@ -86,7 +86,7 @@ packages_to_add:
 	app-text/pastebunz,
 	games-misc/cowsay,
 	gnome-base/gnome-shell,
-	gnome-extra/gcalctool,
+	gnome-extra/gnome-calculator,
 	gnome-extra/gconf-editor,
 	gnome-extra/gnome-games,
 	gnome-extra/gnome-power-manager,
