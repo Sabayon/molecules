@@ -291,7 +291,13 @@ safe_run() {
 			done=1;
 			break;
 		}
-		sleep 10 || return 1
+		if [ ${i} -le 3 ]; then
+			sleep 10 || return 1
+		elif [ ${i} -le 6 ]; then
+			sleep 600 || return 1
+		else
+			sleep 1800 || return 1
+		fi
 	done
 	if [ "${done}" = "0" ]; then
 		return 1
@@ -310,7 +316,7 @@ remove_from_mirrors() {
 		return 1
 	fi
 
-	safe_run 5 ssh "${server}" \
+	safe_run 10 ssh "${server}" \
 		rm -f "${ssh_dir}/rsync.sabayon.org/iso/${ISO_DIR}/${path}"
 }
 
@@ -332,23 +338,23 @@ move_to_mirrors() {
 				exit 1
 			fi
 
-			safe_run 5 rsync -av --partial --bwlimit=2048 \
+			safe_run 10 rsync -av --partial --bwlimit=2048 \
 				"${SABAYON_MOLECULE_HOME}"/iso_rsync/*"${ISO_TAG}"* \
 				"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}" \
 				|| exit 1
 
 			if [ -n "${CHANGELOG_DATES}" ]; then
-				safe_run 5 rsync -av --partial \
+				safe_run 10 rsync -av --partial \
 				"${CHANGELOG_DIR}"/ \
 				"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}/ChangeLogs/"
 			fi
 
-			safe_run 5 rsync -av --partial \
+			safe_run 10 rsync -av --partial \
 				"${SABAYON_MOLECULE_HOME}"/scripts/gen_html \
 				"${ssh_path}"/iso_html_generator \
 				|| exit 1
 
-			safe_run 5 ssh "${server}" \
+			safe_run 10 ssh "${server}" \
 				"${ssh_dir}"/iso_html_generator/gen_html/gen.sh \
 				|| exit 1
 
