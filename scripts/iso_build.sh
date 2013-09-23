@@ -174,7 +174,7 @@ elif [ "${ACTION}" = "dailybase" ]; then
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase.iso"
 	)
 
-if [ "${ACTION}" = "steambox" ]; then
+elif [ "${ACTION}" = "steambox" ]; then
 	export BUILDING_DAILY=1
 	SABAYON_RELEASE=$(get_default_sabayon_release)
 
