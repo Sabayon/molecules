@@ -387,6 +387,17 @@ prepare_gnome() {
 	setup_sabayon_mce
 }
 
+prepare_steambox() {
+	setup_default_xsession "steambox"
+
+	rc-update del system-tools-backends boot
+	rc-update add system-tools-backends default
+	# no systemd counterpart
+
+	rc-update add steambox boot
+	sd_enable steambox
+}
+
 prepare_xfceforensic() {
 	setup_default_xsession "xfce"
 	xfceforensic_remove_skel_stuff
@@ -420,6 +431,8 @@ prepare_system() {
 		prepare_fluxbox
 	elif [ "${de}" = "gnome" ]; then
 		prepare_gnome
+	elif [ "${de}" = "steambox" ]; then
+		prepare_steambox
 	elif [ "${de}" = "xfceforensic" ]; then
 		prepare_xfceforensic
 	elif [ "${de}" = "kde" ]; then

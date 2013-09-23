@@ -23,6 +23,9 @@ fi
 if [ "${remaster_type}" = "KDE" ] || [ "${remaster_type}" = "GNOME" ]; then
 	isolinux_source="${SABAYON_MOLECULE_HOME}/remaster/standard_isolinux.cfg"
 	grub_source="${SABAYON_MOLECULE_HOME}/remaster/standard_grub.cfg"
+elif [ "${remaster_type}" = "SteamBox" ]; then
+	isolinux_source="${SABAYON_MOLECULE_HOME}/remaster/steambox_isolinux.cfg"
+	grub_source="${SABAYON_MOLECULE_HOME}/remaster/steambox_grub.cfg"
 fi
 cp "${isolinux_source}" "${isolinux_destination}" || exit 1
 cp "${grub_source}" "${grub_destination}" || exit 1
