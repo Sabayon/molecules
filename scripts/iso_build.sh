@@ -16,7 +16,6 @@ VALID_ACTIONS=(
 	"dailybase"
 	"release"
 	"arm"
-	"steambox"
 )
 
 ACTION="${1}"
@@ -112,12 +111,10 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		REMASTER_SPECS+=(
 			"sabayon-amd64-xfceforensic.spec"
 			"sabayon-x86-xfceforensic.spec"
-			"sabayon-amd64-steambox.spec"
 		)
 		REMASTER_SPECS_ISO+=(
 			"${DISTRO_NAME}_${ISO_TAG}_amd64_ForensicsXfce.iso"
 			"${DISTRO_NAME}_${ISO_TAG}_x86_ForensicsXfce.iso"
-			"${DISTRO_NAME}_${ISO_TAG}_amd64_SteamBox.iso"
 		)
 		REMASTER_TAR_SPECS+=(
 			"sabayon-x86-spinbase-openvz-template.spec"
@@ -174,25 +171,6 @@ elif [ "${ACTION}" = "dailybase" ]; then
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase.iso"
 	)
 
-elif [ "${ACTION}" = "steambox" ]; then
-	export BUILDING_DAILY=1
-	SABAYON_RELEASE=$(get_default_sabayon_release)
-
-	SOURCE_SPECS+=(
-		"sabayon-x86-spinbase.spec"
-		"sabayon-amd64-spinbase.spec"
-	)
-	SOURCE_SPECS_ISO+=(
-		"${DISTRO_NAME}_${ISO_TAG}_x86_SpinBase.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase.iso"
-	)
-	REMASTER_SPECS+=(
-		"sabayon-amd64-steambox.spec"
-	)
-	REMASTER_SPECS_ISO+=(
-		"${DISTRO_NAME}_${ISO_TAG}_amd64_SteamBox.iso"
-	)
-
 elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 	if [ "${ACTION}" = "monthly" ] && [ -z "${SABAYON_RELEASE}" ]; then
 		# always one month ahead
@@ -236,7 +214,6 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 		"sabayon-x86-xfce.spec"
 		"sabayon-amd64-minimal.spec"
 		"sabayon-x86-minimal.spec"
-		"sabayon-amd64-steambox.spec"
 	)
 	REMASTER_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME.iso"
@@ -249,7 +226,6 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 		"${DISTRO_NAME}_${ISO_TAG}_x86_Xfce.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Minimal.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_x86_Minimal.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_SteamBox.iso"
 	)
 fi
 
