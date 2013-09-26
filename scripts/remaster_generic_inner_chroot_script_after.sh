@@ -89,6 +89,11 @@ setup_sabayon_mce() {
 	sd_enable sabayon-mce
 }
 
+setup_sabayon_steambox() {
+	rc-update add steambox boot
+	sd_enable steambox
+}
+
 switch_kernel() {
 	local from_kernel="${1}"
 	local to_kernel="${2}"
@@ -385,17 +390,7 @@ prepare_gnome() {
 	# no systemd counterpart
 
 	setup_sabayon_mce
-}
-
-prepare_steambox() {
-	setup_default_xsession "steambox"
-
-	rc-update del system-tools-backends boot
-	rc-update add system-tools-backends default
-	# no systemd counterpart
-
-	rc-update add steambox boot
-	sd_enable steambox
+	setup_sabayon_steambox
 }
 
 prepare_xfceforensic() {
@@ -410,6 +405,7 @@ prepare_kde() {
 	mv /etc/skel/.config/gtk-3.0/settings.ini._kde_molecule \
 		/etc/skel/.config/gtk-3.0/settings.ini
 	setup_sabayon_mce
+	setup_sabayon_steambox
 }
 
 prepare_awesome() {
@@ -431,8 +427,6 @@ prepare_system() {
 		prepare_fluxbox
 	elif [ "${de}" = "gnome" ]; then
 		prepare_gnome
-	elif [ "${de}" = "steambox" ]; then
-		prepare_steambox
 	elif [ "${de}" = "xfceforensic" ]; then
 		prepare_xfceforensic
 	elif [ "${de}" = "kde" ]; then
