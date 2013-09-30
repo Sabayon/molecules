@@ -23,4 +23,5 @@ packages_to_add:
 	x11-themes/hicolor-icon-theme,
 	x11-themes/iottinka-artwork,
 	x11-terms/xterm,
-	x11-libs/libXxf86misc
+	x11-libs/libXxf86misc,
+	x11-misc/primus
