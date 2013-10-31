@@ -52,6 +52,8 @@ packages_to_add:
 	app-crypt/gnupg,
 	app-crypt/pinentry-gtk2,
 	app-text/pastebunz,
+	app-office/abiword,
+	app-office/gnumeric,
 	gnome-extra/nm-applet-gtk2,
 	mate-base/mate,
 	media-plugins/alsa-plugins,
@@ -66,9 +68,11 @@ packages_to_add:
 	sys-fs/ntfs3g,
 	sys-power/cpufrequtils,
 	www-client/chromium,
+	www-plugins/adobe-flash,
 	x11-misc/magneto-gtk,
 	x11-misc/lightdm-base,
 	x11-misc/lightdm-gtk-greeter,
+	x11-terms/guake,
 	x11-themes/gnome-themes-standard
 
 # Custom shell call to packages add (default is: equo install)
