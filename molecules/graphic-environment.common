@@ -16,6 +16,7 @@ packages_to_add:
 	media-libs/mesa,
 	sys-apps/gpu-detector,
 	sys-apps/lsb-release,
+	sys-apps/usb_modeswitch,
 	x11-apps/xhost,
 	x11-apps/setxkbmap,
 	x11-themes/equinox-themes,
@@ -24,4 +25,4 @@ packages_to_add:
 	x11-themes/iottinka-artwork,
 	x11-terms/xterm,
 	x11-libs/libXxf86misc,
-	x11-misc/primus
+	x11-misc/primus,
