@@ -1,6 +1,10 @@
+CHROOTS
 chroot/*
 iso/*
 livecd/*
 pkgcache/*
 sources/*
 iso_rsync/*
+automatic-changelogs/*
+monthly-git-logs/*
+images/*
