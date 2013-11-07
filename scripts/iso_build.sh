@@ -272,6 +272,12 @@ sleepnight() {
 # Create log dir if it does not exist
 mkdir -p /var/log/molecule || exit 1
 
+# Use /var/cache/molecule instead of /var/tmp
+# Because systemd may decide to reap it.
+# Molecule supports MOLECULE_TMPDIR
+export MOLECULE_TMPDIR="/var/cache/molecule"
+mkdir -p "${MOLECULE_TMPDIR}" || exit 1
+
 cleanup_on_exit() {
 	if [ -n "${DAILY_TMPDIR}" ] && [ -d "${DAILY_TMPDIR}" ]; then
 		rm -rf "${DAILY_TMPDIR}"
