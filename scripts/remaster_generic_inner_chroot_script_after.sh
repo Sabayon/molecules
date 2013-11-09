@@ -374,6 +374,9 @@ prepare_e17() {
 
 prepare_xfce() {
 	setup_default_xsession "xfce"
+
+	# Enable AWN config for Xfce
+	mv /etc/skel/.gconf/apps/awn-applet-taskmanager/{xfce-,}%gconf.xml
 }
 
 prepare_fluxbox() {
