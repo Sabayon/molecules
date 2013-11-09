@@ -23,6 +23,7 @@ echo
 # setup networking, make sure networkmanager is gone
 rc-update add NetworkManager default || rc-update add net.eth0 default
 sd_enable NetworkManager
+sd_enable ModemManager
 
 # drop other useless services
 rc-update del sabayonlive boot

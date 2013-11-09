@@ -22,6 +22,7 @@ DROP_SERVICES="
 	mdadm
 	netmount
 	NetworkManager
+	ModemManager
 	sabayonlive
 	swap
 	swapfiles

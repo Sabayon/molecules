@@ -142,6 +142,7 @@ setup_networkmanager() {
 	rc-update add NetworkManager default
 	rc-update add NetworkManager-setup default
 	sd_enable NetworkManager
+	sd_enable ModemManager
 }
 
 xfceforensic_remove_skel_stuff() {
