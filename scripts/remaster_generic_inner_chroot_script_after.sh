@@ -87,8 +87,6 @@ setup_cpufrequtils() {
 setup_sabayon_mce() {
 	rc-update add sabayon-mce boot
 	sd_enable sabayon-mce
-	sd_enable smbd
-	sd_enable nmbd
 }
 
 setup_sabayon_steambox() {
