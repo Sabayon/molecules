@@ -224,4 +224,9 @@ rm -f /var/run/entropy/entropy.lock
 rm -f /var/lib/entropy/entropy.pid
 rm -f /var/lib/entropy/entropy.lock # old?
 
+# remove /run/* and /var/lock/*
+# systemd mounts them using tmpfs
+rm -rf /run/*
+rm -rf /var/lock/*
+
 exit 0

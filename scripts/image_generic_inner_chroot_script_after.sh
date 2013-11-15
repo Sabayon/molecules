@@ -104,4 +104,9 @@ rm -f /etc/entropy/.hw.hash
 # remove entropy pid file
 rm -f /var/run/entropy/entropy.lock
 
+# remove /run/* and /var/lock/*
+# systemd mounts them using tmpfs
+rm -rf /run/*
+rm -rf /var/lock/*
+
 exit 0
