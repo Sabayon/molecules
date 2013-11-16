@@ -151,6 +151,7 @@ packages_to_add:
 	www-client/chromium,
 	www-plugins/adobe-flash,
 	x11-apps/xdm,
+	x11-libs/libva-intel-driver,
 	x11-libs/libva-vdpau-driver,
 	x11-libs/xvba-video,
 	x11-misc/alacarte,
