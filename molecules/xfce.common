@@ -80,7 +80,6 @@ packages_to_add:
 	app-office/libreoffice-l10n-pt,
 	app-text/pastebunz,
 	games-misc/cowsay,
-	gnome-extra/avant-window-navigator,
 	gnome-extra/nm-applet-gtk2,
 	gnome-extra/polkit-gnome,
 	media-gfx/gimp,
