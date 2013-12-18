@@ -70,7 +70,6 @@ packages_to_add:
 	app-emulation/wine,
 	app-misc/sabayon-mce,
 	app-misc/sabayon-skel,
-	app-misc/sabayon-steambox,
 	app-misc/sabayon-version,
 	app-office/libreoffice,
 	app-office/libreoffice-l10n-de,
