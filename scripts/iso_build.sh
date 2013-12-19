@@ -497,6 +497,7 @@ build_sabayon() {
 			rm -rf "${SABAYON_MOLECULE_HOME}"/{images,iso,iso_rsync}/"${DISTRO_NAME}"*"${OLD_ISO_TAG}"*
 			echo "Removing old ISO images tagged ${OLD_ISO_TAG} remotely"
 			remove_from_mirrors "${DISTRO_NAME}*${OLD_ISO_TAG}*"
+			remove_from_mirrors "RELEASE_DATE_${OLD_ISO_TAG}"
 		fi
 
 	fi
