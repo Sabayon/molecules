@@ -83,6 +83,12 @@ else
 	echo
 fi
 
+# keep /lib/modules clean at all times
+for moddir in $(find /lib/modules -maxdepth 1 -type d -empty); do
+	echo "Cleaning ${moddir} because it's empty"
+	rmdir "${moddir}"
+done
+
 rm -rf /var/lib/entropy/client/packages
 
 # Make sure that systemd is still the default init system
