@@ -5,6 +5,7 @@
 # x11-libs/libXxf86misc required by xset
 packages_to_add:
 	@X,
+	sys-apps/gpu-detector,
 	@fluxbox,
 	app-misc/sabayon-skel,
 	app-misc/anaconda-runtime-gui,
