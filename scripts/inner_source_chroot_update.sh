@@ -101,9 +101,6 @@ for conf in package.mask package.unmask package.keywords make.conf package.use; 
 	repo_conf=$(ls -1 ${repo_path}/*/*/${conf} | sort | tail -n 1 2>/dev/null)
 	if [ -n "${repo_conf}" ]; then
 		target_path="/etc/portage/${conf}"
-		if [ "${conf}" = "make.conf" ]; then
-			target_path="/etc/make.conf"
-		fi
 		if [ ! -d "${target_path}" ]; then # do not touch dirs
 			cp "${repo_conf}" "${target_path}" # ignore
 		fi
