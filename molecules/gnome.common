@@ -158,7 +158,6 @@ packages_to_add:
 	x11-misc/magneto-gtk3,
 	x11-misc/xvkbd,
 	x11-terms/gnome-terminal,
-	x11-terms/guake,
 	x11-themes/gnome-icon-theme,
 	x11-themes/gnome-themes,
 	x11-themes/sabayon-artwork-extra,
