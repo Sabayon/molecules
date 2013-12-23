@@ -110,7 +110,7 @@ packages_to_add:
 	media-libs/libdvdplay,
 	media-libs/libdvdread,
 	media-plugins/alsa-plugins,
-	media-sound/exaile,
+	media-sound/audacious,
 	media-sound/pavucontrol,
 	media-tv/xbmc,
 	media-video/mplayer,
