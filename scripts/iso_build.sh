@@ -86,8 +86,6 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		"sabayon-x86-mate.spec"
 		"sabayon-amd64-xfce.spec"
 		"sabayon-x86-xfce.spec"
-		"sabayon-amd64-e17.spec"
-		"sabayon-x86-e17.spec"
 		"sabayon-amd64-minimal.spec"
 		"sabayon-x86-minimal.spec"
 	)
@@ -100,8 +98,6 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		"${DISTRO_NAME}_${ISO_TAG}_x86_MATE.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Xfce.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_x86_Xfce.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_amd64_E17.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_E17.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Minimal.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_x86_Minimal.iso"
 	)
