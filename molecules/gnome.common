@@ -72,7 +72,6 @@ packages_to_add:
 	app-dicts/myspell-it,
 	app-dicts/myspell-nl,
 	app-editors/gedit,
-	app-emulation/wine,
 	app-misc/gnote,
 	app-misc/sabayon-mce,
 	app-misc/sabayon-steambox,

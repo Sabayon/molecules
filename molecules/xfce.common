@@ -69,7 +69,6 @@ packages_to_add:
 	app-dicts/myspell-fr,
 	app-dicts/myspell-it,
 	app-dicts/myspell-nl,
-	app-emulation/wine,
 	app-misc/gnote,
 	app-text/pastebunz,
 	games-misc/cowsay,
