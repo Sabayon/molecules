@@ -33,7 +33,3 @@ for repo_conf in /etc/entropy/repositories.conf.d/entropy_*; do
 	sed -n -e "/^pkg = .*pkg.sabayon.org/p" -e "/^repo = .*pkg.sabayon.org/p" \
 		-e "/garr.it/p" -e "/^\[.*\]$/p" -i "${repo_conf}"
 done
-
-# mask icedtea, since it pulls it a shitload of deps
-# prefer icedtea-bin or others
-equo mask "dev-java/icedtea"
