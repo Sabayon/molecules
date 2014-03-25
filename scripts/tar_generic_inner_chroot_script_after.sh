@@ -55,10 +55,6 @@ for serv in ${SYSTEMD_DROP_SERVICES}; do
 done
 systemctl --no-reloab enable vixie-cron.service
 
-if [ "${1}" = "openvz" ]; then
-	eselect init set sysvinit
-fi
-
 # Generate list of installed packages
 equo query list installed -qv > /etc/sabayon-pkglist
 

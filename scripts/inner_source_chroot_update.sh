@@ -91,10 +91,6 @@ done
 
 rm -rf /var/lib/entropy/client/packages
 
-# Make sure that systemd is still the default init system
-eselect init set systemd
-rm -f /run/.eselect-init.run
-
 # copy Portage config from sabayonlinux.org entropy repo to system
 for conf in package.mask package.unmask package.keywords make.conf package.use; do
 	repo_path=/var/lib/entropy/client/database/*/sabayonlinux.org/standard
