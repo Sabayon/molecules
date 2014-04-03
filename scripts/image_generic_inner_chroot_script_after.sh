@@ -65,8 +65,6 @@ kernel ${kernel_bin} root=/dev/sda1
 # Generate list of installed packages
 equo query list installed -qv > /etc/sabayon-pkglist
 
-/lib/rc/bin/rc-depend -u
-
 echo "Vacuum cleaning client db"
 rm /var/lib/entropy/client/database/*/sabayonlinux.org -rf
 rm /var/lib/entropy/client/database/*/sabayon-weekly -rf
@@ -81,12 +79,6 @@ done
 
 # cleanup log dir
 rm /var/lib/entropy/logs -rf
-
-# Generate openrc cache
-[[ -d "/lib/rc/init.d" ]] && touch /lib/rc/init.d/softlevel
-[[ -d "/run/openrc" ]] && touch /run/openrc/softlevel
-/etc/init.d/savecache start
-/etc/init.d/savecache zap
 
 ldconfig
 ldconfig
