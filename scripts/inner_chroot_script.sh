@@ -65,9 +65,6 @@ rm -rf /etc/ssl/postfix/server.*
 
 # make sure postfix only listens on localhost
 echo "inet_interfaces = localhost" >> /etc/postfix/main.cf
-# do not add it yet to runlevel
-# rc-update add postfix default
-
 # allow root logins to the livecd by default
 # turn bashlogin shells to actual login shells
 sed -i 's:exec -l /bin/bash:exec -l /bin/bash -l:' /bin/bashlogin
@@ -91,12 +88,8 @@ if [ -n "${is_ply_sabayon}" ]; then
 else
 	plymouth-set-default-theme solar
 fi
-# and make sure that fbcondecor is removed
-rc-update del fbcondecor boot
-rc-update del fbcondecor default
 
 # enable cd eject on shutdown/reboot
-rc-update add cdeject shutdown
 sd_enable cdeject
 
 # Activate services for systemd

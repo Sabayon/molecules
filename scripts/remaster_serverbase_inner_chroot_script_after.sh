@@ -13,17 +13,8 @@ sd_disable() {
 		systemctl --no-reload -f disable "${1}.service"
 }
 
-rc-update del installer-gui boot
-rc-update del x-setup boot
-rc-update del avahi-daemon default
-
 sd_disable installer-gui
 sd_disable avahi-daemon
-
-# A RUNNING NetworkManager is required by Anaconda !!
-# re-enable rc_hotplug
-# sed -i 's:^rc_hotplug=.*:rc_hotplug="*":g' /etc/rc.conf
-# rc-update del NetworkManager default
 
 # install-data dir is really not needed
 rm -rf /install-data

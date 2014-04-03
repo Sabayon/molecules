@@ -6,29 +6,6 @@
 # remove sabayonuser
 userdel sabayonuser
 
-DROP_SERVICES="
-	alsasound
-	avahi-daemon
-	consolefont
-	dbus
-	fbcondecor
-	fsck
-	hotplug
-	hwclock
-	installer-gui
-	installer-text
-	keymaps
-	lvm
-	mdadm
-	netmount
-	NetworkManager
-	ModemManager
-	sabayonlive
-	swap
-	swapfiles
-	termencoding
-	x-setup
-"
 SYSTEMD_DROP_SERVICES="
 	alsa-store
 	alsa-restore
@@ -41,14 +18,6 @@ SYSTEMD_DROP_SERVICES="
 	sabayonlive
 	x-setup
 "
-
-for serv in ${DROP_SERVICES}; do
-	rc-update del ${serv} default
-	rc-update del ${serv} boot
-done
-rc-update add vixie-cron default
-rc-update del udev sysinit
-rc-update del dmesg sysinit
 
 for serv in ${SYSTEMD_DROP_SERVICES}; do
 	systemctl --no-reload -f disable "${serv}.service"

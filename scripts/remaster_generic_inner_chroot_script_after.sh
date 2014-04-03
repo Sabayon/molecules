@@ -46,26 +46,12 @@ basic_environment_setup() {
 	eselect opengl set xorg-x11
 	eselect mesa set --auto
 
-	# automatically start xdm
-	rc-update del xdm boot
-	rc-update add xdm default
-	# systemd has specific targets depending on the DM
-
-	# consolekit must be run at boot level
-	rc-update add consolekit boot
-	# systemd uses logind
-
-	rc-update del sabayon-mce default
 	sd_disable sabayon-mce
-	rc-update add nfsmount default
 
 	# setup avahi
-	rc-update add avahi-daemon default
 	sd_enable avahi-daemon
 
 	# setup printing
-	rc-update add cupsd default
-	rc-update add cups-browsed default
 	sd_enable cups
 	sd_enable cups-browsed
 
@@ -80,17 +66,14 @@ basic_environment_setup() {
 }
 
 setup_cpufrequtils() {
-	rc-update add cpufrequtils default
 	sd_enable cpufrequtils
 }
 
 setup_sabayon_mce() {
-	rc-update add sabayon-mce boot
 	sd_enable sabayon-mce
 }
 
 setup_sabayon_steambox() {
-	rc-update add steambox boot
 	sd_enable steambox
 }
 
@@ -137,10 +120,6 @@ setup_default_xsession() {
 }
 
 setup_networkmanager() {
-	rc-update del NetworkManager default
-	rc-update del NetworkManager
-	rc-update add NetworkManager default
-	rc-update add NetworkManager-setup default
 	sd_enable NetworkManager
 	sd_enable ModemManager
 }
@@ -180,7 +159,6 @@ setup_virtualbox() {
 	install_kernel_packages \
 		"app-emulation/virtualbox-guest-additions" \
 		"x11-drivers/xf86-video-virtualbox"
-	rc-update add virtualbox-guest-additions boot
 	sd_enable virtualbox-guest-additions
 }
 
@@ -389,9 +367,6 @@ prepare_gnome() {
 	else
 		setup_default_xsession "gnome"
 	fi
-	rc-update del system-tools-backends boot
-	rc-update add system-tools-backends default
-	# no systemd counterpart
 
 	setup_sabayon_mce
 	setup_sabayon_steambox

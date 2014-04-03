@@ -21,20 +21,15 @@ echo "ec2-user is the expected user"
 echo
 
 # setup networking, make sure networkmanager is gone
-rc-update add NetworkManager default || rc-update add net.eth0 default
 sd_enable NetworkManager
 sd_enable ModemManager
 
 # drop other useless services
-rc-update del sabayonlive boot
 sd_disable sabayonlive
-rc-update del x-setup boot
 
 # Enable ssh
-rc-update add sshd default
 sd_enable sshd
 # Enable cron
-rc-update add vixie-cron default
 sd_enable vixie-cron
 
 # delete root password, only ssh allowed
