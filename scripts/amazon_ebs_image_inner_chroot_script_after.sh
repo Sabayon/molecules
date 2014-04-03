@@ -43,9 +43,6 @@ useradd -d /home/ec2-user -k /etc/skel -g users -G wheel,disk,crontab \
 echo -e "\n# molecule generated rule\nec2-user ALL=NOPASSWD: ALL" \
 	>> /etc/sudoers
 
-# setup UTC clock
-sed -i 's:clock=".*":clock="UTC":' /etc/conf.d/hwclock || exit 1
-
 # setup fstab
 echo "# molecule generated fstab
 LABEL=/ / ext4 defaults 1 1

@@ -29,9 +29,6 @@ sd_enable sshd
 # delete root password, only ssh allowed
 passwd -d root
 
-# setup UTC clock
-sed -i 's:clock=".*":clock="UTC":' /etc/conf.d/hwclock || exit 1
-
 # setup fstab
 # TODO: really needed?
 echo "# molecule generated fstab

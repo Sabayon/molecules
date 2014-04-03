@@ -95,19 +95,14 @@ switch_kernel() {
 setup_displaymanager() {
 	# determine what is the login manager
 	if [ -n "$(equo match --installed gnome-base/gdm -qv)" ]; then
-		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="gdm"/g' /etc/conf.d/xdm
 		sd_enable gdm
 	elif [ -n "$(equo match --installed lxde-base/lxdm -qv)" ]; then
-		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="lxdm"/g' /etc/conf.d/xdm
 		sd_enable lxdm
 	elif [ -n "$(equo match --installed x11-misc/lightdm-base -qv)" ]; then
-		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="lightdm"/g' /etc/conf.d/xdm
 		sd_enable lightdm
 	elif [ -n "$(equo match --installed kde-base/kdm -qv)" ]; then
-		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="kdm"/g' /etc/conf.d/xdm
 		sd_enable kdm
 	else
-		sed -i 's/DISPLAYMANAGER=".*"/DISPLAYMANAGER="xdm"/g' /etc/conf.d/xdm
 		sd_enable xdm
 	fi
 }
