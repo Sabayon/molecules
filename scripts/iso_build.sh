@@ -539,6 +539,18 @@ Thanks,
 Sun" | /bin/mail -s "${ACTION} images build script failure" root
 }
 
+mail_success() {
+	echo "Hello there,
+
+New ${ACTION} images tagged as ${ISO_TAG} have been built and pushed to mirrors.
+You *must* now edit http://www.sabayon.org/latest (node/306) and update the
+release to ${ISO_TAG}.
+
+Please do it within 24-48 hours from now.
+
+" | /bin/mail -s "Action required: ${ACTION} ${ISO_TAG} images built" root
+}
+
 out=0
 if [ -n "${DO_STDOUT}" ]; then
 	if [ -z "${DO_PUSHONLY}" ]; then
@@ -561,6 +573,10 @@ else
 	if [ "${out}" != "0" ]; then
 		# mail root
 		mail_failure "${out}" "${LOG_FILE}"
+	else
+		if [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
+			mail_success
+		fi
 	fi
 fi
 echo "EXIT_STATUS: ${out}"
