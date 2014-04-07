@@ -341,6 +341,15 @@ move_to_mirrors() {
 				"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}" \
 				|| exit 1
 
+			if [ "${ACTION}" = "monthly" ]; then
+				mkdir -p "${SABAYON_MOLECULE_HOME}/iso_rsync/${ISO_DIR}" || exit 1
+				echo "${ISO_TAG}" > "${SABAYON_MOLECULE_HOME}/iso_rsync/${ISO_DIR}/LATEST_IS" || exit 1
+				safe_run 10 rsync -av --partial \
+					"${SABAYON_MOLECULE_HOME}/iso_rsync/${ISO_DIR}/LATEST_IS" \
+					"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}/" \
+					|| exit 1
+			fi
+
 			if [ -n "${CHANGELOG_DATES}" ]; then
 				safe_run 10 rsync -av --partial \
 				"${CHANGELOG_DIR}"/ \
