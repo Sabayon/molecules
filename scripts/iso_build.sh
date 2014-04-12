@@ -543,10 +543,7 @@ mail_success() {
 	echo "Hello there,
 
 New ${ACTION} images tagged as ${ISO_TAG} have been built and pushed to mirrors.
-You *must* now edit http://www.sabayon.org/latest (node/306) and update the
-release to ${ISO_TAG}.
-
-Please do it within 24-48 hours from now.
+http://www.sabayon.org/latest (node/306) will be updated in 24 hours automatically.
 
 " | /bin/mail -s "Action required: ${ACTION} ${ISO_TAG} images built" root
 }
