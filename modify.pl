@@ -4,12 +4,13 @@ use strict;
 use 5.010;
 use Fcntl ':flock';
 use Getopt::Long;
+use File::Spec;
 
 # A simple script to insert data to particle/molecule file.
 # Sławomir Nizio <slawomir.nizio<at>sabayon.org>
 
-my $tmp_file = "/tmp/add-data.temp";
-my $lock_file = "/tmp/add-data.lock";
+my $tmp_file;
+my $lock_file;
 
 my %opts = (
 	force_on_unsorted => 0,
@@ -77,7 +78,13 @@ if (defined $opts{section}) {
 }
 ####################
 
-open my $fh_lock, '>', $lock_file or die "cannot open lock file\n";
+{
+	my ($vol, $dir) = File::Spec->splitpath($file);
+	$tmp_file  = File::Spec->catpath($vol, $dir, "_add-data.temp");
+	$lock_file = File::Spec->catpath($vol, $dir, "_add-data.lock");
+}
+
+open my $fh_lock, '>', $lock_file or die "cannot open lock file: $!\n";
 flock($fh_lock, LOCK_EX | LOCK_NB) or die ("Cannot lock file!\n");
 open my $fh, '<', $file or die "cannot open file $file: $!\n";
 open my $fh_out, '>', $tmp_file or die "cannot open temp. file\n";
@@ -159,6 +166,7 @@ else {
 					exit 1;
 				}
 				say "Wrote to $file.";
+				unlink $lock_file or warn "removing lock file failed: $!\n";
 				exit 0;
 			}
 			when ('n') {
@@ -232,7 +240,7 @@ sub insert_elem {
 		}
 		# insert as last element
 		unless ($done) {
-			$section_strings[-1] .= ",";
+			$section_strings[-1] .= "," unless $section_strings[-1] =~ /,$/;
 			push @section_strings, $text_to_input;
 		}
 	}
