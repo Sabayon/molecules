@@ -68,7 +68,6 @@ packages_to_add:
 	sys-fs/ntfs3g,
 	sys-power/cpufrequtils,
 	www-client/chromium,
-	www-plugins/adobe-flash,
 	www-plugins/chrome-binary-plugins,
 	x11-misc/magneto-gtk,
 	x11-misc/lightdm-base,
