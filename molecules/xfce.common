@@ -102,6 +102,7 @@ packages_to_add:
 	sys-power/cpufrequtils,
 	www-client/chromium,
 	www-plugins/adobe-flash,
+	www-plugins/chrome-binary-plugins,
 	x11-libs/gksu,
 	x11-libs/libva-intel-driver,
 	x11-libs/libva-vdpau-driver,
