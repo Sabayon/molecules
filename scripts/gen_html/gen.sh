@@ -36,22 +36,6 @@ if ! rm -f "$tmpfile"; then
 	exit 2
 fi
 
-# main
-if ! "$script" $common_args \
-		main --template "$script_dir/main.tmpl" --dir "$main_dir" \
-		--skip daily --skip monthly \
-		> "$tmpfile"; then
-	warn "script for main releases failed"
-	rm -f "$tmpfile"
-	exit 2
-fi
-
-if ! mv "$tmpfile" "$main_dir/main.html"; then
-	warn "mv $tmpfile $main_dir/main.html failed"
-	rm -f "$tmpfile"
-	exit 2
-fi
-
 # dailies
 if ! "$script" $common_args \
 		daily --template "$script_dir/daily.tmpl" --dir "$dailies_dir" \
