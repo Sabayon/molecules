@@ -9,6 +9,7 @@ packages_to_add:
 	@fluxbox,
 	app-misc/sabayon-skel,
 	app-misc/anaconda-runtime-gui,
+	app-admin/anaconda-gui,
 	dev-python/libgnomecanvas-python,
 	media-fonts/ttf-bitstream-vera,
 	media-fonts/dejavu,

@@ -52,7 +52,6 @@ packages_to_add:
 	app-crypt/gnupg,
 	app-crypt/pinentry-gtk2,
 	app-editors/leafpad,
-	app-misc/anaconda-runtime-gui,
 	app-text/epdfview,
 	app-text/pastebunz,
 	dev-libs/fribidi,

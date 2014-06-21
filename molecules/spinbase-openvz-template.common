@@ -58,7 +58,6 @@ execution_strategy: iso_to_tar
 packages_to_remove:
 	app-admin/anaconda,
 	app-admin/system-config-date,
-	app-misc/anaconda-runtime,
 	app-misc/sabayon-live,
 	dev-libs/newt,
 	dev-util/pykickstart,
