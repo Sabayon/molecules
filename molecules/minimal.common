@@ -48,6 +48,7 @@ packages_to_add:
 	media-gfx/feh,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
+	net-irc/irssi,
 	net-misc/tightvnc,
 	sys-block/parted,
 	sys-power/cpufrequtils,
