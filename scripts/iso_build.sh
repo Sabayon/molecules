@@ -70,54 +70,38 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 
 	# Daily molecules
 	SOURCE_SPECS+=(
-		"sabayon-x86-spinbase.spec"
 		"sabayon-amd64-spinbase.spec"
 	)
 	SOURCE_SPECS_ISO+=(
-		"${DISTRO_NAME}_${ISO_TAG}_x86_SpinBase.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase.iso"
 	)
 	REMASTER_SPECS+=(
 		"sabayon-amd64-gnome.spec"
-		"sabayon-x86-gnome.spec"
 		"sabayon-amd64-kde.spec"
-		"sabayon-x86-kde.spec"
 		"sabayon-amd64-mate.spec"
-		"sabayon-x86-mate.spec"
 		"sabayon-amd64-xfce.spec"
-		"sabayon-x86-xfce.spec"
 		"sabayon-amd64-minimal.spec"
-		"sabayon-x86-minimal.spec"
 	)
 	REMASTER_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_GNOME.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_KDE.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_KDE.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_MATE.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_MATE.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Xfce.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_Xfce.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Minimal.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_Minimal.iso"
 	)
 
 	# Weekly molecules
 	if [ "${ACTION}" = "weekly" ]; then
 		REMASTER_SPECS+=(
 			"sabayon-amd64-xfceforensic.spec"
-			"sabayon-x86-xfceforensic.spec"
 		)
 		REMASTER_SPECS_ISO+=(
 			"${DISTRO_NAME}_${ISO_TAG}_amd64_ForensicsXfce.iso"
-			"${DISTRO_NAME}_${ISO_TAG}_x86_ForensicsXfce.iso"
 		)
 		REMASTER_TAR_SPECS+=(
-			"sabayon-x86-spinbase-amazon-ebs-image.spec"
 			"sabayon-amd64-spinbase-amazon-ebs-image.spec"
 		)
 		REMASTER_TAR_SPECS_TAR+=(
-			"${DISTRO_NAME}_${ISO_TAG}_x86_SpinBase_Amazon_EBS_ext4_filesystem_image.tar.gz"
 			"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase_Amazon_EBS_ext4_filesystem_image.tar.gz"
 		)
 	fi
@@ -155,11 +139,9 @@ elif [ "${ACTION}" = "dailybase" ]; then
 	SABAYON_RELEASE=$(get_default_sabayon_release)
 
 	SOURCE_SPECS+=(
-		"sabayon-x86-spinbase.spec"
 		"sabayon-amd64-spinbase.spec"
 	)
 	SOURCE_SPECS_ISO+=(
-		"${DISTRO_NAME}_${ISO_TAG}_x86_SpinBase.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase.iso"
 	)
 
@@ -188,32 +170,22 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 	mkdir -p "${CHANGELOG_DIR}" || exit 1
 
 	SOURCE_SPECS+=(
-		"sabayon-x86-spinbase.spec"
 		"sabayon-amd64-spinbase.spec"
 	)
 	SOURCE_SPECS_ISO+=(
-		"${DISTRO_NAME}_${ISO_TAG}_x86_SpinBase.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase.iso"
 	)
 	REMASTER_SPECS+=(
 		"sabayon-amd64-gnome.spec"
-		"sabayon-x86-gnome.spec"
 		"sabayon-amd64-kde.spec"
-		"sabayon-x86-kde.spec"
 		"sabayon-amd64-xfce.spec"
-		"sabayon-x86-xfce.spec"
 		"sabayon-amd64-minimal.spec"
-		"sabayon-x86-minimal.spec"
 	)
 	REMASTER_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_GNOME.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_KDE.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_KDE.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Xfce.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_Xfce.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Minimal.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_x86_Minimal.iso"
 	)
 fi
 
