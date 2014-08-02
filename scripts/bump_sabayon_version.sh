@@ -11,7 +11,7 @@ if [ ${#} -lt 1 ]; then
 fi
 
 VERSION="${1}"
-OVERLAY_BASE_URL="git@github.com:Sabayon/"
+OVERLAY_BASE_URL="git@github.com:Sabayon"
 OVERLAY_BASE_DIR="${SABAYON_MOLECULE_HOME:-${HOME}}"
 
 PACKAGES=(
