@@ -1,5 +1,0 @@
-# Extra mkisofs parameters, disable EFI support
-extra_mkisofs_parameters: -b isolinux/isolinux.bin -c isolinux/boot.cat
-
-# Post-ISO building script, called after ISO image generation.
-%env post_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/generic_post_iso_script.sh x86
