@@ -245,6 +245,7 @@ packages_to_add:
 	kde-base/thumbnailers,
 	kde-misc/kcm-ufw,
 	kde-misc/kcm_touchpad,
+	kde-misc/kcmsystemd,
 	kde-misc/kde-gtk-config,
 	kde-misc/kio-sysinfo,
 	kde-misc/magneto-kde,
