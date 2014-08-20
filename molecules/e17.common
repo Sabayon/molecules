@@ -43,11 +43,9 @@ extra_mksquashfs_parameters: -comp xz -Xbcj x86
 
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add: 
-	@X,
 	sys-apps/gpu-detector,
 	@e17,
 	@fluxbox,
-	@wireless,
 	app-admin/rigo,
 	app-crypt/gnupg,
 	app-crypt/pinentry-gtk2,
