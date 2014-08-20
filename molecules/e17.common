@@ -63,7 +63,6 @@ packages_to_add:
 	media-plugins/alsa-plugins,
 	media-sound/xnoise,
 	net-dialup/rp-pppoe,
-	net-im/pidgin,
 	net-irc/hexchat,
 	net-p2p/transmission-gtk,
 	sys-apps/gnome-disk-utility,
