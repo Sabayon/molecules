@@ -84,7 +84,6 @@ packages_to_add:
 	media-sound/audacious,
 	media-video/totem,
 	net-dialup/globespan-adsl,
-	net-dialup/gnome-ppp,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
 	net-firewall/ufw-frontends,
