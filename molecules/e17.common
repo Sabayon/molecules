@@ -9,7 +9,7 @@ release_string: Sabayon Linux
 release_file: /etc/sabayon-edition
 
 # ISO Image title
-iso_title: Sabayon E17
+iso_title: Sabayon Enlightenment
 
 # Enable XZ compression in mksquashfs
 extra_mksquashfs_parameters: -comp xz -Xbcj x86
