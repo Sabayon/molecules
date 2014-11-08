@@ -22,7 +22,7 @@ SYSTEMD_DROP_SERVICES="
 for serv in ${SYSTEMD_DROP_SERVICES}; do
 	systemctl --no-reload -f disable "${serv}.service"
 done
-systemctl --no-reloab enable vixie-cron.service
+systemctl --no-reload enable vixie-cron.service
 
 # Generate list of installed packages
 equo query list installed -qv > /etc/sabayon-pkglist
