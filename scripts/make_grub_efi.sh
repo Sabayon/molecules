@@ -83,9 +83,11 @@ create_efi_grub_image() {
 	echo "Memdisk relative path: ${memdisk_file_chroot_path}"
 	mkdir -p "${memdisk_boot_dir}" || return 1
 
-	create_embedded_grub_cfg "${embedded_cfg}"
+	create_embedded_grub_cfg "${embedded_cfg}" || return 1
 
 	( cd "${memdisk_dir}" && tar -cf - "${memdisk_boot_dir_prefix_name}" ) > "${memdisk_file}" || return 1
+
+	echo "Attempting to run grub2-mkimage inside chroot ${CHROOT_DIR}..."
 
 	chroot "${CHROOT_DIR}" grub2-mkimage \
 		-m "${memdisk_file_chroot_path}" \
@@ -100,7 +102,10 @@ create_efi_grub_image() {
 		configfile help loadenv reboot cat search \
 		memdisk tar boot linux chain echo sleep || return 1
 
+	echo "grub2-mkimage inside chroot ran successfully. Moving ${image_name} over to ${EFI_BOOT_DIR}"
 	mv "${CHROOT_DIR}"/"${image_name}" "${EFI_BOOT_DIR}/" || return 1
+
+	echo "Copying ${grub_efi_dir} to ${GRUB_BOOT_DIR}..."
 	cp -Rp "${grub_efi_dir}" "${GRUB_BOOT_DIR}/" || return 1
 
 	# cleanup
@@ -110,12 +115,14 @@ create_efi_grub_image() {
 }
 
 if [ -d "${x86_64_EFI_DIR}" ]; then
+	echo "Creating EFI grub image for x86_64..."
 	create_efi_grub_image "${x86_64_EFI_DIR_PREFIX}" \
 				"bootx64.efi" \
 				"x86_64-efi" \
 				"${x86_64_EFI_DIR}" \
 				|| exit 1
 elif [ -d "${i386_EFI_DIR}" ]; then
+	echo "Creating EFI grub image for i386..."
 	create_efi_grub_image "${i386_EFI_DIR_PREFIX}" \
 				"boota32.efi" \
 				"i386-efi" \
