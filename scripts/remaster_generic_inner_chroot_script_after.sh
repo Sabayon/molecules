@@ -269,6 +269,7 @@ setup_misc_stuff() {
 
 	# Regenerate Fluxbox menu
 	if [ -x "/usr/bin/fluxbox-generate_menu" ]; then
+		mkdir -p /root/.fluxbox
 		fluxbox-generate_menu -o /etc/skel/.fluxbox/menu
 	fi
 }
