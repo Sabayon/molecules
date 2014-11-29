@@ -17,6 +17,10 @@ for iso_dir in "${iso_dirs[@]}"; do
 	cd "${iso_dir}" || exit 1
 
 	for iso_file in "${iso_dir}"/*.{iso,tar.gz,tar.xz}; do
+		if [ ! -e "${iso_file}" ]; then
+			echo "${iso_file} does not exist, skipping..."
+			continue
+		fi
 		iso_name="${iso_file/.iso}"
 		iso_name="${iso_name/.tar.gz}"
 		iso_name="${iso_name/.tar.xz}"
