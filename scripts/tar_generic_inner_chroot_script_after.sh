@@ -3,9 +3,6 @@
 /usr/sbin/env-update
 . /etc/profile
 
-# remove sabayonuser
-userdel sabayonuser
-
 SYSTEMD_DROP_SERVICES="
 	alsa-store
 	alsa-restore
@@ -22,7 +19,6 @@ SYSTEMD_DROP_SERVICES="
 for serv in ${SYSTEMD_DROP_SERVICES}; do
 	systemctl --no-reload -f disable "${serv}.service"
 done
-systemctl --no-reload enable vixie-cron.service
 
 # Generate list of installed packages
 equo query list installed -qv > /etc/sabayon-pkglist
