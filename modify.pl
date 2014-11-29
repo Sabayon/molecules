@@ -159,25 +159,25 @@ else {
 	say "OK to proceed? [y/n]";
 	while (my $inp = <STDIN>) {
 		chomp $inp;
-		given (lc($inp)) {
-			when ('y') {
-				unless (rename $tmp_file, $file) {
-					warn "moving file failed: $!\n";
-					exit 1;
-				}
-				say "Wrote to $file.";
-				unlink $lock_file or warn "removing lock file failed: $!\n";
-				exit 0;
+		my $lc_inp = lc $inp;
+
+		if ($lc_inp eq 'y') {
+			unless (rename $tmp_file, $file) {
+				warn "moving file failed: $!\n";
+				exit 1;
 			}
-			when ('n') {
-				say "Okay, not saving changes.";
-				unlink $tmp_file or warn "removing temp. file failed: $!\n";
-				unlink $lock_file or warn "removing lock file failed: $!\n";
-				exit 0;
-			}
-			default {
-				say "I don't can not understand the answer!";
-			}
+			say "Wrote to $file.";
+			unlink $lock_file or warn "removing lock file failed: $!\n";
+			exit 0;
+		}
+		elsif ($lc_inp eq 'n') {
+			say "Okay, not saving changes.";
+			unlink $tmp_file or warn "removing temp. file failed: $!\n";
+			unlink $lock_file or warn "removing lock file failed: $!\n";
+			exit 0;
+		}
+		else {
+			say "I don't can not understand the answer!";
 		}
 	}
 }
@@ -277,7 +277,7 @@ sub search_dups {
 	my $stop_at_first = shift;
 	my @ret = ();
 	for (0..$#section_strings) {
-		if ($section_strings[$_] ~~ [ $text, $text_c ]) {
+		if ($section_strings[$_] eq $text or $section_strings[$_] eq $text_c) {
 			push @ret, $_;
 			last if $stop_at_first;
 		}
