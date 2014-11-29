@@ -76,11 +76,6 @@ sed -i "/^::1/ s/localhost/localhost sabayon/" /etc/hosts
 # setup postfix local mail aliases
 newaliases
 
-# DO NOT ENABLE interactive startup !!!
-# At this time, plymouth will trigger openrc interactive
-# mode if it's not forced to NO. So, disable it completely
-# sed -i "/^#rc_interactive=/ s/#//" /etc/rc.conf
-
 # Set Plymouth default theme, newer artwork has the sabayon theme
 is_ply_sabayon=$(plymouth-set-default-theme --list | grep sabayon)
 if [ -n "${is_ply_sabayon}" ]; then
@@ -117,8 +112,8 @@ eselect opengl set xorg-x11 &> /dev/null
 # touch /etc/asound.state
 touch /etc/asound.state
 
-update-pciids
-update-usbids
+type -f update-pciids && update-pciids
+type -f update-usbids && update-usbids
 
 echo -5 | etc-update
 mount -t proc proc /proc
