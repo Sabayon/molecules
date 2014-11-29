@@ -4,14 +4,8 @@
 . /etc/profile
 
 SYSTEMD_DROP_SERVICES="
-	alsa-store
-	alsa-restore
-	avahi-daemon
 	installer-gui
 	installer-text
-	lvm
-	mdadm
-	NetworkManager
 	sabayonlive
 	x-setup
 "
