@@ -108,7 +108,7 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		)
 	fi
 
-if [ "${ACTION}" = "dailybase" ]; then
+elif [ "${ACTION}" = "dailybase" ]; then
 	export BUILDING_DAILY=1
 	SABAYON_RELEASE=$(get_default_sabayon_release)
 
