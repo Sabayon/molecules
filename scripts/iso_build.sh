@@ -100,12 +100,6 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		REMASTER_SPECS_ISO+=(
 			"${DISTRO_NAME}_${ISO_TAG}_amd64_ForensicsXfce.iso"
 		)
-		REMASTER_TAR_SPECS+=(
-			"sabayon-amd64-spinbase-amazon-ebs-image.spec"
-		)
-		REMASTER_TAR_SPECS_TAR+=(
-			"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase_Amazon_EBS_ext4_filesystem_image.tar.gz"
-		)
 	fi
 
 elif [ "${ACTION}" = "dailybase" ]; then
