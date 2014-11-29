@@ -122,7 +122,7 @@ if [ "${ACTION}" = "dailybase" ]; then
 elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 	if [ "${ACTION}" = "monthly" ] && [ -z "${SABAYON_RELEASE}" ]; then
 		# always one month ahead
-		SABAYON_RELEASE=$(/bin/date -u --date="$(/bin/date -u +%g-%m-%d) +1 month" "+%g.%m")
+		SABAYON_RELEASE=$(/bin/date -u --date="$(/bin/date -u +%Y-%m-%d) +1 month" "+%y.%m")
 	fi
 	if [ -z "${SABAYON_RELEASE}" ]; then  # release action must set this
 		echo "SABAYON_RELEASE is not set, wtf?" >&2
@@ -131,7 +131,7 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 	# Rewrite ISO_TAG to SABAYON_RELEASE
 	ISO_TAG="${SABAYON_RELEASE}"
 	if [ "${ACTION}" = "monthly" ]; then
-		OLD_ISO_TAG=$(date -u --date="last month" +%g.%m)
+		OLD_ISO_TAG=$(date -u --date="last month" +%y.%m)
 		if [ -z "${OLD_ISO_TAG}" ]; then
 			echo "Cannot set OLD_ISO_TAG, wtf?" >&2
 			exit 1
