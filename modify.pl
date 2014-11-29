@@ -132,9 +132,7 @@ my $ret = $opts{delete} ? delete_elem() : insert_elem();
 
 unless ($ret) {
 	# no change made
-	close $fh;
-	close $fh_out;
-	close $fh_lock;
+	cleanup_all();
 	exit 0;
 }
 
@@ -305,14 +303,17 @@ sub show_diff {
 	system ("diff", "-u", $file1, $file2);
 }
 
-sub abort {
-	my $ohnoes = shift // "Aborting.";
-	say $ohnoes;
+sub cleanup_all {
 	close $fh;
 	close $fh_out;
 	unlink $tmp_file or warn "removing temp. file failed: $!\n";
 	unlink $lock_file or warn "removing lock file failed: $!\n";
 	close $fh_lock;
-	exit 1;
 }
 
+sub abort {
+	my $ohnoes = shift // "Aborting.";
+	say $ohnoes;
+	cleanup_all();
+	exit 1;
+}
