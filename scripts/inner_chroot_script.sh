@@ -105,6 +105,9 @@ done
 # Disable syslog in systemd, we use journald
 sd_disable syslog-ng
 
+# Make sure to have lvmetad otherwise anaconda freaks out
+sd_enable lvm2-lvmetad
+
 # setup sudoers
 [ -e /etc/sudoers ] && sed -i '/NOPASSWD: ALL/ s/^# //' /etc/sudoers
 
