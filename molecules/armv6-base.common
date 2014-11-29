@@ -1,4 +1,0 @@
-%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/arm-base.common
-
-# Path to source chroot (mandatory)
-%env source_chroot: ${SABAYON_MOLECULE_HOME:-/sabayon}/sources/armv6l_core-2013

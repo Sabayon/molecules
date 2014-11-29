@@ -1,6 +1,0 @@
-devtree=/boot/omap3-beagle-xm.dtb
-fdtaddr=0x80000000
-ramdiskfile=/boot/uInitrd
-bootfile=/boot/uImage
-optargs=consoleblank=0 earlyprintk=serial,uart1,115200 omapfb.mode=dvi:1280x720MR-24@50
-uenvcmd=run mmcargs; ext2load mmc ${mmcdev}:2 ${loadaddr} ${bootfile}; ext2load mmc ${mmcdev}:2 ${rdaddr} ${ramdiskfile}; ext2load mmc ${mmcdev}:2 ${fdtaddr} ${devtree}; bootm ${loadaddr} ${rdaddr} ${fdtaddr}

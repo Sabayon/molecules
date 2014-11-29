@@ -18,7 +18,6 @@ VALID_ACTIONS=(
 	"monthly"
 	"dailybase"
 	"release"
-	"arm"
 )
 
 ACTION="${1}"
@@ -44,8 +43,6 @@ for arg in "$@"; do
 done
 
 # Initialize script variables
-ARM_SOURCE_SPECS=()
-ARM_SOURCE_SPECS_IMG=()
 SOURCE_SPECS=()
 SOURCE_SPECS_ISO=()
 REMASTER_SPECS=()
@@ -111,35 +108,7 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		)
 	fi
 
-elif [ "${ACTION}" = "arm" ]; then
-	export BUILDING_DAILY=1
-	SABAYON_RELEASE=$(get_default_sabayon_release)
-
-	# Make possible to run this concurrently with other targets
-	ISO_TAG="DAILY_arm"
-
-	ARM_SOURCE_SPECS+=(
-		"sabayon-arm-beaglebone-4G.spec"
-		"sabayon-arm-beaglebone-black-4G.spec"
-		"sabayon-arm-beagleboard-4G.spec"
-		"sabayon-arm-beagleboard-xm-4G.spec"
-		"sabayon-arm-pandaboard-4G.spec"
-		"sabayon-arm-efikamx-4G.spec"
-		"sabayon-arm-odroid-u2-x2-4G.spec"
-		"sabayon-arm-raspberry-4G.spec"
-	)
-	ARM_SOURCE_SPECS_IMG+=(
-		"${DISTRO_NAME}_${ISO_TAG}v7l_BeagleBone_4GB.img"
-		"${DISTRO_NAME}_${ISO_TAG}v7l_BeagleBone_Black_4GB.img"
-		"${DISTRO_NAME}_${ISO_TAG}v7l_BeagleBoard_4GB.img"
-		"${DISTRO_NAME}_${ISO_TAG}v7l_BeagleBoard_xM_4GB.img"
-		"${DISTRO_NAME}_${ISO_TAG}v7l_PandaBoard_4GB.img"
-		"${DISTRO_NAME}_${ISO_TAG}v7l_EfikaMX_4GB.img"
-		"${DISTRO_NAME}_${ISO_TAG}v7l_Odroid_U2_X2_4GB.img"
-		"${DISTRO_NAME}_${ISO_TAG}v6l_Raspberry_Pi_4GB.img"
-	)
-
-elif [ "${ACTION}" = "dailybase" ]; then
+if [ "${ACTION}" = "dailybase" ]; then
 	export BUILDING_DAILY=1
 	SABAYON_RELEASE=$(get_default_sabayon_release)
 
@@ -371,23 +340,6 @@ build_sabayon() {
 		source_specs+=( "${dst}" )
 	done
 
-	local arm_source_specs=()
-	for i in ${!ARM_SOURCE_SPECS[@]}; do
-		src="${SABAYON_MOLECULE_HOME}/molecules/${ARM_SOURCE_SPECS[i]}"
-		dst="${DAILY_TMPDIR}/${ARM_SOURCE_SPECS[i]}"
-		cp "${src}" "${dst}" -p || return 1
-		echo >> "${dst}"
-		echo "inner_source_chroot_script: ${inner_chroot} arm" >> "${dst}"
-
-		# tweak iso image name
-		sed -i "s/image_name:.*/image_name: ${ARM_SOURCE_SPECS_IMG[i]}/" \
-			"${dst}" || return 1
-
-		echo -n "${dst}: image: ${ARM_SOURCE_SPECS_IMG[i]} "
-		echo "release: ${SABAYON_RELEASE}"
-		arm_source_specs+=( "${dst}" )
-	done
-
 	local remaster_specs=()
 	for i in ${!REMASTER_SPECS[@]}; do
 		src="${SABAYON_MOLECULE_HOME}/molecules/${REMASTER_SPECS[i]}"
@@ -420,18 +372,6 @@ build_sabayon() {
 	local done_iso=0
 	local done_something=0
 
-	if [ ${#arm_source_specs[@]} != 0 ]; then
-		(
-			flock --timeout $((24 * 3600)) -x 9
-			if [ "${?}" != "0" ]; then
-				echo "Timed out during arm_source_specs lock contention" >&2
-				exit 1
-			fi
-			molecule --nocolor "${arm_source_specs[@]}" || exit 1
-		) 9> /tmp/.iso_build.sh.arm_source_specs.lock || return 1
-		done_something=1
-		done_images=1
-	fi
 	if [ ${#source_specs[@]} != 0 ]; then
 		(
 			flock --timeout $((24 * 3600)) -x 9
