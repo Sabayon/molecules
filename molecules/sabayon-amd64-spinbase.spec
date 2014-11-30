@@ -4,7 +4,7 @@
 
 %env destination_chroot: ${SABAYON_MOLECULE_HOME:-/sabayon/chroots/default}
 %env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/inner_chroot_script.sh spinbase
-%env destination_livecd_root: ${SABAYON_MOLECULE_HOME:-/sabayon}
+%env destination_livecd_root: ${SABAYON_MOLECULE_HOME:-/sabayon/chroots/default}
 
 # Release Version
 # Keep this here, otherwise daily builds automagic won't work
