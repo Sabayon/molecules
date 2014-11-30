@@ -7,24 +7,11 @@ release_string: Sabayon Linux
 # File to write release string
 release_file: /etc/sabayon-edition
 
-# Destination chroot directory, where files are pushed to before creating the squashfs image
-# NOTE: data will be stored inside an auto-generated subdir
-%env destination_chroot: ${SABAYON_MOLECULE_HOME:-/sabayon}
-
 # Extra mirror (r)sync parameters
 extra_rsync_parameters: --one-file-system
 
 # Enable XZ compression in mksquashfs
 extra_mksquashfs_parameters: -comp xz -Xbcj x86
-
-# Inner chroot script command, to be executed inside destination chroot before packing it
-# - kmerge.sh - setup kernel bins
-# %env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/inner_chroot_script.sh
-%env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/inner_chroot_script.sh spinbase
-
-# Destination LiveCD root directory, where files are placed before getting mkisofs'ed
-# NOTE: data will be stored inside an auto-generated subdir
-%env destination_livecd_root: ${SABAYON_MOLECULE_HOME:-/sabayon}
 
 # Merge directory with destination LiveCD root
 %env merge_livecd_root: ${SABAYON_MOLECULE_HOME:-/sabayon}/boot/core
@@ -38,6 +25,8 @@ extra_mksquashfs_parameters: -comp xz -Xbcj x86
 # Directories to remove completely (comma separated)
 paths_to_remove:
     /var/lib/entropy/client/database/*/sabayonlinux.org,
+    /var/lib/entropy/client/database/*/sabayon-weekly,
+    /var/lib/entropy/client/database/*/sabayon-limbo,
     /boot/grub/grub.conf,
     /root/.subversion,
     /lib/udev-state/devices.tar.bz2,
