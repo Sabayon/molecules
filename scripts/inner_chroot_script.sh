@@ -1,7 +1,28 @@
 #!/bin/bash
 
+UPGRADE_REPO="${1}"
+
 /usr/sbin/env-update
 . /etc/profile
+
+safe_run() {
+	local updated=0
+	for ((i=0; i < 42; i++)); do
+		"${@}" && {
+			updated=1;
+			break;
+		}
+		if [ ${i} -gt 6 ]; then
+			sleep 3600 || return 1
+		else
+			sleep 1200 || return 1
+		fi
+	done
+	if [ "${updated}" = "0" ]; then
+		return 1
+	fi
+	return 0
+}
 
 sd_enable() {
 	local srv="${1}"
@@ -17,6 +38,7 @@ sd_disable() {
 		systemctl --no-reload disable -f "${srv}${ext}"
 }
 
+
 # create /proc if it doesn't exist
 # rsync doesn't copy it
 mkdir -p /proc
@@ -27,9 +49,6 @@ mkdir -p /dev/shm
 touch /dev/shm/.keep
 mkdir -p /dev/pts
 touch /dev/pts/.keep
-
-# Cleanup Perl cruft
-perl-cleaner --ph-clean
 
 # copy /root defaults from /etc/skel
 rm -rf /root
@@ -42,6 +61,20 @@ for f in /etc/env.d/02locale /etc/locale.conf; do
 	echo LANGUAGE=en_US.UTF-8 >> "${f}"
 	echo LC_ALL=en_US.UTF-8 >> "${f}"
 done
+
+
+if [ -n "${UPGRADE_REPO}" ]; then
+	echo "Upgrading system by enabling ${UPGRADE_REPO}"
+	equo repo enable "${UPGRADE_REPO}" || exit 1
+	FORCE_EAPI=2 safe_run equo update || exit 1
+	ETP_NOINTERACTIVE=1 safe_run equo upgrade --fetch || exit 1
+	ETP_NOINTERACTIVE=1 equo upgrade --purge || exit 1
+	echo "-5" | equo conf update
+fi
+
+# Cleanup Perl cruft
+perl-cleaner --ph-clean
+
 # Needed by systemd, because it doesn't properly set a good
 # encoding in ttys. Test it with (on tty1, VT1):
 # echo -e "\xE2\x98\xA0"
