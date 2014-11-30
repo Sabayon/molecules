@@ -62,7 +62,7 @@ basic_environment_setup() {
 	groupadd -f games
 
 	# all these images come with X.Org
-	sd_enable graphical target
+	systemctl --no-reload set-default graphical
 }
 
 setup_cpufrequtils() {
