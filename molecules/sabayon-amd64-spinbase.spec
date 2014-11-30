@@ -8,7 +8,7 @@
 
 # Release Version
 # Keep this here, otherwise daily builds automagic won't work
-%env release_version: ${SABAYON_RELEASE:-11}
+%env release_version: ${SABAYON_RELEASE:-LATEST}
 
 # Release Version string description
 release_desc: amd64 SpinBase
@@ -18,4 +18,4 @@ release_desc: amd64 SpinBase
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
 # Keep this here and set, otherwise daily builds automagic won't work
-%env destination_iso_image_name: Sabayon_Linux_${SABAYON_RELEASE:-11}_amd64_SpinBase.iso
+%env destination_iso_image_name: Sabayon_Linux_${SABAYON_RELEASE:-LATEST}_amd64_SpinBase.iso
