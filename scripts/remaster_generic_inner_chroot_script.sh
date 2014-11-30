@@ -15,10 +15,6 @@ for repo_conf in /etc/entropy/repositories.conf.d/entropy_*; do
 	fi
 	sed -n -e "/^pkg = .*pkg.sabayon.org/p" -e "/^repo = .*pkg.sabayon.org/p" \
 		-e "/garr.it/p" -e "/^\[.*\]$/p" -i "${repo_conf}"
-
-	# replace pkg.sabayon.org with pkg.repo.sabayon.org to improve
-	# build server locality
-	sed -i "s;http://pkg.sabayon.org;http://pkg.repo.sabayon.org;g" "${repo_conf}"
 done
 
 export FORCE_EAPI=2
