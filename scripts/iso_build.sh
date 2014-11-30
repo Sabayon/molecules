@@ -71,9 +71,11 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 	# Daily molecules
 	SOURCE_SPECS+=(
 		"sabayon-amd64-spinbase.spec"
+		"sabayon-amd64-spinbase+sabayon-limbo.spec"
 	)
 	SOURCE_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase+sabayon-limbo.iso"
 	)
 	REMASTER_SPECS+=(
 		"sabayon-amd64-gnome.spec"
@@ -112,9 +114,11 @@ elif [ "${ACTION}" = "dailybase" ]; then
 
 	SOURCE_SPECS+=(
 		"sabayon-amd64-spinbase.spec"
+		"sabayon-amd64-spinbase+sabayon-limbo.spec"
 	)
 	SOURCE_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase+sabayon-limbo.iso"
 	)
 
 elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
@@ -143,9 +147,11 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 
 	SOURCE_SPECS+=(
 		"sabayon-amd64-spinbase.spec"
+		"sabayon-amd64-spinbase+sabayon-limbo.spec"
 	)
 	SOURCE_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase+sabayon-limbo.iso"
 	)
 	REMASTER_SPECS+=(
 		"sabayon-amd64-gnome.spec"
