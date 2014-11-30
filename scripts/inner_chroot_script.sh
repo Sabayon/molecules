@@ -69,6 +69,8 @@ if [ -n "${UPGRADE_REPO}" ]; then
 	echo "Upgrading system by enabling ${UPGRADE_REPO}"
 	equo repo enable "${UPGRADE_REPO}" || exit 1
 	FORCE_EAPI=2 safe_run equo update || exit 1
+
+	equo repo mirrorsort "${UPGRADE_REPO}"  # ignore errors
 	ETP_NONINTERACTIVE=1 safe_run equo upgrade --fetch || exit 1
 	ETP_NONINTERACTIVE=1 equo upgrade --purge || exit 1
 	echo "-5" | equo conf update
@@ -162,14 +164,6 @@ umount /proc
 
 equo deptest --pretend
 emaint --fix world
-
-# copy entropy repositories config
-# the one in chroots is optimized to use Garr mirror
-cp /etc/entropy/repositories.conf.example /etc/entropy/repositories.conf -p
-for repo_conf in /etc/entropy/repositories.conf.d/entropy_*.example; do
-	new_repo_conf="${repo_conf%.example}"
-	cp "${repo_conf}" "${new_repo_conf}"
-done
 
 # copy Portage config from sabayonlinux.org entropy repo to system
 for conf in package.mask package.unmask package.keywords make.conf package.use; do

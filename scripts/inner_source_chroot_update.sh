@@ -42,10 +42,13 @@ safe_run() {
 	return 0
 }
 
-export FORCE_EAPI=2
-safe_run equo update || exit 1
+FORCE_EAPI=2 safe_run equo update || exit 1
 
-export ETP_NONINTERACTIVE=1
+for repo in $(equo repo list -q); do
+	echo "Optimizing mirrors for ${repo}"
+	equo repo mirrorsort "${repo}"  # ignore errors
+done
+
 safe_run equo upgrade --fetch || exit 1
 equo upgrade --purge || exit 1
 equo remove "${PACKAGES_TO_REMOVE[@]}" # ignore

@@ -285,13 +285,6 @@ setup_installed_packages() {
 	rm /var/lib/entropy/client/database/*/sabayon-weekly -rf
 	equo rescue vacuum
 
-	# restore original repositories.conf (all mirrors were filtered for speed)
-	cp /etc/entropy/repositories.conf.example /etc/entropy/repositories.conf || exit 1
-	for repo_conf in /etc/entropy/repositories.conf.d/entropy_*.example; do
-		new_repo_conf="${repo_conf%.example}"
-		cp "${repo_conf}" "${new_repo_conf}"
-	done
-
 	# cleanup log dir
 	rm /var/lib/entropy/logs -rf
 	rm -rf /var/lib/entropy/*cache*

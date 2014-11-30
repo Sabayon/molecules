@@ -25,15 +25,11 @@ safe_run() {
 # make sure there is no stale pid file around that prevents entropy from running
 rm -f /var/run/entropy/entropy.lock
 
-# disable all mirrors but GARR
-for repo_conf in /etc/entropy/repositories.conf.d/entropy_*; do
-	# skip .example files
-	if [[ "${repo_conf}" =~ .*\.example$ ]]; then
-		echo "skipping ${repo_conf}"
-		continue
-	fi
-	sed -n -e "/^pkg = .*pkg.sabayon.org/p" -e "/^repo = .*pkg.sabayon.org/p" \
-		-e "/garr.it/p" -e "/^\[.*\]$/p" -i "${repo_conf}"
+FORCE_EAPI=2 safe_run equo update || exit 1
+
+for repo in $(equo repo list -q); do
+	echo "Optimizing mirrors for ${repo}"
+	equo repo mirrorsort "${repo}"  # ignore errors
 done
 
-FORCE_EAPI=2 safe_run equo update || exit 1
+exit 0
