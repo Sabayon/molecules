@@ -2,9 +2,9 @@
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/spinbase.common
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/amd64.common
 
-%env destination_chroot: ${SABAYON_MOLECULE_HOME:-/sabayon/chroots/default}
+%env destination_chroot: ${SABAYON_MOLECULE_HOME:-/sabayon}/chroots/default
 %env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/inner_chroot_script.sh
-%env destination_livecd_root: ${SABAYON_MOLECULE_HOME:-/sabayon/chroots/default}
+%env destination_livecd_root: ${SABAYON_MOLECULE_HOME:-/sabayon}/chroots/default
 
 # Release Version
 # Keep this here, otherwise daily builds automagic won't work
