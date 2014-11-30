@@ -67,8 +67,8 @@ if [ -n "${UPGRADE_REPO}" ]; then
 	echo "Upgrading system by enabling ${UPGRADE_REPO}"
 	equo repo enable "${UPGRADE_REPO}" || exit 1
 	FORCE_EAPI=2 safe_run equo update || exit 1
-	ETP_NOINTERACTIVE=1 safe_run equo upgrade --fetch || exit 1
-	ETP_NOINTERACTIVE=1 equo upgrade --purge || exit 1
+	ETP_NONINTERACTIVE=1 safe_run equo upgrade --fetch || exit 1
+	ETP_NONINTERACTIVE=1 equo upgrade --purge || exit 1
 	echo "-5" | equo conf update
 fi
 
