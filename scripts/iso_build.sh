@@ -83,6 +83,12 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		"sabayon-amd64-mate.spec"
 		"sabayon-amd64-xfce.spec"
 		"sabayon-amd64-minimal.spec"
+
+		"sabayon-amd64-gnome-dev.spec"
+		"sabayon-amd64-kde-dev.spec"
+		"sabayon-amd64-mate-dev.spec"
+		"sabayon-amd64-xfce-dev.spec"
+		"sabayon-amd64-minimal-dev.spec"
 	)
 	REMASTER_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME.iso"
@@ -90,6 +96,12 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_MATE.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Xfce.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Minimal.iso"
+
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME-dev.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_KDE-dev.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_MATE-dev.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_Xfce-dev.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_Minimal-dev.iso"
 	)
 	REMASTER_TAR_SPECS+=(
 		"sabayon-amd64-spinbase-tarball-template.spec"
@@ -147,11 +159,9 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 
 	SOURCE_SPECS+=(
 		"sabayon-amd64-spinbase.spec"
-		"sabayon-amd64-spinbase-dev.spec"
 	)
 	SOURCE_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_amd64_SpinBase-dev.iso"
 	)
 	REMASTER_SPECS+=(
 		"sabayon-amd64-gnome.spec"
