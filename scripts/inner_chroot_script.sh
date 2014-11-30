@@ -38,6 +38,8 @@ sd_disable() {
 		systemctl --no-reload disable -f "${srv}${ext}"
 }
 
+# Make sure that external Portage env vars are not set
+unset PORTDIR PORTAGE_TMPDIR
 
 # create /proc if it doesn't exist
 # rsync doesn't copy it
@@ -83,7 +85,7 @@ echo FONT=LatArCyrHeb-16 > /etc/vconsole.conf
 
 # since this comes without X, set the default target to multi-user.target
 # instead of graphical.target
-sd_enable multi-user target
+systemctl --no-reload set-default multi-user
 
 # remove SSH keys
 rm -rf /etc/ssh/*_key*
@@ -145,8 +147,8 @@ eselect opengl set xorg-x11 &> /dev/null
 # touch /etc/asound.state
 touch /etc/asound.state
 
-type -f update-pciids && update-pciids
-type -f update-usbids && update-usbids
+type -f update-pciids 2> /dev/null && update-pciids
+type -f update-usbids 2> /dev/null && update-usbids
 
 echo -5 | etc-update
 mount -t proc proc /proc
