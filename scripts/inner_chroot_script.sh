@@ -207,10 +207,10 @@ chmod 777 /var/tmp
 chmod 777 /tmp
 
 # Looks like screen directories are missing
-if [ ! -d "/var/run/screen" ]; then
-	mkdir /var/run/screen
-	chmod 775 /var/run/screen
-	chown root:utmp /var/run/screen
+if [ ! -d "/run/screen" ]; then
+	mkdir /run/screen
+	chmod 775 /run/screen
+	chown root:utmp /run/screen
 fi
 
 # Regenerate Fluxbox menu
@@ -231,7 +231,7 @@ rm -rf /var/lib/entropy/*cache*
 rm -f /etc/entropy/.hw.hash
 
 # remove entropy pid file
-rm -f /var/run/entropy/entropy.lock
+rm -f /run/entropy/entropy.lock
 rm -f /var/lib/entropy/entropy.pid
 rm -f /var/lib/entropy/entropy.lock # old?
 

@@ -23,7 +23,7 @@ safe_run() {
 }
 
 # make sure there is no stale pid file around that prevents entropy from running
-rm -f /var/run/entropy/entropy.lock
+rm -f /run/entropy/entropy.lock
 
 FORCE_EAPI=2 safe_run equo update || exit 1
 
