@@ -185,8 +185,8 @@ setup_proprietary_gfx_drivers() {
 	local pkgs=(
 		"=x11-drivers/nvidia-userspace-304*"
 		"=x11-drivers/nvidia-drivers-304*${kernel_tag}"
-		"=x11-drivers/nvidia-userspace-173*"
-		"=x11-drivers/nvidia-drivers-173*${kernel_tag}"
+		"=x11-drivers/nvidia-userspace-340*"
+		"=x11-drivers/nvidia-drivers-340*${kernel_tag}"
 	)
 	local ts=
 	local tp=
