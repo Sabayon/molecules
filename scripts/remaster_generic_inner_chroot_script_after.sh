@@ -169,8 +169,7 @@ install_external_kernel_modules() {
 }
 
 install_proprietary_gfx_drivers() {
-	install_kernel_packages "x11-drivers/ati-drivers" \
-		"x11-drivers/nvidia-drivers"
+	install_kernel_packages "x11-drivers/nvidia-drivers"
 }
 
 setup_proprietary_gfx_drivers() {
