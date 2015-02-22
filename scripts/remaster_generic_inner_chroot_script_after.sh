@@ -323,7 +323,6 @@ prepare_mate() {
 
 prepare_e17() {
 	setup_default_xsession "enlightenment"
-	# E17 spin has chromium installed
 	# Not using lxdm for now
 	# TODO: improve the lines below
 	# Make sure enlightenment is selected in lxdm
