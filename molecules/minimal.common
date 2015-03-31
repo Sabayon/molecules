@@ -51,7 +51,7 @@ packages_to_add:
 	net-irc/irssi,
 	net-misc/tightvnc,
 	sys-block/parted,
-	sys-power/cpufrequtils,
+	sys-power/cpupower,
 	www-client/midori,
 	x11-themes/gnome-icon-theme,
 

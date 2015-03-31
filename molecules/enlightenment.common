@@ -69,7 +69,7 @@ packages_to_add:
 	sys-auth/consolekit,
 	sys-block/parted,
 	sys-fs/ntfs3g,
-	sys-power/cpufrequtils,
+	sys-power/cpupower,
 	www-client/midori,
 	x11-libs/gksu,
         x11-misc/lightdm-base,

@@ -98,7 +98,7 @@ packages_to_add:
 	sys-block/gparted,
 	sys-block/parted,
 	sys-fs/ntfs3g,
-	sys-power/cpufrequtils,
+	sys-power/cpupower,
 	www-client/google-chrome,
 	x11-libs/gksu,
 	x11-libs/libva-intel-driver,
