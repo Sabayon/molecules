@@ -121,8 +121,8 @@ else
 	plymouth-set-default-theme solar
 fi
 
-# enable cd eject on shutdown/reboot
-sd_enable cdeject
+# disable cd eject on shutdown/reboot, it's broken atm
+sd_disable cdeject
 
 # Activate services for systemd
 SYSTEMD_SERVICES=(
