@@ -83,6 +83,7 @@ packages_to_add:
 	app-crypt/gifshuffle,
 	app-crypt/pdfcrack,
 	app-misc/screen,
+	app-office/libreoffice,
 	dev-util/geany,
 	dev-util/geany-plugins,
 	gnome-extra/nm-applet,
