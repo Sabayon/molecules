@@ -102,7 +102,7 @@ packages_to_add:
 	media-libs/libdvdplay,
 	media-libs/libdvdread,
 	media-plugins/alsa-plugins,
-	media-sound/audacious,
+	media-sound/rhythmbox,
 	media-sound/pavucontrol,
 	media-tv/kodi,
 	media-video/mplayer,
