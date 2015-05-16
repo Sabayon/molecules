@@ -83,7 +83,7 @@ packages_to_add:
 	app-crypt/johntheripper,
 	app-crypt/gifshuffle,
 	app-crypt/pdfcrack,
-	app-crypt/WiRouterKeyRec
+	app-crypt/WiRouterKeyRec,
 	app-misc/screen,
 	app-office/libreoffice,
 	dev-util/geany,
