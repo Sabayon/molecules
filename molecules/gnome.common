@@ -106,6 +106,7 @@ packages_to_add:
 	media-sound/pavucontrol,
 	media-tv/kodi,
 	media-video/mplayer,
+	media-video/pitivi,
 	media-video/totem,
 	net-dialup/globespan-adsl,
 	net-dialup/ppp,
