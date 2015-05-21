@@ -39,7 +39,7 @@ extra_mksquashfs_parameters: -comp xz -Xbcj x86
 %env destination_iso_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso
 
 # List of packages that would be removed from chrooted system (comma separated)
-# packages_to_remove:
+packages_to_remove:
 	dev-lang/python:3.3
 #	www-client/lynx,
 #	app-text/poppler-qt4
