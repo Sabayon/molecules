@@ -99,7 +99,7 @@ setup_displaymanager() {
 	elif [ -n "$(equo match --installed lxde-base/lxdm -qv)" ]; then
 		sd_enable lxdm
 	elif [ -n "$(equo match --installed x11-misc/lightdm-base -qv)" ]; then
-		sd_enable lightdm
+		sd_enable lightdm-plymouth
 	elif [ -n "$(equo match --installed kde-base/kdm -qv)" ]; then
 		sd_enable kdm
 	else
