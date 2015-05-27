@@ -95,13 +95,13 @@ switch_kernel() {
 setup_displaymanager() {
 	# determine what is the login manager
 	if [ -n "$(equo match --installed gnome-base/gdm -qv)" ]; then
-		sd_enable gdm
+		sd_enable gdm-plymouth
 	elif [ -n "$(equo match --installed lxde-base/lxdm -qv)" ]; then
-		sd_enable lxdm
+		sd_enable lxdm-plymouth
 	elif [ -n "$(equo match --installed x11-misc/lightdm-base -qv)" ]; then
 		sd_enable lightdm-plymouth
 	elif [ -n "$(equo match --installed kde-base/kdm -qv)" ]; then
-		sd_enable kdm
+		sd_enable kdm-plymouth
 	else
 		sd_enable xdm
 	fi
