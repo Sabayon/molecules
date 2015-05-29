@@ -65,7 +65,7 @@ packages_to_add:
 	x11-libs/gksu,
 	sys-apps/gnome-disk-utility,
 	sys-auth/consolekit,
-	sys-block/parted,
+	sys-block/gparted,
 	sys-fs/ntfs3g,
 	sys-power/cpupower,
 	www-client/google-chrome,
