@@ -59,6 +59,7 @@ packages_to_add:
 	mate-base/mate,
 	media-plugins/alsa-plugins,
 	media-sound/audacious,
+	media-video/mpv,
 	net-dialup/rp-pppoe,
 	net-irc/hexchat,
 	net-p2p/transmission-gtk,
