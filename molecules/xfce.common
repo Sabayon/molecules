@@ -93,7 +93,7 @@ packages_to_add:
 	net-p2p/transmission-gtk,
 	net-print/cups,
 	net-wireless/bluez,
-	net-wireless/bluez-firmware,
+	sys-firmware/bluez-firmware,
 	net-wireless/bluez-hcidump,
 	sys-auth/consolekit,
 	sys-block/gparted,
