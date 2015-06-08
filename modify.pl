@@ -163,8 +163,8 @@ sub insert_elem {
 
 	# check if it's not there already is not --sort only
 	if (defined $text_to_input) {
-		my $dup = search_dups ($text_to_input, 1);
-		if ($dup) {
+		my $found = search_elem ($text_to_input, 1);
+		if ($found) {
 			say "Entry $text_to_input is already in the file.";
 			return 0;
 		}
@@ -232,13 +232,13 @@ sub insert_elem {
 
 # returns 1 if deleted anything and 0 otherwise
 sub delete_elem {
-	my @dups = search_dups ($text_to_input);
-	unless (@dups) {
+	my @elems = search_elem ($text_to_input);
+	unless (@elems) {
 		say "Entry $text_to_input not present, nothing to delete.";
 		return 0;
 	}
 
-	for my $del (@dups) {
+	for my $del (@elems) {
 		my ($block, $index) = (@$del);
 		$block->delete(index => $index);
 	}
@@ -252,9 +252,9 @@ sub delete_elem {
 }
 
 # search for duplicated entries, return list of [section, index]
-sub search_dups {
+sub search_elem {
 	my $text = shift;
-	die "no arg to search_dups" unless defined $text;
+	die "no arg to search_elem" unless defined $text;
 	my $stop_at_first = shift;
 	my @ret = ();
 
@@ -457,7 +457,7 @@ sub parse_line {
 			return 1;
 		}
 		# end of "section"
-		elsif ($line =~ /^#/ or $line =~ /^\s+:/) {
+		elsif ($line =~ /^#/ or $line =~ /^[a-zA-Z_]+:/) {
 			$self->line_after($line);
 			$self->_group_data(@{$self->{tmp_ungrouped_section_lines}});
 			undef $self->{tmp_ungrouped_section_lines};
