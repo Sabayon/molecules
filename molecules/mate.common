@@ -40,6 +40,7 @@ extra_mksquashfs_parameters: -comp xz -Xbcj x86
 
 # List of packages that would be removed from chrooted system (comma separated)
 packages_to_remove:
+	dev-lang/python:3.3,
 	www-client/lynx
 
 # Import the Graphic Environment module.
@@ -58,13 +59,14 @@ packages_to_add:
 	mate-base/mate,
 	media-plugins/alsa-plugins,
 	media-sound/audacious,
+	media-video/mpv,
 	net-dialup/rp-pppoe,
 	net-irc/hexchat,
 	net-p2p/transmission-gtk,
 	x11-libs/gksu,
 	sys-apps/gnome-disk-utility,
 	sys-auth/consolekit,
-	sys-block/parted,
+	sys-block/gparted,
 	sys-fs/ntfs3g,
 	sys-power/cpupower,
 	www-client/google-chrome,
@@ -72,7 +74,8 @@ packages_to_add:
 	x11-misc/lightdm-base,
 	x11-misc/lightdm-gtk-greeter,
 	x11-terms/guake,
-	x11-themes/gnome-themes-standard
+	x11-themes/gnome-themes-standard,
+	x11-themes/sabayon-artwork-mate
 
 # Custom shell call to packages add (default is: equo install)
 # custom_packages_add_cmd: 

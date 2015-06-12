@@ -65,8 +65,8 @@ basic_environment_setup() {
 	systemctl --no-reload set-default graphical
 }
 
-setup_cpufrequtils() {
-	sd_enable cpufrequtils
+setup_cpupower() {
+	sd_enable cpupower
 }
 
 setup_sabayon_mce() {
@@ -307,7 +307,7 @@ prepare_generic() {
 	setup_virtualbox
 	setup_networkmanager
 	setup_displaymanager
-	setup_cpufrequtils
+	setup_cpupower
 	has_proprietary_drivers && setup_proprietary_gfx_drivers || setup_oss_gfx_drivers
 }
 

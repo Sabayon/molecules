@@ -39,7 +39,8 @@ extra_mksquashfs_parameters: -comp xz -Xbcj x86
 %env destination_iso_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso
 
 # List of packages that would be removed from chrooted system (comma separated)
-# packages_to_remove:
+packages_to_remove:
+	dev-lang/python:3.3
 
 # Import the Graphic Environment module.
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/graphic-environment.common
@@ -105,7 +106,8 @@ packages_to_add:
 	media-sound/rhythmbox,
 	media-sound/pavucontrol,
 	media-tv/kodi,
-	media-video/mplayer,
+	media-video/mpv,
+	media-video/pitivi,
 	media-video/totem,
 	net-dialup/globespan-adsl,
 	net-dialup/ppp,
@@ -121,7 +123,7 @@ packages_to_add:
 	net-p2p/transmission-gtk,
 	net-print/cups,
 	net-wireless/bluez,
-	net-wireless/bluez-firmware,
+	sys-firmware/bluez-firmware,
 	net-wireless/bluez-hcidump,
 	net-wireless/gnome-bluetooth,
 	sys-apps/gnome-disk-utility,
