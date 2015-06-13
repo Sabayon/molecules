@@ -175,8 +175,7 @@ sub insert_elem {
 		# adding anything
 		if (defined $text_to_input) {
 			if (@section_blocks) {
-				my $bd = find_first_best_matching_block($text_to_input)
-					// $section_blocks[0];
+				my $bd = find_one_best_matching_block($text_to_input);
 				$bd->add($text_to_input);
 			}
 			else {
@@ -197,8 +196,7 @@ sub insert_elem {
 			return 1;
 		}
 
-		my $bd = find_first_best_matching_block($text_to_input)
-			// $section_blocks[0];
+		my $bd = find_one_best_matching_block($text_to_input);
 		my @data = $bd->data;
 
 		for (0..$#data) {
@@ -280,16 +278,57 @@ sub sort_elem {
 	}
 }
 
-# return the first best matching 'block'
-# Currently "best matching" means a block with contains the longest item
-# or undef if nothing found; if many blocks fit equally well, the first
-# "squashed" (that is, with commas) is returned because it is arguably
-# more likely to what the user expects.
-sub find_first_best_matching_block {
+# Given a text and a list of blocks, return the block where
+# the text fits best lexicographically.
+# Problem: the blocks are independent and the first one returned
+# by find_best_matching_blocks is not necessarily the best; process
+# them in a little more correct way to find some better position.
+sub find_one_best_matching_block {
+	my $text = shift;
+	my @blocks = $parser->section_blocks;
+	die "No blocks?" unless @blocks;
+
+	my @matches = find_best_matching_blocks($text);
+	unless (@matches) {
+		@matches = grep { $_->is_squashed } @blocks;
+		@matches = @blocks if not @matches;
+	}
+
+	return $matches[0] if @blocks == 1;
+
+	my %lookup_matches_ref = map { $_ => 1 } @matches;
+
+	for my $ind (0..$#blocks-1) {
+		my $this = $blocks[$ind];
+		my $next = $blocks[$ind+1];
+
+		next unless exists $lookup_matches_ref{$this};
+		# Note: $next may be a block we are not going to put $text in,
+		# but we want to have $text "sorted" also considering it!
+
+		if ($text le ($this->data)[-1]) {
+			return $this
+		}
+		elsif ($text le ($next->data)[0]) {
+			return $this
+		}
+	}
+
+	$matches[-1]
+}
+
+# return a list of best matching 'blocks'
+# Currently "best matching" means blocks with contain the longest matching
+# part.
+# "Squashed" blocks are preferred because they are likely to be what the user
+# expects.
+# If the text matches nothing (no string in blocks even starts with its first
+# letter), empty list is returned.
+sub find_best_matching_blocks {
 	my $text = shift;
 	die "no arg to search_elem" unless defined $text;
 
-	return undef if $text eq "";
+	return if $text eq "";
 
 	my $matches_f = sub {
 		index($_[0], $_[1]) == 0
@@ -297,15 +336,15 @@ sub find_first_best_matching_block {
 		index($_[1], $_[0]) == 0
 	};
 
-	my @elems = search_elem($text, 0, $matches_f);
+	my @elems = map { $_->[0] } search_elem($text, 0, $matches_f);
 	if (@elems) {
-		my @sq_elems = grep { $_->[0]->is_squashed } @elems;
-		my $m = @sq_elems ? $sq_elems[0] : $elems[0];
-		return $m->[0];
+		my @sq_elems = grep { $_->is_squashed } @elems;
+		my @m = @sq_elems ? @sq_elems : @elems;
+		return @m;
 	}
 	else {
 		chop $text;
-		return find_first_best_matching_block($text)
+		return find_best_matching_blocks($text)
 	}
 }
 
