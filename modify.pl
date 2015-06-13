@@ -175,8 +175,8 @@ sub insert_elem {
 		# adding anything
 		if (defined $text_to_input) {
 			if (@section_blocks) {
-				# todo: implement more than just adding to the first block
-				my $bd = $section_blocks[0];
+				my $bd = find_first_best_matching_block($text_to_input)
+					// $section_blocks[0];
 				$bd->add($text_to_input);
 			}
 			else {
@@ -197,8 +197,8 @@ sub insert_elem {
 			return 1;
 		}
 
-		# todo: implement more than just adding to the first block
-		my $bd = $section_blocks[0];
+		my $bd = find_first_best_matching_block($text_to_input)
+			// $section_blocks[0];
 		my @data = $bd->data;
 
 		for (0..$#data) {
@@ -251,17 +251,20 @@ sub delete_elem {
 	return 1;
 }
 
-# search for duplicated entries, return list of [section, index]
+# search for matched entries, return list of [block, index]
+# the "matched" item is the one which matches equally or for which
+# $cb->(item, item_in_block) returns a true value, if specified
 sub search_elem {
-	my $text = shift;
+	my ($text, $stop_at_first, $cb) = @_;
 	die "no arg to search_elem" unless defined $text;
-	my $stop_at_first = shift;
 	my @ret = ();
+
+	$cb //= sub { $_[0] eq $_[1] };
 
 	OUTER: for my $block ($parser->section_blocks) {
 		my @data = $block->data;
 		for (0..$#data) {
-			if ($data[$_] eq $text) {
+			if ($cb->($text, $data[$_])) {
 				push @ret, [ $block, $_ ];
 				last OUTER if $stop_at_first;
 			}
@@ -274,6 +277,35 @@ sub search_elem {
 sub sort_elem {
 	for my $block (@_) {
 		$block->sort;
+	}
+}
+
+# return the first best matching 'block'
+# Currently "best matching" means a block with contains the longest item
+# or undef if nothing found; if many blocks fit equally well, the first
+# "squashed" (that is, with commas) is returned because it is arguably
+# more likely to what the user expects.
+sub find_first_best_matching_block {
+	my $text = shift;
+	die "no arg to search_elem" unless defined $text;
+
+	return undef if $text eq "";
+
+	my $matches_f = sub {
+		index($_[0], $_[1]) == 0
+			or
+		index($_[1], $_[0]) == 0
+	};
+
+	my @elems = search_elem($text, 0, $matches_f);
+	if (@elems) {
+		my @sq_elems = grep { $_->[0]->is_squashed } @elems;
+		my $m = @sq_elems ? $sq_elems[0] : $elems[0];
+		return $m->[0];
+	}
+	else {
+		chop $text;
+		return find_first_best_matching_block($text)
 	}
 }
 
