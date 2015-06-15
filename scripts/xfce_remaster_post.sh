@@ -17,7 +17,6 @@ cp "${GFORENSIC_DIR}"/files/org.freedesktop.udisks.policy "${CHROOT_DIR}/usr/sha
 cp "${GFORENSIC_DIR}"/files/org.freedesktop.udisks2.policy "${CHROOT_DIR}/usr/share/polkit-1/actions/org.freedesktop.udisks2.policy"
 cp "${GFORENSIC_DIR}"/files/xsettings.xml "${CHROOT_DIR}/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
 cp "${GFORENSIC_DIR}"/files/xfce4-panel.xml "${CHROOT_DIR}/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
-cp "${GFORENSIC_DIR}"/files/rc.lua "${CHROOT_DIR}/etc/xdg/awesome/rc.lua"
 cp "${GFORENSIC_DIR}"/files/theme.lua "${CHROOT_DIR}/etc/xdg/awesome/themes/default/theme.lua"
 cp -r "${GFORENSIC_DIR}"/files/OSDark "${CHROOT_DIR}/usr/share/icons/"
 cp -r "${GFORENSIC_DIR}"/files/NewSlickness-round "${CHROOT_DIR}/usr/share/themes/"
