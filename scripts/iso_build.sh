@@ -332,11 +332,41 @@ move_to_mirrors() {
 	fi
 }
 
+build_spinbase() {
+	# Generating the spinbase with docker
+
+	local docker_image=${1-sabayon/spinbase-amd64-squashed:latest}
+	local undocker_output_directory=${2-sources/amd64-docker-spinbase}
+	echo "Building Spinbase with Docker image: "${docker_image}
+
+  	# Pulling the image from docker (should be squashed in 1 layer)
+	docker pull "${docker_image}" || return 1
+
+	# Cleaning previous generation
+	if [ -z "${undocker_output_directory}" ] || [ -z "${SABAYON_MOLECULE_HOME}" ]; then
+		echo "SABAYON_MOLECULE_HOME or undocker_output_directory not set, this is bad"
+		return 1
+	fi
+	rm -rf "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}"
+
+	echo "Exporting the Docker image in: " ${SABAYON_MOLECULE_HOME}/${undocker_output_directory}
+
+	docker save "${docker_image}"  \
+	| "${SABAYON_MOLECULE_HOME}"/bin/undocker.py -i -o "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}" ${docker_image} || return 1
+	echo "nameserver 8.8.8.8" > "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}"/etc/resolv.conf
+
+	# Cleaning docker generated files
+	rm -rf "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}"/.dockerenv
+	rm -rf "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}"/.dockerinit
+}
+
 build_sabayon() {
 	DAILY_TMPDIR=$(mktemp -d --suffix=.iso_build.sh --tmpdir=/tmp)
 	[[ -z "${DAILY_TMPDIR}" ]] && return 1
 	DAILY_TMPDIR_REMASTER="${DAILY_TMPDIR}/remaster"
 	mkdir "${DAILY_TMPDIR_REMASTER}" || return 1
+
+	build_spinbase || return 1
 
 	local scripts_dir="${SABAYON_MOLECULE_HOME}/scripts"
 	local inner_chroot="${scripts_dir}/inner_source_chroot_update.sh"
