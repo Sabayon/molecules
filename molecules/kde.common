@@ -138,7 +138,6 @@ packages_to_add:
 	kde-apps/kdebase-runtime-meta,
 	kde-base/kdebase-startkde,
 	kde-apps/kde-wallpapers,
-	kde-base/kdegraphics-strigi-analyzer,
 	kde-base/kdelibs,
 	kde-base/kdemultimedia-kioslaves,
 	kde-apps/kdenetwork-filesharing,
