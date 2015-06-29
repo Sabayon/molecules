@@ -224,7 +224,6 @@ packages_to_add:
 	kde-apps/print-manager,
 	kde-base/pykde4,
 	kde-base/qguiplatformplugin_kde,
-	kde-base/solid,
 	kde-apps/svgpart,
 	kde-base/systemsettings,
 	kde-apps/thumbnailers,
