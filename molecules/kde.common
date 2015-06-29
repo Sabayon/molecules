@@ -198,7 +198,6 @@ packages_to_add:
 	kde-base/ksysguard,
 	kde-base/ksystraycmd,
 	kde-apps/kubrick,
-	kde-base/kwallet,
 	kde-base/kwin,
 	kde-apps/kwrite,
 	kde-base/kwrited,
