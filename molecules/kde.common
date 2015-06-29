@@ -111,7 +111,6 @@ packages_to_add:
 	kde-base/kde-l10n-km,
 	kde-base/kde-l10n-ko,
 	kde-base/kde-l10n-lv,
-	kde-base/kde-l10n-mk,
 	kde-base/kde-l10n-nb,
 	kde-base/kde-l10n-nds,
 	kde-base/kde-l10n-nl,
