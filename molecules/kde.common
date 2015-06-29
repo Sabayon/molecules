@@ -133,7 +133,6 @@ packages_to_add:
 	kde-apps/kdeartwork-emoticons,
 	kde-apps/kdeartwork-iconthemes,
 	kde-apps/kdeartwork-kscreensaver,
-	kde-base/kdeartwork-sounds,
 	kde-apps/kdeartwork-styles,
 	kde-base/kdebase-cursors,
 	kde-apps/kdebase-runtime-meta,
