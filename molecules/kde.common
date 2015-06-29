@@ -85,7 +85,6 @@ packages_to_add:
 	kde-base/kalarm,
 	kde-apps/kamera,
 	kde-apps/kapman,
-	kde-base/kappfinder,
 	kde-apps/kcalc,
 	kde-apps/kcharselect,
 	kde-base/kcheckpass,
