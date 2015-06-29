@@ -137,7 +137,7 @@ packages_to_add:
 	kde-base/kdebase-cursors,
 	kde-apps/kdebase-runtime-meta,
 	kde-base/kdebase-startkde,
-	kde-base/kdebase-wallpapers,
+	kde-apps/kde-wallpapers,
 	kde-base/kdegraphics-strigi-analyzer,
 	kde-base/kdelibs,
 	kde-base/kdemultimedia-kioslaves,
