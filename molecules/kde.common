@@ -230,7 +230,6 @@ packages_to_add:
 	kde-misc/kcm-ufw,
 	kde-misc/kcmsystemd,
 	kde-misc/kde-gtk-config,
-	kde-misc/kio-sysinfo,
 	kde-misc/magneto-kde,
 	kde-misc/networkmanagement,
 	kde-misc/synaptiks,
