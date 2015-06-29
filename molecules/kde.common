@@ -206,7 +206,6 @@ packages_to_add:
 	kde-apps/libkdcraw,
 	kde-apps/libkdeedu,
 	kde-apps/libkdegames,
-	kde-base/libkdepim,
 	kde-apps/libkexiv2,
 	kde-apps/libkipi,
 	kde-base/libkleo,
