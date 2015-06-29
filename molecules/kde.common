@@ -93,7 +93,6 @@ packages_to_add:
 	kde-base/kde-l10n-bg,
 	kde-base/kde-l10n-ca,
 	kde-base/kde-l10n-cs,
-	kde-base/kde-l10n-csb,
 	kde-base/kde-l10n-da,
 	kde-base/kde-l10n-de,
 	kde-base/kde-l10n-el,
