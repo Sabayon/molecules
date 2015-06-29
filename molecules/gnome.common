@@ -50,7 +50,6 @@ packages_to_add:
 	@gst-plugins,
 	@gst-plugins-extra,
 	@wireless,
-	app-admin/gnome-system-tools,
 	app-admin/openrc-settingsd,
 	app-admin/packagekit-base,
 	app-admin/packagekit-gtk,
