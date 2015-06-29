@@ -208,7 +208,6 @@ packages_to_add:
 	kde-apps/libkdegames,
 	kde-apps/libkexiv2,
 	kde-apps/libkipi,
-	kde-base/libkleo,
 	kde-apps/libkmahjongg,
 	kde-apps/libkonq,
 	kde-base/libkpgp,
