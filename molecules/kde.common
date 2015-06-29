@@ -261,7 +261,6 @@ packages_to_add:
 	sys-apps/sdparm,
 	sys-apps/tuxonice-userui,
 	sys-auth/polkit,
-	sys-auth/polkit-kde,
 	sys-auth/polkit-qt,
 	sys-block/parted,
 	sys-block/partitionmanager,
