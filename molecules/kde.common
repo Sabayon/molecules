@@ -127,7 +127,6 @@ packages_to_add:
 	kde-base/kde-l10n-wa,
 	kde-base/kde-l10n-zh_CN,
 	kde-base/kde-l10n-zh_TW,
-	kde-base/kdeaccessibility-colorschemes,
 	kde-apps/kdeadmin-meta,
 	kde-apps/kdeartwork-colorschemes,
 	kde-apps/kdeartwork-desktopthemes,
