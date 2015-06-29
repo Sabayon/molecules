@@ -210,7 +210,6 @@ packages_to_add:
 	kde-apps/libkipi,
 	kde-apps/libkmahjongg,
 	kde-apps/libkonq,
-	kde-base/libkpgp,
 	kde-apps/libksane,
 	kde-base/libkworkspace,
 	kde-base/libplasmaclock,
