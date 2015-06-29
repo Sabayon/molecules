@@ -272,7 +272,6 @@ packages_to_add:
 	x11-apps/xdm,
 	x11-libs/libva-intel-driver,
 	x11-libs/libva-vdpau-driver,
-	x11-misc/desktop-acceleration-helpers,
 	x11-misc/xvkbd,
 	x11-themes/caledonia-plasma-theme,
 	x11-themes/oxygen-gtk:2,
