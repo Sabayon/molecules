@@ -184,7 +184,6 @@ packages_to_add:
 	kde-apps/kreversi,
 	kde-base/krosspython,
 	kde-base/krunner,
-	kde-base/ksame,
 	kde-apps/ksaneplugin,
 	kde-base/kscreensaver,
 	kde-apps/kshisen,
