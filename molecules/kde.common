@@ -197,7 +197,6 @@ packages_to_add:
 	kde-apps/ksudoku,
 	kde-base/ksysguard,
 	kde-base/ksystraycmd,
-	kde-base/ktron,
 	kde-apps/kubrick,
 	kde-base/kwallet,
 	kde-base/kwin,
