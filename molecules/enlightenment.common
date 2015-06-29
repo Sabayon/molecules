@@ -65,7 +65,6 @@ packages_to_add:
 	net-p2p/transmission-gtk,
 	sys-apps/gnome-disk-utility,
 	sys-apps/gpu-detector,
-	sys-auth/consolekit,
 	sys-block/parted,
 	sys-fs/ntfs3g,
 	sys-power/cpupower,

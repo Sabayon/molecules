@@ -92,7 +92,6 @@ packages_to_add:
 	net-wireless/bluez,
 	sys-firmware/bluez-firmware,
 	net-wireless/bluez-hcidump,
-	sys-auth/consolekit,
 	sys-block/gparted,
 	sys-block/parted,
 	sys-fs/ntfs3g,
