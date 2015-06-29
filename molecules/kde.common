@@ -220,7 +220,6 @@ packages_to_add:
 	kde-apps/phonon-kde,
 	kde-apps/plasma-apps,
 	kde-base/plasma-workspace,
-	kde-base/policykit-kde,
 	kde-base/powerdevil,
 	kde-apps/print-manager,
 	kde-base/pykde4,
