@@ -260,7 +260,6 @@ packages_to_add:
 	sys-apps/hdparm,
 	sys-apps/sdparm,
 	sys-apps/tuxonice-userui,
-	sys-auth/policykit,
 	sys-auth/policykit-qt,
 	sys-auth/polkit,
 	sys-auth/polkit-kde,
