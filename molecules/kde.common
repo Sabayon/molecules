@@ -139,7 +139,6 @@ packages_to_add:
 	kde-base/kdebase-startkde,
 	kde-apps/kde-wallpapers,
 	kde-base/kdelibs,
-	kde-base/kdemultimedia-kioslaves,
 	kde-apps/kdenetwork-filesharing,
 	kde-apps/kdepasswd,
 	kde-base/kdepimlibs,
