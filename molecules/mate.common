@@ -50,6 +50,8 @@ packages_to_add:
 	app-admin/rigo,
 	app-crypt/gnupg,
 	app-crypt/pinentry-gtk2,
+        app-misc/calamares-sabayon-base-modules,
+        app-misc/calamares-sabayon-branding,
 	app-text/pastebunz,
 	app-office/abiword,
 	app-office/gnumeric,

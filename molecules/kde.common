@@ -67,6 +67,8 @@ packages_to_add:
 	app-dicts/myspell-fr,
 	app-dicts/myspell-it,
 	app-dicts/myspell-nl,
+        app-misc/calamares-sabayon-base-modules,
+        app-misc/calamares-sabayon-branding,
 	app-misc/sabayon-mce,
 	app-misc/sabayon-skel,
 	app-misc/sabayon-steambox,
