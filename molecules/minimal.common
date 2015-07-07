@@ -43,8 +43,7 @@ extra_mksquashfs_parameters: -comp xz -Xbcj x86
 
 packages_to_add:
 	@wireless,
-        app-misc/calamares-sabayon-base-modules,
-        app-misc/calamares-sabayon-branding,
+        app-misc/calamares-sabayon,
 	app-text/pastebunz,
 	lxde-base/lxdm,
 	media-gfx/feh,
