@@ -128,6 +128,7 @@ sd_disable cdeject
 SYSTEMD_SERVICES=(
 	"NetworkManager"
 	"sabayonlive"
+	"bluetooth"
 	"installer-text"
 	"installer-gui"
 )
