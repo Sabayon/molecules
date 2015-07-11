@@ -56,7 +56,7 @@ packages_to_add:
 	app-admin/system-tools-backends,
 	app-backup/deja-dup,
 	app-crypt/gnupg,
-	app-crypt/pinentry-gtk2,
+	app-crypt/pinentry-gnome,
 	app-dicts/aspell-de,
 	app-dicts/aspell-en,
 	app-dicts/aspell-fr,
