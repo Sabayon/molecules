@@ -80,7 +80,9 @@ packages_to_add:
 	x11-themes/tango-icon-theme,
 	x11-themes/gnome-icon-theme,
 	x11-themes/gtk-engines:2,
-	x11-themes/sabayon-artwork-gnome
+	x11-themes/sabayon-artwork-core,
+	x11-themes/sabayon-artwork-gnome,
+	x11-themes/sabayon-artwork-grub
 
 # Determine whether repositories update should be run (if packages_to_add is set)
 # (default is: no), values are: yes, no.
