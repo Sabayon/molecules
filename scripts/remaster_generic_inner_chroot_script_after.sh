@@ -160,7 +160,6 @@ setup_virtualbox() {
 install_external_kernel_modules() {
 	install_kernel_packages \
 		"app-laptop/nvidiabl" \
-		"net-wireless/ndiswrapper" \
 		"sys-fs/zfs-kmod" \
 		"sys-power/bbswitch" || return 1
 	# otherwise bbswitch is useless
