@@ -162,8 +162,7 @@ install_external_kernel_modules() {
 		"app-laptop/nvidiabl" \
 		"net-wireless/ndiswrapper" \
 		"sys-fs/zfs-kmod" \
-		"sys-power/bbswitch" \
-		"net-wireless/broadcom-sta" || return 1
+		"sys-power/bbswitch" || return 1
 	# otherwise bbswitch is useless
 	install_packages "x11-misc/bumblebee"
 }
