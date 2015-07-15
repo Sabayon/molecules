@@ -98,7 +98,6 @@ packages_to_add:
 	net-libs/netwib,
 	net-misc/knock,
 	media-fonts/droid,
-	media-gfx/picasa,
 	media-gfx/pqstego,
 	media-sound/pavucontrol,
 	media-video/vlc,
