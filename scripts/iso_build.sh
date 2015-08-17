@@ -173,7 +173,7 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 	REMASTER_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_KDE.iso"
-		"${DISTRO_NAME}_${ISO_TAG}_amd64_MATE-dev.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_MATE.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Xfce.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Minimal.iso"
 	)
