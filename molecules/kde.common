@@ -228,7 +228,6 @@ packages_to_add:
 	kde-apps/svgpart,
 	kde-base/systemsettings,
 	kde-apps/thumbnailers,
-	kde-misc/kcm-ufw,
 	kde-misc/kcmsystemd,
 	kde-misc/kde-gtk-config,
 	kde-misc/magneto-kde,
