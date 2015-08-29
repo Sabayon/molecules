@@ -146,7 +146,6 @@ packages_to_add:
 	kde-base/kdeplasma-addons,
 	kde-apps/kdf,
 	kde-apps/kdialog,
-	kde-base/kdm,
 	kde-apps/keditbookmarks,
 	kde-base/kephal,
 	kde-apps/kfind,
