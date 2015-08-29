@@ -102,6 +102,8 @@ setup_displaymanager() {
 		sd_enable lightdm
 	elif [ -n "$(equo match --installed kde-base/kdm -qv)" ]; then
 		sd_enable kdm
+        elif [ -n "$(equo match --installed x11-misc/sddm -qv)" ]; then
+                sd_enable sddm
 	else
 		sd_enable xdm
 	fi
