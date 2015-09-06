@@ -232,7 +232,6 @@ packages_to_add:
 	kde-misc/magneto-kde,
 	kde-misc/networkmanagement,
 	kde-misc/synaptiks,
-	kde-misc/yakuake,
 	media-libs/libdvdcss,
 	media-libs/libdvdnav,
 	media-libs/libdvdplay,
