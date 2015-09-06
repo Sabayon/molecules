@@ -138,7 +138,6 @@ packages_to_add:
 	kde-apps/kde-wallpapers,
 	kde-base/kdelibs,
 	kde-apps/kdenetwork-filesharing,
-	kde-apps/kdepasswd,
 	kde-base/kdepimlibs,
 	kde-apps/kdf,
 	kde-apps/kdialog,
