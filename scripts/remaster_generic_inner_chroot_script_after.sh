@@ -359,7 +359,7 @@ prepare_xfceforensic() {
 }
 
 prepare_kde() {
-	setup_default_xsession "KDE-4"
+	setup_default_xsession "plasma"
 	# Configure proper GTK3 theme
 	# TODO: find a better solution?
 	mv /etc/skel/.config/gtk-3.0/settings.ini._kde_molecule \
