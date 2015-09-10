@@ -89,6 +89,8 @@ packages_to_add:
 	kde-plasma/plasma-nm,
 	kde-plasma/plasma-meta,
 	kde-plasma/plasma-workspace,
+	dev-libs/libappindicator:3,
+	dev-libs/libappindicator:2,
 	dev-libs/sni-qt,
 	kde-apps/kde-l10n,
 	kde-apps/kdeadmin-meta,
