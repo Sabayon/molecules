@@ -46,7 +46,7 @@ extra_mksquashfs_parameters: -comp xz -Xbcj x86
 
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
-		@gst-plugins,
+	@gst-plugins,
 	@gst-plugins-extra,
 	@wireless,
 	app-admin/packagekit-base,
@@ -100,7 +100,6 @@ packages_to_add:
 	kde-apps/kdeartwork-iconthemes,
 	kde-apps/kdeartwork-kscreensaver,
 	kde-apps/kdeartwork-styles,
-	kde-apps/kdebase-runtime-meta,
 	kde-apps/kde-wallpapers,
 	kde-apps/kdenetwork-filesharing,
 	kde-apps/kdepasswd,
