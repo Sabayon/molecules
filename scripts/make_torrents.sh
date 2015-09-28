@@ -10,7 +10,6 @@ export SABAYON_MOLECULE_HOME
 announce_url="http://torrents.sabayon.org:8082/announce"
 iso_dirs=(
 	"${SABAYON_MOLECULE_HOME}/iso"
-	"${SABAYON_MOLECULE_HOME}/images"
 )
 
 for iso_dir in "${iso_dirs[@]}"; do

@@ -449,11 +449,6 @@ build_sabayon() {
 				"${SABAYON_MOLECULE_HOME}"/scripts/make_torrents.sh || return 1
 		fi
 
-		if [ "${done_images}" = "1" ]; then
-			cp -p "${SABAYON_MOLECULE_HOME}"/images/*"${ISO_TAG}"* \
-				"${SABAYON_MOLECULE_HOME}"/iso_rsync/ \
-				|| return 1
-		fi
 		if [ "${done_iso}" = "1" ]; then
 			cp -p "${SABAYON_MOLECULE_HOME}"/iso/*"${ISO_TAG}"* \
 				"${SABAYON_MOLECULE_HOME}"/iso_rsync/ || return 1
@@ -464,7 +459,7 @@ build_sabayon() {
 		# remove old ISO images?
 		if [ -n "${OLD_ISO_TAG}" ]; then
 			echo "Removing old ISO images tagged ${OLD_ISO_TAG} locally"
-			rm -rf "${SABAYON_MOLECULE_HOME}"/{images,iso,iso_rsync}/"${DISTRO_NAME}"*"${OLD_ISO_TAG}"*
+			rm -rf "${SABAYON_MOLECULE_HOME}"/{iso,iso_rsync}/"${DISTRO_NAME}"*"${OLD_ISO_TAG}"*
 			echo "Removing old ISO images tagged ${OLD_ISO_TAG} remotely"
 			remove_from_mirrors "${DISTRO_NAME}*${OLD_ISO_TAG}*"
 			remove_from_mirrors "RELEASE_DATE_${OLD_ISO_TAG}"

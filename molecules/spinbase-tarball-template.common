@@ -21,4 +21,4 @@ execution_strategy: iso_to_tar
 %env pre_tar_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/spinbase_tarball_pre_tar_script.sh
 
 # Destination directory for the ISO image path (MANDATORY)
-%env destination_tar_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/images
+%env destination_tar_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso
