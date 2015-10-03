@@ -13,7 +13,7 @@ sd_disable() {
 		systemctl --no-reload -f disable "${1}.service"
 }
 
-sd_disable installer-gui
+#sd_disable installer-gui
 sd_disable avahi-daemon
 
 # install-data dir is really not needed
