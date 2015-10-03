@@ -5,7 +5,6 @@
 # x11-libs/libXxf86misc required by xset
 packages_to_add:
 	@X,
-	@fluxbox,
 	app-misc/sabayon-skel,
 	dev-python/libgnomecanvas-python,
 	media-fonts/ttf-bitstream-vera,
