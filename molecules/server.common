@@ -45,6 +45,7 @@ packages_to_add:
 	 x11-base/xorg-server,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
+	net-misc/openssh,
 	sys-block/parted,
 	sys-power/cpupower,
 	x11-themes/sabayon-artwork-core,
