@@ -340,6 +340,16 @@ move_to_mirrors() {
 	fi
 }
 
+docker_clean() {
+
+	# Best effort - cleaning orphaned containers
+	docker ps -a -q | xargs -n 1 -I {} sudo docker rm {}
+
+	# Best effort - cleaning orphaned images
+	docker rmi $( docker images | grep '<none>' | tr -s ' ' | cut -d ' ' -f 3)
+
+}
+
 build_spinbase() {
 	# Generating the spinbase with docker
 
@@ -347,6 +357,7 @@ build_spinbase() {
 	local undocker_output_directory=${2-sources/amd64-docker-spinbase}
 	echo "Building Spinbase with Docker image: "${docker_image}
 
+	docker_clean
   	# Pulling the image from docker (should be squashed in 1 layer)
 	docker pull "${docker_image}" || return 1
 
@@ -366,6 +377,8 @@ build_spinbase() {
 	# Cleaning docker generated files
 	rm -rf "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}"/.dockerenv
 	rm -rf "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}"/.dockerinit
+
+	docker_clean
 }
 
 build_sabayon() {
