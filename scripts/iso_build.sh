@@ -346,7 +346,10 @@ docker_clean() {
 	docker ps -a -q | xargs -n 1 -I {} sudo docker rm {}
 
 	# Best effort - cleaning orphaned images
-	docker rmi $( docker images | grep '<none>' | tr -s ' ' | cut -d ' ' -f 3)
+	local images=$(docker images | grep '<none>' | tr -s ' ' | cut -d ' ' -f 3)
+	if [ -n "${images}" ]; then
+		docker rmi ${images}
+	fi
 
 }
 
