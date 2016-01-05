@@ -49,6 +49,7 @@ packages_to_add:
 	sys-block/parted,
 	sys-power/cpupower,
 	x11-themes/sabayon-artwork-core,
+	x11-drivers/xf86-video-vmware,
 	x11-themes/sabayon-artwork-grub
 
 # Determine whether repositories update should be run (if packages_to_add is set)
