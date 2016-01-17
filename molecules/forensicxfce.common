@@ -106,6 +106,7 @@ packages_to_add:
 	net-analyzer/nmap,
 	net-analyzer/netcat6,
 	net-irc/irssi,
+	net-ftp/filezilla,
 	net-analyzer/wireshark,
 	net-analyzer/tcpdump,
 	net-misc/dropbox,
