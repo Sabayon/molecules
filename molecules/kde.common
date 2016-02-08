@@ -122,6 +122,7 @@ packages_to_add:
 	kde-apps/knotify,
 	kde-apps/kolf,
 	kde-apps/kollision,
+	kde-apps/kolourpaint,
 	kde-apps/konqueror,
 	kde-apps/konquest,
 	kde-apps/konsole,
