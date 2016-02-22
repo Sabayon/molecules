@@ -48,7 +48,6 @@ extra_mksquashfs_parameters: -comp xz -Xbcj x86
 packages_to_add:
 	@wireless,
 	app-admin/rigo,
-	app-cdr/xcdroast,
 	app-crypt/gnupg,
 	app-crypt/pinentry-gtk2,
         app-misc/calamares-sabayon,
