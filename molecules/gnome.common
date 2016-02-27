@@ -101,7 +101,6 @@ packages_to_add:
 	media-plugins/alsa-plugins,
 	media-sound/rhythmbox,
 	media-sound/pavucontrol,
-	media-tv/kodi,
 	media-video/mpv,
 	media-video/pitivi,
 	media-video/totem,

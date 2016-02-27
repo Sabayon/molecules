@@ -171,7 +171,6 @@ packages_to_add:
 	media-plugins/alsa-plugins,
 	media-plugins/kipi-plugins,
 	media-sound/clementine,
-	media-tv/kodi,
 	media-video/vlc,
 	net-dialup/globespan-adsl,
 	net-dialup/ppp,
