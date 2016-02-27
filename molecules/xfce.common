@@ -107,6 +107,7 @@ packages_to_add:
 	x11-misc/lightdm-gtk-greeter,
 	x11-misc/xvkbd,
 	x11-terms/xfce4-terminal,
+	x11-terms/xterm,
 	x11-themes/gnome-themes-standard,
 	x11-themes/iottinka-artwork,
 	x11-themes/sabayon-artwork-core,
