@@ -75,6 +75,7 @@ packages_to_add:
 	app-misc/sabayon-mce,
 	app-misc/sabayon-steambox,
 	app-misc/sabayon-version,
+	app-office/libreoffice,
 	app-text/pastebunz,
 	games-misc/cowsay,
 	games-util/steam-meta,
