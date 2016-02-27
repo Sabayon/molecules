@@ -48,6 +48,7 @@ packages_to_add:
 	app-text/pastebunz,
 	lxde-base/lxdm,
 	media-gfx/feh,
+	x11-terms/xterm,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
 	net-irc/irssi,
