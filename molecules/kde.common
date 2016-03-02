@@ -81,6 +81,7 @@ packages_to_add:
 	kde-apps/bomber,
 	kde-apps/bovo,
 	kde-apps/dolphin,
+	kde-apps/ffmpegthumbs,
 	kde-apps/gwenview,
 	kde-apps/kamera,
 	kde-apps/kapman,
