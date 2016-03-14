@@ -200,7 +200,7 @@ sub parse_entry {
 
 	my $fmt = sub {
 		my ($ver, $ed) = @_;
-		$ver eq "DAILY" ? $ed : qq{Sabayon $ver "$ed"};
+		$ver eq "DAILY" ? $ed : qq{Sabayon $ver $ed};
 	};
 
 	# Sabayon_Linux_DAILY_amd64_E17.iso
@@ -223,6 +223,14 @@ sub parse_entry {
 			$type_ext, $href_link, @extra_args);
 	}
 
+	# Sabayon_Linux_DAILY_amd64_tarball.tar.gz
+	elsif ($href =~ /^${re_pref}_${re_ver}_${re_arch}_(?<ed>.+)\.tar\.gz$/) {
+		my $ed = $fmt->($+{ver}, $+{ed});
+		add_item ("$ed (.tar.gz)", $+{arch},
+			$type_ext, $href_link, @extra_args);
+	}
+
+
 	# Sabayon_Linux_DAILY_armv7a_(misc).img.xz
 	elsif ($href =~ /^${re_pref}_${re_ver}_${re_arch}_(?<ed>.+)\.img\.xz$/) {
 		my $ed = $fmt->($+{ver}, $+{ed});
@@ -236,13 +244,6 @@ sub parse_entry {
 		add_item ("$ed ($+{ext})", $+{arch},
 			$type_ext, $href_link, @extra_args);
 	}
-
-	## Sabayon_Linux_DAILY_armv7a_BeagleBone_Base_16GB.img
-	#elsif ($href =~ /^${re_pref}_${re_ver}_${re_arch}_(?<ed>.+)\.img$/) {
-	#	my $ed = $fmt->($+{ver}, $+{ed});
-	#	add_item ("$ed (.img)", $+{arch},
-	#		$type_ext, $href_link, @extra_args);
-	#}
 
 	else {
 		push @oth, [ $href_link, $href_full ]
@@ -360,7 +361,7 @@ if (@ARGV != 1) {
 }
 $arg_type = shift;
 
-unless ($arg_type ~~ [ qw(main daily) ]) {
+unless ($arg_type =~ /^(main|daily)$/) {
 	die "Invalid argument TYPE. See --help.\n"
 }
 
@@ -384,7 +385,7 @@ generate($opt_dir || ".", $opt_prefix, \@opt_skip);
 if ($arg_type eq "daily") {
 	# x86 & amd86 first
 	print_items ( qr/amd64|x86/, 0, "intel_editions_loop", [ qw(.pkglist) ] );
-	print_items ( qr/amd64|x86/, 1, "nonintel_editions_loop", [] );
+	# print_items ( qr/amd64|x86/, 1, "nonintel_editions_loop", [] );
 }
 else {
 	print_items ( qr/.*/, 0, "intel_editions_loop", [ qw(.pkglist .torrent) ] );
