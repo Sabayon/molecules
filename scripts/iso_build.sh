@@ -356,7 +356,7 @@ docker_clean() {
 build_spinbase() {
 	# Generating the spinbase with docker
 
-	local docker_image=${1-sabayon/spinbase-amd64-squashed:latest}
+	local docker_image=${1-sabayon/spinbase-amd64:latest}
 	local undocker_output_directory=${2-sources/amd64-docker-spinbase}
 	echo "Building Spinbase with Docker image: "${docker_image}
 
