@@ -360,10 +360,6 @@ build_spinbase() {
 	local undocker_output_directory=${2-sources/amd64-docker-spinbase}
 	echo "Building Spinbase with Docker image: "${docker_image}
 
-	docker_clean
-  	# Pulling the image from docker (should be squashed in 1 layer)
-	docker pull "${docker_image}" || return 1
-
 	# Cleaning previous generation
 	if [ -z "${undocker_output_directory}" ] || [ -z "${SABAYON_MOLECULE_HOME}" ]; then
 		echo "SABAYON_MOLECULE_HOME or undocker_output_directory not set, this is bad"
@@ -372,7 +368,6 @@ build_spinbase() {
 	rm -rf "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}"
 
 	echo "Exporting the Docker image in: " ${SABAYON_MOLECULE_HOME}/${undocker_output_directory}
-
 
 	curl -s https://api.github.com/repos/mudler/docker-companion/releases/latest \
 	| grep "browser_download_url.*amd64" \
