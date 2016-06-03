@@ -369,15 +369,8 @@ build_spinbase() {
 
 	echo "Exporting the Docker image in: " ${SABAYON_MOLECULE_HOME}/${undocker_output_directory}
 
-	curl -s https://api.github.com/repos/mudler/docker-companion/releases/latest \
-	| grep "browser_download_url.*amd64" \
-	| cut -d : -f 2,3 \
-	| tr -d \" \
-	| wget -i - -O "${SABAYON_MOLECULE_HOME}"/bin/docker-companion \
-	&& chmod +x "${SABAYON_MOLECULE_HOME}"/bin/docker-companion
-
 	# Unpack the image
-	"${SABAYON_MOLECULE_HOME}"/bin/docker-companion --pull unpack "${docker_image}" "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}" || return 1
+	docker-companion --pull unpack "${docker_image}" "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}" || return 1
 
 	docker_clean
 }
