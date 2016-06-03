@@ -373,13 +373,16 @@ build_spinbase() {
 
 	echo "Exporting the Docker image in: " ${SABAYON_MOLECULE_HOME}/${undocker_output_directory}
 
-	docker save "${docker_image}"  \
-	| "${SABAYON_MOLECULE_HOME}"/bin/undocker.py -i -o "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}" ${docker_image} || return 1
-	echo "nameserver 8.8.8.8" > "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}"/etc/resolv.conf
 
-	# Cleaning docker generated files
-	rm -rf "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}"/.dockerenv
-	rm -rf "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}"/.dockerinit
+	curl -s https://api.github.com/repos/mudler/docker-companion/releases/latest \
+	| grep "browser_download_url.*amd64" \
+	| cut -d : -f 2,3 \
+	| tr -d \" \
+	| wget -i - -O "${SABAYON_MOLECULE_HOME}"/bin/docker-companion \
+	&& chmod +x "${SABAYON_MOLECULE_HOME}"/bin/docker-companion
+
+	# Unpack the image
+	"${SABAYON_MOLECULE_HOME}"/bin/docker-companion --pull unpack "${docker_image}" "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}" || return 1
 
 	docker_clean
 }
