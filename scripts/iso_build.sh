@@ -358,6 +358,11 @@ build_spinbase() {
 
 	local docker_image=${1-sabayon/spinbase-amd64:latest}
 	local undocker_output_directory=${2-sources/amd64-docker-spinbase}
+	
+	echo "Checking up Docker is available, restarting it if needed"
+	
+	docker images | grep -q "404" && systemctl restart docker
+	
 	echo "Building Spinbase with Docker image: "${docker_image}
 
 	# Cleaning previous generation
