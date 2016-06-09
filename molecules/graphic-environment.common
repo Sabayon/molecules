@@ -6,8 +6,7 @@
 packages_to_add:
 	@X,
 	app-misc/sabayon-skel,
-	app-misc/anaconda-runtime-gui,
-	app-admin/anaconda-gui,
+	app-admin/anaconda,
 	dev-python/libgnomecanvas-python,
 	media-fonts/ttf-bitstream-vera,
 	media-fonts/dejavu,
