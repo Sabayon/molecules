@@ -44,7 +44,6 @@ extra_mksquashfs_parameters: -comp xz -Xbcj x86
 packages_to_add:
 	@wireless,
 	@fluxbox,
-        app-misc/calamares-sabayon,
 	app-text/pastebunz,
 	lxde-base/lxdm,
 	media-gfx/feh,

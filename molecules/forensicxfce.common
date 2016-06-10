@@ -85,7 +85,6 @@ packages_to_add:
 	app-crypt/gifshuffle,
 	app-crypt/pdfcrack,
 	app-crypt/WiRouterKeyRec,
-	app-misc/calamares-sabayon,
 	app-misc/screen,
 	app-office/libreoffice,
 	dev-util/geany,
