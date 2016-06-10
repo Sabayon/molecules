@@ -84,6 +84,7 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		"sabayon-amd64-xfce.spec"
 		"sabayon-amd64-minimal.spec"
 		"sabayon-amd64-server.spec"
+		"sabayon-amd64-lxqt.spec"
 
 		"sabayon-amd64-gnome-dev.spec"
 		"sabayon-amd64-kde-dev.spec"
@@ -91,6 +92,8 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		"sabayon-amd64-xfce-dev.spec"
 		"sabayon-amd64-minimal-dev.spec"
 		"sabayon-amd64-server-dev.spec"
+		"sabayon-amd64-lxqt-dev.spec"
+
 	)
 	REMASTER_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME.iso"
@@ -99,6 +102,7 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Xfce.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Minimal.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Server.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_LXQt.iso"
 
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME-dev.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_KDE-dev.iso"
@@ -106,6 +110,7 @@ if [ "${ACTION}" = "weekly" ] || [ "${ACTION}" = "daily" ]; then
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Xfce-dev.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Minimal-dev.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Server-dev.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_LXQt-dev.iso"
 	)
 	REMASTER_TAR_SPECS+=(
 		"sabayon-amd64-spinbase-tarball-template.spec"
@@ -174,6 +179,7 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 		"sabayon-amd64-xfce.spec"
 		"sabayon-amd64-minimal.spec"
 		"sabayon-amd64-server.spec"
+		"sabayon-amd64-lxqt.spec"
 	)
 	REMASTER_SPECS_ISO+=(
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_GNOME.iso"
@@ -182,6 +188,7 @@ elif [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Xfce.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Minimal.iso"
 		"${DISTRO_NAME}_${ISO_TAG}_amd64_Server.iso"
+		"${DISTRO_NAME}_${ISO_TAG}_amd64_LXQt.iso"
 	)
 	REMASTER_TAR_SPECS+=(
 		"sabayon-amd64-spinbase-tarball-template.spec"

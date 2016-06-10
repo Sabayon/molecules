@@ -317,6 +317,11 @@ prepare_lxde() {
 	sed -i 's/pcmanfm -d/pcmanfm -d --desktop/g' /etc/xdg/lxsession/LXDE/autostart
 }
 
+prepare_lxqt() {
+        setup_default_xsession "lxqt"
+
+}
+
 prepare_mate() {
 	setup_default_xsession "mate"
 }
@@ -391,6 +396,8 @@ prepare_system() {
 		prepare_xfceforensic
 	elif [ "${de}" = "kde" ]; then
 		prepare_kde
+	elif [ "${de}" = "lxqt" ]; then
+		prepare_lxqt
 	elif [ "${de}" = "awesome" ]; then
 		prepare_awesome
 	fi
