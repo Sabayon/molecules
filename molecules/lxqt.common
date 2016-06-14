@@ -72,6 +72,7 @@ packages_to_add:
 	app-text/pastebunz,
 	games-misc/cowsay,
 	lxqt-base/lxqt-meta,
+	media-video/vlc,
 	net-dialup/globespan-adsl,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
