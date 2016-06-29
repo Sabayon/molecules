@@ -64,6 +64,7 @@ packages_to_add:
 	x11-libs/gksu,
 	sys-apps/gnome-disk-utility,
 	sys-block/gparted,
+	sys-boot/os-prober,
 	sys-fs/ntfs3g,
 	sys-power/cpupower,
 	www-client/google-chrome,

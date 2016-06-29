@@ -89,6 +89,7 @@ packages_to_add:
 	sys-auth/polkit-qt,
 	sys-block/parted,
 	sys-block/partitionmanager,
+	sys-boot/os-prober,
 	sys-fs/dmraid,
 	sys-fs/ntfs3g,
 	sys-power/acpid,

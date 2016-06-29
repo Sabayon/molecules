@@ -114,6 +114,7 @@ packages_to_add:
 	sys-apps/mlocate,
 	sys-apps/gnome-disk-utility,
 	sys-block/gparted,
+	sys-boot/os-prober,
 	sys-fs/extundelete,
 	www-client/google-chrome,
 	x11-libs/xcb-util-image,

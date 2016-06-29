@@ -47,6 +47,7 @@ packages_to_add:
 	net-dialup/rp-pppoe,
 	net-misc/openssh,
 	sys-block/parted,
+	sys-boot/os-prober,
 	sys-fs/btrfs-progs,
 	sys-power/cpupower,
 	x11-themes/sabayon-artwork-core,

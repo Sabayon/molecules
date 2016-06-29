@@ -95,6 +95,7 @@ packages_to_add:
 	net-wireless/bluez-hcidump,
 	sys-block/gparted,
 	sys-block/parted,
+	sys-boot/os-prober,
 	sys-fs/ntfs3g,
 	sys-power/cpupower,
 	www-client/google-chrome,

@@ -65,6 +65,7 @@ packages_to_add:
 	net-p2p/transmission-gtk,
 	sys-apps/gnome-disk-utility,
 	sys-block/parted,
+	sys-boot/os-prober,
 	sys-fs/ntfs3g,
 	sys-power/cpupower,
 	www-client/midori,
