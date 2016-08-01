@@ -202,9 +202,6 @@ packages_to_add:
 	x11-apps/xdm,
 	x11-libs/libva-intel-driver,
 	x11-libs/libva-vdpau-driver,
-	x11-misc/lightdm,
-	x11-misc/lightdm-kde,
-	x11-misc/lightdm-gtk-greeter,
 	x11-misc/xvkbd,
 	x11-themes/oxygen-gtk:2,
 	x11-themes/oxygen-gtk:3,
@@ -212,6 +209,7 @@ packages_to_add:
 	x11-themes/sabayon-artwork-extra,
 	x11-themes/sabayon-artwork-grub,
 	x11-themes/sabayon-artwork-loo,
+	x11-themes/sabayon-artwork-sddm-default,
 	x11-themes/sound-theme-freedesktop,
 	x11-themes/xcursor-themes,
 	x11-wm/twm
