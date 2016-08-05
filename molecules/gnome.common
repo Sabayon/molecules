@@ -71,7 +71,6 @@ packages_to_add:
 	app-dicts/myspell-nl,
 	app-editors/gedit,
 	app-misc/gnote,
-	app-misc/sabayon-mce,
 	app-misc/sabayon-steambox,
 	app-misc/sabayon-version,
 	app-office/libreoffice,
