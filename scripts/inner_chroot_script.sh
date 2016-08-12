@@ -58,11 +58,12 @@ cp /etc/skel /root -Rap
 chown root:root /root -R
 
 # Setup locale to en_US
-for f in /etc/env.d/02locale /etc/locale.conf; do
-	echo LANG=en_US.UTF-8 > "${f}"
-	echo LANGUAGE=en_US.UTF-8 >> "${f}"
-	echo LC_ALL=en_US.UTF-8 >> "${f}"
-done
+echo LANG=en_US.UTF-8 > /etc/locale.conf
+echo LANGUAGE=en_US.UTF-8 >> /etc/locale.conf
+echo LC_ALL=en_US.UTF-8 >> /etc/locale.conf
+# Make sure that 02locale is a symlink to locale.conf
+rm -f /etc/env.d/02locale
+ln -sf ../locale.conf /etc/env.d/02locale
 
 
 if [ -n "${UPGRADE_REPO}" ]; then
