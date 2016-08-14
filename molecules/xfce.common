@@ -68,6 +68,7 @@ packages_to_add:
 	app-dicts/myspell-it,
 	app-dicts/myspell-nl,
 	app-misc/gnote,
+	app-misc/sabayon-greeter,
 	app-office/libreoffice,
 	app-text/pastebunz,
 	games-misc/cowsay,

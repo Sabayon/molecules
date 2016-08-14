@@ -71,6 +71,7 @@ packages_to_add:
 	app-dicts/myspell-nl,
 	app-editors/gedit,
 	app-misc/gnote,
+	app-misc/sabayon-greeter,
 	app-misc/sabayon-version,
 	app-office/libreoffice,
 	app-text/pastebunz,

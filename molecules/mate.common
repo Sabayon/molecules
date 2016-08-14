@@ -50,6 +50,7 @@ packages_to_add:
 	app-admin/rigo,
 	app-crypt/gnupg,
 	app-crypt/pinentry-gtk2,
+	app-misc/sabayon-greeter,
 	app-text/pastebunz,
 	app-office/libreoffice,
 	app-office/gnumeric,
