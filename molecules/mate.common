@@ -53,7 +53,6 @@ packages_to_add:
 	app-misc/sabayon-greeter,
 	app-text/pastebunz,
 	app-office/libreoffice,
-	app-office/gnumeric,
 	gnome-extra/nm-applet-gtk2,
 	mate-base/mate,
 	media-plugins/alsa-plugins,
