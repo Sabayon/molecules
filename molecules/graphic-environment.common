@@ -1,13 +1,11 @@
 # This module contains packages that images shipping with X.Org should have
 
 # sabayon-skel required to make anaconda autostart
-# libgnomecanvas-python required by anaconda
 # x11-libs/libXxf86misc required by xset
 packages_to_add:
 	@X,
 	app-misc/sabayon-skel,
 	app-admin/anaconda,
-	dev-python/libgnomecanvas-python,
 	media-fonts/ttf-bitstream-vera,
 	media-fonts/dejavu,
 	media-fonts/corefonts,
