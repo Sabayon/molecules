@@ -230,7 +230,7 @@ rm -rf /var/lib/entropy/tmp
 rm -rf /var/lib/entropy/*cache*
 
 # Clean layman dir
-rm -rf /var/lib/layman/*
+rm -rf /var/lib/layman/* /etc/portage/repos.conf/layman.conf
 # Needed
 touch /var/lib/layman/make.conf 
 
