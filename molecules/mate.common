@@ -70,6 +70,7 @@ packages_to_add:
 	sys-power/cpupower,
 	www-client/google-chrome,
 	x11-misc/magneto-gtk,
+	x11-misc/mate-notification-daemon,
 	x11-misc/lightdm-base,
 	x11-misc/lightdm-gtk-greeter,
 	x11-terms/guake,
