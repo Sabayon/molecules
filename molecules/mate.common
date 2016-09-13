@@ -51,6 +51,7 @@ packages_to_add:
 	app-crypt/gnupg,
 	app-crypt/pinentry-gtk2,
 	app-misc/sabayon-greeter,
+	app-editors/atom,
 	app-text/pastebunz,
 	app-office/libreoffice,
 	gnome-extra/nm-applet-gtk2,
