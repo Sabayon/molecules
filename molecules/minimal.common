@@ -51,6 +51,7 @@ packages_to_add:
 	net-dialup/rp-pppoe,
 	net-irc/irssi,
 	net-misc/tightvnc,
+	sys-apps/usbutils,
 	sys-block/parted,
 	sys-boot/os-prober,
 	sys-power/cpupower,

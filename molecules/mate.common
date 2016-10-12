@@ -64,6 +64,7 @@ packages_to_add:
 	net-p2p/transmission-gtk,
 	x11-libs/gksu,
 	sys-apps/gnome-disk-utility,
+	sys-apps/usbutils,
 	sys-block/gparted,
 	sys-boot/os-prober,
 	sys-fs/ntfs3g,

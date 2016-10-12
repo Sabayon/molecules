@@ -124,6 +124,7 @@ packages_to_add:
 	sys-apps/gnome-disk-utility,
 	sys-apps/hdparm,
 	sys-apps/sdparm,
+	sys-apps/usbutils,
 	sys-apps/tuxonice-userui,
 	sys-block/gparted,
 	sys-block/parted,
