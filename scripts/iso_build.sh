@@ -521,7 +521,7 @@ ${log_cont}
 [... snip ...]
 
 Thanks,
-Sun" | /bin/mail -s "${ACTION} images build script failure" root
+Sun" | mail -s "${ACTION} images build script failure" root
 }
 
 mail_success() {
@@ -530,7 +530,7 @@ mail_success() {
 New ${ACTION} images tagged as ${ISO_TAG} have been built and pushed to mirrors.
 http://www.sabayon.org/latest (node/306) will be updated in 24 hours automatically.
 
-" | /bin/mail -s "Action required: ${ACTION} ${ISO_TAG} images built" root
+" | mail -s "Action required: ${ACTION} ${ISO_TAG} images built" root
 }
 
 out=0
