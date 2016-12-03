@@ -12,7 +12,7 @@ release_string: Sabayon Linux
 release_file: /etc/sabayon-edition
 
 # Enable XZ compression in mksquashfs
-extra_mksquashfs_parameters: -comp xz -Xbcj x86
+extra_mksquashfs_parameters: -comp xz -processors 3 -Xbcj x86
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and before inner_chroot_script)
