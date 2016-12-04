@@ -12,7 +12,7 @@ release_file: /etc/sabayon-edition
 iso_title: Sabayon KDE
 
 # Enable XZ compression in mksquashfs
-extra_mksquashfs_parameters: -comp xz -processors 3
+extra_mksquashfs_parameters: -comp xz
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and before inner_chroot_script)

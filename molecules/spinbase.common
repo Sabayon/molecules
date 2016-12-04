@@ -11,7 +11,7 @@ release_file: /etc/sabayon-edition
 extra_rsync_parameters: --one-file-system
 
 # Enable XZ compression in mksquashfs
-extra_mksquashfs_parameters: -comp xz -processors 3
+extra_mksquashfs_parameters: -comp xz
 
 # Merge directory with destination LiveCD root
 %env merge_livecd_root: ${SABAYON_MOLECULE_HOME:-/sabayon}/boot/core
