@@ -313,7 +313,7 @@ move_to_mirrors() {
 				exit 1
 			fi
 
-			safe_run 10 rsync -av --partial --bwlimit=1024 \
+			safe_run 10 rsync -av --partial --bwlimit=8192 \
 				"${SABAYON_MOLECULE_HOME}"/iso_rsync/*"${ISO_TAG}"* \
 				"${ssh_path}/rsync.sabayon.org/iso/${ISO_DIR}" \
 				|| exit 1
