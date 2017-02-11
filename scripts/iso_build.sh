@@ -382,7 +382,7 @@ build_spinbase() {
 	echo "Exporting the Docker image in: " ${SABAYON_MOLECULE_HOME}/${undocker_output_directory}
 
 	# Unpack the image
-	docker-companion --pull unpack "${docker_image}" "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}" || return 1
+	docker-companion --pull unpack --squash "${docker_image}" "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}" || return 1
 
 	docker_clean
 }
