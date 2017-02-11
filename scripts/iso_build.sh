@@ -383,7 +383,11 @@ build_spinbase() {
 
 	# Unpack the image
 	docker-companion --pull unpack --squash "${docker_image}" "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}" || return 1
-
+	if [ ! -e "${SABAYON_MOLECULE_HOME}/${undocker_output_directory}/dev/urandom" ]; then
+		echo "/dev/urandom not present on unpacked chroot. creating it "
+		mknod -m 444 "${SABAYON_MOLECULE_HOME}"/"${undocker_output_directory}"/dev/urandom c 1 9 || return 1
+	fi
+	
 	docker_clean
 }
 
