@@ -169,7 +169,7 @@ packages_to_add:
 	media-libs/libdvdread,
 	media-plugins/alsa-plugins,
 	media-plugins/kipi-plugins,
-	media-sound/clementine,
+	media-sound/tomahawk,
 	media-video/vlc,
 	net-dialup/globespan-adsl,
 	net-dialup/ppp,
