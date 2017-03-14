@@ -77,6 +77,7 @@ packages_to_add:
 	app-misc/sabayon-version,
 	app-office/libreoffice,
 	app-text/pastebunz,
+	games-action/minetest,
 	games-misc/cowsay,
 	gnome-base/gnome-shell,
 	gnome-extra/chrome-gnome-shell,

@@ -71,6 +71,7 @@ packages_to_add:
 	app-misc/sabayon-greeter,
 	app-office/libreoffice,
 	app-text/pastebunz,
+	games-action/minetest,
 	games-misc/cowsay,
 	gnome-extra/nm-applet-gtk2,
 	gnome-extra/polkit-gnome,

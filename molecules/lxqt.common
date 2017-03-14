@@ -70,6 +70,7 @@ packages_to_add:
 	app-misc/sabayon-skel,
 	app-misc/sabayon-version,
 	app-text/pastebunz,
+	games-action/minetest,
 	games-misc/cowsay,
 	lxqt-base/lxqt-meta,
 	media-video/vlc,

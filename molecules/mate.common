@@ -54,6 +54,7 @@ packages_to_add:
 	app-editors/atom,
 	app-text/pastebunz,
 	app-office/libreoffice,
+	games-action/minetest,
 	gnome-extra/nm-applet,
 	mate-base/mate,
 	media-plugins/alsa-plugins,
