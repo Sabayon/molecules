@@ -98,6 +98,7 @@ packages_to_add:
 	sys-power/cpupower,
 	www-client/google-chrome,
 	x11-apps/xdm,
+	x11-terms/qterminal,
 	x11-libs/libva-intel-driver,
 	x11-libs/libva-vdpau-driver,
 	x11-misc/sddm,
