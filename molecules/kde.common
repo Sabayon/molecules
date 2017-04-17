@@ -159,6 +159,7 @@ packages_to_add:
 	kde-apps/thumbnailers,
 	kde-misc/kcm-ufw,
 	kde-misc/kcmsystemd,
+	kde-misc/kio-gdrive,
 	kde-misc/kde-gtk-config,
 	kde-misc/magneto-kde,
 	kde-misc/networkmanagement,
