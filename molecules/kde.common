@@ -145,7 +145,6 @@ packages_to_add:
 	kde-frameworks/oxygen-icons,
 	kde-misc/kio-gdrive,
 	kde-misc/magneto-kde,
-	kde-misc/synaptiks,
 	kde-misc/yakuake,
 	media-libs/libdvdcss,
 	media-libs/libdvdnav,
