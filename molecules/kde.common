@@ -51,7 +51,7 @@ packages_to_add:
 	@wireless,
 	app-admin/rigo,
 	app-crypt/gnupg,
-	app-crypt/pinentry-qt4,
+	app-crypt/pinentry-qt5,
 	app-dicts/aspell-de,
 	app-dicts/aspell-en,
 	app-dicts/aspell-fr,
