@@ -115,7 +115,6 @@ packages_to_add:
 	kde-apps/konqueror,
 	kde-apps/konquest,
 	kde-apps/konsole,
-	kde-apps/kopete,
 	kde-apps/kpat,
 	kde-apps/kppp,
 	kde-apps/kreadconfig,
