@@ -94,7 +94,6 @@ packages_to_add:
 	kde-apps/kdeadmin-meta,
 	kde-apps/kde-wallpapers,
 	kde-apps/kdenetwork-filesharing,
-	kde-apps/kdepasswd,
 	kde-apps/kdf,
 	kde-apps/kdialog,
 	kde-apps/keditbookmarks,
