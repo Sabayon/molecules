@@ -129,7 +129,6 @@ packages_to_add:
 	kde-apps/libkcddb,
 	kde-apps/libkcompactdisc,
 	kde-apps/libkdcraw,
-	kde-apps/libkdeedu,
 	kde-apps/libkdegames,
 	kde-apps/libkexiv2,
 	kde-apps/libkipi,
