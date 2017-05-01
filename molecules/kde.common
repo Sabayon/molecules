@@ -142,7 +142,6 @@ packages_to_add:
 	kde-apps/svgpart,
 	kde-apps/thumbnailers,
 	kde-frameworks/oxygen-icons,
-	kde-misc/kcm-ufw,
 	kde-misc/kio-gdrive,
 	kde-misc/kde-gtk-config,
 	kde-misc/magneto-kde,
