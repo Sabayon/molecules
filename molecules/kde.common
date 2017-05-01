@@ -92,7 +92,6 @@ packages_to_add:
 	dev-libs/sni-qt,
 	kde-apps/kde-l10n,
 	kde-apps/kdeadmin-meta,
-	kde-apps/kde-wallpapers,
 	kde-apps/kdenetwork-filesharing,
 	kde-apps/kdf,
 	kde-apps/kdialog,
