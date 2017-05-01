@@ -135,7 +135,6 @@ packages_to_add:
 	kde-apps/libkmahjongg,
 	kde-apps/libkonq,
 	kde-apps/libksane,
-	kde-apps/mplayerthumbs,
 	kde-apps/okular,
 	kde-apps/phonon-kde,
 	kde-apps/plasma-apps,
