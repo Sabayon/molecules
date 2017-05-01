@@ -97,7 +97,6 @@ packages_to_add:
 	kde-apps/kdialog,
 	kde-apps/keditbookmarks,
 	kde-apps/kfind,
-	kde-apps/kfmclient,
 	kde-apps/kfourinline,
 	kde-apps/kgpg,
 	kde-apps/killbots,
