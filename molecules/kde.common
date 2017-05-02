@@ -157,6 +157,7 @@ packages_to_add:
 	net-dialup/globespan-adsl,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
+	net-firewall/ufw-frontends,
 	net-fs/samba,
 	net-irc/konversation,
 	net-misc/networkmanager,
