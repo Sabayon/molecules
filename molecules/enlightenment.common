@@ -55,7 +55,6 @@ packages_to_add:
 	gnome-extra/nm-applet-gtk2,
 	media-fonts/corefonts,
 	media-fonts/dejavu,
-	media-fonts/ttf-bitstream-vera,
 	media-gfx/ristretto,
 	media-plugins/alsa-plugins,
 	media-sound/xnoise,

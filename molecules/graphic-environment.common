@@ -6,7 +6,6 @@ packages_to_add:
 	@X,
 	app-misc/sabayon-skel,
 	app-admin/anaconda,
-	media-fonts/ttf-bitstream-vera,
 	media-fonts/dejavu,
 	media-fonts/corefonts,
 	media-libs/libtxc_dxtn,
