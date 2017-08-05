@@ -50,6 +50,7 @@ packages_to_add:
 	@gst-plugins-extra,
 	@wireless,
 	app-admin/rigo,
+	app-editors/atom,
 	app-crypt/gnupg,
 	app-crypt/pinentry-qt5,
 	app-dicts/aspell-de,
