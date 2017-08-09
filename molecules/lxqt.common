@@ -41,14 +41,12 @@ extra_mksquashfs_parameters: -comp xz
 # List of packages that would be removed from chrooted system (comma separated)
 # packages_to_remove:
 
-# Import the Graphic Environment module.
-%env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/graphic-environment.common
-
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
 	@gst-plugins,
 	@gst-plugins-extra,
 	@wireless,
+	@X,
 	app-admin/rigo,
 	app-editors/atom,
 	app-crypt/gnupg,
@@ -72,6 +70,10 @@ packages_to_add:
 	games-action/minetest,
 	games-misc/cowsay,
 	lxqt-base/lxqt-meta,
+	media-fonts/dejavu,
+	media-fonts/corefonts,
+	media-libs/libtxc_dxtn,
+	media-libs/mesa,
 	media-video/vlc,
 	net-dialup/globespan-adsl,
 	net-dialup/ppp,
@@ -82,10 +84,12 @@ packages_to_add:
 	net-misc/networkmanager-vpnc,
 	net-misc/ntp,
 	net-print/cups,
+	sys-apps/lsb-release,
 	sys-apps/hdparm,
 	sys-apps/sdparm,
 	sys-apps/tuxonice-userui,
 	sys-apps/usbutils,
+	sys-apps/usb_modeswitch,
 	sys-auth/polkit,
 	sys-auth/polkit-qt,
 	sys-block/parted,
@@ -96,10 +100,13 @@ packages_to_add:
 	sys-power/acpid,
 	sys-power/cpupower,
 	www-client/google-chrome,
+	x11-apps/setxkbmap,
 	x11-apps/xdm,
+	x11-apps/xhost,
 	x11-terms/qterminal,
 	x11-libs/libva-intel-driver,
 	x11-libs/libva-vdpau-driver,
+	x11-libs/libXxf86misc,
 	x11-misc/sddm,
 	x11-misc/xvkbd,
 	x11-themes/oxygen-gtk:2,
