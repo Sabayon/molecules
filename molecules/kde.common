@@ -117,7 +117,6 @@ packages_to_add:
 	kde-apps/konsole,
 	kde-apps/kpat,
 	kde-apps/kppp,
-	kde-apps/kreadconfig,
 	kde-apps/kreversi,
 	kde-apps/ksaneplugin,
 	kde-apps/kshisen,
