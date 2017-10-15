@@ -4,6 +4,7 @@
 # x11-libs/libXxf86misc required by xset
 packages_to_add:
 	@X,
+	app-arch/unrar,
 	app-misc/sabayon-skel,
 	app-admin/anaconda,
 	media-fonts/dejavu,

@@ -52,7 +52,6 @@ packages_to_add:
 	@xfce,
 	app-admin/rigo,
 	app-arch/file-roller,
-	app-arch/unrar,
 	app-crypt/gnupg,
 	app-crypt/pinentry-gtk2,
 	app-dicts/aspell-de,
