@@ -145,10 +145,6 @@ has_proprietary_drivers() {
 	if [ -n "${is_nvidia}" ]; then
 		return 0
 	fi
-	local is_ati=$(equo match --installed x11-drivers/ati-drivers -qv)
-	if [ -n "${is_ati}" ]; then
-		return 0
-	fi
 	return 1
 }
 
