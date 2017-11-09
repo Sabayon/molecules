@@ -161,7 +161,7 @@ install_external_kernel_modules() {
 		"sys-fs/zfs-kmod" \
 		"sys-power/bbswitch" || return 1
 	# otherwise bbswitch is useless
-	install_packages "x11-misc/bumblebee"
+	install_packages "x11-misc/bumblebee x11-misc/primus"
 }
 
 install_proprietary_gfx_drivers() {
