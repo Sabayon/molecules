@@ -9,3 +9,5 @@ automatic-changelogs/*
 monthly-git-logs/*
 images/*
 logs/*
+chroots/default/*
+chroots/limbo/*
