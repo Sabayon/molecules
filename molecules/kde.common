@@ -132,7 +132,6 @@ packages_to_add:
 	kde-apps/libkonq,
 	kde-apps/libksane,
 	kde-apps/okular,
-	kde-apps/phonon-kde,
 	kde-apps/plasma-apps,
 	kde-apps/print-manager,
 	kde-apps/spectacle,
