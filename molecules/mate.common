@@ -49,7 +49,6 @@ packages_to_add:
 	@wireless,
 	app-admin/rigo,
 	app-crypt/gnupg,
-	app-crypt/pinentry-gtk2,
 	app-misc/sabayon-greeter,
 	app-editors/atom,
 	app-text/pastebunz,
