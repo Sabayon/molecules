@@ -48,7 +48,7 @@ packages_to_add:
 	@wireless,
 	@X,
 	app-admin/rigo,
-	app-editors/atom,
+	app-editors/notepadqq,
 	app-crypt/gnupg,
 	app-crypt/pinentry-qt5,
 	app-dicts/aspell-de,
