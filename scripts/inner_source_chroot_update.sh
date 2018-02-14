@@ -57,7 +57,11 @@ echo "-5" | equo conf update
 # check if a kernel update is needed
 kernel_target_pkg="$(equo match -q --installed virtual/linux-binary)"
 current_kernel=$(equo match --installed "${kernel_target_pkg}" -q --showslot)
-available_kernel=$(equo match "${kernel_target_pkg}" -q --showslot)
+
+# Do not pick for now latest kernel, but fix it to 4.14
+#available_kernel=$(equo match "${kernel_target_pkg}" -q --showslot)
+available_kernel="sys-kernel/linux-sabayon:4.14"
+
 if [ "${current_kernel}" != "${available_kernel}" ] && \
 	[ -n "${available_kernel}" ] && [ -n "${current_kernel}" ]; then
 	echo
