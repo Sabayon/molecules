@@ -183,8 +183,6 @@ packages_to_add:
 	x11-libs/libva-vdpau-driver,
 	x11-misc/sddm,
 	x11-misc/xvkbd,
-	x11-themes/oxygen-gtk:2,
-	x11-themes/oxygen-gtk:3,
 	x11-themes/sabayon-artwork-core,
 	x11-themes/sabayon-artwork-extra,
 	x11-themes/sabayon-artwork-grub,
