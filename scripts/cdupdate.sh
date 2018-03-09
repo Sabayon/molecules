@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CDROOT=/mnt/cdrom
+CDROOT=${CDROOT:-/mnt/cdrom}
 
 CHECK_DISC=$(cat /proc/cmdline | grep checkdisc)
 if [ -n "${CHECK_DISC}" ]; then

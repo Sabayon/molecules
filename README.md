@@ -3,12 +3,157 @@
 
 Sabayon stuff for build Sabayon Official Images.
 
+## Build Sabayon ISO images
+
+Hereinafter, how build ISO images in two steps:
+
+1. Check Host System:
+  - Docker Service must be active
+  - Check support of kernel for squashfs with xz compression
+  - Check that all tools needed are available:
+    * cdrtools
+    * mktorrent-borg
+    * postfix (optional and needed for send email)
+    * squashfs-tools
+    * dev-util/molecule-core
+    * dev-util/molecule-plugins
+
+2. Start building through *iso_build.sh* script.
+
+```
+$# ./scripts/iso_build.sh
+
+Sabayon ISO Image Build Script.
+
+./scripts/iso_build.sh [action] [opts]
+
+Valid actions: daily, weekly, monthly, dailybase, release.
+
+Available options:
+
+-h|--help               This message.
+--push                  Enable push to Sabayon Server
+--pull-skip             Skip pull of docker image
+--stdout                Print debug message to stdout
+--sleepnight            Execute build after 22pm and sleep until that hour.
+--pushonly              Push only images
+--torrents              Make torrent files.
+--changelogsdir [DIR]
+                        Set changelog directory. Default is
+                        ${SABAYON_MOLECULE_HOME}/${ACTION}-git-logs.
+--skip-dev              Skip build of development images (with limbo repository).
+--skip-export           For development avoid export of docker image if it is already
+                        present.
+--skip-email            Skip sent of mail.
+--logfile [PATH]        Customize logfile path.
+--image [NAME]          Build only a specific image. (This option can be used multiple time).
+                        Valid value are:
+                          * spinbase
+                          * gnome
+                          * kde
+                          * mate
+                          * minimal
+                          * xfce
+                          * lxqt
+
+Environment variables to customize:
+SABAYON_SERVER          Default to entropy@pkg.sabayon.org
+SABAYON_SERVER_DIR      Default to /sabayon/rsync
+SABAYON_RSYNC_SERVER    Default to rsync.sabayon.org
+SABAYON_DOCKER_SRC_IMAGE
+                        Default to sabayon/spinbase-amd64:latest
+SABAYON_UNDOCKER_OUTPUTDIR
+                        Default to /sabayon/sources/amd64-docker-spinbase.
+MOLECULE_TMPDIR         Default to /var/cache/molecule
+SABAYON_MOLECULE_HOME   Default to /sabayon
+SABAYON_KERNEL_VERSION  Set kernel slot to install on image.
+                        Default is 4.14
+SABAYON_EXTRA_PKGS      Define additional packages to install
+                        on spinbase rootfs.
+SABAYON_UNMASK_PKGS     Define additional packages to unmask.
+SABAYON_ENMAN_REPOS     Define additional enman repository to install
+                        on spinbase rootfs.
+
+```
+
+**NOTE**: Every ISO images are based on spinbase rootfs, so to customize kernel version
+          (that must be available on Sabayon Repository) it is needed build also spinbase
+          ISO image because override of last available kernel is done on inner_script of
+          spinbase image.
+
+*iso_build.sh* script contains a lot of features used by Sabayon Team for release operations,
+features that could be disabled (for example for email through *--skip-email*) and other that can
+be used only but Sabayon Team Group for example: *--push*, *--pushonly* options.
+
+After build is done ISO images are available under *iso* directory.
+
+### Prepare environment
+
+```
+
+// Get molecules sabayon data
+$# git clone https://github.com/Sabayon/molecules.git
+$# cd molecules
+// Became root
+$# sudo su
+
+// Now you can build ISO
+$# SABAYON_MOLECULE_HOME=`pwd` ./scripts/iso_build.sh daily
+```
+
+### Examples
+
+**Build daily spinbase image with kernel 4.9**:
+
+```
+$# cd molecules
+$# SABAYON_KERNEL_VERSION=4.9 SABAYON_MOLECULE_HOME=`pwd` ./scripts/iso_build.sh \
+      daily --image spinbase --logfile /tmp/sabayon-build.log \
+      --stdout --skip-dev --pull-skip --skip-email
+```
+
+Option *--pull-skip* can be used when is already availaboe on local Docker image.
+
+**Build daily Gnome image with kernel 4.9**:
+```
+$# cd molecules
+$# SABAYON_KERNEL_VERSION=4.9 SABAYON_MOLECULE_HOME=`pwd` ./scripts/iso_build.sh \
+      daily --image spinbase --image gnome --logfile /tmp/sabayon-build.log \
+      --stdout --skip-dev --pull-skip --skip-email
+```
+
+**Build daily Gnome image with additional packages**:
+
+```
+$# cd molecules
+$# SABAYON_KERNEL_VERSION=4.9 SABAYON_MOLECULE_HOME=`pwd` \
+      SABAYON_EXTRA_PKGS="app-emulation/lxd games-strategy/wesnoth" \
+      ./scripts/iso_build.sh daily --image spinbase --image gnome \
+      --stdout --skip-dev --pull-skip --skip-email
+
+```
+
+**Build daily Gnome image with additional packages from gaming-live community repository**:
+
+```
+$# cd molecules
+$# SABAYON_KERNEL_VERSION=4.15 SABAYON_MOLECULE_HOME=`pwd` \
+      SABAYON_EXTRA_PKGS="media-libs/mesa-9999 x11-libs/libdrm-9999" \
+      SABAYON_ENMAN_REPOS="gaming-live" \
+      ./scripts/iso_build.sh daily --image spinbase --image gnome \
+        --stdout --skip-dev --pull-skip --skip-email
+
+```
+
+
 ## List of specs
 
 Main difference between iso with *dev* extension is related with type of repository used
 for create image: *dev* use limbo repository otherwise sabayon-weekly it is used.
 
-Hereinafter, list of tree of specs file and dependencies:
+Hereinafter, list of tree of specs file and dependencies.
+
+`Note`: We try to maintains this documentation aligned but could be out of sync.
 
 ```
 
@@ -90,6 +235,7 @@ amd64.common
     +-----+-------+-----> sabayon-amd64-xfceforensic.spec
 
 ```
+
 
 ## List of scripts
 
