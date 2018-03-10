@@ -166,7 +166,6 @@ packages_to_add:
 	net-wireless/bluez-hcidump,
 	sys-apps/hdparm,
 	sys-apps/sdparm,
-	sys-apps/tuxonice-userui,
 	sys-apps/usbutils,
 	sys-auth/polkit,
 	sys-auth/polkit-qt,
