@@ -126,7 +126,6 @@ packages_to_add:
 	sys-apps/hdparm,
 	sys-apps/sdparm,
 	sys-apps/usbutils,
-	sys-apps/tuxonice-userui,
 	sys-block/gparted,
 	sys-block/parted,
 	sys-fs/dmraid,

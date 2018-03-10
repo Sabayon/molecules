@@ -87,7 +87,6 @@ packages_to_add:
 	sys-apps/lsb-release,
 	sys-apps/hdparm,
 	sys-apps/sdparm,
-	sys-apps/tuxonice-userui,
 	sys-apps/usbutils,
 	sys-apps/usb_modeswitch,
 	sys-auth/polkit,
