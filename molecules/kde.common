@@ -83,6 +83,7 @@ packages_to_add:
 	kde-apps/kapman,
 	kde-apps/kcalc,
 	kde-apps/kcharselect,
+	kde-apps/kcolorchooser,
 	kde-plasma/kde-gtk-config,
 	kde-plasma/plasma-desktop,
 	kde-plasma/plasma-nm,
