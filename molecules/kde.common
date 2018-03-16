@@ -140,6 +140,7 @@ packages_to_add:
 	kde-misc/kio-gdrive,
 	kde-misc/magneto-kde,
 	kde-misc/yakuake,
+	media-gfx/inkscape,
 	media-libs/libdvdcss,
 	media-libs/libdvdnav,
 	media-libs/libdvdplay,
