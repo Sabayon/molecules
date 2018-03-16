@@ -140,6 +140,7 @@ packages_to_add:
 	kde-frameworks/oxygen-icons,
 	kde-misc/kio-gdrive,
 	kde-misc/magneto-kde,
+	kde-misc/skanlite,
 	kde-misc/yakuake,
 	media-gfx/inkscape,
 	media-libs/libdvdcss,
