@@ -110,7 +110,6 @@ packages_to_add:
 	kde-apps/knetwalk,
 	kde-apps/kolf,
 	kde-apps/kollision,
-	kde-apps/konqueror,
 	kde-apps/konquest,
 	kde-apps/konsole,
 	kde-apps/kpat,
