@@ -93,6 +93,7 @@ packages_to_add:
 	kde-apps/kde-l10n,
 	kde-apps/kdeadmin-meta,
 	kde-apps/kdenetwork-filesharing,
+	kde-apps/kdenlive,
 	kde-apps/kdf,
 	kde-apps/kdialog,
 	kde-apps/keditbookmarks,
