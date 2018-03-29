@@ -82,6 +82,7 @@ packages_to_add:
 	media-libs/libdvdplay,
 	media-libs/libdvdread,
 	media-sound/audacious,
+	media-sound/pavucontrol,
 	media-video/totem,
 	net-dialup/globespan-adsl,
 	net-dialup/ppp,
@@ -121,7 +122,9 @@ packages_to_add:
 	xfce-extra/xfce4-mixer,
 	xfce-extra/xfce4-notifyd,
 	xfce-extra/xfce4-places-plugin,
-	xfce-extra/xfce4-screenshooter
+	xfce-extra/xfce4-pulseaudio-plugin,
+	xfce-extra/xfce4-screenshooter,
+	xfce-extra/xfce4-volumed-pulse
 
 # x11-themes/sabayon-artwork-gnome:
 #   provides the gtk theme for lxdm
