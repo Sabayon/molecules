@@ -70,6 +70,7 @@ packages_to_add:
 	app-misc/sabayon-greeter,
 	app-office/libreoffice,
 	app-text/pastebunz,
+	dev-libs/keybinder,
 	games-action/minetest,
 	games-misc/cowsay,
 	gnome-extra/nm-applet-gtk2,
@@ -77,11 +78,13 @@ packages_to_add:
 	media-gfx/gimp,
 	media-gfx/ristretto,
 	media-gfx/shotwell,
+	media-libs/libcanberra,
 	media-libs/libdvdcss,
 	media-libs/libdvdnav,
 	media-libs/libdvdplay,
 	media-libs/libdvdread,
 	media-sound/audacious,
+	media-sound/pavucontrol,
 	media-video/totem,
 	net-dialup/globespan-adsl,
 	net-dialup/ppp,
@@ -114,6 +117,7 @@ packages_to_add:
 	x11-themes/iottinka-artwork,
 	x11-themes/sabayon-artwork-core,
 	x11-themes/sabayon-artwork-grub,
+	x11-themes/sound-theme-freedesktop,
 	x11-themes/tango-icon-theme,
 	xfce-base/xfce4-panel,
 	xfce-extra/tumbler,
@@ -121,7 +125,9 @@ packages_to_add:
 	xfce-extra/xfce4-mixer,
 	xfce-extra/xfce4-notifyd,
 	xfce-extra/xfce4-places-plugin,
-	xfce-extra/xfce4-screenshooter
+	xfce-extra/xfce4-pulseaudio-plugin,
+	xfce-extra/xfce4-screenshooter,
+	xfce-extra/xfce4-volumed-pulse
 
 # x11-themes/sabayon-artwork-gnome:
 #   provides the gtk theme for lxdm
