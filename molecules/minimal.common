@@ -56,7 +56,7 @@ packages_to_add:
 	sys-boot/os-prober,
 	sys-power/cpupower,
 	www-client/midori,
-	x11-themes/gnome-icon-theme,
+	x11-themes/adwaita-icon-theme,
 	x11-themes/sabayon-artwork-core,
 	x11-themes/sabayon-artwork-grub
 
