@@ -79,7 +79,6 @@ packages_to_add:
 	media-gfx/shotwell,
 	media-libs/libdvdcss,
 	media-libs/libdvdnav,
-	media-libs/libdvdplay,
 	media-libs/libdvdread,
 	media-sound/audacious,
 	media-sound/pavucontrol,
