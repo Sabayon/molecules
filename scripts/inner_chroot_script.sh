@@ -114,6 +114,10 @@ sed -i "/^::1/ s/localhost/localhost sabayon/" /etc/hosts
 # setup postfix local mail aliases
 newaliases
 
+equo i sys-boot/plymouth x11-themes/sabayon-artwork-plymouth-default-17
+
+echo "PLYMOUTH THEME LIST:"
+plymouth-set-default-theme --list
 # Set Plymouth default theme, newer artwork has the sabayon theme
 is_ply_sabayon=$(plymouth-set-default-theme --list | grep sabayon)
 if [ -n "${is_ply_sabayon}" ]; then
