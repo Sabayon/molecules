@@ -66,6 +66,7 @@ packages_to_add:
 	app-dicts/myspell-fr,
 	app-dicts/myspell-it,
 	app-dicts/myspell-nl,
+        app-misc/calamares-sabayon,
 	app-misc/gnote,
 	app-misc/sabayon-greeter,
 	app-office/libreoffice,

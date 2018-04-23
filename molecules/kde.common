@@ -66,6 +66,7 @@ packages_to_add:
 	app-dicts/myspell-nl,
 	app-editors/atom,
 	app-misc/sabayon-greeter,
+	app-misc/calamares-sabayon,
 	app-misc/sabayon-skel,
 	app-misc/sabayon-version,
 	app-office/libreoffice,
