@@ -6,7 +6,6 @@ packages_to_add:
 	@X,
 	app-arch/unrar,
 	app-misc/sabayon-skel,
-	app-admin/anaconda,
 	media-fonts/dejavu,
 	media-fonts/corefonts,
 	media-libs/libtxc_dxtn,
