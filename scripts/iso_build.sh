@@ -95,11 +95,51 @@ get_iso_name () {
     echo "Xfce"
   elif [ ${image} == "minimal" ] ; then
     echo "Minimal"
-  elif [ ${images} == "server" ] ; then
+  elif [ ${image} == "server" ] ; then
     echo "Server"
   elif [ ${image} == "lxqt" ] ; then
     echo "LXQt"
   fi
+}
+
+prepare_specs_tasks () {
+  local isoname=""
+  local image=""
+
+  for i in ${!LIST_IMAGES[@]}; do
+
+    image=${LIST_IMAGES[$i]}
+
+    if [ ${image} == "tarball" ] ; then
+      REMASTER_TAR_SPECS+=( "sabayon-amd64-spinbase-tarball-template.spec" )
+      REMASTER_TAR_SPECS_TAR+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_tarball.tar.gz" )
+    elif [ ${image} == "spinbase" ] ; then
+
+      isoname=$(get_iso_name ${LIST_IMAGES[$i]})
+      if [ ${ONLY_DEV} -eq 0 ] ; then
+        SOURCE_SPECS+=( "sabayon-amd64-${LIST_IMAGES[$i]}.spec" )
+        SOURCE_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_${isoname}.iso" )
+      fi
+
+      if [ ${SKIP_DEV} -eq 0 ] ; then
+        SOURCE_SPECS+=( "sabayon-amd64-${LIST_IMAGES[$i]}-dev.spec" )
+        SOURCE_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_${isoname}-dev.iso" )
+      fi
+
+    else
+      isoname=$(get_iso_name ${LIST_IMAGES[$i]})
+      if [ ${ONLY_DEV} -eq 0 ] ; then
+        REMASTER_SPECS+=( "sabayon-amd64-${LIST_IMAGES[$i]}.spec" )
+        REMASTER_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_${isoname}.iso" )
+      fi
+
+      if [ ${SKIP_DEV} -eq 0 ] ; then
+        REMASTER_SPECS+=( "sabayon-amd64-${LIST_IMAGES[$i]}-dev.spec" )
+        REMASTER_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_${isoname}-dev.iso" )
+      fi
+    fi
+
+  done
 }
 
 prepare_env () {
@@ -107,7 +147,7 @@ prepare_env () {
   local daily_release="$(date -u +%Y%m%d)"
 
   if [ ${CUSTOM_IMAGES} -eq 0 ] ; then
-    if [ ${ACTION} == 'dailybase' || ] ; then
+    if [ "${ACTION}" == "dailybase" ] ; then
       LIST_IMAGES+=(
         "spinbase"
       )
@@ -133,49 +173,13 @@ prepare_env () {
     SABAYON_RELEASE=${daily_release}
     export BUILDING_DAILY=1
 
-    local isoname=""
-    local image=""
-    for i in ${!LIST_IMAGES[@]}; do
-
-      image=${LIST_IMAGES[$i]}
-
-      if [ ${image} == "tarball" ] ; then
-        REMASTER_TAR_SPECS+=( "sabayon-amd64-spinbase-tarball-template.spec" )
-        REMASTER_TAR_SPECS_TAR+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_tarball.tar.gz" )
-      elif [ ${image} == "spinbase" ] ; then
-
-        isoname=$(get_iso_name ${LIST_IMAGES[$i]})
-        if [ ${ONLY_DEV} -eq 0 ] ; then
-          SOURCE_SPECS+=( "sabayon-amd64-${LIST_IMAGES[$i]}.spec" )
-          SOURCE_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_${isoname}.iso" )
-        fi
-
-        if [ ${SKIP_DEV} -eq 0 ] ; then
-          SOURCE_SPECS+=( "sabayon-amd64-${LIST_IMAGES[$i]}-dev.spec" )
-          SOURCE_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_${isoname}-dev.iso" )
-        fi
-
-      else
-        isoname=$(get_iso_name ${LIST_IMAGES[$i]})
-        if [ ${ONLY_DEV} -eq 0 ] ; then
-          REMASTER_SPECS+=( "sabayon-amd64-${LIST_IMAGES[$i]}.spec" )
-          REMASTER_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_${isoname}.iso" )
-        fi
-
-        if [ ${SKIP_DEV} -eq 0 ] ; then
-          REMASTER_SPECS+=( "sabayon-amd64-${LIST_IMAGES[$i]}-dev.spec" )
-          REMASTER_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_${isoname}-dev.iso" )
-        fi
-      fi
-
-    done
+    prepare_specs_tasks
 
     # Weekly molecules
     if [ "${ACTION}" = "weekly" ]; then
       REMASTER_SPECS+=( "sabayon-amd64-xfceforensic.spec" )
       REMASTER_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_ForensicsXfce.iso" )
     fi
-
 
   #############################################################
   # ACTION: dailybase
@@ -227,42 +231,10 @@ prepare_env () {
     _current_month=$(date +%Y-%m-%d)
     CHANGELOG_DATES="${_previous_month} ${_current_month}"
 
-    local isoname=""
-    local image=""
-    for i in ${!LIST_IMAGES[@]}; do
+    # Force skipping of dev ISO for monthly/release ISO.
+    SKIP_DEV=1
 
-      image=${LIST_IMAGES[$i]}
-
-      if [ ${image} == "tarball" ] ; then
-        REMASTER_TAR_SPECS+=( "sabayon-amd64-spinbase-tarball-template.spec" )
-        REMASTER_TAR_SPECS_TAR+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_tarball.tar.gz" )
-      elif [ ${image} == "spinbase" ] ; then
-
-        isoname=$(get_iso_name ${LIST_IMAGES[$i]})
-        if [ ${ONLY_DEV} -eq 0 ] ; then
-          SOURCE_SPECS+=( "sabayon-amd64-${LIST_IMAGES[$i]}.spec" )
-          SOURCE_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_${isoname}.iso" )
-        fi
-
-        if [ ${SKIP_DEV} -eq 0 ] ; then
-          SOURCE_SPECS+=( "sabayon-amd64-${LIST_IMAGES[$i]}-dev.spec" )
-          SOURCE_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_${isoname}-dev.iso" )
-        fi
-
-      else
-        isoname=$(get_iso_name ${LIST_IMAGES[$i]})
-        if [ ${ONLY_DEV} -eq 0 ] ; then
-          REMASTER_SPECS+=( "sabayon-amd64-${LIST_IMAGES[$i]}.spec" )
-          REMASTER_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_${isoname}.iso" )
-        fi
-
-        if [ ${SKIP_DEV} -eq 0 ] ; then
-          REMASTER_SPECS+=( "sabayon-amd64-${LIST_IMAGES[$i]}-dev.spec" )
-          REMASTER_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_${isoname}-dev.iso" )
-        fi
-      fi
-
-    done
+    prepare_specs_tasks
 
   fi
 
