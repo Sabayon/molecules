@@ -107,17 +107,23 @@ prepare_env () {
   local daily_release="$(date -u +%Y%m%d)"
 
   if [ ${CUSTOM_IMAGES} -eq 0 ] ; then
-    LIST_IMAGES+=(
-    "spinbase"
-    "gnome"
-    "kde"
-    "mate"
-    "xfce"
-    "minimal"
-    "server"
-    "lxqt"
-    "tarball"
-    )
+    if [ ${ACTION} == 'dailybase' || ] ; then
+      LIST_IMAGES+=(
+        "spinbase"
+      )
+    else
+      LIST_IMAGES+=(
+        "spinbase"
+        "gnome"
+        "kde"
+        "mate"
+        "xfce"
+        "minimal"
+        "server"
+        "lxqt"
+        "tarball"
+      )
+    fi
   fi
 
   #############################################################
@@ -179,6 +185,7 @@ prepare_env () {
     SABAYON_RELEASE=${daily_release}
     export BUILDING_DAILY=1
 
+    local i=0
     isoname=$(get_iso_name ${LIST_IMAGES[$i]})
     if [ ${ONLY_DEV} -eq 0 ] ; then
       SOURCE_SPECS+=( "sabayon-amd64-${LIST_IMAGES[$i]}.spec" )
