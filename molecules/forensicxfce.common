@@ -117,7 +117,7 @@ packages_to_add:
 	sys-block/gparted,
 	sys-boot/os-prober,
 	sys-fs/extundelete,
-	www-client/google-chrome,
+	www-client/firefox,
 	x11-libs/xcb-util-image,
 	x11-libs/xcb-util-keysyms,
 	x11-libs/xcb-util-wm,

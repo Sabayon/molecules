@@ -132,7 +132,7 @@ packages_to_add:
 	sys-fs/ntfs3g,
 	sys-power/acpid,
 	sys-power/cpupower,
-	www-client/google-chrome,
+	www-client/firefox,
 	x11-apps/xdm,
 	x11-libs/libva-intel-driver,
 	x11-libs/libva-vdpau-driver,

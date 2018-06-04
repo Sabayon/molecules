@@ -71,7 +71,7 @@ packages_to_add:
 	sys-boot/os-prober,
 	sys-fs/ntfs3g,
 	sys-power/cpupower,
-	www-client/google-chrome,
+	www-client/firefox,
 	x11-misc/magneto-gtk,
 	x11-misc/mate-notification-daemon,
 	x11-misc/lightdm-base,
