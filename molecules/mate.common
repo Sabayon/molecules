@@ -55,7 +55,7 @@ packages_to_add:
         app-misc/calamares-sabayon,
 	app-text/pastebunz,
 	app-office/libreoffice,
-	games-action/minetest,
+	games-action/minetest_game,
 	gnome-extra/nm-applet,
 	mate-base/mate,
 	media-plugins/alsa-plugins,

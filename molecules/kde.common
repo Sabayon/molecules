@@ -71,7 +71,7 @@ packages_to_add:
 	app-misc/sabayon-version,
 	app-office/libreoffice,
 	app-text/pastebunz,
-	games-action/minetest,
+	games-action/minetest_game,
 	games-misc/cowsay,
 	kde-apps/ark,
 	kde-apps/bomber,
