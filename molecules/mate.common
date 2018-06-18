@@ -58,6 +58,7 @@ packages_to_add:
 	games-action/minetest_game,
 	gnome-extra/nm-applet,
 	mate-base/mate,
+	mate-extra/mate-sensors-applet,
 	media-plugins/alsa-plugins,
 	media-sound/audacious,
 	media-video/mpv,
