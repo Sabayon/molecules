@@ -178,10 +178,8 @@ setup_proprietary_gfx_drivers() {
 	local pkgs_dir=/var/lib/entropy/client/packages
 	local cd_dir=/install-data/drivers
 	local pkgs=(
-		"=x11-drivers/nvidia-userspace-304*"
-		"=x11-drivers/nvidia-drivers-304*${kernel_tag}"
-		"=x11-drivers/nvidia-userspace-340*"
-		"=x11-drivers/nvidia-drivers-340*${kernel_tag}"
+		"=x11-drivers/nvidia-userspace-390*"
+		"=x11-drivers/nvidia-drivers-390*${kernel_tag}"
 	)
 	local ts=
 	local tp=
