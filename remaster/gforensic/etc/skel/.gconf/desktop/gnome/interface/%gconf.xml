@@ -20,7 +20,7 @@ tooltip_fg_color:#000000000000
 tooltip_bg_color:#ffff99995555</stringvalue>
 	</entry>
 	<entry name="gtk_theme" mtime="1244414091" type="string">
-		<stringvalue>ClearlooksSL</stringvalue>
+		<stringvalue>Qogir-dark</stringvalue>
 	</entry>
 	<entry name="icon_theme" mtime="1244414091" type="string">
 		<stringvalue>gnome-brave</stringvalue>
