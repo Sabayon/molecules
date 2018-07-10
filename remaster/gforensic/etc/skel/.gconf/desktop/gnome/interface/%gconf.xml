@@ -23,6 +23,6 @@ tooltip_bg_color:#ffff99995555</stringvalue>
 		<stringvalue>Qogir-dark</stringvalue>
 	</entry>
 	<entry name="icon_theme" mtime="1244414091" type="string">
-		<stringvalue>gnome-brave</stringvalue>
+		<stringvalue>OSDark</stringvalue>
 	</entry>
 </gconf>
