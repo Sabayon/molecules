@@ -44,7 +44,6 @@ sd_disable() {
 
 basic_environment_setup() {
 	eselect opengl set xorg-x11
-	eselect mesa set --auto
 
 	sd_disable sabayon-mce
 
