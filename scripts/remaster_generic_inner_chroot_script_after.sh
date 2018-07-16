@@ -123,10 +123,7 @@ setup_networkmanager() {
 xfceforensic_remove_skel_stuff() {
 	# remove no longer needed folders/files
 	rm -rf /etc/skel/.config/xfce4/desktop
-	rm -rf /etc/skel/.config/xfce4/panel
-	rm -rf /etc/skel/Desktop/*
-	rm -rf /usr/share/backgrounds/iottinka
-	rm -rf /usr/share/wallpapers/*
+	rm -rf /etc/skel/.config/xfce4/panel	
 }
 
 setup_oss_gfx_drivers() {
@@ -352,7 +349,7 @@ prepare_gnome() {
 }
 
 prepare_xfceforensic() {
-	setup_default_xsession "xfce"
+	setup_default_xsession "gnome"
 	xfceforensic_remove_skel_stuff
 }
 
