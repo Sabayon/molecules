@@ -9,7 +9,7 @@ release_string: Sabayon Linux
 release_file: /etc/sabayon-edition
 
 # ISO Image title
-iso_title: Sabayon Forensics Xfce
+iso_title: Sabayon Forensics Gnome
 
 # Enable XZ compression in mksquashfs
 extra_mksquashfs_parameters: -comp xz
@@ -52,8 +52,7 @@ packages_to_remove:
 	app-dicts/myspell-nl,	
 	x11-wm/fluxbox,
 	media-gfx/shotwell,
-	games-misc/cowsay,
-	app-editors/gedit
+	games-misc/cowsay	
 
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
@@ -61,7 +60,6 @@ packages_to_add:
 	app-antivirus/clamav,
 	app-antivirus/clamtk,
 	app-arch/xarchiver,
-	app-cdr/xfburn,
 	app-forensics/magicrescue,
 	app-forensics/cmospwd,
 	app-forensics/rkhunter,
@@ -87,7 +85,6 @@ packages_to_add:
 	dev-util/geany-plugins,
 	gnome-extra/nm-applet,
 	gnome-extra/gnome-tweak-tool,
-	gnome-base/nautilus,
 	dev-vcs/git,
 	net-analyzer/ettercap,
 	net-analyzer/traceroute,
@@ -121,12 +118,8 @@ packages_to_add:
 	x11-libs/xcb-util-wm,
 	x11-terms/gnome-terminal,
 	x11-themes/gtk-engines-murrine,
-	x11-misc/pcmanfm,
 	x11-wm/awesome,
-	xfce-extra/thunar-volman,
-	xfce-extra/tumbler
-
-
+	
 # Custom shell call to packages add (default is: equo install)
 # custom_packages_add_cmd:
 
