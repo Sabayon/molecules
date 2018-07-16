@@ -40,26 +40,15 @@ extra_mksquashfs_parameters: -comp xz
 
 # List of packages that would be removed from chrooted system (comma separated )
 packages_to_remove:
-	app-dicts/aspell-de,
-	app-dicts/aspell-fr,
-	app-dicts/aspell-it,
-	app-dicts/aspell-nl,
-	app-dicts/aspell-pl,
-	app-dicts/myspell-de,
-	app-dicts/myspell-es,
-	app-dicts/myspell-fr,
-	app-dicts/myspell-it,
-	app-dicts/myspell-nl,	
 	x11-wm/fluxbox,
-	media-gfx/shotwell,
-	games-misc/cowsay	
+	games-misc/cowsay,
+	games-action/minetest_game
 
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
 	app-admin/testdisk,
 	app-antivirus/clamav,
 	app-antivirus/clamtk,
-	app-arch/xarchiver,
 	app-forensics/magicrescue,
 	app-forensics/cmospwd,
 	app-forensics/rkhunter,
