@@ -123,7 +123,9 @@ setup_networkmanager() {
 xfceforensic_remove_skel_stuff() {
 	# remove no longer needed folders/files
 	rm -rf /etc/skel/.config/xfce4/desktop
-	rm -rf /etc/skel/.config/xfce4/panel	
+	rm -rf /etc/skel/.config/xfce4/panel
+	glib-compile-schemas /usr/share/glib-2.0/schemas/
+	gsettings set org.gnome.shell.extensions.dash-to-dock extend-height true
 }
 
 setup_oss_gfx_drivers() {
