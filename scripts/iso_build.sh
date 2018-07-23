@@ -178,7 +178,7 @@ prepare_env () {
     # Weekly molecules
     if [ "${ACTION}" = "weekly" ]; then
       REMASTER_SPECS+=( "sabayon-amd64-xfceforensic.spec" )
-      REMASTER_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_ForensicsXfce.iso" )
+      REMASTER_SPECS_ISO+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_ForensicsGnome.iso" )
     fi
 
   #############################################################
