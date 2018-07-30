@@ -96,6 +96,7 @@ packages_to_add:
 	net-misc/dropbox,
 	net-proxy/torsocks,
 	net-wireless/aircrack-ng,
+	sys-apps/firejail,
 	sys-apps/mlocate,
 	sys-apps/gnome-disk-utility,
 	sys-block/gparted,
