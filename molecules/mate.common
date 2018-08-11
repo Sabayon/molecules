@@ -52,7 +52,7 @@ packages_to_add:
 	app-misc/sabayon-greeter,
 	app-editors/atom,
 	app-crypt/pinentry-gtk2,
-        app-misc/calamares-sabayon,
+	app-misc/calamares-sabayon,
 	app-text/pastebunz,
 	app-office/libreoffice,
 	games-action/minetest_game,
