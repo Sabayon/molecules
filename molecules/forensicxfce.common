@@ -42,7 +42,10 @@ extra_mksquashfs_parameters: -comp xz
 packages_to_remove:
 	x11-wm/fluxbox,
 	games-misc/cowsay,
-	games-action/minetest_game
+	games-action/minetest_game,
+	dev-python/wxpython,
+	media-video/pitivi
+	
 
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
