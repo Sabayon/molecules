@@ -16,5 +16,6 @@ cp "${GFORENSIC_DIR}"/files/org.freedesktop.udisks.policy "${CHROOT_DIR}/usr/sha
 cp "${GFORENSIC_DIR}"/files/org.freedesktop.udisks2.policy "${CHROOT_DIR}/usr/share/polkit-1/actions/org.freedesktop.udisks2.policy"
 cp "${GFORENSIC_DIR}"/files/theme.lua "${CHROOT_DIR}/etc/xdg/awesome/themes/default/theme.lua"
 cp -r "${GFORENSIC_DIR}"/files/Qogir-dark "${CHROOT_DIR}/usr/share/themes/"
+cp "${GFORENSIC_DIR}"/files/forensic-desktops/* "${CHROOT_DIR}/usr/share/applications/
 cp "${GFORENSIC_DIR}"/files/org.sabayon.gschema.override "${CHROOT_DIR}/usr/share/glib-2.0/schemas/org.sabayon.gschema.override"
 cp "${GFORENSIC_DIR}"/files/org.gnome.shell.extensions.dash-to-dock.gschema.xml "${CHROOT_DIR}/usr/share/glib-2.0/schemas/org.gnome.shell.extensions.dash-to-dock.gschema.xml"

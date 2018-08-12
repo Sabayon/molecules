@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=rootkithunter update
+Encoding=UTF-8
+Exec=sh -c "rkhunter --update;${SHELL:-bash}"
+Icon=
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=Forensics;

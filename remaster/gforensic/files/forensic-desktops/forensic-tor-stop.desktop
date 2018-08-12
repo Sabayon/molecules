@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=TOR Stop
+Encoding=UTF-8
+Exec=sh -c "sudo systemctl stop tor;${SHELL:-bash}"
+Icon=
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=Forensics;

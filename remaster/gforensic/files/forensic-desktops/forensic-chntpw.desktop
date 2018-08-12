@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=chntpw
+Encoding=UTF-8
+Exec=sh -c "chntpw --help;${SHELL:-bash}"
+Icon=
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=Forensics;

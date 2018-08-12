@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=rifiuti
+Encoding=UTF-8
+Exec=sh -c "rifiuti --help;${SHELL:-bash}"
+Icon=
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=Forensics;

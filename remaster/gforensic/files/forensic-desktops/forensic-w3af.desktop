@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=w3af GUI
+Encoding=UTF-8
+Exec=sh -c "sudo w3af_gui;${SHELL:-bash}"
+Icon=
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=Forensics;

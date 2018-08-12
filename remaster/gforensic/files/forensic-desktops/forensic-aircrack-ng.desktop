@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=aircrack-ng
+Encoding=UTF-8
+Exec=sh -c "aircrack-ng --help;${SHELL:-bash}"
+Icon=
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=Forensics;

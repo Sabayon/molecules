@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Exec=xdg-open https://wiki.sleuthkit.org/index.php?title=The_Sleuth_Kit
+Icon=
+Name=The Sleuth Kit
+Categories=Forensics;

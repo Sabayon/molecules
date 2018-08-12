@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Autopsy Start
+Encoding=UTF-8
+Exec=sh -c "sudo autopsy;${SHELL:-bash}"
+Icon=
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=Forensics;

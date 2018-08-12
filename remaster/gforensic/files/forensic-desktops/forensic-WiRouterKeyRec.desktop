@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=WiRouterKeyRec
+Encoding=UTF-8
+Exec=sh -c "WiRouterKeyRec --help;${SHELL:-bash}"
+Icon=
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=Forensics;

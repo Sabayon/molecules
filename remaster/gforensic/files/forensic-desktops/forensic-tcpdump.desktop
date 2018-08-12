@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=tcpdump
+Encoding=UTF-8
+Exec=sh -c "sudo tcpdmatch --help;${SHELL:-bash}"
+Icon=
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=Forensics;

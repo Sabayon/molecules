@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=mac-robber
+Encoding=UTF-8
+Exec=sh -c "mac-robber -V;${SHELL:-bash}"
+Icon=
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=Forensics;

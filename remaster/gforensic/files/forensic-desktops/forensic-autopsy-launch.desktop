@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Exec=xdg-open http://localhost:9999/autopsy
+Icon=
+Name=Autopsy Launch
+Categories=Forensics;

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=memdump
+Encoding=UTF-8
+Exec=sh -c "sudo memdump --help;${SHELL:-bash}"
+Icon=
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=Forensics;

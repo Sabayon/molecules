@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=traceroute
+Encoding=UTF-8
+Exec=sh -c "traceroute --help;${SHELL:-bash}"
+Icon=
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=Forensics;
