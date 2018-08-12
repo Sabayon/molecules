@@ -1,52 +1,22 @@
-# Define an alternative execution strategy, in this case, the value must be
-# "iso_remaster"
-execution_strategy: iso_remaster
-
-# Release string
-release_string: Sabayon Linux
-
-# File to write release string
-release_file: /etc/sabayon-edition
-
 # ISO Image title
 iso_title: Sabayon Forensics Gnome
-
-# Enable XZ compression in mksquashfs
-extra_mksquashfs_parameters: -comp xz
-
-# Outer chroot script command, to be executed outside destination chroot before
-# before entering it (and before inner_chroot_script)
-%env outer_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_pre.sh
-
-# Execute repositories update here, in a more fault-tolerant flavor
-%env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_generic_inner_chroot_script.sh
-
-# Inner chroot script command, to be executed inside destination chroot after
-# packages installation and removal
-%env inner_chroot_script_after: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_generic_inner_chroot_script_after.sh xfceforensic
 
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and AFTER inner_chroot_script)
 %env outer_chroot_script_after: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/xfce_remaster_post.sh
 
-# Used to umount /proc and unbind packages dir
-%env error_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/remaster_error_script.sh
-
 # Pre-ISO building script. Hook to be able to copy kernel images in place, for example
 %env pre_iso_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/xfceforensic_pre_iso_script.sh
 
-# Destination directory for the ISO image path (MANDATORY)
-%env destination_iso_directory: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso
-
 # List of packages that would be removed from chrooted system (comma separated )
 packages_to_remove:
-	x11-wm/fluxbox,
 	games-misc/cowsay,
 	games-action/minetest_game,
 	dev-python/wxpython,
 	media-video/pitivi
+	games-action/minetest,
+	dev-python/wxpython
 	
-
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
 	app-admin/testdisk,
@@ -60,12 +30,10 @@ packages_to_add:
 	app-forensics/mac-robber,
 	app-forensics/memdump,
 	app-forensics/aide,
-	app-forensics/rdd,
 	app-forensics/rifiuti-20040505_p1,
 	app-forensics/unhide-20130526,
 	app-crypt/chntpw,
 	app-crypt/fcrackzip,
-	app-crypt/hashcat-bin,
 	app-crypt/johntheripper,
 	app-crypt/gifshuffle,
 	app-crypt/pdfcrack,
@@ -112,19 +80,4 @@ packages_to_add:
 	x11-terms/gnome-terminal,
 	x11-themes/gtk-engines-murrine,
 	x11-wm/awesome,
-	
-# Custom shell call to packages add (default is: equo install)
-# custom_packages_add_cmd:
 
-# Custom command for updating repositories (default is: equo update)
-# repositories_update_cmd:
-
-# Determine whether repositories update should be run (if packages_to_add is set)
-# (default is: no), values are: yes, no.
-execute_repositories_update: no
-
-# Directories to remove completely (comma separated)
-# paths_to_remove:
-
-# Directories to empty (comma separated)
-# paths_to_empty:

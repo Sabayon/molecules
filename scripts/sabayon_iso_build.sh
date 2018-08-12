@@ -14,11 +14,8 @@ ISO_TAG="DAILY"
 OLD_ISO_TAG=""  # used to remove OLD ISO images the local dir
 DISTRO_NAME="Sabayon_Linux"
 ISO_DIR="daily"
-CHANGELOG_DATES=""
 DAILY_TMPDIR=
-LOG_FILE=
 PULL_SKIP=0
-EMAIL_SKIP=0
 EXPORT_SKIP=0
 
 # We set our own stuff, do not inherit from env
@@ -42,29 +39,23 @@ export ETP_NONINTERACTIVE=1
 export MOLECULE_TMPDIR="${MOLECULE_TMPDIR:-/var/cache/molecule}"
 
 # Sabayon Server Stuff
-SABAYON_SERVER="${SABAYON_SERVER:-entropy@pkg.sabayon.org}"
-SABAYON_SERVER_DIR="${SABAYON_SERVER_DIR:-/sabayon/rsync}"
-SABAYON_RSYNC_SERVER="${SABAYON_RSYNC_SERVER:-rsync.sabayon.org}"
 SABAYON_DOCKER_SRC_IMAGE=${SABAYON_DOCKER_SRC_IMAGE:-sabayon/spinbase-amd64:latest}
 SABAYON_UNDOCKER_OUTPUTDIR=${SABAYON_UNDOCKER_OUTPUTDIR:-${SABAYON_MOLECULE_HOME}/sources/amd64-docker-spinbase}
 # Custom options
 SABAYON_KERNEL_VERSION=${SABAYON_KERNEL_VERSION:-4.14}
+SABAYON_USE_IMG=${SABAYON_USE_IMG:-0}
+
 
 export SABAYON_KERNEL_VERSION
 
 build_info () {
 
   echo "
-DO_PUSH                    = ${DO_PUSH}
-DO_PUSHONLY                = ${DO_PUSHONLY}
-DO_SLEEPNIGHT              = ${DO_SLEEPNIGHT}
-EMAIL_SKIP                 = ${EMAIL_SKIP}
 PULL_SKIP                  = ${PULL_SKIP}
 EXPORT_SKIP                = ${EXPORT_SKIP}
 SKIP_DEV                   = ${SKIP_DEV}
 SKIP_DOCKER_RMI            = ${SKIP_DOCKER_RMI}
 ONLY_DEV                   = ${ONLY_DEV}
-LOG_FILE                   = ${LOG_FILE}
 LIST_IMAGES                = ${LIST_IMAGES[@]}
 SABAYON_KERNEL_VERSION     = ${SABAYON_KERNEL_VERSION}
 SABAYON_SERVER             = ${SABAYON_SERVER}
@@ -75,6 +66,10 @@ SABAYON_UNDOCKER_OUTPUTDIR = ${SABAYON_UNDOCKER_OUTPUTDIR}
 SABAYON_EXTRA_PKGS         = ${SABAYON_EXTRA_PKGS}
 MOLECULE_TMPDIR            = ${MOLECULE_TMPDIR}
 SABAYON_ENMAN_REPOS        = ${SABAYON_ENMAN_REPOS}
+SABAYON_SOURCE_ISO         = ${SABAYON_SOURCE_ISO}
+SABAYON_SOURCE_ISO_DEV     = ${SABAYON_SOURCE_ISO_DEV}
+SABAYON_USE_IMG            = ${SABAYON_USE_IMG}
+
 
 "
 
@@ -99,7 +94,26 @@ get_iso_name () {
     echo "Server"
   elif [ ${image} == "lxqt" ] ; then
     echo "LXQt"
+  elif [ ${image} == "gnome-forensics" ] ; then
+    echo "ForensicsGnome"
   fi
+}
+
+# return 0 if spinbase is not in list
+# return 1 if spinbase is in list
+has_spinbase () {
+  local ans=0
+  local image=""
+
+  for i in ${!LIST_IMAGES[@]}; do
+    image=${LIST_IMAGES[$i]}
+    if [ ${image} == "spinbase" ] ; then
+      ans=1
+      break
+    fi
+  done
+
+  return $ans
 }
 
 prepare_specs_tasks () {
@@ -229,7 +243,6 @@ prepare_env () {
     ISO_DIR="monthly"
     _previous_month=$(date -d "- 1 month" "+%Y-%m-%d")
     _current_month=$(date +%Y-%m-%d)
-    CHANGELOG_DATES="${_previous_month} ${_current_month}"
 
     # Force skipping of dev ISO for monthly/release ISO.
     SKIP_DEV=1
@@ -238,46 +251,20 @@ prepare_env () {
 
   fi
 
+  # Set SABAYON_SOURCE_ISO and SABAYON_SOURCE_ISO_DEV for remaster iso images
+  SABAYON_SOURCE_ISO=${SABAYON_SOURCE_ISO:-Sabayon_Linux_${ISO_TAG:-LATEST}_amd64_SpinBase.iso}
+  SABAYON_SOURCE_ISO_DEV=${SABAYON_SOURCE_ISO_DEV:-Sabayon_Linux_${ISO_TAG:-LATEST}_amd64_SpinBase-dev.iso}
+
   # molecules are referencing ISO_TAG in their source_iso parameter
   export ISO_TAG
   # to make ISO remaster spec files working (pre_iso_script) and
   # make molecules grab a proper release version
   export SABAYON_RELEASE
 
-  if [ -z "${LOG_FILE}" ] ; then
-    # Create log dir if it does not exist
-    mkdir -p /var/log/molecule || exit 1
-
-    LOG_FILE="/var/log/molecule/autobuild-${SABAYON_RELEASE}-pid-${$}-rnd-${RANDOM}.log"
-  fi
+  export SABAYON_SOURCE_ISO SABAYON_SOURCE_ISO_DEV
 
   mkdir -p "${MOLECULE_TMPDIR}" || exit 1
   mkdir -p ${SABAYON_MOLECULE_HOME}/iso || exit 1
-
-}
-
-
-sleepnight() {
-  if [ ${DO_SLEEPNIGHT} -eq 1 ]; then
-    target_h=22 # 22pm
-    current_h=$(date +%H)
-    current_h=${current_h/0} # remove leading 0
-    delta_h=$(( target_h - current_h ))
-    if [ ${current_h} -ge 0 ] && [ ${current_h} -le 6 ]; then
-      # If it's past midnight and no later than 7am
-      # just push
-      echo "Just pusing out now"
-    elif [ ${delta_h} -gt 0 ]; then
-      delta_s=$(( delta_h * 3600 ))
-      echo "Sleeping for ${delta_h} hours..."
-      sleep ${delta_s} || exit 1
-    elif [ ${delta_h} -lt 0 ]; then
-      # between 22 and 24, run!
-      echo "I'm after 22pm, running"
-    else
-      echo "No need to sleep"
-    fi
-  fi
 }
 
 cleanup_on_exit() {
@@ -286,97 +273,21 @@ cleanup_on_exit() {
     # don't care about races
     DAILY_TMPDIR=""
   fi
-}
 
-safe_run() {
-  local done=0
-  local count="${1}"
-  shift
+  local file=""
+  local has_spinbase=0
+  has_spinbase || has_spinbase=1
 
-  for ((i=0; i < ${count}; i++)); do
-    "${@}" && {
-      done=1;
-      break;
-    }
-    if [ ${i} -le 3 ]; then
-      sleep 10 || return 1
-    elif [ ${i} -le 6 ]; then
-      sleep 600 || return 1
-    else
-      sleep 1800 || return 1
-    fi
-  done
-  if [ "${done}" = "0" ]; then
-    return 1
+  if [ ${has_spinbase} -eq 0 ] ; then
+    echo "Cleaning Spinbase ISOs..."
+
+    file=${SABAYON_MOLECULE_HOME}/iso/${SABAYON_SOURCE_ISO}
+    rm ${file} ${file}.md5 ${file}.pkglist
+    file=${SABAYON_MOLECULE_HOME}/iso/${SABAYON_SOURCE_ISO_DEV}
+    rm ${file} ${file}.md5 ${file}.pkglist
+  else
+    echo "Leave Spinbase ISOs...."
   fi
-  return 0
-}
-
-remove_from_mirrors() {
-  local path="${1}"
-  local server=${SABAYON_SERVER}
-  local ssh_dir=${SABAYON_SERVER_DIR}
-  local ssh_path="${server}:${ssh_dir}"
-
-  if [ -z "${path}" ]; then
-    echo "remove_from_mirrors: no arguments passed" >&2
-    return 1
-  fi
-
-  safe_run 10 ssh "${server}" \
-    rm -f "${ssh_dir}/${SABAYON_RSYNC_SERVER}/iso/${ISO_DIR}/${path}"
-}
-
-move_to_mirrors() {
-  local do_push="${SABAYON_MOLECULE_HOME}"/DO_PUSH
-  local server=${SABAYON_SERVER}
-  local ssh_dir=${SABAYON_SERVER_DIR}
-  local ssh_path="${server}:${ssh_dir}"
-
-  if [ ${DO_PUSH} -eq 1 ] || [ -f "${do_push}" ]; then
-
-    sleepnight
-    rm -f "${do_push}"
-
-    (
-      flock --timeout $((24 * 3600)) -x 9
-      if [ "${?}" != "0" ]; then
-        echo "Timed out during move_to_mirrors lock contention" >&2
-        exit 1
-      fi
-
-      safe_run 10 rsync -av --partial --bwlimit=8192 \
-        "${SABAYON_MOLECULE_HOME}"/iso_rsync/*"${ISO_TAG}"* \
-        "${ssh_path}/${SABAYON_RSYNC_SERVER}/iso/${ISO_DIR}" \
-        || exit 1
-
-      if [ "${ACTION}" = "monthly" ]; then
-        mkdir -p "${SABAYON_MOLECULE_HOME}/iso_rsync/${ISO_DIR}" || exit 1
-        echo "${ISO_TAG}" > "${SABAYON_MOLECULE_HOME}/iso_rsync/${ISO_DIR}/LATEST_IS" || exit 1
-        safe_run 10 rsync -av --partial \
-          "${SABAYON_MOLECULE_HOME}/iso_rsync/${ISO_DIR}/LATEST_IS" \
-          "${ssh_path}/${SABAYON_RSYNC_SERVER}/iso/${ISO_DIR}/" \
-          || exit 1
-      fi
-
-      if [ -n "${CHANGELOG_DATES}" ]; then
-        safe_run 10 rsync -av --partial \
-          "${CHANGELOG_DIR}"/ \
-          "${ssh_path}/${SABAYON_RSYNC_SERVER}/iso/${ISO_DIR}/ChangeLogs/"
-      fi
-
-      safe_run 10 rsync -av --partial \
-        "${SABAYON_MOLECULE_HOME}"/scripts/gen_html \
-        "${ssh_path}"/iso_html_generator \
-        || exit 1
-
-      safe_run 10 ssh "${server}" \
-        "${ssh_dir}"/iso_html_generator/gen_html/gen.sh \
-        || exit 1
-
-      ) 9> /tmp/.iso_build.sh.move_to_mirrors.lock || return 1
-      return 0
-    fi
 }
 
 docker_clean() {
@@ -397,7 +308,7 @@ update_docker_companion() {
    local HOST_ARCH="amd64"
 
    if [[ ! `which docker-companion 2>/dev/null` ]] ; then
-     [ `which ./docker-companion 2>/dev/null` ] || {
+     [[ `which ./docker-companion 2>/dev/null` ]] || {
        echo >&2 "Fetching docker-companion for you..."
        curl -s https://api.github.com/repos/mudler/docker-companion/releases/latest \
          | grep "browser_download_url.*${HOST_ARCH}" \
@@ -407,6 +318,23 @@ update_docker_companion() {
        chmod +x docker-companion
      }
    fi
+}
+
+update_img() {
+  local HOST_ARCH="amd64"
+  local IMG_VERSION="0.4.8"
+  local IMG_URL="https://github.com/genuinetools/img/releases/download/v${IMG_VERSION}/img-linux-${HOST_ARCH}"
+  local IMG_SHA256="d8495994d46ee40180fbd3d3f13f12c81352b08af32cd2a3361db3f1d5503fa2"
+
+   if [[ ! `which img 2>/dev/null` ]] ; then
+     [[ `which ./img 2>/dev/null`  ]] || {
+
+       echo >&2 "Fetching img ..."
+       curl -fSL "${IMG_URL}" -o "./img" \
+       && echo "${IMG_SHA256}  ./img" | sha256sum -c - \
+       && chmod a+x "./img"
+     }
+  fi
 }
 
 export_docker_rootfs () {
@@ -420,7 +348,8 @@ export_docker_rootfs () {
   fi
 
   echo "Checking if Docker is available, otherwise restarting it"
-  systemctl show --property ActiveState docker | grep -q inactive && systemctl start docker
+  systemctl show --property ActiveState docker | \
+    grep -q inactive && systemctl start docker
 
   echo "Building Spinbase with Docker image: "${docker_image}
 
@@ -457,6 +386,35 @@ export_docker_rootfs () {
   return 0
 }
 
+export_img_rootfs () {
+  local docker_image=${1-${SABAYON_DOCKER_SRC_IMAGE}}
+  local undocker_output_directory=${2-${SABAYON_UNDOCKER_OUTPUTDIR}}
+
+  # Cleaning previous generation
+  if [ -z "${undocker_output_directory}" ] || [ -z "${SABAYON_MOLECULE_HOME}" ]; then
+    echo "SABAYON_MOLECULE_HOME or undocker_output_directory not set, this is bad"
+    return 1
+  fi
+  rm -rf "${undocker_output_directory}"
+
+  echo "Export ${docker_image} with img to ${undocker_output_directory}..."
+
+  [ `which img 2> /dev/null` ] \
+    && img unpack ${docker_image} -o ${undocker_output_directory} \
+    || ./img unpack ${docker_image} -o ${undocker_output_directory}
+
+  if [ $? -ne 0 ] ; then
+    return 1
+  fi
+
+  if [ ! -e "${undocker_output_directory}/dev/urandom" ]; then
+    echo "/dev/urandom not present on unpacked chroot. creating it "
+    mknod -m 444 "${undocker_output_directory}"/dev/urandom c 1 9 || return 1
+  fi
+
+  return 0
+}
+
 build_sabayon() {
 
   DAILY_TMPDIR=$(mktemp -d --suffix=.iso_build.sh --tmpdir=/tmp)
@@ -467,8 +425,16 @@ build_sabayon() {
   DAILY_TMPDIR_REMASTER="${DAILY_TMPDIR}/remaster"
   mkdir "${DAILY_TMPDIR_REMASTER}" || return 1
 
-  if [ ${EXPORT_SKIP} -eq 0 ] ; then
-    export_docker_rootfs || return 1
+  has_spinbase
+  local has_spinbase=$?
+  if [ ${has_spinbase} -eq 1 ] ; then
+    if [ ${EXPORT_SKIP} -eq 0 ] ; then
+      if [ ${SABAYON_USE_IMG} -eq 0 ] ; then
+        export_docker_rootfs || return 1
+      else
+        export_img_rootfs || return 1
+      fi
+    fi
   fi
 
   local scripts_dir="${SABAYON_MOLECULE_HOME}/scripts"
@@ -542,72 +508,10 @@ build_sabayon() {
   fi
 
   # package phases keep loading dbus, let's kill pids back
-  ps ax | grep -- "/usr/bin/dbus-daemon --fork .* --session" | awk '{ print $1 }' | xargs kill 2> /dev/null
-
-  if [ "${done_something}" = "1" ]; then
-    if [ ${MAKE_TORRENTS} -eq 1 ]; then
-      flock -x /tmp/.iso_build.sh.make_torrents.lock \
-        "${SABAYON_MOLECULE_HOME}"/scripts/make_torrents.sh || return 1
-    fi
-
-    if [ "${done_iso}" = "1" ]; then
-      cp -p "${SABAYON_MOLECULE_HOME}"/iso/*"${ISO_TAG}"* \
-        "${SABAYON_MOLECULE_HOME}"/iso_rsync/ || return 1
-    fi
-
-    date > "${SABAYON_MOLECULE_HOME}"/iso_rsync/RELEASE_DATE_"${ISO_TAG}"
-
-    # remove old ISO images?
-    if [ -n "${OLD_ISO_TAG}" ]; then
-      echo "Removing old ISO images tagged ${OLD_ISO_TAG} locally"
-      rm -rf "${SABAYON_MOLECULE_HOME}"/{iso,iso_rsync}/"${DISTRO_NAME}"*"${OLD_ISO_TAG}"*
-      echo "Removing old ISO images tagged ${OLD_ISO_TAG} remotely"
-      remove_from_mirrors "${DISTRO_NAME}*${OLD_ISO_TAG}*"
-      remove_from_mirrors "RELEASE_DATE_${OLD_ISO_TAG}"
-    fi
-
-  fi
-
-  if [ -n "${CHANGELOG_DATES}" ]; then
-    flock -x /tmp/.iso_build.sh.make_git_logs.lock \
-      "${SABAYON_MOLECULE_HOME}"/scripts/make_git_logs.sh \
-      "${CHANGELOG_DIR}" ${CHANGELOG_DATES}
-  fi
+  ps ax | grep -- "/usr/bin/dbus-daemon --fork .* --session" | \
+    awk '{ print $1 }' | xargs kill 2> /dev/null
 
   return 0
-}
-
-mail_failure() {
-  local out=${1}
-  local log_file=${2}
-  local log_cont=
-
-  # get the last 64 lines of the file
-  if [ -f "${log_file}" ]; then
-    log_cont=$(tail -n 64 "${log_file}" 2> /dev/null)
-  fi
-
-  echo "Hello there,
-iso_build.sh execution failed (miserably) with exit status: ${out}.
-Log file is at: ${log_file}
-
-Last log lines:
-[... snip ...]
-${log_cont}
-[... snip ...]
-
-Thanks,
-Sun" | mail -s "${ACTION} images build script failure" root
-}
-
-mail_success() {
-  echo "Hello there,
-
-New ${ACTION} images tagged as ${ISO_TAG} have been built and pushed to mirrors.
-http://www.sabayon.org/latest (node/306) will be updated in 24 hours automatically.
-
-" | mail -s "Action required: ${ACTION} ${ISO_TAG} images built" root
-
 }
 
 main () {
@@ -628,22 +532,12 @@ Valid actions: daily, weekly, monthly, dailybase, release.
 Available options:
 
 -h|--help               This message.
---push                  Enable push to Sabayon Server
 --pull-skip             Skip pull of docker image
---stdout                Print debug message to stdout
---sleepnight            Execute build after 22pm and sleep until that hour.
---pushonly              Push only images
---torrents              Make torrent files.
---changelogsdir [DIR]
-                        Set changelog directory. Default is
-                        \${SABAYON_MOLECULE_HOME}/\${ACTION}-git-logs.
 --skip-dev              Skip build of development images (with limbo repository).
 --skip-export           For development avoid export of docker image if it is already
                         present.
 --skip-docker-rmi       Skip clean of orphaned Docker images.
---skip-email            Skip sent of mail.
 --only-dev              Build only development images.
---logfile [PATH]        Customize logfile path.
 --image [NAME]          Build only a specific image. (This option can be used multiple time).
                         Valid value are:
                           * spinbase
@@ -655,9 +549,6 @@ Available options:
                           * lxqt
 
 Environment variables to customize:
-SABAYON_SERVER          Default to ${SABAYON_SERVER}
-SABAYON_SERVER_DIR      Default to ${SABAYON_SERVER_DIR}
-SABAYON_RSYNC_SERVER    Default to ${SABAYON_RSYNC_SERVER}
 SABAYON_DOCKER_SRC_IMAGE
                         Default to ${SABAYON_DOCKER_SRC_IMAGE}
 SABAYON_UNDOCKER_OUTPUTDIR
@@ -668,6 +559,8 @@ SABAYON_KERNEL_VERSION  Set kernel slot to install on image.
                         Default is ${SABAYON_KERNEL_VERSION}
 SABAYON_EXTRA_PKGS      Define additional packages to install
                         on spinbase rootfs.
+SABAYON_SOURCE_ISO      Define source ISO to remove from iso directory.
+SABAYON_SOURCE_ISO_DEV  Define source ISO-dev to remoe from iso directory.
 SABAYON_UNMASK_PKGS     Define additional packages to unmask.
 SABAYON_ENMAN_REPOS     Define additional enman repository to install
                         on spinbase rootfs.
@@ -678,8 +571,8 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
     }
 
     local short_opts="h"
-    local long_opts="help push stdout sleepnight pushonly torrents changelogsdir:"
-    long_opts="${long_opts} skip-dev image: logfile: pull-skip skip-email skip-export"
+    local long_opts="help"
+    long_opts="${long_opts} skip-dev image: pull-skip skip-export"
     long_opts="${long_opts} only-dev skip-docker-rmi"
     local action=$1
     local valid_actions=(
@@ -697,6 +590,8 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
       "minimal"
       "xfce"
       "lxqt"
+      "server"
+      "gnome-forensics"
     )
 
     if [ $# -eq 0 ] ; then
@@ -721,17 +616,12 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
     $(set -- $(getopt -u -q -a -o "$short_opts" -l "$long_opts" -- "$@")) 
 
     MAKE_TORRENTS=0
-    DO_PUSH=0
-    DO_STDOUT=0
-    DO_SLEEPNIGHT=0
-    DO_PUSHONLY=0
     SKIP_DEV=0
     SKIP_DOCKER_RMI=0
     ONLY_DEV=0
     IMAGE_VALID=0
     CUSTOM_IMAGES=0
     LIST_IMAGES=()
-    CHANGELOG_DIR="${SABAYON_MOLECULE_HOME}/${ACTION}-git-logs"
 
     while [ $# -gt 0 ] ; do
       case "$1" in
@@ -740,34 +630,11 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
           help_message
           exit 1
           ;;
-        --push)
-          DO_PUSH=1
-          ;;
-        --stdout)
-          DO_STDOUT=1
-          ;;
-        --sleepnight)
-          DO_SLEEPNIGHT=1
-          ;;
-        --pushonly)
-          DO_PUSHONLY=1
-          DO_PUSH=1
-          ;;
-        --torrents)
-          MAKE_TORRENTS=1
-          ;;
-        --changelogsdir)
-          CHANGELOG_DIR=$2
-          shift
-          ;;
         --skip-dev)
           SKIP_DEV=1
           ;;
         --only-dev)
           ONLY_DEV=1
-          ;;
-        --skip-email)
-          EMAIL_SKIP=1
           ;;
         --skip-export)
           EXPORT_SKIP=1
@@ -778,22 +645,18 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
         --skip-docker-rmi)
           SKIP_DOCKER_RMI=1
           ;;
-        --logfile)
-          LOG_FILE=$2
-          # TODO: I can create directory if doesn't exist
-          shift
-          ;;
         --image)
-          for im in "${valid_images[@]}"; do
+          for img in "${valid_images[@]}"; do
             if [ "${img}" = "$2" ]; then
               IMAGE_VALID=1
               break
             fi
           done
-          if [ -z "${IMAGE_VALID}" ]; then
+          if [ ${IMAGE_VALID} -eq 0 ]; then
             echo "invalid image: $2" >&2
             exit 1
           fi
+          IMAGE_VALID=0
           CUSTOM_IMAGES=1
           LIST_IMAGES+=( $2 )
           shift
@@ -817,11 +680,13 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
 
     unset -f help_msg
 
-    export ACTION DO_PUSH DO_STDOUT DO_SLEEPNIGHT DO_PUSHONLY MAKE_TORRENTS
-    export CHANGELOG_DIR CUSTOM_IMAGES LIST_IMAGES ONLY_DEV SKIP_DEV SKIP_DOCKER_RMI
+    export ACTION CUSTOM_IMAGES LIST_IMAGES ONLY_DEV
+    export SKIP_DEV SKIP_DOCKER_RMI
 
     return 0
   }
+
+  trap "cleanup_on_exit" EXIT INT TERM
 
   parse_args "$@"
 
@@ -834,47 +699,25 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
 
   prepare_env
 
-  mkdir -p "${CHANGELOG_DIR}" || exit 1
-
   build_info
 
-  trap "cleanup_on_exit" EXIT INT TERM
+  has_spinbase
+  local has_spinbase=$?
 
-  update_docker_companion
+  if [ ${has_spinbase} -eq 1 ] ; then
+    if [ ${SABAYON_USE_IMG} -eq 0 ] ; then
+      update_docker_companion
+    else
+      update_img
+    fi
+  fi
 
   echo "READY for build..."
 
   local out=0
-  if [ ${DO_STDOUT} -eq 1 ]; then
-    if [ ${DO_PUSHONLY} -eq 0 ]; then
-      build_sabayon
-      out=${?}
-    fi
-    if [ "${out}" = "0" ]; then
-      move_to_mirrors
-      out=${?}
-    fi
-  else
-    if [ ${DO_PUSHONLY} -eq 0 ]; then
-      build_sabayon &> "${LOG_FILE}"
-      out=${?}
-    fi
-    if [ "${out}" = "0" ]; then
-      move_to_mirrors &>> "${LOG_FILE}"
-      out=${?}
-    fi
 
-    if [ ${EMAIL_SKIP} -eq 0 ] ; then
-      if [ "${out}" != "0" ]; then
-        # mail root
-        mail_failure "${out}" "${LOG_FILE}"
-      else
-        if [ "${ACTION}" = "monthly" ] || [ "${ACTION}" = "release" ]; then
-          mail_success
-        fi
-      fi
-    fi
-  fi
+  build_sabayon || out=1
+
   echo "EXIT_STATUS: ${out}"
 
   exit ${out}
