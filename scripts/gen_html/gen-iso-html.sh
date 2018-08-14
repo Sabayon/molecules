@@ -6,6 +6,7 @@ SAB_GENHTML_SCRIPT_TEMPL=${SAB_GENHTML_SCRIPT_TEMPL:-${SAB_GENHTML_SCRIPTDIR}/te
 SAB_GENHTML_COMMONS_ARGS="${SAB_GENHTML_COMMONS_ARGS:---skip .. --skip main.html --skip monthly.html --skip style.css}"
 SAB_GENHTML_DUMP_HTML=${SAB_GENHTML_DUMP_HTML:-0}
 SAB_GENHTML_REMOVE_ISO=${SAB_GENHTML_REMOVE_ISO:-0}
+SAB_GENHTML_REMOVE_OPTS=${SAB_GENHTML_REMOVE_OPTS:--name *.iso*}
 
 error () {
   echo "$1"
@@ -125,7 +126,7 @@ main () {
 
   if [ ${SAB_GENHTML_REMOVE_ISO} -eq 1 ] ; then
     # Remove ISO files from $SAB_GENHTML_TARGET recursively
-    find . -name *.iso* -exec rm -if {} \;
+    find . ${SAB_GENHTML_REMOVE_OPTS} -exec rm -if {} \;
   fi
 
   exit 0
