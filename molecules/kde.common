@@ -86,7 +86,7 @@ packages_to_add:
 	kde-apps/kcharselect,
 	kde-apps/kcolorchooser,
 	kde-plasma/kde-gtk-config,
-	kde-plasma/kwallet-pam
+	kde-plasma/kwallet-pam,
 	kde-plasma/plasma-desktop,
 	kde-plasma/plasma-nm,
 	kde-plasma/plasma-meta,
