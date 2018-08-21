@@ -15,7 +15,6 @@
 
 <div style="float:right;">
 	<ul style="margin:0px">
-		<li><a href="../daily/daily.html">go to "daily" editions</a></li>
 		<li><a href="http://torrents.sabayon.org/">go to torrent tracker</a></li>
 	</ul>
 </div>
@@ -104,18 +103,6 @@ To distinguish between them, a suffix is appended to file names.<br>
 </TMPL_LOOP>
 </table>
 <p style="font-size:75%; margin-top:0px">All dates are in day-month-year format.</p>
-
-<TMPL_IF NAME="others_loop">
-	<p>
-		<strong>Other:</strong><br>
-		<TMPL_LOOP NAME="others_loop">
-			<a href="<TMPL_VAR NAME="url" ESCAPE=html>">
-				<TMPL_VAR NAME="name" ESCAPE=html>
-			</a>
-			<br>
-		</TMPL_LOOP>
-	</p>
-</TMPL_IF>
 
 </body>
 </html>

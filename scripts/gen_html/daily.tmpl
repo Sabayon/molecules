@@ -117,17 +117,6 @@ This directory contains "daily" images, which are generated automatically every 
 </table>
 <p style="font-size:75%; margin-top:0px">All dates are in day-month-year format.</p>
 
-<TMPL_IF NAME="others_loop">
-	<p>
-		<strong>Other:</strong><br>
-		<TMPL_LOOP NAME="others_loop">
-			<a href="<TMPL_VAR NAME="url" ESCAPE=html>">
-				<TMPL_VAR NAME="name" ESCAPE=html>
-			</a>
-			<br>
-		</TMPL_LOOP>
-	</p>
-</TMPL_IF>
 
 </body>
 </html>
