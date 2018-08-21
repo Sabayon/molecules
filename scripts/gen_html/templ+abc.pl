@@ -63,15 +63,6 @@ my %sab;
 my @oth;
 my $tmpl;
 
-sub print_other {
-  return unless @oth;
-  my @others_loop_data;
-  for my $item (@oth) {
-    push @others_loop_data, {url => $item->[0], name => $item->[1]};
-  }
-  $tmpl->param(others_loop => \@others_loop_data);
-}
-
 # Adds elements to template which will be printed.
 # $regex is a regular expression to specify which arches to select;
 # $negate - if true, $regex will be negated;
@@ -425,7 +416,6 @@ if ($arg_type eq "daily") {
 else {
   print_items(qr/.*/, 0, "intel_editions_loop", [qw(.pkglist .torrent)]);
 }
-print_other();
 
 # get rid of those stupid blank lines (leaving /^$/ ones which may be used
 # to prettify output) for some small penalty cost
