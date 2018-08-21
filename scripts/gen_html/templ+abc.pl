@@ -8,10 +8,10 @@
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -25,6 +25,7 @@ use strict;
 use Getopt::Long;
 use HTML::Template;
 use 5.010;
+use constant BASE_URL => $ENV{BASE_URL};
 
 # This makes accessing edition's data more clear.
 # Class EditionItem stores URL, size and date for an edition for one
@@ -250,9 +251,50 @@ sub parse_entry {
 	}
 }
 
+sub generate_from_remote {
+	my ($dir_to_open, $prefix, $opt_skip) = @_;
+	my $url = BASE_URL;
+	my @files =  map { s/\s+$//g; { file => /"(.*)"/, size => /(\d+)$/, data=> /\s{2,}(.*)\s+\d+$/  } } `curl -s $url | grep -E '^<a'`;
+	parse_entry($_->{file}, $prefix, prettysize($_->{size}), prettydate($_->{data})) for @files;
+}
+
+sub prettysize {
+	my $size = shift;
+	if ($size =~ /^[0-9]/) {
+		my @units = qw(B KiB MiB);
+		my $level = 0;
+		while ($size >= 2000) {
+			last if $level == $#units;
+			$size /= 1024;
+			$level++;
+		}
+		if ($level > 0 and $size != int($size)) {
+			$size = int (100*$size + 0.5) / 100;
+			$size = sprintf ("%.2f", $size);
+		}
+		$size .= " " . $units[$level];
+	}
+	$size;
+}
+
+# make pretty dates if it's not unknown
+sub prettydate {
+	my $mdate = shift;
+	if ($mdate =~ /^[0-9]/ && $mdate !~ /\w/) {
+		my ($day, $mth, $year) = (localtime($mdate)) [3,4,5];
+		$mth++;
+		$year += 1900;
+		$mth = "0" . $mth if $mth < 10;
+		$mdate = "$day.$mth.$year";
+	}
+	$mdate =~ s/\s+$//g if BASE_URL;
+	return $mdate;
+}
+
 # Read directory and call subroutines to build data structures.
 sub generate {
 	if (1) {
+		return generate_from_remote(@_) if BASE_URL;
 		my ($dir_to_open, $prefix, $opt_skip) = @_;
 		if (not defined $dir_to_open or not defined $prefix) {
 			die "generate: need 2 arguments!";
@@ -277,33 +319,8 @@ sub generate {
 				say STDERR "Cannot stat $item_path: $!";
 				$mdate = $size = "???";
 			}
-	
-			# make pretty $size if it's a number
-			if ($size =~ /^[0-9]/) {
-				my @units = qw(B KiB MiB);
-				my $level = 0;
-				while ($size >= 2000) {
-					last if $level == $#units;
-					$size /= 1024;
-					$level++;
-				}
-				if ($level > 0 and $size != int($size)) {
-					$size = int (100*$size + 0.5) / 100;
-					$size = sprintf ("%.2f", $size);
-				}
-				$size .= " " . $units[$level];
-			}
-	
-			# make pretty $mdate if it's not unknown
-			if ($mdate =~ /^[0-9]/) {
-				my ($day, $mth, $year) = (localtime($mdate)) [3,4,5];
-				$mth++;
-				$year += 1900;
-				$mth = "0" . $mth if $mth < 10;
-				$mdate = "$day.$mth.$year";
-			}
-	
-			parse_entry ($item, $prefix, $size, $mdate);
+
+			parse_entry ($item, $prefix, prettysize($size), prettydate($mdate));
 		}
 		closedir ($dh);
 	}
@@ -312,7 +329,7 @@ sub generate {
 	else {
 		my $filename = "daily.html";
 		open my $fh, "<", $filename or die "Cannot open file $filename! $!\n";
-		
+
 		while (my $line = <$fh>) {
 			if ($line =~ /\<a href="([^ "]+)"\>/) {
 				parse_entry ($1, "", "(size)", "(date)");
