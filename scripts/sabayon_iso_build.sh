@@ -17,6 +17,7 @@ ISO_DIR="daily"
 DAILY_TMPDIR=
 PULL_SKIP=0
 EXPORT_SKIP=0
+BUILD_STARTED=0
 
 # We set our own stuff, do not inherit from env
 unset PORTDIR PORTAGE_TMPDIR
@@ -268,25 +269,27 @@ prepare_env () {
 }
 
 cleanup_on_exit() {
-  if [ -n "${DAILY_TMPDIR}" ] && [ -d "${DAILY_TMPDIR}" ]; then
-    #rm -rf "${DAILY_TMPDIR}"
-    # don't care about races
-    DAILY_TMPDIR=""
-  fi
+  if [ "$BUILD_STARTED" = 1 ] ; then
+    if [ -n "${DAILY_TMPDIR}" ] && [ -d "${DAILY_TMPDIR}" ]; then
+      #rm -rf "${DAILY_TMPDIR}"
+      # don't care about races
+      DAILY_TMPDIR=""
+    fi
 
-  local file=""
-  local has_spinbase=0
-  has_spinbase || has_spinbase=1
+    local file=""
+    local has_spinbase=0
+    has_spinbase || has_spinbase=1
 
-  if [ ${has_spinbase} -eq 0 ] ; then
-    echo "Cleaning Spinbase ISOs..."
+    if [ ${has_spinbase} -eq 0 ] ; then
+      echo "Cleaning Spinbase ISOs..."
 
-    file=${SABAYON_MOLECULE_HOME}/iso/${SABAYON_SOURCE_ISO}
-    rm ${file} ${file}.md5 ${file}.pkglist
-    file=${SABAYON_MOLECULE_HOME}/iso/${SABAYON_SOURCE_ISO_DEV}
-    rm ${file} ${file}.md5 ${file}.pkglist
-  else
-    echo "Leave Spinbase ISOs...."
+      file=${SABAYON_MOLECULE_HOME}/iso/${SABAYON_SOURCE_ISO}
+      rm ${file} ${file}.md5 ${file}.pkglist
+      file=${SABAYON_MOLECULE_HOME}/iso/${SABAYON_SOURCE_ISO_DEV}
+      rm ${file} ${file}.md5 ${file}.pkglist
+    else
+      echo "Leave Spinbase ISOs...."
+    fi
   fi
 }
 
@@ -547,6 +550,7 @@ Available options:
                           * minimal
                           * xfce
                           * lxqt
+                          * tarball
 
 Environment variables to customize:
 SABAYON_DOCKER_SRC_IMAGE
@@ -592,6 +596,7 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
       "lxqt"
       "server"
       "gnome-forensics"
+      "tarball"
     )
 
     if [ $# -eq 0 ] ; then
@@ -613,7 +618,7 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
     fi
     shift
 
-    $(set -- $(getopt -u -q -a -o "$short_opts" -l "$long_opts" -- "$@")) 
+    $(set -- $(getopt -u -q -a -o "$short_opts" -l "$long_opts" -- "$@"))
 
     MAKE_TORRENTS=0
     SKIP_DEV=0
@@ -700,6 +705,8 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
   prepare_env
 
   build_info
+
+  BUILD_STARTED=1
 
   has_spinbase
   local has_spinbase=$?
