@@ -125,7 +125,7 @@ xfceforensic_remove_skel_stuff() {
 	rm -rf /etc/skel/.config/xfce4/desktop
 	rm -rf /etc/skel/.config/xfce4/panel
 	glib-compile-schemas /usr/share/glib-2.0/schemas/
-	gsettings set org.gnome.shell.extensions.dash-to-dock extend-height true
+	rm -rf /usr/share/backgrounds/iottinka
 }
 
 setup_oss_gfx_drivers() {
