@@ -16,7 +16,7 @@ echo "================================================"
 
 # setup skel and background
 cp -rv "${GFORENSIC_DIR}"/usr "${CHROOT_DIR}/"
-sudo glib-compile-schemas "${CHROOT_DIR}/usr/share/glib-2.0/schemas/"
+glib-compile-schemas "${CHROOT_DIR}/usr/share/glib-2.0/schemas/"
 
 echo "================================================"
 echo "EXIT FROM XFCE-REMASTER-POST.SH"
