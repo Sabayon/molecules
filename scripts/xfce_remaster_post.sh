@@ -16,6 +16,7 @@ echo "================================================"
 
 # setup skel and background
 cp -rv "${GFORENSIC_DIR}"/usr "${CHROOT_DIR}/"
+cp -rv "${GFORENSIC_DIR}"/etc "${CHROOT_DIR}/"
 glib-compile-schemas "${CHROOT_DIR}/usr/share/glib-2.0/schemas/"
 
 echo "================================================"

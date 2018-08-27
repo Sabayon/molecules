@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=rootkithunter scan
+Name=rootkithunter update
 Encoding=UTF-8
-Exec=sh -c "sudo rkhunter -c;${SHELL:-bash}"
+Exec=sh -c "rkhunter --update;${SHELL:-bash}"
 Icon=
 StartupNotify=false
 Terminal=true

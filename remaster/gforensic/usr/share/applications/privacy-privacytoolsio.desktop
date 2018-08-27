@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Exec=xdg-open https://www.privacytools.io/
+Icon=
+StartupNotify=false
+Categories=Privacy;
+Name=Privacy Tools IO
+Comment=Privacy Information

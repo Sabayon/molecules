@@ -1,0 +1,9 @@
+[Desktop Entry]
+Comment=Create New Firefox Profile
+Terminal=false
+Name=Firefox Profiles
+Exec=firefox --no-remote -P
+Type=Application
+Icon=firefox.png
+Categories=Privacy;
+

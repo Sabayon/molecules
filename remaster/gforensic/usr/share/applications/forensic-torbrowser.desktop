@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Exec=xdg-open https://www.torproject.org/projects/torbrowser.html.en#downloads
+Icon=
+StartupNotify=false
+Categories=Privacy;
+Name=Download Tor Browser
