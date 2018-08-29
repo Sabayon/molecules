@@ -60,16 +60,6 @@ done
 safe_run equo upgrade --fetch || exit 1
 equo upgrade --purge || exit 1
 
-# Unmask packages (used on custom ISO)
-if [ -n "${SABAYON_UNMASK_PKGS}" ] ; then
-  touch /etc/entropy/packages/package.unmask
-  equo unmask ${SABAYON_EXTRA_PKGS}
-fi
-
-# Add custom packages required from user for source rootfs.
-if [ -n "${SABAYON_EXTRA_PKGS}" ] ; then
-  safe_run equo i ${SABAYON_EXTRA_PKGS[@]}
-fi
 
 equo remove "${PACKAGES_TO_REMOVE[@]}" # ignore
 echo "-5" | equo conf update
@@ -116,6 +106,19 @@ for moddir in $(find /lib/modules -maxdepth 1 -type d -empty); do
   echo "Cleaning ${moddir} because it's empty"
   rmdir "${moddir}"
 done
+
+
+# Unmask packages (used on custom ISO)
+if [ -n "${SABAYON_UNMASK_PKGS}" ] ; then
+  touch /etc/entropy/packages/package.unmask
+  equo unmask ${SABAYON_EXTRA_PKGS}
+fi
+
+# Add custom packages required from user for source rootfs.
+if [ -n "${SABAYON_EXTRA_PKGS}" ] ; then
+  safe_run equo i ${SABAYON_EXTRA_PKGS[@]}
+fi
+
 
 rm -rf /var/lib/entropy/client/packages
 
