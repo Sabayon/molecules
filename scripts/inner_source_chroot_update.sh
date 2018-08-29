@@ -8,6 +8,8 @@ TARGET="${1}"
 # Setup environment vars
 export ACCEPT_LICENSE=*
 
+export SABAYON_INSTALL_KERNEL="${SABAYON_INSTALL_KERNEL:-0}"
+
 PACKAGES_TO_REMOVE=(
   "app-i18n/man-pages-da"
   "app-i18n/man-pages-de"
@@ -78,49 +80,44 @@ fi
 equo remove "${PACKAGES_TO_REMOVE[@]}" # ignore
 echo "-5" | equo conf update
 
-# check if a kernel update is needed
-kernel_target_pkg="$(equo match -q --installed virtual/linux-binary)"
-current_kernel=$(equo match --installed "${kernel_target_pkg}" -q --showslot)
+if [[ ${SABAYON_INSTALL_KERNEL} -eq 1 ]] ; then
+  # check if a kernel update is needed
+  kernel_target_pkg="$(equo match -q --installed virtual/linux-binary)"
+  current_kernel=$(equo match --installed "${kernel_target_pkg}" -q --showslot)
 
-echo "Move to kernel ${kernel_target_pkg}:${SABAYON_KERNEL_VERSION}"
-# Do not pick for now latest kernel, but fix it to 4.14
-#available_kernel=$(equo match "${kernel_target_pkg}" -q --showslot)
-available_kernel="sys-kernel/linux-sabayon:${SABAYON_KERNEL_VERSION}"
+  echo "Move to kernel ${kernel_target_pkg}:${SABAYON_KERNEL_VERSION}"
+  # Do not pick for now latest kernel, but fix it to 4.14
+  #available_kernel=$(equo match "${kernel_target_pkg}" -q --showslot)
+  available_kernel="sys-kernel/linux-sabayon:${SABAYON_KERNEL_VERSION}"
 
-if [ "${current_kernel}" != "${available_kernel}" ] && \
-  [ -n "${available_kernel}" ] && [ -n "${current_kernel}" ]; then
-  echo
-  echo "@@ Upgrading kernel to ${available_kernel}"
-  echo
-  safe_run kernel-switcher switch "${available_kernel}" || exit 1
-  equo remove "${current_kernel}" || exit 1
-  # now delete stale files in /lib/modules
-  for slink in $(find /lib/modules/ -type l); do
-    if [ ! -e "${slink}" ]; then
-      echo "Removing broken symlink: ${slink}"
-      rm "${slink}" # ignore failure, best effort
-      # check if parent dir is empty, in case, remove
-      paren_slink=$(dirname "${slink}")
-      paren_children=$(find "${paren_slink}")
-      if [ -z "${paren_children}" ]; then
-        echo "${paren_slink} is empty, removing"
-        rmdir "${paren_slink}" # ignore failure, best effort
+  if [ "${current_kernel}" != "${available_kernel}" ] && \
+    [ -n "${available_kernel}" ] && [ -n "${current_kernel}" ]; then
+    echo
+    echo "@@ Upgrading kernel to ${available_kernel}"
+    echo
+    safe_run kernel-switcher switch "${available_kernel}" || exit 1
+    equo remove "${current_kernel}" || exit 1
+    # now delete stale files in /lib/modules
+    for slink in $(find /lib/modules/ -type l); do
+      if [ ! -e "${slink}" ]; then
+        echo "Removing broken symlink: ${slink}"
+        rm "${slink}" # ignore failure, best effort
+        # check if parent dir is empty, in case, remove
+        paren_slink=$(dirname "${slink}")
+        paren_children=$(find "${paren_slink}")
+        if [ -z "${paren_children}" ]; then
+          echo "${paren_slink} is empty, removing"
+          rmdir "${paren_slink}" # ignore failure, best effort
+        fi
       fi
-    fi
-  done
-else
-  echo "@@ Not upgrading kernels:"
-  echo "Current: ${current_kernel}"
-  echo "Avail:   ${available_kernel}"
-  echo
+    done
+  else
+    echo "@@ Not upgrading kernels:"
+    echo "Current: ${current_kernel}"
+    echo "Avail:   ${available_kernel}"
+    echo
+  fi
 fi
-
-# keep /lib/modules clean at all times
-for moddir in $(find /lib/modules -maxdepth 1 -type d -empty); do
-  echo "Cleaning ${moddir} because it's empty"
-  rmdir "${moddir}"
-done
-
 
 # Unmask packages (used on custom ISO)
 if [ -n "${SABAYON_UNMASK_PKGS}" ] ; then
@@ -133,6 +130,11 @@ if [ -n "${SABAYON_EXTRA_PKGS}" ] ; then
   safe_run equo i ${SABAYON_EXTRA_PKGS[@]}
 fi
 
+# keep /lib/modules clean at all times
+for moddir in $(find /lib/modules -maxdepth 1 -type d -empty); do
+  echo "Cleaning ${moddir} because it's empty"
+  rmdir "${moddir}"
+done
 
 rm -rf /var/lib/entropy/client/packages
 
