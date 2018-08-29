@@ -61,6 +61,20 @@ safe_run equo upgrade --fetch || exit 1
 equo upgrade --purge || exit 1
 
 
+# FIXME: Dup in iner_chroot_script.sh
+# We need plymouth before
+equo i sys-boot/plymouth x11-themes/sabayon-artwork-plymouth-default
+
+echo "PLYMOUTH THEME LIST:"
+plymouth-set-default-theme --list
+# Set Plymouth default theme, newer artwork has the sabayon theme
+is_ply_sabayon=$(plymouth-set-default-theme --list | grep sabayon)
+if [ -n "${is_ply_sabayon}" ]; then
+	plymouth-set-default-theme sabayon
+else
+	plymouth-set-default-theme solar
+fi
+
 equo remove "${PACKAGES_TO_REMOVE[@]}" # ignore
 echo "-5" | equo conf update
 
@@ -151,10 +165,12 @@ for conf in 00-sabayon.package.use 00-sabayon.package.mask \
   fi
 done
 
-# Dracut initramfs generation for livecd
-# If you are reading this ..beware! this step should be re-done by Installer post-install, without the options needed to boot from live! (see kernel eclass for reference)
-current_kernel=$(equo match --installed "${kernel_target_pkg}" -q --showslot) #Update it! we may have upgraded
-if equo s --verbose --installed $current_kernel | grep -q " dracut"; then
+if [ -n "${DRACUT}" ]; then
+  # Dracut initramfs generation for livecd
+  # XXX: If you are reading this ..beware!
+  # this step should be re-done by Installer post-install,
+  # without the options needed to boot from live! (see kernel eclass for reference)
+  current_kernel=$(equo match --installed "sys-kernel/linux-sabayon" -q --showslot)
 
   #ACCEPT_LICENSE=* equo upgrade # upgrading all. this ensures that minor kernel upgrades don't breaks dracut initramfs generation
   # Getting Package name and slot from current kernel (e.g. current_kernel=sys-kernel/linux-sabayon:4.7 -> K_SABKERNEL_NAME = linux-sabayon-4.7 )
@@ -166,10 +182,9 @@ if equo s --verbose --installed $current_kernel | grep -q " dracut"; then
   kver=$(cat /etc/kernels/$K_SABKERNEL_NAME*/RELEASE_LEVEL)
   karch=$(uname -m)
   echo "Generating dracut for kernel $kver arch $karch"
-  dracut -N -a dmsquash-live -a pollcdrom -o systemd -o systemd-initrd -o systemd-networkd -o dracut-systemd --force --kver=${kver} /boot/initramfs-genkernel-${karch}-${kver}
-
+  dracut -N -a dmsquash-live -a pollcdrom \
+         --force --kver=${kver} /boot/initramfs-genkernel-${karch}-${kver}
 fi
-
 
 # Update /usr/portage/profiles
 # This is actually not strictly needed but several

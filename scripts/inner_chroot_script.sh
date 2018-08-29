@@ -114,7 +114,7 @@ sed -i "/^::1/ s/localhost/localhost sabayon/" /etc/hosts
 # setup postfix local mail aliases
 newaliases
 
-equo i sys-boot/plymouth x11-themes/sabayon-artwork-plymouth-default-17
+equo i sys-boot/plymouth x11-themes/sabayon-artwork-plymouth-default
 
 echo "PLYMOUTH THEME LIST:"
 plymouth-set-default-theme --list
@@ -236,7 +236,7 @@ rm -rf /var/lib/entropy/*cache*
 # Clean layman dir
 rm -rf /var/lib/layman/* /etc/portage/repos.conf/layman.conf
 # Needed
-touch /var/lib/layman/make.conf 
+touch /var/lib/layman/make.conf
 
 # remove entropy hwhash
 rm -f /etc/entropy/.hw.hash

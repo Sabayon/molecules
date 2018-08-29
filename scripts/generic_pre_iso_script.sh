@@ -55,5 +55,9 @@ if [ -f "${isolinux_img}" ]; then
 	cp "${isolinux_img}" "${CDROOT_DIR}/isolinux/" || exit 1
 fi
 
+
+# Custom layout changes
+"${SABAYON_MOLECULE_HOME}"/scripts/pre_iso_script_livecd.sh
+
 # Generate livecd.squashfs.md5
 "${SABAYON_MOLECULE_HOME}"/scripts/pre_iso_script_livecd_hash.sh
