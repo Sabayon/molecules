@@ -62,5 +62,12 @@ locate-pointer=false
 [org.gnome.Terminal.Legacy.Settings]
 dark-theme=true
 
+[org.gnome.shell.extensions.dash-to-dock.Settings]
+custom-theme-shrink=true
+dash-max-icon-size='32'
+extend-height=true
+transparency-mode='DYNAMIC'
+
 [org.gnome.shell]
-favorite-apps=['liveinst.desktop', 'calamares.desktop', 'firefox.desktop', 'evolution.desktop', 'shotwell.desktop', 'rhythmbox.desktop', 'vlc.desktop', 'libreoffice-writer.desktop', 'org.gnome.Documents.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Terminal.desktop']
+favorite-apps=['liveinst.desktop', 'calamares.desktop', 'firefox.desktop', 'forensic-wireshark-gtk.desktop', 'shotwell.desktop', 'forensic-gparted.desktop', 'vlc.desktop', 'libreoffice-writer.desktop', 'org.gnome.Documents.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Terminal.desktop']
+

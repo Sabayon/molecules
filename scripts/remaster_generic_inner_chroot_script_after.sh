@@ -124,7 +124,6 @@ xfceforensic_remove_skel_stuff() {
 	# remove no longer needed folders/files
 	rm -rf /etc/skel/.config/xfce4/desktop
 	rm -rf /etc/skel/.config/xfce4/panel
-	rm -rf /usr/share/backgrounds/iottinka
 }
 
 setup_oss_gfx_drivers() {
