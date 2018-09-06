@@ -25,6 +25,14 @@ safe_run() {
 # make sure there is no stale pid file around that prevents entropy from running
 rm -f /run/entropy/entropy.lock
 
+
+FORCE_EAPI=2 safe_run equo update || exit 1
+
+for repo in $(equo repo list -q); do
+  echo "Optimizing mirrors for ${repo}"
+  equo repo mirrorsort "${repo}"  # ignore errors
+done
+
 # Add additional enman repositories:
 # For customized images
 if [ -n "${SABAYON_ENMAN_REPOS}" ] ; then
@@ -34,14 +42,9 @@ if [ -n "${SABAYON_ENMAN_REPOS}" ] ; then
     echo "Adding enman repos ${repos}..."
     safe_run enman add ${repos} || exit 1
   done
+
+  FORCE_EAPI=2 safe_run equo update || exit 1
 fi
-
-FORCE_EAPI=2 safe_run equo update || exit 1
-
-for repo in $(equo repo list -q); do
-  echo "Optimizing mirrors for ${repo}"
-  equo repo mirrorsort "${repo}"  # ignore errors
-done
 
 # Unmask packages (used on custom ISO)
 if [ -n "${SABAYON_UNMASK_PKGS}" ] ; then
