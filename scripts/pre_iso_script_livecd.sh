@@ -2,7 +2,7 @@
 
 LIVECD_SQUASHFS="${CDROOT_DIR}/livecd.squashfs"
 
-if [ -n "${DRACUT}" ] && [ -f "${LIVECD_SQUASHFS}" ]; then
+if [ -n "${DRACUT}" ] && [ -n "${DRACUT_SQUASHFS}" ] && [ -f "${LIVECD_SQUASHFS}" ]; then
   squash_dir=$(TMPDIR="/var/tmp" mktemp -d --suffix="dracut")
   mkdir -p "${squash_dir}/LiveOS"
   mkdir -p "${CDROOT_DIR}/LiveOS"
