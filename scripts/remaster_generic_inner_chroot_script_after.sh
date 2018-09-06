@@ -4,7 +4,9 @@
 . /etc/profile
 
 _get_kernel_tag() {
-	local kernel_ver="$(equo match --installed -qv virtual/linux-binary | cut -d/ -f 2)"
+	#local kernel_ver="$(equo match --installed -qv virtual/linux-binary | cut -d/ -f 2)"
+	local kernel_ver="$(equo match --installed -qv sys-kernel/linux-sabayon | cut -d/ -f 2)"
+
 	# strip -r** if exists, hopefully we don't have PN ending with -r
 	local kernel_ver="${kernel_ver%-r*}"
 	local kernel_tag_file="/etc/kernels/${kernel_ver}/RELEASE_LEVEL"
