@@ -287,6 +287,27 @@ setup_misc_stuff() {
 	if [ -n "${SABAYON_EXTRA_PKGS}" ] ; then
 	  equo i ${SABAYON_EXTRA_PKGS[@]}
 	fi
+
+	if [ -n "${DRACUT}" ]; then
+	  # Dracut initramfs generation for livecd
+	  # XXX: If you are reading this ..beware!
+	  # this step should be re-done by Installer post-install,
+	  # without the options needed to boot from live! (see kernel eclass for reference)
+	  current_kernel=$(equo match --installed "sys-kernel/linux-sabayon" -q --showslot)
+
+	  #ACCEPT_LICENSE=* equo upgrade # upgrading all. this ensures that minor kernel upgrades don't breaks dracut initramfs generation
+	  # Getting Package name and slot from current kernel (e.g. current_kernel=sys-kernel/linux-sabayon:4.7 -> K_SABKERNEL_NAME = linux-sabayon-4.7 )
+	  PN=${current_kernel##*/}
+	  K_SABKERNEL_NAME="${K_SABKERNEL_NAME:-${PN/${PN/-/}-}}"
+	  K_SABKERNEL_NAME="${K_SABKERNEL_NAME/:/-}"
+
+	  # Grab kernel version from RELEASE_LEVEL
+	  kver=$(cat /etc/kernels/$K_SABKERNEL_NAME*/RELEASE_LEVEL)
+	  karch=$(uname -m)
+	  echo "Generating dracut for kernel $kver arch $karch"
+	  dracut -N -a dmsquash-live -a pollcdrom \
+	         --force --kver=${kver} /boot/initramfs-genkernel-${karch}-${kver}
+	fi
 }
 
 setup_installed_packages() {
