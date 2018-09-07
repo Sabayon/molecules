@@ -103,8 +103,8 @@ setup_displaymanager() {
 		sd_enable lightdm
 	elif [ -n "$(equo match --installed kde-base/kdm -qv)" ]; then
 		sd_enable kdm
-        elif [ -n "$(equo match --installed x11-misc/sddm -qv)" ]; then
-                sd_enable sddm
+  elif [ -n "$(equo match --installed x11-misc/sddm -qv)" ]; then
+    sd_enable sddm
 	else
 		sd_enable xdm
 	fi
@@ -262,6 +262,30 @@ setup_misc_stuff() {
 	if [ -x "/usr/bin/fluxbox-generate_menu" ]; then
 		mkdir -p /root/.fluxbox
 		fluxbox-generate_menu -o /etc/skel/.fluxbox/menu
+	fi
+
+	# Add additional enman repositories:
+	# For customized images
+	if [ -n "${SABAYON_ENMAN_REPOS}" ] ; then
+	  equo i app-admin/enman || exit 1
+
+	  for repos in ${SABAYON_ENMAN_REPOS} ; do
+	    echo "Adding enman repos ${repos}..."
+	    enman add ${repos} || exit 1
+	  done
+
+	  FORCE_EAPI=2 equo update || exit 1
+	fi
+
+	# Unmask packages (used on custom ISO)
+	if [ -n "${SABAYON_UNMASK_PKGS}" ] ; then
+	  touch /etc/entropy/packages/package.unmask
+	  equo unmask ${SABAYON_EXTRA_PKGS}
+	fi
+
+	# Add custom packages required from user for source rootfs.
+	if [ -n "${SABAYON_EXTRA_PKGS}" ] ; then
+	  equo i ${SABAYON_EXTRA_PKGS[@]}
 	fi
 }
 
