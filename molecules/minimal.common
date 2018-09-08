@@ -2,6 +2,8 @@
 # "iso_remaster"
 execution_strategy: iso_remaster
 
+# ISO Image title
+iso_title: Sabayon Minimal
 
 # Release string
 release_string: Sabayon Linux

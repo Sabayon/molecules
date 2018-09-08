@@ -1,3 +1,6 @@
+# ISO Image title
+iso_title: Sabayon Forensics Gnome
+
 # Outer chroot script command, to be executed outside destination chroot before
 # before entering it (and AFTER inner_chroot_script)
 %env outer_chroot_script_after: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/xfce_remaster_post.sh
