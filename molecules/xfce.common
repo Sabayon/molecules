@@ -8,9 +8,6 @@ release_string: Sabayon Linux
 # File to write release string
 release_file: /etc/sabayon-edition
 
-# ISO Image title
-iso_title: Sabayon Xfce
-
 # Enable XZ compression in mksquashfs
 extra_mksquashfs_parameters: -comp xz
 
