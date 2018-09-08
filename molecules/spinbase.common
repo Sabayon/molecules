@@ -4,6 +4,7 @@ execution_strategy: livecd
 # Release string
 release_string: Sabayon Linux
 
+iso_title: SABAYON
 # File to write release string
 release_file: /etc/sabayon-edition
 

@@ -9,7 +9,7 @@ release_string: Sabayon Linux
 release_file: /etc/sabayon-edition
 
 # ISO Image title
-iso_title: Sabayon GNOME
+iso_title: SABAYON
 
 # Enable XZ compression in mksquashfs
 extra_mksquashfs_parameters: -comp xz

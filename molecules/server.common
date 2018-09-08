@@ -3,7 +3,7 @@
 execution_strategy: iso_remaster
 
 # ISO Image title
-iso_title: Sabayon Server
+iso_title: SABAYON
 
 # Release string
 release_string: Sabayon Linux
