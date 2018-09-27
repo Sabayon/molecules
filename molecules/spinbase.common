@@ -8,6 +8,10 @@ iso_title: SABAYON
 # File to write release string
 release_file: /etc/sabayon-edition
 
+# List of packages that would be added from chrooted system (comma separated)
+packages_to_add:
+        sys-libs/timezone-data
+
 # Extra mirror (r)sync parameters
 extra_rsync_parameters: --one-file-system
 
