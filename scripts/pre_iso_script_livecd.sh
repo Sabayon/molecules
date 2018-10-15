@@ -11,6 +11,8 @@ if [ -n "${DRACUT}" ] && [ -n "${DRACUT_SQUASHFS}" ] && [ -f "${LIVECD_SQUASHFS}
   echo "Rebuilding ${LIVECD_SQUASHFS}..."
   mksquashfs "${squash_dir}" "${LIVECD_SQUASHFS}"
   rm -rf "${squash_dir}"
+else
+  echo "=========== Skipping DRACUT rebuilding =============="
 fi
 
 # Path to molecules.git dir
