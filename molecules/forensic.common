@@ -11,10 +11,8 @@ iso_title: SABAYON
 # List of packages that would be removed from chrooted system (comma separated )
 packages_to_remove:
 	games-misc/cowsay,
-	games-action/minetest_game,
 	dev-python/wxpython,
 	media-video/pitivi
-	games-action/minetest,
 	dev-python/wxpython,
         x11-themes/iottinka-artwork,
         x11-themes/sabayon-artwork-plymouth-base-14,
