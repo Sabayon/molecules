@@ -13,6 +13,7 @@ packages_to_add:
 	sys-apps/lsb-release,
 	sys-apps/usb_modeswitch,
 	sys-apps/which,
+	sys-process/htop,
 	x11-apps/xhost,
 	x11-apps/setxkbmap,
 	x11-themes/equinox-themes,
