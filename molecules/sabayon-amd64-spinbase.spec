@@ -1,7 +1,6 @@
 # Use abs path, otherwise daily builds automagic won't work
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/spinbase.common
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/amd64.common
-extra_mksquashfs_parameters: -b 1048576 -comp xz -Xdict-size 100%
 
 %env destination_chroot: ${SABAYON_MOLECULE_HOME:-/sabayon}/chroots/default
 %env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/inner_chroot_script.sh
