@@ -305,7 +305,7 @@ setup_misc_stuff() {
 	  kver=$(cat /etc/kernels/$K_SABKERNEL_NAME*/RELEASE_LEVEL)
 	  karch=$(uname -m)
 	  echo "Generating dracut for kernel $kver arch $karch"
-	  dracut -N -a dmsquash-live -a pollcdrom -a systemd -a systemd-initrd -a systemd-networkd -a dracut-systemd \
+	  dracut -N -a dmsquash-live -a pollcdrom -a systemd -a systemd-initrd -a systemd-networkd -a plymouth -a dracut-systemd \
 	         --force --kver=${kver} /boot/initramfs-genkernel-${karch}-${kver}
 	fi
 }
