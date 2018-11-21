@@ -280,7 +280,13 @@ setup_misc_stuff() {
 	# Unmask packages (used on custom ISO)
 	if [ -n "${SABAYON_UNMASK_PKGS}" ] ; then
 	  touch /etc/entropy/packages/package.unmask
-	  equo unmask ${SABAYON_EXTRA_PKGS}
+	  equo unmask ${SABAYON_UNMASK_PKGS[@]}
+	fi
+
+	# mask packages (used on custom ISO)
+	if [ -n "${SABAYON_MASK_PKGS}" ] ; then
+	  touch /etc/entropy/packages/package.mask
+	  equo mask ${SABAYON_MASK_PKGS[@]}
 	fi
 
 	# Add custom packages required from user for source rootfs.

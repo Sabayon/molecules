@@ -71,6 +71,7 @@ SABAYON_KERNEL_VERSION  Set kernel slot to install on image.
 SABAYON_EXTRA_PKGS      Define additional packages to install
                         on spinbase rootfs.
 SABAYON_UNMASK_PKGS     Define additional packages to unmask.
+SABAYON_MASK_PKGS       Define additional packages to mask.
 SABAYON_ENMAN_REPOS     Define additional enman repository to install
                         on spinbase rootfs.
 
