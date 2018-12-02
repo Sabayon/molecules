@@ -187,7 +187,7 @@ if [ -f "${efi_x86_64_file}" ] || [ -f "${efi_i386_file}" ]; then
 	# now the tricky part, create an eltorito alternative image
 	# 12 floppies = 2880 x 14, we need more space for SecureBoot and GRUB2
 	# stuff to make isohybrid work as expected.
-	dd bs=512 count=$((2880 * 12)) if=/dev/zero of="${efi_img}" || exit 1
+	dd bs=512 count=$((2880 * 24)) if=/dev/zero of="${efi_img}" || exit 1
 	mkfs.msdos "${efi_img}" || exit 1
 
 	tmp_dir=$(TMPDIR="/var/tmp" mktemp -d --suffix="make_grub_efi")
