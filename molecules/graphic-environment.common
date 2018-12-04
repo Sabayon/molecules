@@ -5,6 +5,7 @@
 packages_to_add:
 	@X,
 	app-arch/unrar,
+	app-misc/sabayon-live,
 	app-misc/sabayon-skel,
 	media-fonts/dejavu,
 	media-fonts/corefonts,
