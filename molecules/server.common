@@ -40,12 +40,12 @@ extra_mksquashfs_parameters: -b 131072 -comp xz
 
 packages_to_add:
 	@wireless,
+	app-editors/vim,
 	app-misc/calamares-sabayon-server,
-	app-misc/sabayon-live,
-	app-text/pastebunz,
+	app-misc/screen,
+	app-misc/tmux,
+	app-text/wgetpaste,
 	x11-base/xorg-server,
-	net-dialup/ppp,
-	net-dialup/rp-pppoe,
 	net-misc/openssh,
 	sys-block/parted,
 	sys-boot/os-prober,
