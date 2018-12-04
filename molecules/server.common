@@ -41,6 +41,7 @@ extra_mksquashfs_parameters: -b 131072 -comp xz
 packages_to_add:
 	@wireless,
 	app-misc/calamares-sabayon-server,
+	app-misc/sabayon-live,
 	app-text/pastebunz,
 	x11-base/xorg-server,
 	net-dialup/ppp,
