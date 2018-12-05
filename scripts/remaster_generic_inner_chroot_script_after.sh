@@ -33,14 +33,14 @@ install_kernel_packages() {
 sd_enable() {
 	local srv="${1}"
 	local ext=".${2:-service}"
-	[[ -x /usr/bin/systemctl ]] && \
+	[[ -x /bin/systemctl ]] && \
 		systemctl --no-reload enable -f "${srv}${ext}"
 }
 
 sd_disable() {
 	local srv="${1}"
 	local ext=".${2:-service}"
-	[[ -x /usr/bin/systemctl ]] && \
+	[[ -x /bin/systemctl ]] && \
 		systemctl --no-reload disable -f "${srv}${ext}"
 }
 

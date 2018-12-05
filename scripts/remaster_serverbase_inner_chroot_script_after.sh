@@ -4,12 +4,12 @@
 . /etc/profile
 
 sd_enable() {
-	[[ -x /usr/bin/systemctl ]] && \
+	[[ -x /bin/systemctl ]] && \
 		systemctl --no-reload -f enable "${1}.service"
 }
 
 sd_disable() {
-	[[ -x /usr/bin/systemctl ]] && \
+	[[ -x /bin/systemctl ]] && \
 		systemctl --no-reload -f disable "${1}.service"
 }
 
