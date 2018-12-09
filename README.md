@@ -1,7 +1,12 @@
-
 # Molecule data and scripts
 
 Sabayon stuff for build Sabayon Official Images.
+
+## Mottainai task
+
+Sabayon team currently build ISO images through Mottainai tasks that are available
+[here](https://github.com/Sabayon/sbi-tasks) and in particular for stable ISO see `iso`
+path or for development ISO see `iso-dev` path.
 
 ## Build Sabayon ISO images
 
@@ -18,34 +23,26 @@ Hereinafter, how build ISO images in two steps:
     * dev-util/molecule-core
     * dev-util/molecule-plugins
 
-2. Start building through *iso_build.sh* script.
+2. Start building through *sabayon_iso_build.sh* script.
 
 ```
-$# ./scripts/iso_build.sh
+$# ./scripts/sabayon_iso_build.sh
 
 Sabayon ISO Image Build Script.
 
-./scripts/iso_build.sh [action] [opts]
+./scripts/sabayon_iso_build.sh [action] [opts]
 
 Valid actions: daily, weekly, monthly, dailybase, release.
 
 Available options:
 
 -h|--help               This message.
---push                  Enable push to Sabayon Server
 --pull-skip             Skip pull of docker image
---stdout                Print debug message to stdout
---sleepnight            Execute build after 22pm and sleep until that hour.
---pushonly              Push only images
---torrents              Make torrent files.
---changelogsdir [DIR]
-                        Set changelog directory. Default is
-                        ${SABAYON_MOLECULE_HOME}/${ACTION}-git-logs.
 --skip-dev              Skip build of development images (with limbo repository).
 --skip-export           For development avoid export of docker image if it is already
                         present.
---skip-email            Skip sent of mail.
---logfile [PATH]        Customize logfile path.
+--only-dev              Build only development images.
+--skip-docker-rmi       Skip clean of orphaned Docker images.
 --image [NAME]          Build only a specific image. (This option can be used multiple time).
                         Valid value are:
                           * spinbase
@@ -55,11 +52,10 @@ Available options:
                           * minimal
                           * xfce
                           * lxqt
+                          * tarball
+                          * gnome-forensics
 
 Environment variables to customize:
-SABAYON_SERVER          Default to entropy@pkg.sabayon.org
-SABAYON_SERVER_DIR      Default to /sabayon/rsync
-SABAYON_RSYNC_SERVER    Default to rsync.sabayon.org
 SABAYON_DOCKER_SRC_IMAGE
                         Default to sabayon/spinbase-amd64:latest
 SABAYON_UNDOCKER_OUTPUTDIR
@@ -70,6 +66,8 @@ SABAYON_KERNEL_VERSION  Set kernel slot to install on image.
                         Default is 4.14
 SABAYON_EXTRA_PKGS      Define additional packages to install
                         on spinbase rootfs.
+SABAYON_SOURCE_ISO      Define source ISO to remove from iso directory.
+SABAYON_SOURCE_ISO_DEV  Define source ISO-dev to remoe from iso directory.
 SABAYON_UNMASK_PKGS     Define additional packages to unmask.
 SABAYON_MASK_PKGS       Define additional packages to mask.
 SABAYON_ENMAN_REPOS     Define additional enman repository to install
@@ -81,10 +79,6 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
           (that must be available on Sabayon Repository) it is needed build also spinbase
           ISO image because override of last available kernel is done on inner_script of
           spinbase image.
-
-*iso_build.sh* script contains a lot of features used by Sabayon Team for release operations,
-features that could be disabled (for example for email through *--skip-email*) and other that can
-be used only but Sabayon Team Group for example: *--push*, *--pushonly* options.
 
 After build is done ISO images are available under *iso* directory.
 
@@ -99,7 +93,7 @@ $# cd molecules
 $# sudo su
 
 // Now you can build ISO
-$# SABAYON_MOLECULE_HOME=`pwd` ./scripts/iso_build.sh daily
+$# SABAYON_MOLECULE_HOME=`pwd` ./scripts/sabayon_iso_build.sh daily
 ```
 
 ### Examples
@@ -108,17 +102,17 @@ $# SABAYON_MOLECULE_HOME=`pwd` ./scripts/iso_build.sh daily
 
 ```
 $# cd molecules
-$# SABAYON_KERNEL_VERSION=4.9 SABAYON_MOLECULE_HOME=`pwd` ./scripts/iso_build.sh \
+$# SABAYON_KERNEL_VERSION=4.9 SABAYON_MOLECULE_HOME=`pwd` ./scripts/sabayon_iso_build.sh \
       daily --image spinbase --logfile /tmp/sabayon-build.log \
       --stdout --skip-dev --pull-skip --skip-email
 ```
 
-Option *--pull-skip* can be used when is already availaboe on local Docker image.
+Option *--pull-skip* can be used when is already available on local Docker image.
 
 **Build daily Gnome image with kernel 4.9**:
 ```
 $# cd molecules
-$# SABAYON_KERNEL_VERSION=4.9 SABAYON_MOLECULE_HOME=`pwd` ./scripts/iso_build.sh \
+$# SABAYON_KERNEL_VERSION=4.9 SABAYON_MOLECULE_HOME=`pwd` ./scripts/sabayon_iso_build.sh \
       daily --image spinbase --image gnome --logfile /tmp/sabayon-build.log \
       --stdout --skip-dev --pull-skip --skip-email
 ```
@@ -129,7 +123,7 @@ $# SABAYON_KERNEL_VERSION=4.9 SABAYON_MOLECULE_HOME=`pwd` ./scripts/iso_build.sh
 $# cd molecules
 $# SABAYON_KERNEL_VERSION=4.9 SABAYON_MOLECULE_HOME=`pwd` \
       SABAYON_EXTRA_PKGS="app-emulation/lxd games-strategy/wesnoth" \
-      ./scripts/iso_build.sh daily --image spinbase --image gnome \
+      ./scripts/sabayon_iso_build.sh daily --image spinbase --image gnome \
       --stdout --skip-dev --pull-skip --skip-email
 
 ```
@@ -141,11 +135,10 @@ $# cd molecules
 $# SABAYON_KERNEL_VERSION=4.15 SABAYON_MOLECULE_HOME=`pwd` \
       SABAYON_EXTRA_PKGS="media-libs/mesa-9999 x11-libs/libdrm-9999" \
       SABAYON_ENMAN_REPOS="gaming-live" \
-      ./scripts/iso_build.sh daily --image spinbase --image gnome \
+      ./scripts/sabayon_iso_build.sh daily --image spinbase --image gnome \
         --stdout --skip-dev --pull-skip --skip-email
 
 ```
-
 
 ## List of specs
 
@@ -247,23 +240,6 @@ amd64.common
 
   * `cleanup_pkgcache.sh`: script for remove tarballs not accessed in the last 30 days.
 
-  * `daily_iso_build.sh`: script for build daily iso
-    This script depends on:
-      - iso_build.sh
-
-  * `daily_iso_build_locked.sh`: wrapper of daily_iso_build.sh script with flock management.
-    This script depends on:
-      - iso_build_locked.sh
-
-  * `dailybase_iso_build.sh`: script for build daily base iso
-    This script depends on:
-      - iso_build.sh
-
-  * `dailybase_iso_build_locked.sh`: wrapper of dailybase_iso_build.sh script with lock
-    management.
-    This script depends on:
-      - iso_build_locked.sh
-
   * `efikamx_image_generator_script.sh`: script currently not used.
     This script depends on:
       - mkloopcard.sh
@@ -313,11 +289,11 @@ amd64.common
       - forensicxfce.common
 
   * `inner_source_chroot_update.sh`: Script used by molecule for build process.
-    Used on iso_build.sh script.
+    Used on sabayon_iso_build.sh script.
 
   * `iso_build.include`: Variable file that define LOCK_TIMEOUT.
 
-  * `iso_build.sh`: Script for create iso images.
+  * `sabayon_iso_build.sh`: Script for create iso images.
     Require a mandatory parameter that define action.
     Possible values are "daily", "weekly", "monthly", "dailybase", "release".
     After action it is possible optional one of these options:
@@ -353,32 +329,10 @@ amd64.common
   * `make_toorents.sh`: Script for create .torrent file of isos
     This script use mktorrent-borg tool from net-p2p/mktorrent-borg package.
 
-  * `monthly_iso_build.sh`: Wrapper script of iso_build.sh for generate
-    monthly images.
-    This script depends on:
-      - iso_build.sh
-
-  * `monthly_iso_build_locked.sh`: wrapper of monthly_iso_build that use
-    script is_build_locked.sh for manage locking.
-    This script depends on:
-      - iso_build_locked.sh
-      - monthly_iso_build.sh
-
   * `pre_iso_script_livecd_hash.sh`: Script used for generate sha256 sums
     and push cdupdate.sh inside chroot directory.
     This script depends on:
       - cdupdate.sh
-
-  * `release_iso_build.sh`: wrapper script for generate release images.
-    First argument of the script define version of Sabayon to release.
-    This script depends on:
-      - iso_build.sh
-
-  * `release_iso_build_locked.sh`: wrapper script that use iso_build_locked.sh
-    script for handle locking for execute release_iso_build.sh
-    This script depends on:
-      - iso_build_locked.sh
-      - release_iso_build.sh
 
   * `remaster_error_script.sh`: Script used from molecule spec file when
     an error happens.
@@ -462,16 +416,6 @@ amd64.common
     for Sabayon Tarball Template.
 
   * `tar_generic_chroot_script_after.sh`: Script currently not used.
-
-  * `weekly_iso_build.sh`: Wrapper script of iso_build.sh for build weekly images.
-    This script depends on:
-      - iso_build.sh
-
-  * `monthly_iso_build_locked.sh`: wrapper of weekly_iso_build that use
-    script is_build_locked.sh for manage locking.
-    This script depends on:
-      - iso_build_locked.sh
-      - weekly_iso_build.sh
 
   * `xfce_remaster_post.sh`: Script used as outer_chroot_script_after from molecules
     on create Sabayon Xfce image.

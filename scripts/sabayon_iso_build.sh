@@ -551,6 +551,7 @@ Available options:
                           * xfce
                           * lxqt
                           * tarball
+                          * gnome-forensics
 
 Environment variables to customize:
 SABAYON_DOCKER_SRC_IMAGE
