@@ -91,12 +91,12 @@ if [[ ${SABAYON_INSTALL_KERNEL} -eq 1 ]] ; then
   available_kernel="sys-kernel/linux-sabayon:${SABAYON_KERNEL_VERSION}"
 
   if [ "${current_kernel}" != "${available_kernel}" ] && \
-    [ -n "${available_kernel}" ] && [ -n "${current_kernel}" ]; then
+    [ -n "${available_kernel}" ]; then
     echo
     echo "@@ Upgrading kernel to ${available_kernel}"
     echo
     safe_run kernel-switcher switch "${available_kernel}" || exit 1
-    equo remove "${current_kernel}" || exit 1
+    [ -n "${current_kernel}" ] && equo remove "${current_kernel}"
     # now delete stale files in /lib/modules
     for slink in $(find /lib/modules/ -type l); do
       if [ ! -e "${slink}" ]; then
