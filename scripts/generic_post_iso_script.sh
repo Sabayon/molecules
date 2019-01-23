@@ -27,15 +27,15 @@ if [ "${ISO_ARCH}" = "amd64" ]; then
 fi
 isohybrid ${ih_args} "${ISO_PATH}" || exit 1
 
-cd "$(dirname "${ISO_PATH}")" || exit 1
-iso_name=$(basename "${ISO_PATH}")
-md5sum "${iso_name}" > "${ISO_CHECKSUM_PATH}"
-
 # FIXME: With certain versions of udev/blkid on specific hosts, resolving
 # the rootfs livecd by label fails to the wrong partition (e.g. efi), preventing to boot.
 # Meanwhile workaround it by writing an hardcoded udf UUID, but this could be
 # also automatically generated to have also predictable builds.
 # Requires sys-fs/udftools
-udflabel --force -u 5c403dad00049b51 "${ISO_PATH}" SABAYON
+udflabel --force -u 5c403dad00049b51 "${ISO_PATH}" SABAYON || exit 1
+
+cd "$(dirname "${ISO_PATH}")" || exit 1
+iso_name=$(basename "${ISO_PATH}")
+md5sum "${iso_name}" > "${ISO_CHECKSUM_PATH}"
 
 exit ${?}
