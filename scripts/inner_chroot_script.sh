@@ -143,6 +143,9 @@ done
 # Disable syslog in systemd, we use journald
 sd_disable syslog-ng
 
+# Disable Dynamy linker cache rebuilding
+sd_disable ldconfig.service
+
 # Make sure to have lvmetad otherwise anaconda freaks out
 sd_enable lvm2-lvmetad
 
