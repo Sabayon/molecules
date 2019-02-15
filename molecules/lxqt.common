@@ -105,6 +105,7 @@ packages_to_add:
 	x11-libs/libva-vdpau-driver,
 	x11-libs/libXxf86misc,
 	x11-misc/lightdm-slick-greeter,
+	x11-misc/xscreensaver,
 	x11-misc/xvkbd,
 	x11-themes/oxygen-gtk:2,
 	x11-themes/oxygen-gtk:3,
