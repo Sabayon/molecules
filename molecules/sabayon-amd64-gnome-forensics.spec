@@ -10,6 +10,6 @@
 release_desc: amd64 ForensicsGnome
 
 # Path to source ISO file (MANDATORY)
-%env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_${ISO_TAG:-LATEST}_amd64_SpinBase.iso
+%env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/${SABAYON_SOURCE_ISO}
 
 destination_iso_image_name: Sabayon_Linux_DAILY_amd64_ForensicsGnome.iso

@@ -9,7 +9,7 @@
 release_desc: amd64 Enlightenment
 
 # Path to source ISO file (MANDATORY)
-%env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/Sabayon_Linux_${ISO_TAG:-LATEST}_amd64_SpinBase.iso
+%env source_iso: ${SABAYON_MOLECULE_HOME:-/sabayon}/iso/${SABAYON_SOURCE_ISO}
 
 # Destination ISO image name, call whatever you want.iso, not mandatory
 %env destination_iso_image_name: Sabayon_Linux_${SABAYON_RELEASE:-LATEST}_amd64_Enlightenment.iso
