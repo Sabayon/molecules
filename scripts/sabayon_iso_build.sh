@@ -44,7 +44,6 @@ SABAYON_DOCKER_SRC_IMAGE=${SABAYON_DOCKER_SRC_IMAGE:-sabayon/spinbase-amd64:late
 SABAYON_UNDOCKER_OUTPUTDIR=${SABAYON_UNDOCKER_OUTPUTDIR:-${SABAYON_MOLECULE_HOME}/sources/amd64-docker-spinbase}
 # Custom options
 SABAYON_KERNEL_VERSION=${SABAYON_KERNEL_VERSION:-4.20}
-SABAYON_USE_IMG=${SABAYON_USE_IMG:-0}
 
 
 export SABAYON_KERNEL_VERSION
@@ -69,7 +68,6 @@ MOLECULE_TMPDIR            = ${MOLECULE_TMPDIR}
 SABAYON_ENMAN_REPOS        = ${SABAYON_ENMAN_REPOS}
 SABAYON_SOURCE_ISO         = ${SABAYON_SOURCE_ISO}
 SABAYON_SOURCE_ISO_DEV     = ${SABAYON_SOURCE_ISO_DEV}
-SABAYON_USE_IMG            = ${SABAYON_USE_IMG}
 
 
 "
@@ -432,11 +430,7 @@ build_sabayon() {
   local has_spinbase=$?
   if [ ${has_spinbase} -eq 1 ] ; then
     if [ ${EXPORT_SKIP} -eq 0 ] ; then
-      if [ ${SABAYON_USE_IMG} -eq 0 ] ; then
-        export_docker_rootfs || return 1
-      else
-        export_img_rootfs || return 1
-      fi
+      export_docker_rootfs || return 1
     fi
   fi
 
@@ -714,11 +708,7 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
   local has_spinbase=$?
 
   if [ ${has_spinbase} -eq 1 ] ; then
-    if [ ${SABAYON_USE_IMG} -eq 0 ] ; then
-      update_docker_companion
-    else
-      update_img
-    fi
+    update_docker_companion
   fi
 
   echo "READY for build..."
