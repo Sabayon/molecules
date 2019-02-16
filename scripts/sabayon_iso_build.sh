@@ -379,7 +379,7 @@ export_docker_rootfs () {
     mknod -m 444 "${undocker_output_directory}"/dev/urandom c 1 9 || return 1
   fi
 
-  if [ ${SKIP_DOCKER_RMI} -eq 0 ] ; then
+  if [ ${SKIP_DOCKER_RMI} -eq 1 ] ; then
     docker_clean
   fi
 
@@ -532,7 +532,7 @@ Available options:
 --skip-dev              Skip build of development images (with limbo repository).
 --skip-export           For development avoid export of docker image if it is already
                         present.
---skip-docker-rmi       Skip clean of orphaned Docker images.
+--docker-rmi            Enable clean of orphaned Docker images.
 --only-dev              Build only development images.
 --image [NAME]          Build only a specific image. (This option can be used multiple time).
                         Valid value are:
@@ -572,7 +572,7 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
     local short_opts="h"
     local long_opts="help"
     long_opts="${long_opts} skip-dev image: pull-skip skip-export"
-    long_opts="${long_opts} only-dev skip-docker-rmi"
+    long_opts="${long_opts} only-dev docker-rmi"
     local action=$1
     local valid_actions=(
       "daily"
@@ -617,7 +617,7 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
 
     MAKE_TORRENTS=0
     SKIP_DEV=0
-    SKIP_DOCKER_RMI=0
+    SKIP_DOCKER_RMI=1
     ONLY_DEV=0
     IMAGE_VALID=0
     CUSTOM_IMAGES=0
@@ -642,8 +642,8 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
         --pull-skip)
           PULL_SKIP=1
           ;;
-        --skip-docker-rmi)
-          SKIP_DOCKER_RMI=1
+        --docker-rmi)
+          SKIP_DOCKER_RMI=0
           ;;
         --image)
           for img in "${valid_images[@]}"; do
