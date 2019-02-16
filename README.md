@@ -42,7 +42,7 @@ Available options:
 --skip-export           For development avoid export of docker image if it is already
                         present.
 --only-dev              Build only development images.
---skip-docker-rmi       Skip clean of orphaned Docker images.
+--docker-rmi            Enable clean of orphaned Docker images.
 --image [NAME]          Build only a specific image. (This option can be used multiple time).
                         Valid value are:
                           * spinbase
