@@ -348,10 +348,6 @@ export_docker_rootfs () {
     opts="--pull"
   fi
 
-  echo "Checking if Docker is available, otherwise restarting it"
-  systemctl show --property ActiveState docker | \
-    grep -q inactive && systemctl start docker
-
   echo "Building Spinbase with Docker image: "${docker_image}
 
   # Cleaning previous generation
@@ -373,6 +369,9 @@ export_docker_rootfs () {
   if [ $? -ne 0 ] ; then
     return 1
   fi
+
+  echo "nameserver 1.1.1.1" > ${targetdir}/etc/resolv.conf
+  echo "nameserver 8.8.8.8" >> ${targetdir}/etc/resolv.conf
 
   if [ ! -e "${undocker_output_directory}/dev/urandom" ]; then
     echo "/dev/urandom not present on unpacked chroot. creating it "
