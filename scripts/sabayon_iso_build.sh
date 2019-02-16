@@ -366,10 +366,9 @@ export_docker_rootfs () {
   echo "Exporting the Docker image ${docker_image} in: " ${targetdir}
 
   # Unpack the image
-
   [ `which docker-companion 2> /dev/null` ] \
-    && docker-companion ${opts} unpack --squash "${docker_image}" ${targetdir} \
-    || ./docker-companion ${opts} unpack --squash "${docker_image}" ${targetdir}
+    && docker-companion ${opts} download "${docker_image}" ${targetdir} \
+    || ./docker-companion ${opts} download "${docker_image}" ${targetdir}
 
   if [ $? -ne 0 ] ; then
     return 1
