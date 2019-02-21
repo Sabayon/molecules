@@ -72,6 +72,7 @@ SABAYON_UNMASK_PKGS     Define additional packages to unmask.
 SABAYON_MASK_PKGS       Define additional packages to mask.
 SABAYON_ENMAN_REPOS     Define additional enman repository to install
                         on spinbase rootfs.
+DRACUT                  Enable Dracut. Default is 1 (enable).
 
 ```
 
