@@ -196,6 +196,10 @@ if [ -f "${efi_x86_64_file}" ] || [ -f "${efi_i386_file}" ]; then
 	mount -o loop "${efi_img}" "${tmp_dir}" || exit 1
 	mkdir -p "${tmp_dir}/efi/boot" || exit 1
 
+	# Always add support for 32bit EFI
+	echo "Add EFI32bit support"
+	wget https://dispatcher.sabayon.org/sbi/namespace/static%3A%3Agrub-efi32bit/bootia32.efi -O ${efi_i386_file}
+
 	# copy our .efi executables in place
 	cp -Rp "${EFI_BOOT_DIR}"/* "${tmp_dir}/efi/boot/" || exit 1
 
