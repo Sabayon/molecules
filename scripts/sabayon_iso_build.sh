@@ -323,23 +323,6 @@ update_docker_companion() {
    fi
 }
 
-update_img() {
-  local HOST_ARCH="amd64"
-  local IMG_VERSION="0.4.8"
-  local IMG_URL="https://github.com/genuinetools/img/releases/download/v${IMG_VERSION}/img-linux-${HOST_ARCH}"
-  local IMG_SHA256="d8495994d46ee40180fbd3d3f13f12c81352b08af32cd2a3361db3f1d5503fa2"
-
-   if [[ ! `which img 2>/dev/null` ]] ; then
-     [[ `which ./img 2>/dev/null`  ]] || {
-
-       echo >&2 "Fetching img ..."
-       curl -fSL "${IMG_URL}" -o "./img" \
-       && echo "${IMG_SHA256}  ./img" | sha256sum -c - \
-       && chmod a+x "./img"
-     }
-  fi
-}
-
 export_docker_rootfs () {
 
   local docker_image=${1-${SABAYON_DOCKER_SRC_IMAGE}}
@@ -382,35 +365,6 @@ export_docker_rootfs () {
 
   if [ ${SKIP_DOCKER_RMI} -eq 1 ] ; then
     docker_clean
-  fi
-
-  return 0
-}
-
-export_img_rootfs () {
-  local docker_image=${1-${SABAYON_DOCKER_SRC_IMAGE}}
-  local undocker_output_directory=${2-${SABAYON_UNDOCKER_OUTPUTDIR}}
-
-  # Cleaning previous generation
-  if [ -z "${undocker_output_directory}" ] || [ -z "${SABAYON_MOLECULE_HOME}" ]; then
-    echo "SABAYON_MOLECULE_HOME or undocker_output_directory not set, this is bad"
-    return 1
-  fi
-  rm -rf "${undocker_output_directory}"
-
-  echo "Export ${docker_image} with img to ${undocker_output_directory}..."
-
-  [ `which img 2> /dev/null` ] \
-    && img unpack ${docker_image} -o ${undocker_output_directory} \
-    || ./img unpack ${docker_image} -o ${undocker_output_directory}
-
-  if [ $? -ne 0 ] ; then
-    return 1
-  fi
-
-  if [ ! -e "${undocker_output_directory}/dev/urandom" ]; then
-    echo "/dev/urandom not present on unpacked chroot. creating it "
-    mknod -m 444 "${undocker_output_directory}"/dev/urandom c 1 9 || return 1
   fi
 
   return 0
