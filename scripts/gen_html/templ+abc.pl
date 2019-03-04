@@ -196,7 +196,7 @@ sub parse_entry {
   # If numeration schema changes, look at $re_ver. :)
   # $re_ver part can't be too loose because it would match something else
   # than release type...
-  my $re_ver = "(?<ver>DAILY|[0-9.]+)";
+  my $re_ver = "(?<ver>DAILY|[0-9.]+|[0-9.]+RC[0-9])";
 
   my $fmt = sub {
     my ($ver, $ed) = @_;
