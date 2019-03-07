@@ -83,7 +83,7 @@ packages_to_add:
 	gnome-extra/gnome-power-manager,
 	gnome-extra/gnome-shell-windowlist,
 	gnome-extra/gnome-system-monitor,
-	gnome-extra/gnome-tweak-tool,
+	gnome-extra/gnome-tweaks,
 	gnome-extra/gnome-utils,
 	gnome-extra/gucharmap,
 	gnome-extra/nautilus-sendto,

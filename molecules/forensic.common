@@ -45,7 +45,7 @@ packages_to_add:
 	dev-util/geany,
 	dev-util/geany-plugins,
 	gnome-extra/nm-applet,
-	gnome-extra/gnome-tweak-tool,
+	gnome-extra/gnome-tweaks,
 	dev-vcs/git,
 	net-analyzer/ettercap,
 	net-analyzer/traceroute,
