@@ -9,7 +9,8 @@ iso_title: SABAYON
 release_file: /etc/sabayon-edition
 
 # Extra mirror (r)sync parameters
-extra_rsync_parameters: --one-file-system
+# Use --xattrs for sync files capabilities
+extra_rsync_parameters: --one-file-system --xattrs
 
 # Enable XZ compression in mksquashfs
 extra_mksquashfs_parameters: -b 131072 -comp xz
