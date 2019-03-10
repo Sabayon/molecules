@@ -363,7 +363,7 @@ export_docker_rootfs () {
     mknod -m 444 "${undocker_output_directory}"/dev/urandom c 1 9 || return 1
   fi
 
-  if [ ${SKIP_DOCKER_RMI} -eq 1 ] ; then
+  if [ ${SKIP_DOCKER_RMI} -eq 0 ] ; then
     docker_clean
   fi
 
