@@ -72,6 +72,7 @@ packages_to_add:
 	media-fonts/dejavu,
 	media-fonts/corefonts,
 	media-libs/libtxc_dxtn,
+	media-libs/libopenraw,
 	media-libs/mesa,
 	net-dialup/globespan-adsl,
 	net-dialup/ppp,

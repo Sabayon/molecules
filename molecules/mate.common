@@ -57,6 +57,7 @@ packages_to_add:
 	gnome-extra/nm-applet,
 	mate-base/mate,
 	mate-extra/mate-sensors-applet,
+	media-libs/libopenraw,
 	media-plugins/alsa-plugins,
 	media-sound/audacious,
 	media-video/mpv,

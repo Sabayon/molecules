@@ -80,6 +80,7 @@ packages_to_add:
 	media-libs/libdvdcss,
 	media-libs/libdvdnav,
 	media-libs/libdvdread,
+	media-libs/libopenraw,
 	media-sound/audacious,
 	media-sound/pavucontrol,
 	media-video/totem,
