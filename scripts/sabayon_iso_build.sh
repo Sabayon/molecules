@@ -97,6 +97,8 @@ get_iso_name () {
     echo "LXQt"
   elif [ ${image} == "gnome-forensics" ] ; then
     echo "ForensicsGnome"
+  elif [ ${image} == "tarball" ] ; then
+    echo "tarball"
   fi
 }
 
@@ -126,8 +128,18 @@ prepare_specs_tasks () {
     image=${LIST_IMAGES[$i]}
 
     if [ ${image} == "tarball" ] ; then
-      REMASTER_TAR_SPECS+=( "sabayon-amd64-spinbase-tarball-template.spec" )
-      REMASTER_TAR_SPECS_TAR+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_tarball.tar.gz" )
+      isoname=$(get_iso_name ${LIST_IMAGES[$i]})
+
+      if [ ${ONLY_DEV} -eq 0 ] ; then
+        REMASTER_TAR_SPECS+=( "sabayon-amd64-spinbase-${LIST_IMAGES[$i]}-template.spec" )
+        REMASTER_TAR_SPECS_TAR+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_${isoname}.tar.gz" )
+      fi
+
+      if [ ${SKIP_DEV} -eq 0 ] ; then
+        REMASTER_TAR_SPECS+=( "sabayon-amd64-spinbase-${LIST_IMAGES[$i]}-dev-template.spec" )
+        REMASTER_TAR_SPECS_TAR+=( "${DISTRO_NAME}_${ISO_TAG}_amd64_${isoname}-dev.tar.gz" )
+      fi
+
     elif [ ${image} == "spinbase" ] ; then
 
       isoname=$(get_iso_name ${LIST_IMAGES[$i]})
