@@ -46,6 +46,7 @@ SABAYON_UNDOCKER_OUTPUTDIR=${SABAYON_UNDOCKER_OUTPUTDIR:-${SABAYON_MOLECULE_HOME
 SABAYON_KERNEL_VERSION=${SABAYON_KERNEL_VERSION:-4.20}
 DRACUT=${DRACUT:-1}
 DRACUT_SQUASHFS=${DRACUT_SQUASHFS:-""}
+CUSTOM_ISO_NAME="${CUSTOM_ISO_NAME:-SabayonCustom}"
 
 export SABAYON_KERNEL_VERSION
 
@@ -99,6 +100,8 @@ get_iso_name () {
     echo "ForensicsGnome"
   elif [ ${image} == "tarball" ] ; then
     echo "tarball"
+  elif [ ${image} == "custom" ] ; then
+    echo "${CUSTOM_ISO_NAME}"
   fi
 }
 
@@ -559,6 +562,7 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
       "server"
       "gnome-forensics"
       "tarball"
+      "custom"
     )
 
     if [ $# -eq 0 ] ; then
