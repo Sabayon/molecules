@@ -77,7 +77,6 @@ packages_to_add:
 	x11-terms/xterm,
 	x11-themes/adwaita-icon-theme,
 	x11-themes/equinox-themes,
-	x11-themes/gtk-engines-xfce,
 	x11-themes/tango-icon-theme,
 	x11-themes/gtk-engines:2,
 	x11-themes/sabayon-artwork-core,
