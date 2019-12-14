@@ -74,7 +74,6 @@ packages_to_add:
 	media-libs/libtxc_dxtn,
 	media-libs/libopenraw,
 	media-libs/mesa,
-	net-dialup/globespan-adsl,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
 	net-misc/networkmanager,

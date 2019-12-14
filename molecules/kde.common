@@ -151,7 +151,6 @@ packages_to_add:
 	media-plugins/alsa-plugins,
 	media-sound/tomahawk,
 	media-video/vlc,
-	net-dialup/globespan-adsl,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
 	net-firewall/ufw-frontends,
