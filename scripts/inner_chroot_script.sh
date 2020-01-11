@@ -1,7 +1,5 @@
 #!/bin/bash
 
-UPGRADE_REPO="${1}"
-
 /usr/sbin/env-update
 . /etc/profile
 
@@ -65,17 +63,6 @@ echo LC_ALL=en_US.UTF-8 >> /etc/locale.conf
 rm -f /etc/env.d/02locale
 ln -sf ../locale.conf /etc/env.d/02locale
 
-
-if [ -n "${UPGRADE_REPO}" ]; then
-	echo "Upgrading system by enabling ${UPGRADE_REPO}"
-	equo repo enable "${UPGRADE_REPO}" || exit 1
-	FORCE_EAPI=2 safe_run equo update || exit 1
-
-	equo repo mirrorsort "${UPGRADE_REPO}"  # ignore errors
-	ETP_NONINTERACTIVE=1 safe_run equo upgrade --fetch || exit 1
-	ETP_NONINTERACTIVE=1 equo upgrade --purge || exit 1
-	echo "-5" | equo conf update
-fi
 
 # Cleanup Perl cruft
 perl-cleaner --ph-clean

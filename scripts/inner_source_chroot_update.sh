@@ -59,8 +59,16 @@ for repo in $(equo repo list -q); do
   equo repo mirrorsort "${repo}"  # ignore errors
 done
 
-safe_run equo upgrade --fetch || exit 1
-equo upgrade --purge || exit 1
+if [ -n "${SABAYON_UPGRADE_REPO}" ]; then
+	echo "Upgrading system by enabling ${SABAYON_UPGRADE_REPO}"
+	equo repo enable "${SABAYON_UPGRADE_REPO}" || exit 1
+	FORCE_EAPI=2 safe_run equo update || exit 1
+
+	equo repo mirrorsort "${SABAYON_UPGRADE_REPO}"  # ignore errors
+fi
+
+ETP_NONINTERACTIVE=1 safe_run equo upgrade --fetch || exit 1
+ETP_NONINTERACTIVE=1 equo upgrade --purge || exit 1
 
 
 # FIXME: Dup in iner_chroot_script.sh
@@ -76,9 +84,6 @@ if [ -n "${is_ply_sabayon}" ]; then
 else
 	plymouth-set-default-theme solar
 fi
-
-equo remove "${PACKAGES_TO_REMOVE[@]}" # ignore
-echo "-5" | equo conf update
 
 if [[ ${SABAYON_INSTALL_KERNEL} -eq 1 ]] ; then
   # check if a kernel update is needed
@@ -135,6 +140,9 @@ fi
 if [ -n "${SABAYON_EXTRA_PKGS}" ] ; then
   safe_run equo i ${SABAYON_EXTRA_PKGS[@]}
 fi
+
+equo remove "${PACKAGES_TO_REMOVE[@]}" # ignore
+echo "-5" | equo conf update
 
 # keep /lib/modules clean at all times
 for moddir in $(find /lib/modules -maxdepth 1 -type d -empty); do
