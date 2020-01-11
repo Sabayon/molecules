@@ -3,7 +3,7 @@
 %env %import ${SABAYON_MOLECULE_HOME:-/sabayon}/molecules/amd64.common
 
 %env destination_chroot: ${SABAYON_MOLECULE_HOME:-/sabayon}/chroots/limbo
-%env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/inner_chroot_script.sh sabayon-limbo
+%env inner_chroot_script: ${SABAYON_MOLECULE_HOME:-/sabayon}/scripts/inner_chroot_script.sh
 %env destination_livecd_root: ${SABAYON_MOLECULE_HOME:-/sabayon}/chroots/limbo
 
 # Release Version
