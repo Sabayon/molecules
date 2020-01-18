@@ -99,6 +99,8 @@ get_iso_name () {
     echo "LXQt"
   elif [ ${image} == "gnome-forensics" ] ; then
     echo "ForensicsGnome"
+  elif [ ${image} == "video-editing" ] ; then
+    echo "VideoEditing"
   elif [ ${image} == "tarball" ] ; then
     echo "tarball"
   elif [ ${image} == "custom" ] ; then
@@ -193,6 +195,7 @@ prepare_env () {
         "server"
         "lxqt"
         "tarball"
+        "videoe-diting"
       )
     fi
   fi
@@ -516,6 +519,7 @@ Available options:
                           * lxqt
                           * tarball
                           * gnome-forensics
+                          * video-editing
 
 Environment variables to customize:
 SABAYON_DOCKER_SRC_IMAGE
@@ -564,6 +568,7 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
       "gnome-forensics"
       "tarball"
       "custom"
+      "video-editing"
     )
 
     if [ $# -eq 0 ] ; then
