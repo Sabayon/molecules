@@ -12,5 +12,7 @@ packages_to_add:
 	www-client/firefox,
 	media-video/openshot,
 	media-gfx/blender,
-	kde-apps/kdenlive
+	kde-apps/kdenlive,
+	app-editors/vim,
+	app-editors/gvim
 
