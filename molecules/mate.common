@@ -72,7 +72,7 @@ packages_to_add:
 	sys-fs/ntfs3g,
 	sys-power/cpupower,
 	www-client/firefox,
-	x11-misc/magneto-gtk,
+	x11-misc/magneto-gtk3,
 	x11-misc/mate-notification-daemon,
 	x11-misc/lightdm-base,
 	x11-misc/lightdm-slick-greeter,
