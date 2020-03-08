@@ -149,7 +149,6 @@ packages_to_add:
 	media-libs/libdvdnav,
 	media-libs/libdvdread,
 	media-plugins/alsa-plugins,
-	media-sound/tomahawk,
 	media-video/vlc,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
