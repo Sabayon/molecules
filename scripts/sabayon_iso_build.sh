@@ -195,7 +195,7 @@ prepare_env () {
         "server"
         "lxqt"
         "tarball"
-        "videoe-diting"
+        "video-editing"
       )
     fi
   fi
