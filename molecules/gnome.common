@@ -47,8 +47,6 @@ packages_to_add:
 	@gst-plugins,
 	@gst-plugins-extra,
 	@wireless,
-	app-admin/packagekit-base,
-	app-admin/packagekit-gtk,
 	app-admin/rigo,
 	app-admin/system-tools-backends,
 	app-arch/file-roller,
