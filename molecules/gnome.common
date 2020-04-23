@@ -52,7 +52,6 @@ packages_to_add:
 	app-admin/rigo,
 	app-admin/system-tools-backends,
 	app-arch/file-roller,
-	app-backup/deja-dup,
 	app-crypt/gnupg,
 	app-crypt/pinentry-gnome,
 	app-dicts/aspell-de,
