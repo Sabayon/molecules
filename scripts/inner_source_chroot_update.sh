@@ -12,11 +12,7 @@ export SABAYON_INSTALL_KERNEL="${SABAYON_INSTALL_KERNEL:-0}"
 
 PACKAGES_TO_REMOVE=(
   "app-i18n/man-pages-da"
-  "app-i18n/man-pages-de"
-  "app-i18n/man-pages-fr"
   "app-i18n/man-pages-it"
-  "app-i18n/man-pages-nl"
-  "app-i18n/man-pages-pl"
   "app-i18n/man-pages-ro"
   "app-i18n/man-pages-ru"
   "app-i18n/man-pages-zh_CN"
