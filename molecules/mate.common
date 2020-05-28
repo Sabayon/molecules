@@ -52,7 +52,6 @@ packages_to_add:
 	app-misc/sabayon-greeter,
 	app-crypt/pinentry-gtk2,
 	app-misc/calamares-sabayon,
-	app-text/pastebunz,
 	app-office/libreoffice,
 	gnome-extra/nm-applet,
 	mate-base/mate,

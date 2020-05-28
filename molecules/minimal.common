@@ -45,7 +45,6 @@ packages_to_add:
 	@wireless,
 	@fluxbox,
         app-misc/calamares-sabayon,
-	app-text/pastebunz,
 	lxde-base/lxdm,
 	media-gfx/feh,
 	net-dialup/ppp,

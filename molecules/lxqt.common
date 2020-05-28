@@ -66,7 +66,6 @@ packages_to_add:
 	app-misc/calamares-sabayon,
 	app-misc/sabayon-skel,
 	app-misc/sabayon-version,
-	app-text/pastebunz,
 	games-misc/cowsay,
 	lxqt-base/lxqt-meta,
 	media-fonts/dejavu,

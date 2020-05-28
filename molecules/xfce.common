@@ -70,7 +70,6 @@ packages_to_add:
 	app-misc/gnote,
 	app-misc/sabayon-greeter,
 	app-office/libreoffice,
-	app-text/pastebunz,
 	games-misc/cowsay,
 	gnome-extra/nm-applet-gtk2,
 	gnome-extra/polkit-gnome,

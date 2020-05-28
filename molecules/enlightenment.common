@@ -49,7 +49,6 @@ packages_to_add:
 	app-crypt/gnupg,
 	app-crypt/pinentry-gtk2,
 	app-editors/leafpad,
-	app-text/pastebunz,
 	app-misc/calamares-sabayon,
 	dev-libs/fribidi,
 	games-misc/cowsay,
