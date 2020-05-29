@@ -85,7 +85,6 @@ packages_to_add:
 	media-video/totem,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
-	net-firewall/ufw-frontends,
 	net-im/pidgin,
 	net-irc/hexchat,
 	net-p2p/transmission-gtk,

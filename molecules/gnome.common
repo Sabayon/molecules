@@ -98,7 +98,6 @@ packages_to_add:
 	media-video/totem,
 	net-dialup/ppp,
 	net-dialup/rp-pppoe,
-	net-firewall/ufw-frontends,
 	net-fs/samba,
 	net-irc/hexchat,
 	net-misc/networkmanager,
