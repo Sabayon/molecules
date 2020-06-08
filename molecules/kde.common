@@ -143,7 +143,6 @@ packages_to_add:
 	kde-misc/kio-gdrive,
 	kde-misc/magneto-kde,
 	kde-misc/skanlite,
-	media-gfx/inkscape,
 	media-libs/libdvdcss,
 	media-libs/libdvdnav,
 	media-libs/libdvdread,
