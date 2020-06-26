@@ -114,8 +114,7 @@ packages_to_add:
 	x11-themes/sabayon-artwork-grub,
 	x11-themes/sabayon-artwork-lightdm-slick-greeter,
 	x11-themes/sound-theme-freedesktop,
-	x11-themes/xcursor-themes,
-	x11-wm/twm
+	x11-themes/xcursor-themes
 
 # Custom shell call to packages add (default is: equo install)
 # custom_packages_add_cmd:
