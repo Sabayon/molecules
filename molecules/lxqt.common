@@ -46,6 +46,7 @@ packages_to_add:
 	@wireless,
 	@X,
 	app-admin/rigo,
+	app-arch/p7zip,
 	app-editors/notepadqq,
 	app-crypt/gnupg,
 	app-crypt/pinentry-qt5,

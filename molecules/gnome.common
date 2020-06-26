@@ -49,6 +49,7 @@ packages_to_add:
 	@wireless,
 	app-admin/rigo,
 	app-admin/system-tools-backends,
+	app-arch/p7zip,
 	app-arch/file-roller,
 	app-crypt/gnupg,
 	app-crypt/pinentry-gnome,

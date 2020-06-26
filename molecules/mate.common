@@ -48,6 +48,7 @@ extra_mksquashfs_parameters: -b 131072 -comp xz
 packages_to_add:
 	@wireless,
 	app-admin/rigo,
+	app-arch/p7zip,
 	app-crypt/gnupg,
 	app-misc/sabayon-greeter,
 	app-crypt/pinentry-gtk2,

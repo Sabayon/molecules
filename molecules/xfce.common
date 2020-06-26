@@ -51,6 +51,7 @@ packages_to_add:
 	@wireless,
 	@xfce,
 	app-admin/rigo,
+	app-arch/p7zip,
 	app-arch/file-roller,
 	app-crypt/gnupg,
 	app-crypt/pinentry-gtk2,
