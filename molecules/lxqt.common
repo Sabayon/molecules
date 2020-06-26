@@ -43,8 +43,6 @@ extra_mksquashfs_parameters: -b 131072 -comp xz
 
 # List of packages that would be added from chrooted system (comma separated)
 packages_to_add:
-	@gst-plugins,
-	@gst-plugins-extra,
 	@wireless,
 	@X,
 	app-admin/rigo,
