@@ -156,10 +156,7 @@ setup_virtualbox() {
 install_external_kernel_modules() {
 	install_kernel_packages \
 		"app-laptop/nvidiabl" \
-		"sys-fs/zfs-kmod" \
-		"sys-power/bbswitch" || return 1
-	# otherwise bbswitch is useless
-	install_packages "x11-misc/bumblebee x11-misc/primus"
+		"sys-fs/zfs-kmod" || return 1
 }
 
 install_proprietary_gfx_drivers() {
